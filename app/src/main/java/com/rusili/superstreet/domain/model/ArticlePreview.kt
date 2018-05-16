@@ -1,3 +1,3 @@
 package com.rusili.superstreet.domain.model
 
-data class ArticlePreview(private val title: String)
+data class ArticlePreview(val title: String)

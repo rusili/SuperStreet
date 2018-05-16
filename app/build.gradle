@@ -17,6 +17,9 @@ ext {
 
     daggerVersion = "2.16"
     timberVersion = "4.6.1"
+    jSoupVersion = "1.11.3"
+    glideVersion = "3.8.0"
+    retrofitVersion = "2.4.0"
 
     mockitoKotlinVersion = "1.5.0"
 }
@@ -68,6 +71,17 @@ dependencies {
     // Android Paging:
     implementation "android.arch.paging:runtime:$pagingVersion"
     implementation "android.arch.paging:rxjava2:1.0.0-alpha1"
+
+    // Glide:
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:4.6.1"
+
+    // JSoup:
+    implementation "org.jsoup:jsoup:$jSoupVersion"
+
+    // Retrofit:
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     // RxJava and RxAndroid:
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
