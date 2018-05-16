@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+ext {
+    supportLibraryVersion = "27.1.1"
+
+    lifecycleVersion = "1.1.1"
+    persistenceVersion = "1.1.0"
+    pagingVersion = "1.0.0"
+
+    rxBindingVersion = "2.1.1"
+    rxJavaVersion = "2.1.6"
+    rxAndroidVersion = "2.0.2"
+    rxKotlinVersion = "2.2.0"
+
+    daggerVersion = "2.16"
+    timberVersion = "4.6.1"
+
+    mockitoKotlinVersion = "1.5.0"
+}
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.rusili.superstreet"
+        minSdkVersion 17
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Android:
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:design:$supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+
+    // Android Lifecycle:
+    implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
+
+    // Android Room:
+    implementation "android.arch.persistence.room:runtime:$persistenceVersion"
+    implementation "android.arch.persistence.room:rxjava2:$persistenceVersion"
+    kapt "android.arch.persistence.room:compiler:$persistenceVersion"
+
+    // Android Paging:
+    implementation "android.arch.paging:runtime:$pagingVersion"
+    implementation "android.arch.paging:rxjava2:1.0.0-alpha1"
+
+    // RxJava and RxAndroid:
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+
+    // RxBinding:
+    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxBindingVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$rxBindingVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rxBindingVersion"
+
+    // RxKotlin:
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+
+    // Dagger:
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    // Timber:
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    // Testing:
+    testImplementation 'junit:junit:4.12'
+    testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
+    testImplementation "android.arch.core:core-testing:$lifecycleVersion"
+    testImplementation "android.arch.paging:common:$pagingVersion"
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+}
