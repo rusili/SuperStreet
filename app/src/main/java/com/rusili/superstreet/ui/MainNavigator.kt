@@ -1,3 +1,8 @@
 package com.rusili.superstreet.ui
 
-interface MainNavigator
+interface MainNavigator {
+
+    fun goToArticle()
+
+    fun goBackToList()
+}

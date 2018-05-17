@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- List Fragment -->
+    <dimen name="preview_viewholder_height">72dp</dimen>
+
+    <!-- Article Fragment -->
+    
+</resources>

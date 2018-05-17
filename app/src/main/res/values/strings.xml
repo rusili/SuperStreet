@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SuperStreet</string>
+
+    <string name="network_error">Network Error</string>
+
 </resources>

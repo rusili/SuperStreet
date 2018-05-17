@@ -1,4 +1,4 @@
-package com.rusili.superstreet.ui.article.di
+package com.rusili.superstreet.ui.di
 
 import dagger.Module
 
