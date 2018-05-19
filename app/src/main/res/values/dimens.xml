@@ -2,7 +2,7 @@
 <resources>
 
     <!-- List Fragment -->
-    <dimen name="preview_viewholder_height">72dp</dimen>
+    <dimen name="preview_viewholder_height">144dp</dimen>
 
     <!-- Article Fragment -->
     
