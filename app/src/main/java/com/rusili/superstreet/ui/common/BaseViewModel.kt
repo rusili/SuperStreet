@@ -4,7 +4,8 @@ import android.arch.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel
+    : ViewModel() {
     protected val disposables: CompositeDisposable = CompositeDisposable()
 
     protected fun addDisposable(disposable: Disposable) {

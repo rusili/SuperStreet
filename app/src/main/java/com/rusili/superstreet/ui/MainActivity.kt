@@ -9,7 +9,8 @@ import com.rusili.superstreet.ui.list.ArticleListFragment
 private const val LIST_FRAGMENT_TAG = "List_Fragment_Tag"
 private const val ARTICLE_FRAGMENT_TAG = "Article_Fragment_Tag"
 
-class MainActivity : BaseActivity(), MainNavigator {
+class MainActivity
+    : BaseActivity(), MainNavigator {
     private var container = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {

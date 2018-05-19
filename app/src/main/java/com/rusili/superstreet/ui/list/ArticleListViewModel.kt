@@ -2,7 +2,8 @@ package com.rusili.superstreet.ui.list
 
 import com.rusili.superstreet.ui.common.BaseViewModel
 
-class ArticleListViewModel : BaseViewModel(), ArticleListContract.Presenter {
+class ArticleListViewModel
+    : BaseViewModel(), ArticleListContract.Presenter {
     private var view: ArticleListContract.View? = null
 
     override fun start(view: ArticleListContract.View) {

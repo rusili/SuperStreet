@@ -2,11 +2,13 @@ package com.rusili.superstreet.ui.article
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.rusili.superstreet.R
 import com.rusili.superstreet.ui.common.BaseFragment
 
-class ArticleFragment : BaseFragment(), ArticleContract.View {
+class ArticleFragment
+    : BaseFragment(), ArticleContract.View {
     private lateinit var presenter: ArticleViewModel
 
     companion object {
@@ -17,6 +19,9 @@ class ArticleFragment : BaseFragment(), ArticleContract.View {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?) =
             inflater?.inflate(R.layout.fragment_article, container, false)
+
+    override fun setupViews(view: View) {
+    }
 
     override fun startPresenter() {
         presenter = ArticleViewModel()

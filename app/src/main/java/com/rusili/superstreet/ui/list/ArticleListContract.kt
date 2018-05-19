@@ -7,7 +7,6 @@ interface ArticleListContract {
     }
 
     interface Presenter {
-
         fun start(view: View)
         fun stop()
     }

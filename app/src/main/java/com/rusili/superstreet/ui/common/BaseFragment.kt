@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.view.View
 import com.rusili.superstreet.ui.MainNavigator
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment
+    : Fragment() {
     open lateinit var navigator: MainNavigator
 
     override fun onAttach(context: Context?) {
@@ -14,10 +15,13 @@ abstract class BaseFragment : Fragment() {
         navigator = context as MainNavigator
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupViews(view)
         startPresenter()
     }
+
+    abstract fun setupViews(view: View)
 
     abstract fun startPresenter()
 }
