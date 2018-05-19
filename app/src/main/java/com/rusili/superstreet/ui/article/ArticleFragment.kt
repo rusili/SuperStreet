@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import com.rusili.superstreet.R
 import com.rusili.superstreet.ui.common.BaseFragment
 
-class ArticleFragment : BaseFragment<ArticleFragment>() {
+class ArticleFragment : BaseFragment(), ArticleContract.View {
+    private lateinit var presenter: ArticleViewModel
 
     companion object {
         fun getInstance() = ArticleFragment()
@@ -16,4 +17,13 @@ class ArticleFragment : BaseFragment<ArticleFragment>() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?) =
             inflater?.inflate(R.layout.fragment_article, container, false)
+
+    override fun startPresenter() {
+        presenter = ArticleViewModel()
+        presenter.start(this)
+    }
+
+    override fun goBackToList(){
+        navigator.goBackToList()
+    }
 }

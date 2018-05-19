@@ -27,6 +27,7 @@ class MainActivity : BaseActivity(), MainNavigator {
     }
 
     override fun goBackToList() {
+        onBackPressed()
     }
 
     private fun inflateListFragment() {
