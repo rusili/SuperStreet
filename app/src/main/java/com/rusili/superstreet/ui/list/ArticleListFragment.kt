@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rusili.superstreet.R
+import com.rusili.superstreet.data.ArticleListRepositoryImpl
+import com.rusili.superstreet.domain.ArticleListRepository
+import com.rusili.superstreet.domain.usecase.ArticleListUsecase
 import com.rusili.superstreet.ui.common.BaseFragment
 import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
+import javax.inject.Inject
 
 class ArticleListFragment
     : BaseFragment(), ArticleListContract.View {

@@ -1,5 +1,8 @@
 package com.rusili.superstreet.data
 
+import com.rusili.superstreet.domain.model.ArticlePreview
+import io.reactivex.Observable
+
 class ArticleListJsoup() {
 
     private fun getWebsite() {

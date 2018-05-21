@@ -8,5 +8,5 @@ class ArticleRepositoryImpl(private val articleApi: ArticleApi)
     : ArticleRepository {
     
     override fun getArticle(): Single<ArticleFull> =
-            articleApi.getArticleFull()
+            articleApi.getArticle()
 }

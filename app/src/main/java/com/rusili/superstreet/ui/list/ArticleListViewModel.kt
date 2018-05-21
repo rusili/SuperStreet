@@ -20,16 +20,15 @@ class ArticleListViewModel
         Single.fromCallable {
             val builder = StringBuilder()
             try {
-                val doc = Jsoup.connect("http://www.ssaurel.com/blog").get()
-                val title = doc.title()
-                val links = doc.select("a[href]")
+                val webpage = Jsoup.connect("http://www.superstreetonline.com/").get()
+                val title = webpage.title()
 
                 builder.append(title).append("\n")
 
-                for (link in links) {
-                    builder.append("\n").append("Link : ").append(link.attr("href"))
-                            .append("\n").append("Text : ").append(link.text())
-                }
+//                for (link in links) {
+//                    builder.append("\n").append("Link : ").append(link.attr("href"))
+//                            .append("\n").append("Text : ").append(link.text())
+//                }
                 return@fromCallable builder
             } catch (e: IOException) {
                 return@fromCallable builder.append("Error : ").append(e.message)
