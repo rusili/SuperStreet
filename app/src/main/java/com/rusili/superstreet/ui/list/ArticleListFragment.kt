@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import com.rusili.superstreet.R
 import com.rusili.superstreet.ui.common.BaseFragment
 import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
+import kotlinx.android.synthetic.main.fragment_list.*
 
 class ArticleListFragment
     : BaseFragment(), ArticleListContract.View {
+
     private lateinit var presenter: ArticleListViewModel
 
     private lateinit var recyclerView: RecyclerView
@@ -34,7 +36,11 @@ class ArticleListFragment
         presenter.start(this)
     }
 
-    override fun goToClickedArticle(){
+    override fun showPreviewArticles(test: String) {
+        testText.text = test
+    }
+
+    override fun goToClickedArticle() {
         navigator.goToArticle()
     }
 }

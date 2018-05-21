@@ -1,7 +1,6 @@
 package com.rusili.superstreet.ui.article
 
 import com.rusili.superstreet.ui.common.BaseViewModel
-import com.rusili.superstreet.ui.list.ArticleListContract
 
 class ArticleViewModel
     : BaseViewModel(), ArticleContract.Presenter {

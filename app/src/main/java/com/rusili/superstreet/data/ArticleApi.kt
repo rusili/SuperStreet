@@ -5,7 +5,7 @@ import com.rusili.superstreet.domain.model.ArticlePreview
 import io.reactivex.Observable
 import io.reactivex.Single
 
-interface ArticleService {
+interface ArticleApi {
     fun getArticleList(): Observable<List<ArticlePreview>>
 
     fun getArticleFull(): Single<ArticleFull>

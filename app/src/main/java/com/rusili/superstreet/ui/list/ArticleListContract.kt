@@ -4,6 +4,7 @@ interface ArticleListContract {
 
     interface View {
         fun goToClickedArticle()
+        fun showPreviewArticles(test: String)
     }
 
     interface Presenter {
