@@ -4,7 +4,7 @@ import android.support.v7.recyclerview.extensions.ListAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.rusili.superstreet.R
-import com.rusili.superstreet.domain.model.ArticlePreview
+import com.rusili.superstreet.domain.list.model.ArticlePreview
 
 class PreviewListAdapter()
     : ListAdapter<ArticlePreview, PreviewViewHolder>(PreviewDiffCallback()) {

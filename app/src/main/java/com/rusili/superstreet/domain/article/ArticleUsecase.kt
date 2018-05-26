@@ -1,6 +1,4 @@
-package com.rusili.superstreet.domain.usecase
-
-import com.rusili.superstreet.domain.ArticleRepository
+package com.rusili.superstreet.domain.article
 
 class ArticleUsecase(private val repository: ArticleRepository){
     fun getArticleList() = repository.getArticle()

@@ -1,7 +1,5 @@
 package com.rusili.superstreet.ui.list
 
-import com.rusili.superstreet.domain.usecase.ArticleListUsecase
-
 interface ArticleListContract {
 
     interface View {
