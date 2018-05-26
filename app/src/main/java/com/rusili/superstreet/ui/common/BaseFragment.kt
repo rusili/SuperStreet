@@ -1,9 +1,7 @@
 package com.rusili.superstreet.ui.common
 
-import android.app.Fragment
 import android.content.Context
-import android.os.Bundle
-import android.view.View
+import android.support.v4.app.Fragment
 import com.rusili.superstreet.ui.MainNavigator
 
 abstract class BaseFragment
@@ -14,14 +12,4 @@ abstract class BaseFragment
         super.onAttach(context)
         navigator = context as MainNavigator
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupViews(view)
-        startPresenter()
-    }
-
-    abstract fun setupViews(view: View)
-
-    abstract fun startPresenter()
 }

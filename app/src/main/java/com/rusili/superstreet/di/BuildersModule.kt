@@ -1,0 +1,16 @@
+package com.rusili.superstreet.di
+
+import com.rusili.superstreet.ui.list.ArticleListFragment
+import com.rusili.superstreet.ui.list.di.ArticleListModule
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
+
+/**
+ * Binds all sub-components within the app.
+ */
+@Module
+abstract class BuildersModule {
+
+    @ContributesAndroidInjector(modules = [ArticleListModule::class])
+    abstract fun bindArticleListFragment(): ArticleListFragment
+}
