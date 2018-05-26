@@ -19,7 +19,7 @@ class ATags {
         IMG_TITLE("data-src"),
         IMG_SRC("data-alt"),
         HREF("href"),
-        DESC("desc");
+        DESC("div.desc");
     }
 
     enum class FOOTER(val value: String) {
