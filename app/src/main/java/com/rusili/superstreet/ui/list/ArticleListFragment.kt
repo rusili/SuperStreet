@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rusili.superstreet.R
+import com.rusili.superstreet.domain.list.ArticleListUsecase
+import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.ui.common.BaseFragment
 import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
+import javax.inject.Inject
 
 class ArticleListFragment
     : BaseFragment(), ArticleListContract.View {
+    @Inject lateinit var usecase: ArticleListUsecase
 
     private lateinit var presenter: ArticleListViewModel
 
@@ -32,12 +36,12 @@ class ArticleListFragment
     }
 
     override fun startPresenter() {
-        presenter = ArticleListViewModel()
+        presenter = ArticleListViewModel(usecase)
         presenter.start(this)
     }
 
-    override fun showPreviewArticles(test: String) {
-        testText.text = test
+    override fun showPreviewArticles(list: List<ArticlePreviewModel>) {
+        testText.text = list.get(0).header.title.value
     }
 
     override fun goToClickedArticle() {

@@ -4,10 +4,10 @@ import android.support.v7.recyclerview.extensions.ListAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.rusili.superstreet.R
-import com.rusili.superstreet.domain.list.model.ArticlePreview
+import com.rusili.superstreet.domain.list.ArticlePreviewModel
 
 class PreviewListAdapter()
-    : ListAdapter<ArticlePreview, PreviewViewHolder>(PreviewDiffCallback()) {
+    : ListAdapter<ArticlePreviewModel, PreviewViewHolder>(PreviewDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): PreviewViewHolder {

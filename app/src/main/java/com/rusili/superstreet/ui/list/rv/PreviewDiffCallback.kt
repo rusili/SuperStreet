@@ -1,17 +1,17 @@
 package com.rusili.superstreet.ui.list.rv
 
 import android.support.v7.util.DiffUtil
-import com.rusili.superstreet.domain.list.model.ArticlePreview
+import com.rusili.superstreet.domain.list.ArticlePreviewModel
 
 class PreviewDiffCallback
-    : DiffUtil.ItemCallback<ArticlePreview>(){
-    override fun areItemsTheSame(oldItem: ArticlePreview?,
-                                 newItem: ArticlePreview?): Boolean {
+    : DiffUtil.ItemCallback<ArticlePreviewModel>(){
+    override fun areItemsTheSame(oldItem: ArticlePreviewModel?,
+                                 newItem: ArticlePreviewModel?): Boolean {
         return oldItem?.header?.title == newItem?.header?.title
     }
 
-    override fun areContentsTheSame(oldItem: ArticlePreview?,
-                                    newItem: ArticlePreview?): Boolean {
+    override fun areContentsTheSame(oldItem: ArticlePreviewModel?,
+                                    newItem: ArticlePreviewModel?): Boolean {
         return oldItem == newItem
     }
 }

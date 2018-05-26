@@ -1,10 +1,12 @@
 package com.rusili.superstreet.ui.list
 
+import com.rusili.superstreet.domain.list.ArticlePreviewModel
+
 interface ArticleListContract {
 
     interface View {
         fun goToClickedArticle()
-        fun showPreviewArticles(test: String)
+        fun showPreviewArticles(list: List<ArticlePreviewModel>)
     }
 
     interface Presenter {

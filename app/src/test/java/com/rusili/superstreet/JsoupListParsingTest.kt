@@ -1,8 +1,7 @@
 package com.rusili.superstreet
 
-import com.rusili.superstreet.data.SuperStreetParser
-import com.rusili.superstreet.domain.common.flag.Magazine
-import com.rusili.superstreet.domain.list.model.ArticlePreview
+import com.rusili.superstreet.data.SuperStreetMapper
+import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import org.jsoup.Jsoup
 import org.junit.Assert
 import org.junit.Test
@@ -14,8 +13,8 @@ class JsoupListParsingTest {
     private val inputMain = File("/Users/rusi.li/Documents/SuperStreet/app/src/test/resources/json/SuperStreetHomepage.html")
     private val doc = Jsoup.parse(inputMain, "UTF-8", "")
 
-    private val parser = SuperStreetParser()
-    private lateinit var previewList: List<ArticlePreview>
+    private val parser = SuperStreetMapper()
+    private lateinit var previewList: List<ArticlePreviewModel>
 
     @Before
     fun setup(){

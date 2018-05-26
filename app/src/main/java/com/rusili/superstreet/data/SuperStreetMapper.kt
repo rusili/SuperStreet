@@ -6,14 +6,14 @@ import com.rusili.superstreet.domain.common.flag.Type
 import com.rusili.superstreet.domain.common.header.Image
 import com.rusili.superstreet.domain.common.header.Title
 import com.rusili.superstreet.domain.common.util.ATags
-import com.rusili.superstreet.domain.list.model.ArticlePreview
+import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class SuperStreetParser {
+class SuperStreetMapper {
 
-    fun parseToList(doc: Document): List<ArticlePreview> {
-        val previewsList = ArrayList<ArticlePreview>()
+    fun parseToList(doc: Document): List<ArticlePreviewModel> {
+        val previewsList = ArrayList<ArticlePreviewModel>()
 
         val flags = doc.getElementsByClass(ATags.COMMON.FLAG.value)
         val previews = doc.getElementsByClass(ATags.COMMON.INFO.value)
@@ -25,7 +25,7 @@ class SuperStreetParser {
             val header = parseHeaderElement(preview)
             val footer = parseFooterElement(preview)
 
-            val articlePreview = ArticlePreview(flag, header, footer)
+            val articlePreview = ArticlePreviewModel(flag, header, footer)
             previewsList.add(articlePreview)
         }
 

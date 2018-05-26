@@ -1,49 +1,28 @@
 package com.rusili.superstreet.data.list
 
-import com.rusili.superstreet.data.SuperStreetParser
-import com.rusili.superstreet.domain.list.model.ArticlePreview
+import com.rusili.superstreet.data.SuperStreetMapper
+import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import io.reactivex.Flowable
 import io.reactivex.Single
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import javax.inject.Inject
 
 
-class ArticleListJsoup() : ArticleListApi {
-    val superStreetParser = SuperStreetParser()
+class ArticleListJsoup @Inject constructor(private val superStreetParser: SuperStreetMapper)
+    : ArticleListApi {
 
-    override fun getArticleStream(): Flowable<List<ArticlePreview>> =
-            getAllWebsiteData().toFlowable().map { document ->
-                return@map parseDocumentToList(document)
-            }
+    override fun getArticleStream(): Flowable<List<ArticlePreviewModel>> =
+            getAllWebsiteData().toFlowable()
+                    .map { document ->
+                        return@map parseDocumentToList(document)
+                    }
 
     private fun getAllWebsiteData(): Single<Document> =
             Single.fromCallable {
                 return@fromCallable Jsoup.connect("http://www.superstreetonline.com/").get()
             }
 
-    private fun parseDocumentToList(document: Document): List<ArticlePreview> =
+    private fun parseDocumentToList(document: Document): List<ArticlePreviewModel> =
             superStreetParser.parseToList(document)
-
-    private fun getWebsite() {
-//        Thread(Runnable {
-//            val builder = StringBuilder()
-//
-//            try {
-//                val doc = Jsoup.connect("http://www.ssaurel.com/blog").get()
-//                val title = doc.title()
-//                val links = doc.select("a[href]")
-//
-//                builder.append(title).append("\n")
-//
-//                for (link in links) {
-//                    builder.append("\n").append("Link : ").append(link.attr("href"))
-//                            .append("\n").append("Text : ").append(link.text())
-//                }
-//            } catch (e: IOException) {
-//                builder.append("Error : ").append(e.message)
-//            }
-//
-//            runOnUiThread(Runnable { result.setText(builder.toString()) })
-//        }).start()
-    }
 }
