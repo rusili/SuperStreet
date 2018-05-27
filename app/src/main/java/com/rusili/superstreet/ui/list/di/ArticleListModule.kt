@@ -14,6 +14,6 @@ class ArticleListModule(){
             ArticleListUsecase(repository)
 
     @Provides
-    fun provideArticleListViewModel(usecase: ArticleListUsecase) =
-        ArticleListViewModel(usecase)
+    fun provideArticleListViewModelFactory(usecase: ArticleListUsecase) =
+            ArticleListViewModelFactory(usecase)
 }

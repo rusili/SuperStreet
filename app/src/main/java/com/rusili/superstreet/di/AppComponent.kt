@@ -1,6 +1,7 @@
 package com.rusili.superstreet.di
 
 import com.rusili.superstreet.App
+import com.rusili.superstreet.data.di.DataModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
@@ -9,7 +10,9 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     AndroidSupportInjectionModule::class,
-    AppModule::class])
+    AppModule::class,
+    BuildersModule::class,
+    DataModule::class])
 interface AppComponent {
 
     @Component.Builder

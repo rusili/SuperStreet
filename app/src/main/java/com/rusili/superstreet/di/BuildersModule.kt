@@ -1,5 +1,6 @@
 package com.rusili.superstreet.di
 
+import com.rusili.superstreet.ui.MainActivity
 import com.rusili.superstreet.ui.list.ArticleListFragment
 import com.rusili.superstreet.ui.list.di.ArticleListModule
 import dagger.Module
@@ -10,6 +11,9 @@ import dagger.android.ContributesAndroidInjector
  */
 @Module
 abstract class BuildersModule {
+
+    @ContributesAndroidInjector
+    abstract fun bindMainActivity(): MainActivity
 
     @ContributesAndroidInjector(modules = [ArticleListModule::class])
     abstract fun bindArticleListFragment(): ArticleListFragment
