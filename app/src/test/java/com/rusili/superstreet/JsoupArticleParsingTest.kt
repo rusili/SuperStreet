@@ -1,5 +1,7 @@
 package com.rusili.superstreet
 
+import com.rusili.superstreet.data.SuperStreetMapper
+import com.rusili.superstreet.domain.article.ArticleFullModel
 import org.jsoup.Jsoup
 import org.junit.Assert
 import org.junit.Test
@@ -8,16 +10,25 @@ import org.junit.Before
 import java.io.File
 
 class JsoupArticleParsingTest {
-    private val inputMain = File("/Users/rusi.li/Documents/SuperStreet/app/src/test/resources/json/.html")
-    private val doc = Jsoup.parse(inputMain, "UTF-8", null)
+    private val inputMain = File("/Users/rusi.li/Documents/SuperStreet/app/src/test/resources/json/2007Boxter&CaymanArticle.html")
+    private val doc = Jsoup.parse(inputMain, "UTF-8", "")
+
+    private val parser = SuperStreetMapper()
+    private lateinit var article: ArticleFullModel
 
     @Before
-    fun setup(){}
+    fun setup(){
+//        article = parser.parseToArticle(doc)
+    }
 
 
     @Test
     fun `Test article title parsing`(){
+        // Given
+        val title = article.header.title.value
 
+        // Then
+        Assert.assertEquals(title, "2005 Boxster & 2007 Cayman S - Porsche Pandemic")
     }
 
     @Test

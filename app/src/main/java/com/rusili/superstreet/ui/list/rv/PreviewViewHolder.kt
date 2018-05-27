@@ -11,5 +11,10 @@ class PreviewViewHolder(override val containerView: View)
 
     fun bind(preview: ArticlePreviewModel) {
         previewTitle.text = preview.header.title.value
+        previewTitleLink.text = preview.header.title.href
+        previewDesc.text = preview.header.desc
+        previewMag.text = preview.flag.magazine.value + " " + preview.flag.magazine.href
+        previewType.text = preview.flag.type.value + " " + preview.flag.type.href
+        previewAuthorTimestamp.text = preview.footer.author + " " + preview.footer.timestamp
     }
 }

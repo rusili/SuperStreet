@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/preview_viewholder_height"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <ImageView
@@ -15,13 +15,40 @@
         android:id="@+id/previewTitle"
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        tools:text="Ipsum Lorem" />
+        tools:text="2005 Boxster 2007 Cayman S - Porsche Pandemic" />
+
+    <TextView
+        android:id="@+id/previewTitleLink"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        tools:text="/features/18052005-boxster-and-2007-cayman-s-porsche-pandemic/" />
 
     <TextView
         android:id="@+id/previewDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="@integer/preview_description_max_lines"
-        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+        tools:text="These Porsches may not have a whole lot of mods or be built to be best-of-show winners, but they do have sweet interiors, and swagger you'll only be able to find in Japan" />
+
+    <TextView
+        android:id="@+id/previewType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="@integer/preview_description_max_lines"
+        tools:text="features /features/" />
+
+    <TextView
+        android:id="@+id/previewMag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="@integer/preview_description_max_lines"
+        tools:text="SuperStreetOnline Magazine /super-street-magazine/" />
+
+    <TextView
+        android:id="@+id/previewAuthorTimestamp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="@integer/preview_description_max_lines"
+        tools:text="David Ishikawa May 18, 2018" />
 
 </LinearLayout>

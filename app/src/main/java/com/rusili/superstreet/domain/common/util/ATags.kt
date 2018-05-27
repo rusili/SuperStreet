@@ -10,7 +10,8 @@ class ATags {
 
     enum class FLAG(val value: String) {
         TITLE("title"),
-        HREF("data-href");
+        DATA_HREF("data-href"),
+        HREF("href");
     }
 
     enum class HEADER(val value: String) {

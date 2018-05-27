@@ -11,7 +11,6 @@ import java.io.File
 
 class JsoupListParsingTest {
     private val inputMain = File("/Users/rusi.li/Documents/SuperStreet/app/src/test/resources/json/SuperStreetHomepage.html")
-    private val canRead = inputMain.canRead()
     private val doc = Jsoup.parse(inputMain, "UTF-8", "")
 
     private val parser = SuperStreetMapper()
