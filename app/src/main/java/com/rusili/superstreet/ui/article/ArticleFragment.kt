@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.rusili.superstreet.R
 import com.rusili.superstreet.ui.common.BaseFragment
+import com.rusili.superstreet.ui.inflate
 
-class ArticleFragment
-    : BaseFragment(), ArticleContract.View {
+class ArticleFragment : BaseFragment() {
 
     companion object {
         fun getInstance() = ArticleFragment()
@@ -16,9 +16,5 @@ class ArticleFragment
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?) =
-            inflater.inflate(R.layout.fragment_article, container, false)
-
-    override fun goBackToList() {
-        navigator.goBackToList()
-    }
+            container?.inflate(R.layout.fragment_article)
 }
