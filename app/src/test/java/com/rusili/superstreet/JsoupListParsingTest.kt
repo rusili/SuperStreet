@@ -1,5 +1,6 @@
 package com.rusili.superstreet
 
+import com.rusili.superstreet.data.FlagMapper
 import com.rusili.superstreet.data.SuperStreetMapper
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import org.jsoup.Jsoup
@@ -13,7 +14,8 @@ class JsoupListParsingTest {
     private val inputMain = File("/Users/rusi.li/Documents/SuperStreet/app/src/test/resources/json/SuperStreetHomepage.html")
     private val doc = Jsoup.parse(inputMain, "UTF-8", "")
 
-    private val parser = SuperStreetMapper()
+    private val flagMapper = FlagMapper()
+    private val parser = SuperStreetMapper(flagMapper)
     private lateinit var previewList: List<ArticlePreviewModel>
 
     @Before
@@ -83,7 +85,7 @@ class JsoupListParsingTest {
         val href = previewList.get(0).flag.magazine.href
 
         // Then
-        Assert.assertEquals(text, "SuperStreetOnline Magazine")
+        Assert.assertEquals(text, "Super Street")
         Assert.assertEquals(href, "/super-street-magazine/")
     }
 
@@ -94,7 +96,7 @@ class JsoupListParsingTest {
         val href = previewList.get(0).flag.type.href
 
         // Then
-        Assert.assertEquals(text, "features")
+        Assert.assertEquals(text, "Features")
         Assert.assertEquals(href, "/features/")
     }
 }

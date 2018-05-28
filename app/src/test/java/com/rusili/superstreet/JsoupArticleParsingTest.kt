@@ -1,5 +1,6 @@
 package com.rusili.superstreet
 
+import com.rusili.superstreet.data.FlagMapper
 import com.rusili.superstreet.data.SuperStreetMapper
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import org.jsoup.Jsoup
@@ -13,7 +14,8 @@ class JsoupArticleParsingTest {
     private val inputMain = File("/Users/rusi.li/Documents/SuperStreet/app/src/test/resources/json/2007Boxter&CaymanArticle.html")
     private val doc = Jsoup.parse(inputMain, "UTF-8", "")
 
-    private val parser = SuperStreetMapper()
+    private val flagMapper = FlagMapper()
+    private val parser = SuperStreetMapper(flagMapper)
     private lateinit var article: ArticleFullModel
 
     @Before
