@@ -63,7 +63,7 @@ class JsoupListParsingTest {
     @Test
     fun `Test preview author parsing`(){
         // Given
-        val author = previewList.get(0).footer.author
+        val author = previewList.get(0).footer.author.value
 
         // Then
         Assert.assertEquals(author, "David Ishikawa")
@@ -81,22 +81,22 @@ class JsoupListParsingTest {
     @Test
     fun `Test preview magazine parsing`(){
         // Given
-        val text = previewList.get(0).flag.magazine.value
+        val value = previewList.get(0).flag.magazine.value
         val href = previewList.get(0).flag.magazine.href
 
         // Then
-        Assert.assertEquals(text, "Super Street")
+        Assert.assertEquals(value, "Super Street")
         Assert.assertEquals(href, "/super-street-magazine/")
     }
 
     @Test
     fun `Test preview type parsing`(){
         // Given
-        val text = previewList.get(0).flag.type.value
+        val value = previewList.get(0).flag.type.value
         val href = previewList.get(0).flag.type.href
 
         // Then
-        Assert.assertEquals(text, "Features")
+        Assert.assertEquals(value, "Features")
         Assert.assertEquals(href, "/features/")
     }
 }

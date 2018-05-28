@@ -19,13 +19,13 @@ class JsoupArticleParsingTest {
     private lateinit var article: ArticleFullModel
 
     @Before
-    fun setup(){
+    fun setup() {
 //        article = parser.parseToArticle(doc)
     }
 
 
     @Test
-    fun `Test article title parsing`(){
+    fun `Test article title parsing`() {
         // Given
         val title = article.header.title.value
 
@@ -34,37 +34,49 @@ class JsoupArticleParsingTest {
     }
 
     @Test
-    fun `Test article body parsing`(){
+    fun `Test article body parsing`() {
 
     }
 
     @Test
-    fun `Test article author parsing`(){
+    fun `Test article author parsing`() {
 
     }
 
     @Test
-    fun `Test article timestamp parsing`(){
+    fun `Test article timestamp parsing`() {
 
     }
 
     @Test
-    fun `Test article magazine parsing`(){
+    fun `Test article magazine parsing`() {
+        // Given
+        val value = article.flag.magazine.value
+        val href = article.flag.magazine.href
+
+        // Then
+        Assert.assertEquals(value, "Super Street")
+        Assert.assertEquals(href, "/super-street-magazine/")
+    }
+
+    @Test
+    fun `Test article type parsing`() {
+        // Given
+        val value = article.flag.type.value
+        val href = article.flag.type.href
+
+        // Then
+        Assert.assertEquals(value, "Features")
+        Assert.assertEquals(href, "/features/")
+    }
+
+    @Test
+    fun `Test article images parsing`() {
 
     }
 
     @Test
-    fun `Test article type parsing`(){
-
-    }
-
-    @Test
-    fun `Test article images parsing`(){
-
-    }
-
-    @Test
-    fun `Test complete article parsing`(){
+    fun `Test complete article parsing`() {
 
     }
 }

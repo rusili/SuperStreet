@@ -7,6 +7,7 @@ import com.rusili.superstreet.domain.models.header.Image
 import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.domain.util.ATags
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
+import com.rusili.superstreet.domain.models.footer.Author
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
@@ -49,7 +50,7 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
 
         // Title
         val titleValue = header.attr(ATags.HEADER.TITLE.value)
-        val titlehrefEndpoint = header.attr(ATags.HEADER.HREF.value)
+        val titlehrefEndpoint = header.attr(ATags.COMMON.HREF.value)
         val title = Title(titleValue, titlehrefEndpoint)
 
         // Desc
@@ -63,12 +64,21 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
 
     private fun parseFooterElement(element: Element): Footer {
         // Author
-        val author = element.select(ATags.FOOTER.AUTHOR_CONTRIBUTING.value).text()
-                ?: element.select(ATags.FOOTER.AUTHOR_CONTRIBUTING.value).text()
+        var value = element.select(ATags.FOOTER.AUTHOR_CONTRIBUTING_1.value).text()
+        var href = ""
+        if (value == "") {
+            value = element.select(ATags.FOOTER.AUTHOR_CONTIBUTING_2.value).text()
+        }
+        if (value == "") {
+            val ele = element.select(ATags.FOOTER.AUTHOR_STAFF_DIV.value)
+                    .select(ATags.FOOTER.AUTHOR_STAFF_ATTR.value)
+            value = ele.text()
+            href = ele.attr(ATags.COMMON.HREF.value).toString()
+        }
 
         val timestamp = element.select(ATags.FOOTER.TIMESTAMP.value).text()
 
-        return Footer(author, timestamp)
+        return Footer(Author(value, href), timestamp)
     }
 
     private fun buildImage(header: Element): Image {
