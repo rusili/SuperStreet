@@ -9,15 +9,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
 import com.rusili.superstreet.R
-import com.rusili.superstreet.data.SuperStreetMapper
 import com.rusili.superstreet.ui.common.BaseFragment
 import com.rusili.superstreet.ui.inflate
 import com.rusili.superstreet.ui.list.di.ArticleListViewModelFactory
 import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
-import org.jsoup.Jsoup
-import java.io.File
 import javax.inject.Inject
 
 class ArticleListFragment : BaseFragment() {

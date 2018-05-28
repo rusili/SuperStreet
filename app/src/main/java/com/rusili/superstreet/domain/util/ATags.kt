@@ -1,4 +1,4 @@
-package com.rusili.superstreet.domain.common.util
+package com.rusili.superstreet.domain.util
 
 class ATags {
 
@@ -10,8 +10,6 @@ class ATags {
 
     enum class FLAG(val value: String) {
         TITLE("title"),
-        DATA_HREF("data-href"),
-        HREF("href");
     }
 
     enum class HEADER(val value: String) {
@@ -24,7 +22,8 @@ class ATags {
     }
 
     enum class FOOTER(val value: String) {
-        AUTHOR("span.author"),
+        AUTHOR_CONTRIBUTING("span.author"),
+        AUTHOR_STAFF("span.author"),
         TIMESTAMP("span.timestamp");
     }
 }

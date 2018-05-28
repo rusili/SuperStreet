@@ -1,5 +1,6 @@
 package com.rusili.superstreet.data.di
 
+import com.rusili.superstreet.data.FlagMapper
 import com.rusili.superstreet.data.SuperStreetMapper
 import com.rusili.superstreet.data.list.ArticleListApi
 import com.rusili.superstreet.data.list.ArticleListJsoup
@@ -12,8 +13,12 @@ import dagger.Provides
 class DataModule {
 
     @Provides
-    fun provideSuperStreetMapper() =
-            SuperStreetMapper()
+    fun provideFlagMapper() =
+            FlagMapper()
+
+    @Provides
+    fun provideSuperStreetMapper(mapper: FlagMapper) =
+            SuperStreetMapper(mapper)
 
     @Provides
     fun provideArticleListApi(mapper: SuperStreetMapper): ArticleListApi =
