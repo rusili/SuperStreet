@@ -15,6 +15,6 @@ class PreviewViewHolder(override val containerView: View)
         previewDesc.text = preview.header.desc
         previewMag.text = preview.flag.magazine.value + " " + preview.flag.magazine.href
         previewType.text = preview.flag.type.value + " " + preview.flag.type.href
-        previewAuthorTimestamp.text = preview.footer.author.value + " " + preview.footer.author.href + " " + preview.footer.timestamp
+        previewAuthorTimestamp.text = preview.footer.author.value + " " + preview.footer.author.href + " " + preview.footer.date.toLocaleString()
     }
 }

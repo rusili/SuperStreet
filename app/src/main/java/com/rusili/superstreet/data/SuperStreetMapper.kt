@@ -1,15 +1,20 @@
 package com.rusili.superstreet.data
 
+import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.Flag
 import com.rusili.superstreet.domain.models.Footer
 import com.rusili.superstreet.domain.models.Header
+import com.rusili.superstreet.domain.models.footer.Author
 import com.rusili.superstreet.domain.models.header.Image
 import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.domain.util.ATags
-import com.rusili.superstreet.domain.list.ArticlePreviewModel
-import com.rusili.superstreet.domain.models.footer.Author
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.*
 
 class SuperStreetMapper(private val flagMapper: FlagMapper) {
 
@@ -34,11 +39,13 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
     }
 
     private fun parseFlagElement(element: Element): Flag {
+        // Magazine
         val flagMag = element.select(ATags.COMMON.A.value)[0]
-        val flagType = element.select(ATags.COMMON.A.value)[1]
-
         val flagMagValue = flagMag.attr(ATags.FLAG.TITLE.value).toString()
         val magazine = flagMapper.getMagazine(flagMagValue)
+
+        // Type
+        val flagType = element.select(ATags.COMMON.A.value)[1]
         val flagTypeValue = flagType.textNodes()[0].text()
         val type = flagMapper.getType(flagTypeValue)
 
@@ -64,21 +71,24 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
 
     private fun parseFooterElement(element: Element): Footer {
         // Author
-        var value = element.select(ATags.FOOTER.AUTHOR_CONTRIBUTING_1.value).text()
         var href = ""
-        if (value == "") {
+        var value = element.select(ATags.FOOTER.AUTHOR_CONTRIBUTING_1.value).text()
+        if (value.isBlank()) {
             value = element.select(ATags.FOOTER.AUTHOR_CONTIBUTING_2.value).text()
         }
-        if (value == "") {
+        if (value.isBlank()) {
             val ele = element.select(ATags.FOOTER.AUTHOR_STAFF_DIV.value)
                     .select(ATags.FOOTER.AUTHOR_STAFF_ATTR.value)
             value = ele.text()
             href = ele.attr(ATags.COMMON.HREF.value).toString()
         }
 
+        // Timestamp
         val timestamp = element.select(ATags.FOOTER.TIMESTAMP.value).text()
+        val format = SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH)
+        val date = format.parse(timestamp)
 
-        return Footer(Author(value, href), timestamp)
+        return Footer(Author(value, href), date)
     }
 
     private fun buildImage(header: Element): Image {
