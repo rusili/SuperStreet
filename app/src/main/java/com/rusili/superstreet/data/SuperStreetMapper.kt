@@ -1,9 +1,11 @@
 package com.rusili.superstreet.data
 
+import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.Flag
 import com.rusili.superstreet.domain.models.Footer
 import com.rusili.superstreet.domain.models.Header
+import com.rusili.superstreet.domain.models.flag.Type
 import com.rusili.superstreet.domain.models.footer.Author
 import com.rusili.superstreet.domain.models.header.Image
 import com.rusili.superstreet.domain.models.header.Title
@@ -11,9 +13,6 @@ import com.rusili.superstreet.domain.util.ATags
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import java.util.*
 
 class SuperStreetMapper(private val flagMapper: FlagMapper) {
@@ -27,8 +26,13 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
         for (i in previews.indices) {
             val preview = previews[i]
 
+            // seperated type for preview and article
             val flag = parseFlagElement(flags[i])
+
+            //
             val header = parseHeaderElement(preview)
+
+            // Works for both preview and article
             val footer = parseFooterElement(preview)
 
             val articlePreview = ArticlePreviewModel(flag, header, footer)
@@ -38,6 +42,19 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
         return previewsList
     }
 
+    fun parseToArticle(doc: Document): ArticleFullModel {
+        val flags = doc.getElementsByClass(ATags.COMMON.FLAG.value)
+        val article = doc.getElementsByClass(ATags.COMMON.INFO.value)[0]
+
+        val flag = parseFlagElement(flags[0])
+        val header = parseHeaderElement(article)
+        val footer = parseFooterElement(article)
+
+        val articleModel = ArticleFullModel(flag, header, footer)
+
+        return articleModel
+    }
+
     private fun parseFlagElement(element: Element): Flag {
         // Magazine
         val flagMag = element.select(ATags.COMMON.A.value)[0]
@@ -45,17 +62,26 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
         val magazine = flagMapper.getMagazine(flagMagValue)
 
         // Type
-        val flagType = element.select(ATags.COMMON.A.value)[1]
-        val flagTypeValue = flagType.textNodes()[0].text()
-        val type = flagMapper.getType(flagTypeValue)
+        val type = buildType(element)
 
         return Flag(magazine, type)
+    }
+
+    private fun buildType(element: Element): Type {
+        val flagType = element.select(ATags.COMMON.A.value)[1]
+
+        var flagTypeValue = flagType.select("span.label").text()    // For Article parsing
+        if (flagTypeValue.isBlank()) {
+            flagTypeValue = flagType.textNodes()[0].text()      // For Preview parsing
+        }
+
+        return flagMapper.getType(flagTypeValue)
     }
 
     private fun parseHeaderElement(element: Element): Header {
         val header = element.select(ATags.COMMON.A.value)[0]
 
-        // Title
+        // TitlePreview
         val titleValue = header.attr(ATags.HEADER.TITLE.value)
         val titlehrefEndpoint = header.attr(ATags.COMMON.HREF.value)
         val title = Title(titleValue, titlehrefEndpoint)

@@ -20,7 +20,7 @@ class JsoupArticleParsingTest {
 
     @Before
     fun setup() {
-//        article = parser.parseToArticle(doc)
+        article = parser.parseToArticle(doc)
     }
 
 

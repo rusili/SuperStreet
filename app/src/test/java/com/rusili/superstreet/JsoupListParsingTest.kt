@@ -36,28 +36,28 @@ class JsoupListParsingTest {
     @Test
     fun `Test preview titles parsing`(){
         // Given
-        val author = previewList.get(0).header.title.value
+        val title = previewList.get(0).header.title.value
 
         // Then
-        Assert.assertEquals(author, "2005 Boxster & 2007 Cayman S - Porsche Pandemic")
+        Assert.assertEquals(title, "2005 Boxster & 2007 Cayman S - Porsche Pandemic")
     }
 
     @Test
     fun `Test preview link parsing`(){
         // Given
-        val author = previewList.get(0).header.title.href
+        val link = previewList.get(0).header.title.href
 
         // Then
-        Assert.assertEquals(author, "/features/18052005-boxster-and-2007-cayman-s-porsche-pandemic/")
+        Assert.assertEquals(link, "/features/18052005-boxster-and-2007-cayman-s-porsche-pandemic/")
     }
 
     @Test
     fun `Test preview desc parsing`(){
         // Given
-        val author = previewList.get(0).header.desc
+        val desc = previewList.get(0).header.desc
 
         // Then
-        Assert.assertEquals(author, "These Porsches may not have a whole lot of mods or be built to be best-of-show winners, but they do have sweet interiors, and swagger you'll only be able to find in Japan.")
+        Assert.assertEquals(desc, "These Porsches may not have a whole lot of mods or be built to be best-of-show winners, but they do have sweet interiors, and swagger you'll only be able to find in Japan.")
     }
 
     @Test
@@ -72,10 +72,10 @@ class JsoupListParsingTest {
     @Test
     fun `Test preview timestamp parsing`(){
         // Given
-        val timestamp = previewList.get(0).footer.timestamp
+        val timestamp = previewList.get(0).footer.date
 
         // Then
-        Assert.assertEquals(timestamp, "May 18, 2018")
+        Assert.assertEquals(timestamp.toLocaleString(), "May 18, 2018 12:00:00 AM")
     }
 
     @Test
