@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.common.BaseFragment
@@ -44,7 +43,6 @@ class ArticleListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupViews(view)
 
         viewModel.livedata.observe(this, Observer { list ->
@@ -59,6 +57,6 @@ class ArticleListFragment : BaseFragment() {
     }
 
     private fun onTitleClicked(title: Title) {
-        Toast.makeText(context, title.href, Toast.LENGTH_SHORT).show()
+        navigator.goToArticle(title.href)
     }
 }

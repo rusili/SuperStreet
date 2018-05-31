@@ -39,7 +39,8 @@ class MainActivity
         inflateListFragment()
     }
 
-    override fun goToArticle() {
+    override fun goToArticle(href: String) {
+        inflateArticleFragment(href)
     }
 
     override fun goBackToList() {
@@ -54,10 +55,10 @@ class MainActivity
                 .commit()
     }
 
-    private fun inflateArticleFragment() {
+    private fun inflateArticleFragment(href: String) {
         supportFragmentManager.beginTransaction()
 //                .setCustomAnimations()
-                .replace(container, ArticleFragment.getInstance())
+                .replace(container, ArticleFragment.getInstance(href))
                 .addToBackStack(ARTICLE_FRAGMENT_TAG)
                 .commit()
     }

@@ -2,6 +2,7 @@ package com.rusili.superstreet.data.di
 
 import com.rusili.superstreet.data.FlagMapper
 import com.rusili.superstreet.data.SuperStreetMapper
+import com.rusili.superstreet.data.article.ArticleApi
 import com.rusili.superstreet.data.list.ArticleListApi
 import com.rusili.superstreet.data.list.ArticleListJsoup
 import com.rusili.superstreet.data.list.ArticleListRepositoryImpl
@@ -27,4 +28,8 @@ class DataModule {
     @Provides
     fun provideArticleListRepository(api: ArticleListApi): ArticleListRepository =
             ArticleListRepositoryImpl(api)
+
+    @Provides
+    fun provideArticleApi(mapper: SuperStreetMapper): ArticleApi =
+            Article
 }
