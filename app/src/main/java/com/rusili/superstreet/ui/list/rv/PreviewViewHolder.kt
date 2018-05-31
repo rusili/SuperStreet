@@ -3,10 +3,12 @@ package com.rusili.superstreet.ui.list.rv
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
+import com.rusili.superstreet.domain.models.header.Title
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.preview_viewholder.*
 
-class PreviewViewHolder(override val containerView: View)
+class PreviewViewHolder(override val containerView: View,
+                        private val onClick: (Title) -> Unit)
     : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(preview: ArticlePreviewModel) {
@@ -16,5 +18,7 @@ class PreviewViewHolder(override val containerView: View)
         previewMag.text = preview.flag.magazine.value + " " + preview.flag.magazine.href
         previewType.text = preview.flag.type.value + " " + preview.flag.type.href
         previewAuthorTimestamp.text = preview.footer.author.value + " " + preview.footer.author.href + " " + preview.footer.date.toLocaleString()
+
+        previewTitle.setOnClickListener { onClick(preview.header.title) }
     }
 }

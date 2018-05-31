@@ -26,13 +26,8 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
         for (i in previews.indices) {
             val preview = previews[i]
 
-            // seperated type for preview and article
             val flag = parseFlagElement(flags[i])
-
-            //
-            val header = parseHeaderElement(preview)
-
-            // Works for both preview and article
+            val header = parsePreviewHeaderElement(preview)
             val footer = parseFooterElement(preview)
 
             val articlePreview = ArticlePreviewModel(flag, header, footer)
@@ -45,9 +40,10 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
     fun parseToArticle(doc: Document): ArticleFullModel {
         val flags = doc.getElementsByClass(ATags.COMMON.FLAG.value)
         val article = doc.getElementsByClass(ATags.COMMON.INFO.value)[0]
+        val image = doc.getElementsByClass("page-schema")[1]
 
         val flag = parseFlagElement(flags[0])
-        val header = parseHeaderElement(article)
+        val header = parseArticleHeaderElement(article, image)
         val footer = parseFooterElement(article)
 
         val articleModel = ArticleFullModel(flag, header, footer)
@@ -78,7 +74,7 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
         return flagMapper.getType(flagTypeValue)
     }
 
-    private fun parseHeaderElement(element: Element): Header {
+    private fun parsePreviewHeaderElement(element: Element): Header {
         val header = element.select(ATags.COMMON.A.value)[0]
 
         // TitlePreview
@@ -90,7 +86,23 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
         val desc = element.select(ATags.HEADER.DESC.value).text()
 
         // Image
-        val image = buildImage(header)
+        val image = buildPreviewImage(header)
+
+        return Header(title, image, desc)
+    }
+
+    private fun parseArticleHeaderElement(element: Element, imageEle: Element): Header {
+        val header = element.getElementsByClass(ATags.COMMON.INFO.value)[0]
+
+        // TitlePreview
+        val titleValue = header.select("h1.title").text()
+        val title = Title(titleValue, "")
+
+        // Desc
+        val desc = header.select("h2.desc").text()
+
+        // Image
+        val image = buildArticleImage(imageEle)
 
         return Header(title, image, desc)
     }
@@ -117,7 +129,7 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
         return Footer(Author(value, href), date)
     }
 
-    private fun buildImage(header: Element): Image {
+    private fun buildPreviewImage(header: Element): Image {
         var imgSrc = ""
         var imgTitle = ""
 
@@ -128,5 +140,14 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
         }
 
         return Image(imgSrc, imgTitle)
+    }
+
+    private fun buildArticleImage(image: Element): Image {
+        val itemprop = image.getElementsByClass("img-wrap")[0].select("a")[0]
+        val imgTitle = itemprop.attr("title")
+        val imgOriginal = itemprop.attr("href")
+        val imgSmall = itemprop.select("img").attr("src")
+
+        return Image(imgSmall, imgTitle)
     }
 }

@@ -23,7 +23,6 @@ class JsoupArticleParsingTest {
         article = parser.parseToArticle(doc)
     }
 
-
     @Test
     fun `Test article title parsing`() {
         // Given
@@ -34,18 +33,35 @@ class JsoupArticleParsingTest {
     }
 
     @Test
+    fun `Test article desc parsing`() {
+        // Given
+        val desc = article.header.desc
+
+        // Then
+        Assert.assertEquals(desc, "Osaka's answer to two of Porsche's most disregarded cars")
+    }
+
+    @Test
     fun `Test article body parsing`() {
 
     }
 
     @Test
     fun `Test article author parsing`() {
+        // Given
+        val author = article.footer.author.value
 
+        // Then
+        Assert.assertEquals(author, "David Ishikawa")
     }
 
     @Test
     fun `Test article timestamp parsing`() {
+        // Given
+        val timestamp = article.footer.date
 
+        // Then
+        Assert.assertEquals(timestamp.toLocaleString(), "May 18, 2018 12:00:00 AM")
     }
 
     @Test
@@ -72,11 +88,12 @@ class JsoupArticleParsingTest {
 
     @Test
     fun `Test article images parsing`() {
+        // Given
+        val title = article.header.image.title
+        val href = article.header.image.src
 
-    }
-
-    @Test
-    fun `Test complete article parsing`() {
-
+        // Then
+        Assert.assertEquals(title, "Features")
+        Assert.assertEquals(href, "http://image.superstreetonline.com/f/254875289+w660+h440+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
     }
 }
