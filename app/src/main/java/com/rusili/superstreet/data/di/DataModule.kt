@@ -13,6 +13,11 @@ import com.rusili.superstreet.domain.list.ArticleListRepository
 import dagger.Module
 import dagger.Provides
 
+/**
+ * Dagger module:
+ * Provides all dependencies from the data layer.
+ */
+
 private const val BASE_HTML = "http://www.superstreetonline.com"
 
 @Module

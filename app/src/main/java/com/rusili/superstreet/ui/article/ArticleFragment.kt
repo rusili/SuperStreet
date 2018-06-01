@@ -2,7 +2,6 @@ package com.rusili.superstreet.ui.article
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

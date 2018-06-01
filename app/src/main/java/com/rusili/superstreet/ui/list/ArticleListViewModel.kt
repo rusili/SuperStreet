@@ -17,7 +17,7 @@ class ArticleListViewModel(private val usecase: ArticleListUsecase) : BaseViewMo
     }
 
     private fun getArticleList() {
-        disposables.add(usecase.getArticleStream()
+        addDisposable(usecase.getArticleStream()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(

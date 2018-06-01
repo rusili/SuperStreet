@@ -3,6 +3,9 @@ package com.rusili.superstreet.data
 import com.rusili.superstreet.domain.models.flag.Magazine
 import com.rusili.superstreet.domain.models.flag.Type
 
+/**
+ * Maps magazine and type values to Magazine and Type Enums.
+ */
 class FlagMapper {
 
     fun getMagazine(value: String): Magazine{

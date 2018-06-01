@@ -1,5 +1,6 @@
 package com.rusili.superstreet.data
 
+import com.rusili.superstreet.data.util.ATags
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.Flag
@@ -9,13 +10,15 @@ import com.rusili.superstreet.domain.models.flag.Type
 import com.rusili.superstreet.domain.models.footer.Author
 import com.rusili.superstreet.domain.models.header.Image
 import com.rusili.superstreet.domain.models.header.Title
-import com.rusili.superstreet.data.util.ATags
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
+/**
+ * Parses an Html document to Super Street models.
+ */
 class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) {
 
     fun parseToList(doc: Document): List<ArticlePreviewModel> {

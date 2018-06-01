@@ -13,7 +13,7 @@ class ArticleViewModel(private val usecase: ArticleUsecase) : BaseViewModel() {
     val livedata = MutableLiveData<ArticleFullModel>()
 
     fun getArticle(href: String) {
-        disposables.add(usecase.getArticleList(href)
+        addDisposable(usecase.getArticleList(href)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(

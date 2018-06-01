@@ -5,8 +5,7 @@ import android.support.v4.app.Fragment
 import com.rusili.superstreet.ui.MainNavigator
 import dagger.android.support.AndroidSupportInjection
 
-abstract class BaseFragment
-    : Fragment() {
+abstract class BaseFragment : Fragment() {
     open lateinit var navigator: MainNavigator
 
     override fun onAttach(context: Context?) {
