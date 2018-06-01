@@ -31,8 +31,8 @@ class ArticleListFragment : BaseFragment() {
         fun getInstance() = ArticleListFragment()
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleListViewModel::class.java)
     }
 

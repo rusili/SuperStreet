@@ -1,7 +1,8 @@
 package com.rusili.superstreet.data.article
 
+import com.rusili.superstreet.domain.article.ArticleFullModel
 import io.reactivex.Single
 
 interface ArticleApi {
-    fun getArticle(): Single<ArticleFull>
+    fun getArticle(href: String): Single<ArticleFullModel>
 }

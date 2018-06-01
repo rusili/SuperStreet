@@ -11,9 +11,10 @@ import com.rusili.superstreet.R
 import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
 import com.rusili.superstreet.ui.common.BaseFragment
 import com.rusili.superstreet.ui.inflate
+import timber.log.Timber
 import javax.inject.Inject
 
-private val HREF_KEY = "href_key"
+private val BUNDLE_HREF_KEY = "href_key"
 
 class ArticleFragment : BaseFragment() {
     @Inject
@@ -23,7 +24,7 @@ class ArticleFragment : BaseFragment() {
     companion object {
         fun getInstance(href: String): ArticleFragment {
             val args = Bundle()
-            args.putString(HREF_KEY, href)
+            args.putString(BUNDLE_HREF_KEY, href)
 
             return ArticleFragment().apply {
                 this.arguments = args
@@ -31,9 +32,14 @@ class ArticleFragment : BaseFragment() {
         }
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
+        arguments?.getString(BUNDLE_HREF_KEY)?.let { href ->
+            Timber.i("href: ", href)
+            viewModel.start(href)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -45,7 +51,7 @@ class ArticleFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViews(view)
 
-        viewModel.livedata.observe(this, Observer { list ->
+        viewModel.livedata.observe(this, Observer { article ->
             // TODO
         })
     }
