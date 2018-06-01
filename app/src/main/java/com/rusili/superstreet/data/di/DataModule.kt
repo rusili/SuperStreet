@@ -13,6 +13,8 @@ import com.rusili.superstreet.domain.list.ArticleListRepository
 import dagger.Module
 import dagger.Provides
 
+private const val BASE_HTML = "http://www.superstreetonline.com"
+
 @Module
 class DataModule {
 
@@ -27,7 +29,7 @@ class DataModule {
     // Article List Screen
     @Provides
     fun provideArticleListApi(mapper: SuperStreetMapper): ArticleListApi =
-            ArticleListJsoup(mapper)
+            ArticleListJsoup(mapper, BASE_HTML)
 
     @Provides
     fun provideArticleListRepository(api: ArticleListApi): ArticleListRepository =
@@ -36,7 +38,7 @@ class DataModule {
     // Full Article Screen
     @Provides
     fun provideArticleApi(mapper: SuperStreetMapper): ArticleApi =
-            ArticleJsoup(mapper)
+            ArticleJsoup(mapper, BASE_HTML)
 
     @Provides
     fun provideArticleRepository(api: ArticleApi): ArticleRepository =

@@ -34,21 +34,18 @@
         android:id="@+id/previewType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lines="@integer/preview_description_max_lines"
         tools:text="features /features/" />
 
     <TextView
         android:id="@+id/previewMag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lines="@integer/preview_description_max_lines"
         tools:text="SuperStreetOnline Magazine /super-street-magazine/" />
 
     <TextView
         android:id="@+id/previewAuthorTimestamp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lines="@integer/preview_description_max_lines"
         tools:text="David Ishikawa May 18, 2018" />
 
 </LinearLayout>

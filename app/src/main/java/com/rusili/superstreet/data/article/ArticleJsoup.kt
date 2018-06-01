@@ -7,19 +7,19 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
-
-class ArticleJsoup @Inject constructor(private val superStreetParser: SuperStreetMapper)
+class ArticleJsoup @Inject constructor(private val superStreetParser: SuperStreetMapper,
+                                       private val baseHtml: String)
     : ArticleApi {
 
     override fun getArticle(href: String): Single<ArticleFullModel> =
-            getAllWebsiteData(href)
+            getArticleData(href)
                     .map { document ->
                         return@map parseDocumentToArticle(document)
                     }
 
-    private fun getAllWebsiteData(href: String): Single<Document> =
+    private fun getArticleData(href: String): Single<Document> =
             Single.fromCallable {
-                return@fromCallable Jsoup.connect("http://www.superstreetonline.com/" + href).get()
+                return@fromCallable Jsoup.connect(baseHtml + href).get()
             }
 
     private fun parseDocumentToArticle(document: Document): ArticleFullModel =

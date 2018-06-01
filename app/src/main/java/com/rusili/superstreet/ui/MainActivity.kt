@@ -12,7 +12,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-
 private const val LIST_FRAGMENT_TAG = "List_Fragment_Tag"
 private const val ARTICLE_FRAGMENT_TAG = "Article_Fragment_Tag"
 

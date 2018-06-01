@@ -10,20 +10,19 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class ArticleListViewModel(private val usecase: ArticleListUsecase) : BaseViewModel() {
-
     val livedata = MutableLiveData<List<ArticlePreviewModel>>()
 
     init {
-        start()
+        getArticleList()
     }
 
-    private fun start() {
-        usecase.getArticleStream()
+    private fun getArticleList() {
+        disposables.add(usecase.getArticleStream()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onNext = { livedata.postValue(it) },
                         onError = { Timber.e(it, "Error getting preview articles.") }
-                )
+                ))
     }
 }

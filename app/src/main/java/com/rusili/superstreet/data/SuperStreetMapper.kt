@@ -9,13 +9,14 @@ import com.rusili.superstreet.domain.models.flag.Type
 import com.rusili.superstreet.domain.models.footer.Author
 import com.rusili.superstreet.domain.models.header.Image
 import com.rusili.superstreet.domain.models.header.Title
-import com.rusili.superstreet.domain.util.ATags
+import com.rusili.superstreet.data.util.ATags
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class SuperStreetMapper(private val flagMapper: FlagMapper) {
+class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) {
 
     fun parseToList(doc: Document): List<ArticlePreviewModel> {
         val previewsList = ArrayList<ArticlePreviewModel>()
@@ -44,6 +45,7 @@ class SuperStreetMapper(private val flagMapper: FlagMapper) {
 
         val flag = parseFlagElement(flags[0])
         val header = parseArticleHeaderElement(article, image)
+        val body = parseArticleBody()
         val footer = parseFooterElement(article)
 
         val articleModel = ArticleFullModel(flag, header, footer)

@@ -8,8 +8,8 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
-
-class ArticleListJsoup @Inject constructor(private val superStreetParser: SuperStreetMapper)
+class ArticleListJsoup @Inject constructor(private val superStreetParser: SuperStreetMapper,
+                                           private val baseHtml: String)
     : ArticleListApi {
 
     override fun getArticleStream(): Flowable<List<ArticlePreviewModel>> =
@@ -20,7 +20,7 @@ class ArticleListJsoup @Inject constructor(private val superStreetParser: SuperS
 
     private fun getAllWebsiteData(): Single<Document> =
             Single.fromCallable {
-                return@fromCallable Jsoup.connect("http://www.superstreetonline.com/").get()
+                return@fromCallable Jsoup.connect(baseHtml).get()
             }
 
     private fun parseDocumentToList(document: Document): List<ArticlePreviewModel> =

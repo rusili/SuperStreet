@@ -11,6 +11,7 @@ import com.rusili.superstreet.R
 import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
 import com.rusili.superstreet.ui.common.BaseFragment
 import com.rusili.superstreet.ui.inflate
+import kotlinx.android.synthetic.main.fragment_article.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -38,7 +39,7 @@ class ArticleFragment : BaseFragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
         arguments?.getString(BUNDLE_HREF_KEY)?.let { href ->
             Timber.i("href: ", href)
-            viewModel.start(href)
+            viewModel.getArticle(href)
         }
     }
 
@@ -52,7 +53,11 @@ class ArticleFragment : BaseFragment() {
         setupViews(view)
 
         viewModel.livedata.observe(this, Observer { article ->
-            // TODO
+            articleTitle.text = article?.header?.title?.value
+            articleDesc.text = article?.header?.desc
+            articleMag.text = article?.flag?.magazine?.value
+            articleType.text = article?.flag?.type?.value
+            articleAuthorTimestamp.text = article?.footer?.author?.value + article?.footer?.date?.toLocaleString()
         })
     }
 

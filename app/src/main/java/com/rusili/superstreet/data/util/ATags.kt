@@ -1,4 +1,4 @@
-package com.rusili.superstreet.domain.util
+package com.rusili.superstreet.data.util
 
 class ATags {
 
