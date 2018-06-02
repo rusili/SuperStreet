@@ -3,55 +3,37 @@ package com.rusili.superstreet.ui.article
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.rusili.superstreet.R
+import com.rusili.superstreet.ui.BUNDLE_KEY
 import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
-import com.rusili.superstreet.ui.common.BaseFragment
-import com.rusili.superstreet.ui.inflate
-import kotlinx.android.synthetic.main.fragment_article.*
+import com.rusili.superstreet.ui.common.BaseActivity
+import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_article.*
 import timber.log.Timber
 import javax.inject.Inject
 
-private const val BUNDLE_HREF_KEY = "href_key"
-
-class ArticleFragment : BaseFragment() {
+class ArticleActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ArticleViewModelFactory
     private lateinit var viewModel: ArticleViewModel
 
-    companion object {
-        fun getInstance(href: String): ArticleFragment {
-            val args = Bundle().apply {
-                putString(BUNDLE_HREF_KEY, href)
-            }
-
-            return ArticleFragment().apply {
-                this.arguments = args
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_article)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
-        arguments?.getString(BUNDLE_HREF_KEY)?.let { href ->
+        intent.getStringExtra(BUNDLE_KEY)?.let { href ->
             Timber.i("href: ", href)
             viewModel.getArticle(href)
+        } ?: run {
+            // TODO: SHOW ERROR MESSAGE
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?) =
-            container?.inflate(R.layout.fragment_article)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupViews(view)
+    override fun onStart() {
+        super.onStart()
 
         viewModel.livedata.observe(this, Observer { article ->
             Glide.with(this)
@@ -65,9 +47,5 @@ class ArticleFragment : BaseFragment() {
             articleType.text = article?.flag?.type?.value
             articleAuthorTimestamp.text = article?.footer?.author?.value + article?.footer?.date?.toLocaleString()
         })
-    }
-
-    private fun setupViews(view: View) {
-        // TODO
     }
 }
