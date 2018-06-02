@@ -50,10 +50,10 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
 
     fun parseToArticle(doc: Document): ArticleFullModel {
         val flags = doc.getElementsByClass(ATags.COMMON.FLAG.value)
-        val article = doc.getElementsByClass(ATags.COMMON.INFO.value)[0]
+        val article = doc.getElementsByClass(ATags.COMMON.INFO.value).first()
         val image = doc.getElementsByClass("page-schema")[1]
 
-        val flag = parseFlagElement(flags[0])
+        val flag = parseFlagElement(flags.first())
         val header = parseArticleHeaderElement(article, image)
 //        val body = parseArticleBody()
         val footer = parseFooterElement(article)
@@ -65,7 +65,7 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
 
     private fun parseFlagElement(element: Element): Flag {
         // Magazine
-        val flagMag = element.select(ATags.COMMON.A.value)[0]
+        val flagMag = element.select(ATags.COMMON.A.value).first()
         val flagMagValue = flagMag.attr(ATags.FLAG.TITLE.value).toString()
         val magazine = flagMapper.getMagazine(flagMagValue)
 
@@ -80,7 +80,7 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
 
         var flagTypeValue = flagType.select("span.label").text()    // For Article parsing
         if (flagTypeValue.isBlank()) {
-            flagTypeValue = flagType.textNodes()[0].text()      // For Preview parsing
+            flagTypeValue = flagType.textNodes().first().text()      // For Preview parsing
         }
 
         return flagMapper.getType(flagTypeValue)
@@ -104,8 +104,8 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
 
         val nonFeatureImageNode = infoNode.select(ATags.HEADER.IMG.value)        // For non-feature stories:
         if (nonFeatureImageNode.isNotEmpty()) {
-            imageTitle = nonFeatureImageNode[0].attr(ATags.HEADER.DATA_ALT.value)
-            imageHref = nonFeatureImageNode[0].attr(ATags.HEADER.DATA_SRC.value)
+            imageTitle = nonFeatureImageNode.first().attr(ATags.HEADER.DATA_ALT.value)
+            imageHref = nonFeatureImageNode.first().attr(ATags.HEADER.DATA_SRC.value)
         } else {
             val imageNode = element.children()[1].select(ATags.COMMON.A.value)            // For feature stories:
             val featureImageNode = imageNode.select("img")
@@ -115,7 +115,7 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
             imageHref = featureImageNode.attr("src") // "data-src"
 
             // Feature Stories:
-            if (imageTitle.isBlank() && imageHref.isBlank()){
+            if (imageTitle.isBlank() && imageHref.isBlank()) {
                 imageTitle = featureImageNode.attr("title")
                 imageHref = featureImageNode.attr("data-src")
             }
@@ -126,7 +126,7 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
     }
 
     private fun parseArticleHeaderElement(element: Element, imageEle: Element): Header {
-        val header = element.getElementsByClass(ATags.COMMON.INFO.value)[0]
+        val header = element.getElementsByClass(ATags.COMMON.INFO.value).first()
 
         // TitlePreview
         val titleValue = header.select("h1.title").text()
@@ -169,15 +169,15 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
 
         val img = header.select(ATags.HEADER.IMG.value)
         if (img.isNotEmpty()) {
-            imgSrc = img[0].attr(ATags.HEADER.DATA_ALT.value)
-            imgTitle = img[0].attr(ATags.HEADER.DATA_SRC.value)
+            imgSrc = img.first().attr(ATags.HEADER.DATA_ALT.value)
+            imgTitle = img.first().attr(ATags.HEADER.DATA_SRC.value)
         }
 
         return Image(imgSrc, imgTitle)
     }
 
     private fun buildArticleImage(image: Element): Image {
-        val itemprop = image.getElementsByClass("img-wrap")[0].select("a")[0]
+        val itemprop = image.getElementsByClass("img-wrap").first().select("a").first()
         val imgTitle = itemprop.attr("title")
         val imgOriginal = itemprop.attr("href")
         val imgSmall = itemprop.select("img").attr("src")
