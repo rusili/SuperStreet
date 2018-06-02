@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_article.*
 import timber.log.Timber
 import javax.inject.Inject
 
-private val BUNDLE_HREF_KEY = "href_key"
+private const val BUNDLE_HREF_KEY = "href_key"
 
 class ArticleFragment : BaseFragment() {
     @Inject
@@ -24,8 +24,9 @@ class ArticleFragment : BaseFragment() {
 
     companion object {
         fun getInstance(href: String): ArticleFragment {
-            val args = Bundle()
-            args.putString(BUNDLE_HREF_KEY, href)
+            val args = Bundle().apply {
+                putString(BUNDLE_HREF_KEY, href)
+            }
 
             return ArticleFragment().apply {
                 this.arguments = args
