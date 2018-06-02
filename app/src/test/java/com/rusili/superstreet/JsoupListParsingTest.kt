@@ -61,6 +61,28 @@ class JsoupListParsingTest {
     }
 
     @Test
+    fun `Test preview image parsing feature story`(){
+        // Given
+        val link = previewList.get(0).header.image.src
+        val title = previewList.get(0).header.image.title
+
+        // Then
+        Assert.assertEquals(link, "/features/18052005-boxster-and-2007-cayman-s-porsche-pandemic/")
+        Assert.assertEquals(title, "/features/18052005-boxster-and-2007-cayman-s-porsche-pandemic/")
+    }
+
+    @Test
+    fun `Test preview image parsing non-feature story`(){
+        // Given
+        val link = previewList.get(1).header.image.src
+        val title = previewList.get(1).header.image.title
+
+        // Then
+        Assert.assertEquals(link, "http://image.superstreetonline.com/f/254929901+w660+h440+q80+re0+cr1+ar0/ss-july-2018-issue-preview-lead.jpg")
+        Assert.assertEquals(title, "Super Street July 2018 Preview – THE JAPAN ISSUE")
+    }
+
+    @Test
     fun `Test preview author parsing`(){
         // Given
         val author = previewList.get(0).footer.author.value

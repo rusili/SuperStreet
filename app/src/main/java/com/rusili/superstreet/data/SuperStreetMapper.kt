@@ -48,7 +48,7 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
 
         val flag = parseFlagElement(flags[0])
         val header = parseArticleHeaderElement(article, image)
-        val body = parseArticleBody()
+//        val body = parseArticleBody()
         val footer = parseFooterElement(article)
 
         val articleModel = ArticleFullModel(flag, header, footer)
@@ -90,7 +90,7 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
         // Desc
         val desc = element.select(ATags.HEADER.DESC.value).text()
 
-        // Image
+        // Image: Two types
         val image = buildPreviewImage(header)
 
         return Header(title, image, desc)
