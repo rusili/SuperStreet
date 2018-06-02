@@ -93,7 +93,7 @@ class JsoupArticleParsingTest {
         val href = article.header.image.src
 
         // Then
-        Assert.assertEquals(title, "Features")
+        Assert.assertEquals(title, "2005 Porsche Boxster 2007 Porsche Cayman S")
         Assert.assertEquals(href, "http://image.superstreetonline.com/f/254875289+w660+h440+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
     }
 }

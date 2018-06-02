@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.rusili.superstreet.R
 import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
 import com.rusili.superstreet.ui.common.BaseFragment
@@ -52,6 +53,11 @@ class ArticleFragment : BaseFragment() {
         setupViews(view)
 
         viewModel.livedata.observe(this, Observer { article ->
+            Glide.with(this)
+                    .load(article?.header?.image?.src)
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .into(articleThumbnail)
+
             articleTitle.text = article?.header?.title?.value
             articleDesc.text = article?.header?.desc
             articleMag.text = article?.flag?.magazine?.value

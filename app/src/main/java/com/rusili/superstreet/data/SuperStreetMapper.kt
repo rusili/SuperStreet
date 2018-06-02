@@ -182,6 +182,6 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
         val imgOriginal = itemprop.attr("href")
         val imgSmall = itemprop.select("img").attr("src")
 
-        return Image(imgSmall, imgTitle)
+        return Image(imgTitle, imgSmall)
     }
 }
