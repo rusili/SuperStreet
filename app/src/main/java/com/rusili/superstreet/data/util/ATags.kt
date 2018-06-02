@@ -16,8 +16,8 @@ class ATags {
     enum class HEADER(val value: String) {
         TITLE("title"),
         IMG("img"),
-        IMG_TITLE("data-src"),
-        IMG_SRC("data-alt"),
+        DATA_SRC("data-src"),
+        DATA_ALT("data-alt"),
         DESC("div.desc");
     }
 

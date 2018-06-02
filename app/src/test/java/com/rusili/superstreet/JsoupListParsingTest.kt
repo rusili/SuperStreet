@@ -67,8 +67,8 @@ class JsoupListParsingTest {
         val title = previewList.get(0).header.image.title
 
         // Then
-        Assert.assertEquals(link, "/features/18052005-boxster-and-2007-cayman-s-porsche-pandemic/")
-        Assert.assertEquals(title, "/features/18052005-boxster-and-2007-cayman-s-porsche-pandemic/")
+        Assert.assertEquals(link, "http://image.superstreetonline.com/f/254875289+w660+h440+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
+        Assert.assertEquals(title, "2005 Boxster & 2007 Cayman S - Porsche Pandemic")
     }
 
     @Test
