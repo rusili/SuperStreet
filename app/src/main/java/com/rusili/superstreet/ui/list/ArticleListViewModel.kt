@@ -11,8 +11,8 @@ import timber.log.Timber
 
 class ArticleListViewModel(private val usecase: ArticleListUsecase) : BaseViewModel() {
     val livedata = MutableLiveData<List<ArticlePreviewModel>>()
-
-    init {
+    
+    fun refresh(){
         getArticleList()
     }
 

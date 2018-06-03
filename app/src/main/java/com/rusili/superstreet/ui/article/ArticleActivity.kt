@@ -5,10 +5,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.rusili.superstreet.R
-import com.rusili.superstreet.ui.BUNDLE_KEY
 import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
+import com.rusili.superstreet.ui.common.BUNDLE_KEY
 import com.rusili.superstreet.ui.common.BaseActivity
-import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_article.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,7 +18,6 @@ class ArticleActivity : BaseActivity() {
     private lateinit var viewModel: ArticleViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article)
 

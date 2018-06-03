@@ -23,7 +23,7 @@ class FlagMapper {
             "features" -> Type.FEATURES
             "how to" -> Type.HOW_TO
             "event coverage" -> Type.EVENT_COVERAGE
-            else -> Type.ERROR
+            else -> Type.OTHER
         }
     }
 }

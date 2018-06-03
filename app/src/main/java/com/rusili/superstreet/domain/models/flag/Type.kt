@@ -7,5 +7,5 @@ enum class Type(val value: String,
     HOW_TO("How To", "/how-to/"),
     EVENT_COVERAGE("Event Coverage", "/event-coverage/"),
 
-    ERROR("Error", "")
+    OTHER("Other", "")
 }
