@@ -28,7 +28,7 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
     }
 
     override fun goToArticle(href: String) =
-            GoToActivity(ArticleActivity::class.java, href)
+            goToActivity(ArticleActivity::class.java, href)
 
     private fun inflateListFragment() =
             inflateFragment(ArticleListFragment.getInstance())

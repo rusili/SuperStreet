@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.rusili.superstreet.R
+import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
 import com.rusili.superstreet.ui.common.BUNDLE_KEY
 import com.rusili.superstreet.ui.common.BaseActivity
@@ -26,24 +27,30 @@ class ArticleActivity : BaseActivity() {
             Timber.i("href: ", href)
             viewModel.getArticle(href)
         } ?: run {
-            // TODO: SHOW ERROR MESSAGE
+            showErrorAndFinish(Throwable("Empty intent"))
         }
     }
 
     override fun onStart() {
         super.onStart()
 
-        viewModel.livedata.observe(this, Observer { article ->
-            Glide.with(this)
-                    .load(article?.header?.image?.src)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .into(articleThumbnail)
-
-            articleTitle.text = article?.header?.title?.value
-            articleDesc.text = article?.header?.desc
-            articleMag.text = article?.flag?.magazine?.value
-            articleType.text = article?.flag?.type?.value
-            articleAuthorTimestamp.text = article?.footer?.author?.value + article?.footer?.date?.toLocaleString()
+        viewModel.livedata.observe(this, Observer { wrapper ->
+            wrapper?.data?.let { article ->
+                renderData(article)
+            } ?: showErrorAndFinish(wrapper?.error)
         })
+    }
+
+    private fun renderData(article: ArticleFullModel) {
+        Glide.with(this)
+                .load(article.header.image.src)
+                .placeholder(R.drawable.ic_launcher_background)
+                .into(articleThumbnail)
+
+        articleTitle.text = article.header.title.value
+        articleDesc.text = article.header.desc
+        articleMag.text = article.flag.magazine.value
+        articleType.text = article.flag.type.value
+        articleAuthorTimestamp.text = article.footer.author.value + article.footer.date.toLocaleString()
     }
 }

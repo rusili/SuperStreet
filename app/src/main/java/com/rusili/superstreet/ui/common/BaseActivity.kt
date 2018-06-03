@@ -19,17 +19,26 @@ abstract class BaseActivity : AppCompatActivity() {
         container = R.id.activityFragmentContainer
     }
 
-    fun <T> GoToActivity(clazz: Class<T>,
-                         value: String? = null) {
-        val intent = Intent(this, clazz)
-        intent.putExtra(BUNDLE_KEY, value)
-        startActivity(intent)
-    }
-
     fun inflateFragment(fragment: Fragment) =
             supportFragmentManager.beginTransaction()
 //            .setCustomAnimations()
                     .replace(container, fragment)
                     .addToBackStack(fragment.tag)
                     .commit()
+
+    fun showError(error: Throwable? = null) {
+        // TODO: Show specific error using throwable & generic error
+    }
+
+    fun showErrorAndFinish(error: Throwable? = null) {
+        showError(error)
+        finish()
+    }
+
+    fun <T> goToActivity(clazz: Class<T>,
+                         value: String? = null) {
+        val intent = Intent(this, clazz)
+        intent.putExtra(BUNDLE_KEY, value)
+        startActivity(intent)
+    }
 }

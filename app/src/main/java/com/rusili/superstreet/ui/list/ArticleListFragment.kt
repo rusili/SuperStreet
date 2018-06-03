@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rusili.superstreet.R
+import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.common.BaseFragment
 import com.rusili.superstreet.ui.inflate
@@ -44,10 +45,16 @@ class ArticleListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
 
-        viewModel.livedata.observe(this, Observer { list ->
-            adapter.submitList(list)
-            fragmentListSwipeRefresh.isRefreshing = false
+        viewModel.livedata.observe(this, Observer { wrapper ->
+            wrapper?.data?.let { previewList ->
+                renderData(previewList)
+            } ?: navigator.showError(wrapper?.error)
         })
+    }
+
+    private fun renderData(previewList: List<ArticlePreviewModel>) {
+        adapter.submitList(previewList)
+        fragmentListSwipeRefresh.isRefreshing = false
     }
 
     private fun setupViews() {
