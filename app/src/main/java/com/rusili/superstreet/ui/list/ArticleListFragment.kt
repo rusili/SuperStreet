@@ -12,7 +12,6 @@ import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.common.BaseFragment
-import com.rusili.superstreet.ui.inflate
 import com.rusili.superstreet.ui.list.di.ArticleListViewModelFactory
 import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -37,10 +36,8 @@ class ArticleListFragment : BaseFragment() {
         viewModel.refresh()
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?) =
-            container?.inflate(R.layout.fragment_list)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+            LayoutInflater.from(context).inflate(R.layout.fragment_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,6 +60,7 @@ class ArticleListFragment : BaseFragment() {
         fragmentListRecyclerView.itemAnimator = DefaultItemAnimator()
         fragmentListRecyclerView.adapter = adapter
 
+        fragmentListSwipeRefresh.setProgressViewOffset(false, 150, 250)
         fragmentListSwipeRefresh.setOnRefreshListener {
             viewModel.refresh()
         }
