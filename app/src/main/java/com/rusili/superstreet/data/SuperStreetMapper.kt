@@ -99,8 +99,8 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
         val desc = element.select(ATags.HEADER.DESC.value).text()
 
         // Image:
-        var imageTitle = ""
-        var imageHref = ""
+        var imageTitle: String
+        var imageHref: String
 
         val nonFeatureImageNode = infoNode.select(ATags.HEADER.IMG.value)        // For non-feature stories:
         if (nonFeatureImageNode.isNotEmpty()) {

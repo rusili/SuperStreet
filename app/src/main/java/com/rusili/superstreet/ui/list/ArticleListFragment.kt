@@ -1,12 +1,13 @@
 package com.rusili.superstreet.ui.list
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.header.Title
@@ -58,6 +59,7 @@ class ArticleListFragment : BaseFragment() {
     }
 
     private fun setupViews() {
+        fragmentListRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         fragmentListRecyclerView.itemAnimator = DefaultItemAnimator()
         fragmentListRecyclerView.adapter = adapter
 

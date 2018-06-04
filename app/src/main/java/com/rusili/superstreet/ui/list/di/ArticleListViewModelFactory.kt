@@ -1,7 +1,7 @@
 package com.rusili.superstreet.ui.list.di
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.rusili.superstreet.domain.list.ArticleListUsecase
 import com.rusili.superstreet.ui.list.ArticleListViewModel
 

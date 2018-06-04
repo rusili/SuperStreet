@@ -17,9 +17,9 @@ abstract class BuildersModule {
     @ContributesAndroidInjector
     abstract fun bindMainActivity(): MainActivity
 
-    @ContributesAndroidInjector(modules = [ArticleListModule::class])
+    @ContributesAndroidInjector(modules = arrayOf(ArticleListModule::class))
     abstract fun bindArticleListFragment(): ArticleListFragment
 
-    @ContributesAndroidInjector(modules = [ArticleModule::class])
+    @ContributesAndroidInjector(modules = arrayOf(ArticleModule::class))
     abstract fun bindArticleActivity(): ArticleActivity
 }

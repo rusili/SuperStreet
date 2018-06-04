@@ -1,6 +1,6 @@
 package com.rusili.superstreet.ui.article
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.article.ArticleUsecase
 import com.rusili.superstreet.ui.common.BaseViewModel

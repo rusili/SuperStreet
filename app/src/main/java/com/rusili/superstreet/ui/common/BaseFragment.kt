@@ -1,7 +1,7 @@
 package com.rusili.superstreet.ui.common
 
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.rusili.superstreet.ui.MainNavigator
 import dagger.android.support.AndroidSupportInjection
 

@@ -1,8 +1,8 @@
 package com.rusili.superstreet.ui.article
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.article.ArticleFullModel
@@ -10,7 +10,6 @@ import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
 import com.rusili.superstreet.ui.common.BUNDLE_KEY
 import com.rusili.superstreet.ui.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_article.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class ArticleActivity : BaseActivity() {
@@ -24,7 +23,6 @@ class ArticleActivity : BaseActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
         intent.getStringExtra(BUNDLE_KEY)?.let { href ->
-            Timber.i("href: ", href)
             viewModel.getArticle(href)
         } ?: run {
             showErrorAndFinish(Throwable("Empty intent"))

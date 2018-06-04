@@ -1,7 +1,7 @@
 package com.rusili.superstreet.ui
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.rusili.superstreet.R
 import com.rusili.superstreet.ui.article.ArticleActivity
 import com.rusili.superstreet.ui.common.BaseActivity

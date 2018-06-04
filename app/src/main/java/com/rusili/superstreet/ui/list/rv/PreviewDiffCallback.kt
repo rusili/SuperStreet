@@ -1,6 +1,6 @@
 package com.rusili.superstreet.ui.list.rv
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 
 class PreviewDiffCallback
