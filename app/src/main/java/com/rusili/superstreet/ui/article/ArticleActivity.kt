@@ -1,6 +1,10 @@
 package com.rusili.superstreet.ui.article
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
@@ -20,6 +24,10 @@ class ArticleActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article)
+
+        activityArticleToolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
         intent.getStringExtra(BUNDLE_KEY)?.let { href ->

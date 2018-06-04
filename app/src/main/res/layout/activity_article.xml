@@ -10,9 +10,11 @@
         android:layout_height="?attr/actionBarSize">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/activityArticleToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="?attr/homeAsUpIndicator" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
