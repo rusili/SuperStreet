@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -21,6 +22,8 @@ class ArticleListFragment : BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ArticleListViewModelFactory
     private lateinit var viewModel: ArticleListViewModel
+
+    private lateinit var progressBar: ContentLoadingProgressBar
 
     private val onClick: (Title) -> Unit = this::onTitleClicked
 
@@ -41,7 +44,8 @@ class ArticleListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViews()
+        setupViews(view)
+        progressBar.show()
 
         viewModel.livedata.observe(this, Observer { wrapper ->
             wrapper?.data?.let { previewList ->
@@ -51,11 +55,14 @@ class ArticleListFragment : BaseFragment() {
     }
 
     private fun renderData(previewList: List<ArticlePreviewModel>) {
+        progressBar.hide()
         adapter.submitList(previewList)
         fragmentListSwipeRefresh.isRefreshing = false
     }
 
-    private fun setupViews() {
+    private fun setupViews(view: View) {
+        progressBar = view.findViewById(R.id.fragmentListProgressBar)
+
         fragmentListRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         fragmentListRecyclerView.itemAnimator = DefaultItemAnimator()
         fragmentListRecyclerView.adapter = adapter

@@ -3,6 +3,11 @@
 
     <!-- List Fragment -->
     <dimen name="preview_viewholder_height">144dp</dimen>
+    <dimen name="progress_bar_size">64dp</dimen>
+    <dimen name="preview_viewholder_margin_horizontal">16dp</dimen>
+    <dimen name="preview_viewholder_margin_vertical">16dp</dimen>
+    <dimen name="preview_viewholder_image_height">192dp</dimen>
+    <dimen name="preview_viewholder_image_margin_bottom">12dp</dimen>
 
     <!-- Article Fragment -->
     

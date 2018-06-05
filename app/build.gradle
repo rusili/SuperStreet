@@ -62,6 +62,7 @@ dependencies {
     implementation "androidx.annotation:annotation:1.0.0-alpha1"
     implementation "androidx.appcompat:appcompat:1.0.0-alpha1"
     implementation "androidx.recyclerview:recyclerview:1.0.0-alpha1"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.0"
 
     // Android Lifecycle:
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-alpha1'
@@ -81,6 +82,9 @@ dependencies {
 
     // JSoup:
     implementation "org.jsoup:jsoup:$jSoupVersion"
+
+    // Picasso:
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Retrofit:
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"

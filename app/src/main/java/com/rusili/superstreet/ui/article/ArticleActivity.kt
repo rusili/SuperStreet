@@ -1,10 +1,6 @@
 package com.rusili.superstreet.ui.article
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
