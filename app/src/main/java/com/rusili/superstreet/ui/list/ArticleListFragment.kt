@@ -8,6 +8,7 @@ import androidx.core.widget.ContentLoadingProgressBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
@@ -23,8 +24,6 @@ class ArticleListFragment : BaseFragment() {
     lateinit var viewModelFactory: ArticleListViewModelFactory
     private lateinit var viewModel: ArticleListViewModel
 
-    private lateinit var progressBar: ContentLoadingProgressBar
-
     private val onClick: (Title) -> Unit = this::onTitleClicked
 
     private val adapter: PreviewListAdapter = PreviewListAdapter(onClick)
@@ -39,13 +38,16 @@ class ArticleListFragment : BaseFragment() {
         viewModel.refresh()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?) =
             LayoutInflater.from(context).inflate(R.layout.fragment_list, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View,
+                               savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViews(view)
-        progressBar.show()
+        setupViews()
+        fragmentListProgressBar.show()
 
         viewModel.livedata.observe(this, Observer { wrapper ->
             wrapper?.data?.let { previewList ->
@@ -54,23 +56,23 @@ class ArticleListFragment : BaseFragment() {
         })
     }
 
-    private fun renderData(previewList: List<ArticlePreviewModel>) {
-        progressBar.hide()
-        adapter.submitList(previewList)
-        fragmentListSwipeRefresh.isRefreshing = false
+    private fun setupViews() {
+        fragmentListRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            itemAnimator = DefaultItemAnimator()
+            adapter = this@ArticleListFragment.adapter
+        }
+
+        fragmentListSwipeRefresh.apply {
+            setProgressViewOffset(false, 150, 250)
+            setOnRefreshListener { viewModel.refresh() }
+        }
     }
 
-    private fun setupViews(view: View) {
-        progressBar = view.findViewById(R.id.fragmentListProgressBar)
-
-        fragmentListRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        fragmentListRecyclerView.itemAnimator = DefaultItemAnimator()
-        fragmentListRecyclerView.adapter = adapter
-
-        fragmentListSwipeRefresh.setProgressViewOffset(false, 150, 250)
-        fragmentListSwipeRefresh.setOnRefreshListener {
-            viewModel.refresh()
-        }
+    private fun renderData(previewList: List<ArticlePreviewModel>) {
+        fragmentListProgressBar.hide()
+        adapter.submitList(previewList)
+        fragmentListSwipeRefresh.isRefreshing = false
     }
 
     private fun onTitleClicked(title: Title) {

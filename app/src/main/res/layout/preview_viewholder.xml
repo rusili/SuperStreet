@@ -7,9 +7,8 @@
     android:layout_marginLeft="@dimen/preview_viewholder_margin_horizontal"
     android:layout_marginTop="@dimen/preview_viewholder_margin_vertical"
     android:layout_marginRight="@dimen/preview_viewholder_margin_horizontal"
-    android:layout_marginBottom="@dimen/preview_viewholder_margin_vertical"
     app:cardBackgroundColor="@android:color/transparent"
-    app:cardElevation="0dp">
+    app:cardElevation="@dimen/preview_viewholder_card_elevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -50,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="@dimen/preview_viewholder_image_margin_bottom"
+            android:layout_marginBottom="@dimen/preview_viewholder_image_margin_bottom"
             android:lines="@integer/preview_title_max_lines"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/previewMag"
@@ -69,6 +69,14 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             tools:text="David Ishikawa May 18, 2018" />
+
+        <TextView
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@color/colorAccent"
+            android:layout_height="1dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </com.google.android.material.card.MaterialCardView>

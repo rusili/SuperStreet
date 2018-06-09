@@ -5,12 +5,13 @@
     <dimen name="progress_bar_size">64dp</dimen>
 
     <!-- List Fragment -->
-    <dimen name="preview_viewholder_height">280dp</dimen>
+    <dimen name="preview_viewholder_height">296dp</dimen>
     <dimen name="preview_viewholder_corner_size">4dp</dimen>
     <dimen name="preview_viewholder_margin_horizontal">20dp</dimen>
     <dimen name="preview_viewholder_margin_vertical">16dp</dimen>
     <dimen name="preview_viewholder_image_height">192dp</dimen>
     <dimen name="preview_viewholder_image_margin_bottom">12dp</dimen>
+    <dimen name="preview_viewholder_card_elevation">0dp</dimen>
 
     <!-- Article Fragment -->
 
