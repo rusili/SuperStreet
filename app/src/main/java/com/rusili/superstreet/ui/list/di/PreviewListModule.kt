@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class ArticleListModule(){
+class PreviewListModule(){
 
     @Provides
     fun provideArticleListUsecase(repository: ArticleListRepository) =
@@ -14,5 +14,5 @@ class ArticleListModule(){
 
     @Provides
     fun provideArticleListViewModelFactory(usecase: ArticleListUsecase) =
-            ArticleListViewModelFactory(usecase)
+            PreviewListViewModelFactory(usecase)
 }

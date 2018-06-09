@@ -1,13 +1,12 @@
 package com.rusili.superstreet.data.article
 
-import com.rusili.superstreet.data.SuperStreetMapper
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import io.reactivex.Single
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
-class ArticleJsoup @Inject constructor(private val superStreetParser: SuperStreetMapper,
+class ArticleJsoup @Inject constructor(private val articleMapper: ArticleMapper,
                                        private val baseHtml: String)
     : ArticleApi {
 
@@ -23,5 +22,5 @@ class ArticleJsoup @Inject constructor(private val superStreetParser: SuperStree
             }
 
     private fun parseDocumentToArticle(document: Document): ArticleFullModel =
-            superStreetParser.parseToArticle(document)
+            articleMapper.parseToArticle(document)
 }

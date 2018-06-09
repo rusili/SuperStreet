@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import com.rusili.superstreet.R
 import com.rusili.superstreet.ui.article.ArticleActivity
 import com.rusili.superstreet.ui.common.BaseActivity
-import com.rusili.superstreet.ui.list.ArticleListFragment
+import com.rusili.superstreet.ui.list.PreviewListFragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -31,5 +31,5 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
             goToActivity(ArticleActivity::class.java, href)
 
     private fun inflateListFragment() =
-            inflateFragment(ArticleListFragment.getInstance())
+            inflateFragment(PreviewListFragment.getInstance())
 }

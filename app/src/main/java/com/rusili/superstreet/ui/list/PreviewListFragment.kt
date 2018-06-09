@@ -4,37 +4,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.ContentLoadingProgressBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.common.BaseFragment
-import com.rusili.superstreet.ui.list.di.ArticleListViewModelFactory
+import com.rusili.superstreet.ui.list.di.PreviewListViewModelFactory
 import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
 import javax.inject.Inject
 
-class ArticleListFragment : BaseFragment() {
+class PreviewListFragment : BaseFragment() {
     @Inject
-    lateinit var viewModelFactory: ArticleListViewModelFactory
-    private lateinit var viewModel: ArticleListViewModel
+    lateinit var viewModelFactory: PreviewListViewModelFactory
+    private lateinit var viewModel: PreviewViewModel
 
     private val onClick: (Title) -> Unit = this::onTitleClicked
 
     private val adapter: PreviewListAdapter = PreviewListAdapter(onClick)
 
     companion object {
-        fun getInstance() = ArticleListFragment()
+        fun getInstance() = PreviewListFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PreviewViewModel::class.java)
         viewModel.refresh()
     }
 
@@ -60,7 +58,7 @@ class ArticleListFragment : BaseFragment() {
         fragmentListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             itemAnimator = DefaultItemAnimator()
-            adapter = this@ArticleListFragment.adapter
+            adapter = this@PreviewListFragment.adapter
         }
 
         fragmentListSwipeRefresh.apply {

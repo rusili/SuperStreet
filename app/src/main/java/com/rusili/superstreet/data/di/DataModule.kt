@@ -1,7 +1,7 @@
 package com.rusili.superstreet.data.di
 
-import com.rusili.superstreet.data.FlagMapper
-import com.rusili.superstreet.data.SuperStreetMapper
+import com.rusili.superstreet.data.util.FlagMapper
+import com.rusili.superstreet.data.util.BaseMapper
 import dagger.Module
 import dagger.Provides
 
@@ -21,5 +21,5 @@ class DataModule {
 
     @Provides
     fun provideSuperStreetMapper(mapper: FlagMapper) =
-            SuperStreetMapper(mapper)
+            BaseMapper(mapper)
 }

@@ -1,6 +1,5 @@
 package com.rusili.superstreet.data.article
 
-import com.rusili.superstreet.data.SuperStreetMapper
 import com.rusili.superstreet.data.di.DataModule
 import com.rusili.superstreet.domain.article.ArticleRepository
 import dagger.Module
@@ -11,7 +10,7 @@ class ArticleDataModule {
 
     @Provides
     fun provideArticleApi(BASE_HTML: String,
-                          mapper: SuperStreetMapper): ArticleApi =
+                          mapper: ArticleMapper): ArticleApi =
             ArticleJsoup(mapper, BASE_HTML)
 
     @Provides

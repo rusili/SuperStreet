@@ -1,4 +1,4 @@
-package com.rusili.superstreet.data
+package com.rusili.superstreet.data.util
 
 import com.rusili.superstreet.domain.models.flag.Magazine
 import com.rusili.superstreet.domain.models.flag.Type

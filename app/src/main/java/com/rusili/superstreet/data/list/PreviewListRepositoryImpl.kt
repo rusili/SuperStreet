@@ -5,7 +5,7 @@ import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import io.reactivex.Flowable
 import javax.inject.Inject
 
-class ArticleListRepositoryImpl @Inject constructor(private val api: ArticleListApi)
+class PreviewListRepositoryImpl @Inject constructor(private val api: PreviewListApi)
     : ArticleListRepository {
 
     override fun getArticleStream(): Flowable<List<ArticlePreviewModel>> =

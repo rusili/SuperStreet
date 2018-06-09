@@ -1,7 +1,7 @@
 package com.rusili.superstreet
 
-import com.rusili.superstreet.data.FlagMapper
-import com.rusili.superstreet.data.SuperStreetMapper
+import com.rusili.superstreet.data.util.FlagMapper
+import com.rusili.superstreet.data.list.PreviewListMapper
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import org.jsoup.Jsoup
 import org.junit.Assert
@@ -15,7 +15,7 @@ class JsoupListParsingTest {
     private val doc = Jsoup.parse(inputMain, "UTF-8", "")
 
     private val flagMapper = FlagMapper()
-    private val parser = SuperStreetMapper(flagMapper)
+    private val parser = PreviewListMapper(flagMapper)
     private lateinit var previewList: List<ArticlePreviewModel>
 
     @Before

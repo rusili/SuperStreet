@@ -45,7 +45,7 @@ class ArticleActivity : BaseActivity() {
 
     private fun renderData(article: ArticleFullModel) {
         Glide.with(this)
-                .load(article.header.image.src)
+                .load(article.header.image.imgSmall)
                 .into(articleThumbnail)
 
         articleTitle.text = article.header.title.value

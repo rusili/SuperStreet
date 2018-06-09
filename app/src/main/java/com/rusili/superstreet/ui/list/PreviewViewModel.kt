@@ -10,7 +10,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class ArticleListViewModel(private val usecase: ArticleListUsecase) : BaseViewModel() {
+class PreviewViewModel(private val usecase: ArticleListUsecase) : BaseViewModel() {
     val livedata = MutableLiveData<LiveDataWrapper<List<ArticlePreviewModel>>>()
 
     fun refresh() {

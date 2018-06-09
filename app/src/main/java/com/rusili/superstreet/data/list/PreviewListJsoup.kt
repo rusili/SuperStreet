@@ -1,6 +1,5 @@
 package com.rusili.superstreet.data.list
 
-import com.rusili.superstreet.data.SuperStreetMapper
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -8,9 +7,9 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
-class ArticleListJsoup @Inject constructor(private val superStreetParser: SuperStreetMapper,
+class PreviewListJsoup @Inject constructor(private val previewListMapper: PreviewListMapper,
                                            private val baseHtml: String)
-    : ArticleListApi {
+    : PreviewListApi {
 
     override fun getArticleStream(): Flowable<List<ArticlePreviewModel>> =
             getAllWebsiteData().toFlowable()
@@ -24,5 +23,5 @@ class ArticleListJsoup @Inject constructor(private val superStreetParser: SuperS
             }
 
     private fun parseDocumentToList(document: Document): List<ArticlePreviewModel> =
-            superStreetParser.parseToList(document)
+            previewListMapper.parseToList(document)
 }

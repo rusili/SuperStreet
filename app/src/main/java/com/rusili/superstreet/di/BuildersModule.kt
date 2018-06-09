@@ -3,8 +3,8 @@ package com.rusili.superstreet.di
 import com.rusili.superstreet.ui.MainActivity
 import com.rusili.superstreet.ui.article.ArticleActivity
 import com.rusili.superstreet.ui.article.di.ArticleModule
-import com.rusili.superstreet.ui.list.ArticleListFragment
-import com.rusili.superstreet.ui.list.di.ArticleListModule
+import com.rusili.superstreet.ui.list.PreviewListFragment
+import com.rusili.superstreet.ui.list.di.PreviewListModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -17,8 +17,8 @@ abstract class BuildersModule {
     @ContributesAndroidInjector
     abstract fun bindMainActivity(): MainActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(ArticleListModule::class))
-    abstract fun bindArticleListFragment(): ArticleListFragment
+    @ContributesAndroidInjector(modules = arrayOf(PreviewListModule::class))
+    abstract fun bindArticleListFragment(): PreviewListFragment
 
     @ContributesAndroidInjector(modules = arrayOf(ArticleModule::class))
     abstract fun bindArticleActivity(): ArticleActivity

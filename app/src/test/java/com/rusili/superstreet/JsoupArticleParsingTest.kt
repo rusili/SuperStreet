@@ -1,7 +1,7 @@
 package com.rusili.superstreet
 
-import com.rusili.superstreet.data.FlagMapper
-import com.rusili.superstreet.data.SuperStreetMapper
+import com.rusili.superstreet.data.article.ArticleMapper
+import com.rusili.superstreet.data.util.FlagMapper
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import org.jsoup.Jsoup
 import org.junit.Assert
@@ -15,7 +15,7 @@ class JsoupArticleParsingTest {
     private val doc = Jsoup.parse(inputMain, "UTF-8", "")
 
     private val flagMapper = FlagMapper()
-    private val parser = SuperStreetMapper(flagMapper)
+    private val parser = ArticleMapper(flagMapper)
     private lateinit var article: ArticleFullModel
 
     @Before
@@ -90,10 +90,12 @@ class JsoupArticleParsingTest {
     fun `Test article images parsing`() {
         // Given
         val title = article.header.image.title
-        val href = article.header.image.src
+        val imgSmall = article.header.image.imgSmall
+        val imgFull = article.header.image.imgFull
 
         // Then
         Assert.assertEquals(title, "2005 Porsche Boxster 2007 Porsche Cayman S")
-        Assert.assertEquals(href, "http://image.superstreetonline.com/f/254875289+w660+h440+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
+        Assert.assertEquals(imgSmall, "http://image.superstreetonline.com/f/254875289+w660+h440+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
+        Assert.assertEquals(imgFull, "http://image.superstreetonline.com/f/254875289+w+h+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
     }
 }
