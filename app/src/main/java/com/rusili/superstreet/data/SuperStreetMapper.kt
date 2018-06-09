@@ -97,10 +97,13 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
 
             val imageSet = mutableSetOf<ImageGallery>()
             val images = imageGroup.getElementsByClass("img-wrap")
-            val images2 = imageGroup.getElementsByClass("img-wrap")
-//            imageSet.add(ImageGallery())
-
-//            articleImageGroupList.add(ImageGroup(id, ))
+            for (imageElement in images) {
+                val image = imageElement.getElementsByTag("div").first().getElementsByTag("a")
+                val imageFull = image.attr("href")
+                val imageThumb = image.first().getElementsByTag("img").first().attr("data-img-src")
+                imageSet.add(ImageGallery(-1, imageThumb, imageFull))
+            }
+            articleImageGroupList.add(ImageGroup(id.toInt(), imageSet))
         }
 
         return articleBody
