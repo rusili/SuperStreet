@@ -1,11 +1,14 @@
 package com.rusili.superstreet.data
 
-import com.rusili.superstreet.data.util.ATags
+import com.rusili.superstreet.data.util.*
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.Flag
 import com.rusili.superstreet.domain.models.Footer
 import com.rusili.superstreet.domain.models.Header
+import com.rusili.superstreet.domain.models.body.ImageGallery
+import com.rusili.superstreet.domain.models.body.ImageGroup
+import com.rusili.superstreet.domain.models.body.Paragraph
 import com.rusili.superstreet.domain.models.flag.Type
 import com.rusili.superstreet.domain.models.footer.Author
 import com.rusili.superstreet.domain.models.header.Image
@@ -24,9 +27,9 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
     fun parseToList(doc: Document): List<ArticlePreviewModel> {
         val previewsList = ArrayList<ArticlePreviewModel>()
 
-        val mainColumn = doc.getElementsByClass("main-column").first()
-        val topStoryElement = mainColumn.getElementsByClass("mod-top-story").first()
-        val stories = mainColumn.getElementsByClass("mod-list-homepage mod-list-container").first()
+        val mainColumn = doc.getElementsByClass(LIST.MAIN_COLUMN.value).first()
+        val topStoryElement = mainColumn.getElementsByClass(LIST.TOP_STORY.value).first()
+        val stories = mainColumn.getElementsByClass(LIST.STORIES_CONTAINER.value).first()
 
         val topStoryFlag = parseFlagElement(topStoryElement)
         val topStoryHeader = parseFeatureHeaderElement(topStoryElement)
@@ -36,7 +39,7 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
         previewsList.add(topStoryArticlePreviewModel)
 
         for (story in stories.children()) {
-            if (story.hasClass("part-list-item") || story.hasClass("part-hero")) {
+            if (story.hasClass(LIST.PART_ITEM.value) || story.hasClass(LIST.PART_HERO.value)) {
                 val flag = parseFlagElement(story)
                 val header = parseFeatureHeaderElement(story)
                 val footer = parseFooterElement(story)
@@ -49,13 +52,13 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
     }
 
     fun parseToArticle(doc: Document): ArticleFullModel {
-        val flags = doc.getElementsByClass(ATags.COMMON.FLAG.value)
-        val article = doc.getElementsByClass(ATags.COMMON.INFO.value).first()
-        val image = doc.getElementsByClass("page-schema")[1]
+        val flags = doc.getElementsByClass(COMMON.FLAG.value)
+        val article = doc.getElementsByClass(COMMON.INFO.value).first()
+        val image = doc.getElementsByClass(ARTICLE.HEADER_IMAGE.value)[1]
 
         val flag = parseFlagElement(flags.first())
         val header = parseArticleHeaderElement(article, image)
-//        val body = parseArticleBody()
+        val body = parseArticleBody(doc)
         val footer = parseFooterElement(article)
 
         val articleModel = ArticleFullModel(flag, header, footer)
@@ -63,10 +66,50 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
         return articleModel
     }
 
+    private fun parseArticleBody(doc: Document): Any {
+        val articleParagraphList = mutableListOf<Paragraph>()
+        val articleImageGalleryList = mutableListOf<ImageGallery>()
+        val articleImageGroupList = mutableListOf<ImageGroup>()
+
+        val articleContent = doc.getElementsByClass("mod-article-content")
+        val articleBody = articleContent.first().getElementsByClass("article-page")
+
+        val articleParagraphs = articleBody.first().getElementsByClass("article-paragraph")
+        for (element in articleParagraphs) {
+            val id = element.attr("id").replace("article-paragraph-", "")
+            val text = element.getElementsByClass("article-text").first().text()
+            articleParagraphList.add(Paragraph(id.toInt(), text))
+        }
+
+        val articleImages = articleBody.first().getElementsByClass("article-image")
+        for (element in articleImages) {
+            val id = element.attr("id").replace("article-image-", "")
+            val image = element.getElementsByClass("img-link").first()
+            val imageFull = image.attr("href")
+            val imageSmall = image.getElementsByTag("img").attr("data-img-src")
+            articleImageGalleryList.add(ImageGallery(id.toInt(), imageSmall, imageFull))
+        }
+
+        val articleImageGroups = articleBody.first().getElementsByClass("article-image-group")
+        for (element in articleImageGroups) {
+            val id = element.attr("id").replace("article-image-group-", "")
+            val imageGroup = element.getElementsByTag("ul").first()
+
+            val imageSet = mutableSetOf<ImageGallery>()
+            val images = imageGroup.getElementsByClass("img-wrap")
+            val images2 = imageGroup.getElementsByClass("img-wrap")
+//            imageSet.add(ImageGallery())
+
+//            articleImageGroupList.add(ImageGroup(id, ))
+        }
+
+        return articleBody
+    }
+
     private fun parseFlagElement(element: Element): Flag {
         // Magazine
-        val flagMag = element.select(ATags.COMMON.A.value).first()
-        val flagMagValue = flagMag.attr(ATags.FLAG.TITLE.value).toString()
+        val flagMag = element.select(COMMON.A.value).first()
+        val flagMagValue = flagMag.attr(FLAG.TITLE.value).toString()
         val magazine = flagMapper.getMagazine(flagMagValue)
 
         // Type
@@ -76,7 +119,7 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
     }
 
     private fun buildType(element: Element): Type {
-        val flagType = element.select(ATags.COMMON.A.value)[1]
+        val flagType = element.select(COMMON.A.value)[1]
 
         var flagTypeValue = flagType.select("span.label").text()    // For Article parsing
         if (flagTypeValue.isBlank()) {
@@ -89,25 +132,25 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
     private fun parseFeatureHeaderElement(element: Element): Header {
         // TitlePreview
         val infoNode = element.select("div.info").first()
-        val titleNode = infoNode.select(ATags.COMMON.A.value).first()
+        val titleNode = infoNode.select(COMMON.A.value).first()
 
-        val titleValue = titleNode.attr(ATags.HEADER.TITLE.value)
-        val titleHrefEndpoint = titleNode.attr(ATags.COMMON.HREF.value)
+        val titleValue = titleNode.attr(HEADER.TITLE.value)
+        val titleHrefEndpoint = titleNode.attr(COMMON.HREF.value)
         val title = Title(titleValue, titleHrefEndpoint)
 
         // Desc
-        val desc = element.select(ATags.HEADER.DESC.value).text()
+        val desc = element.select(HEADER.DESC.value).text()
 
         // Image:
         var imageTitle: String
         var imageHref: String
 
-        val nonFeatureImageNode = infoNode.select(ATags.HEADER.IMG.value)        // For non-feature stories:
+        val nonFeatureImageNode = infoNode.select(HEADER.IMG.value)        // For non-feature stories:
         if (nonFeatureImageNode.isNotEmpty()) {
-            imageTitle = nonFeatureImageNode.first().attr(ATags.HEADER.DATA_ALT.value)
-            imageHref = nonFeatureImageNode.first().attr(ATags.HEADER.DATA_SRC.value)
+            imageTitle = nonFeatureImageNode.first().attr(HEADER.DATA_ALT.value)
+            imageHref = nonFeatureImageNode.first().attr(HEADER.DATA_SRC.value)
         } else {
-            val imageNode = element.children()[1].select(ATags.COMMON.A.value)            // For feature stories:
+            val imageNode = element.children()[1].select(COMMON.A.value)            // For feature stories:
             val featureImageNode = imageNode.select("img")
 
             // Top Story:
@@ -126,7 +169,7 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
     }
 
     private fun parseArticleHeaderElement(element: Element, imageEle: Element): Header {
-        val header = element.getElementsByClass(ATags.COMMON.INFO.value).first()
+        val header = element.getElementsByClass(COMMON.INFO.value).first()
 
         // TitlePreview
         val titleValue = header.select("h1.title").text()
@@ -144,19 +187,19 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
     private fun parseFooterElement(element: Element): Footer {
         // Author
         var href = ""
-        var value = element.select(ATags.FOOTER.AUTHOR_CONTRIBUTING_1.value).text()
+        var value = element.select(FOOTER.AUTHOR_CONTRIBUTING_1.value).text()
         if (value.isBlank()) {
-            value = element.select(ATags.FOOTER.AUTHOR_CONTIBUTING_2.value).text()
+            value = element.select(FOOTER.AUTHOR_CONTIBUTING_2.value).text()
         }
         if (value.isBlank()) {
-            val ele = element.select(ATags.FOOTER.AUTHOR_STAFF_DIV.value)
-                    .select(ATags.FOOTER.AUTHOR_STAFF_ATTR.value)
+            val ele = element.select(FOOTER.AUTHOR_STAFF_DIV.value)
+                    .select(FOOTER.AUTHOR_STAFF_ATTR.value)
             value = ele.text()
-            href = ele.attr(ATags.COMMON.HREF.value).toString()
+            href = ele.attr(COMMON.HREF.value).toString()
         }
 
         // Timestamp
-        val timestamp = element.select(ATags.FOOTER.TIMESTAMP.value).text()
+        val timestamp = element.select(FOOTER.TIMESTAMP.value).text()
         val format = SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH)
         val date = format.parse(timestamp)
 
@@ -167,10 +210,10 @@ class SuperStreetMapper @Inject constructor(private val flagMapper: FlagMapper) 
         var imgSrc = ""
         var imgTitle = ""
 
-        val img = header.select(ATags.HEADER.IMG.value)
+        val img = header.select(HEADER.IMG.value)
         if (img.isNotEmpty()) {
-            imgSrc = img.first().attr(ATags.HEADER.DATA_ALT.value)
-            imgTitle = img.first().attr(ATags.HEADER.DATA_SRC.value)
+            imgSrc = img.first().attr(HEADER.DATA_ALT.value)
+            imgTitle = img.first().attr(HEADER.DATA_SRC.value)
         }
 
         return Image(imgSrc, imgTitle)

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/preview_viewholder_height"
     android:layout_marginLeft="@dimen/preview_viewholder_margin_horizontal"
     android:layout_marginTop="@dimen/preview_viewholder_margin_vertical"
     android:layout_marginRight="@dimen/preview_viewholder_margin_horizontal"
@@ -27,7 +27,7 @@
         <TextView
             android:id="@+id/previewMag"
             style="@style/TextAppearance.MaterialComponents.Overline"
-            android:layout_width="144dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/preview_viewholder_image_margin_bottom"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -37,7 +37,7 @@
         <TextView
             android:id="@+id/previewType"
             style="@style/TextAppearance.MaterialComponents.Overline"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/preview_viewholder_image_margin_bottom"
             app:layout_constraintLeft_toRightOf="@id/previewMag"
