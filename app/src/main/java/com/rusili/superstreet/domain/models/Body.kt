@@ -1,6 +1,9 @@
 package com.rusili.superstreet.domain.models
 
-import com.rusili.superstreet.domain.models.body.Gallery
+import com.rusili.superstreet.domain.models.body.ImageGallery
+import com.rusili.superstreet.domain.models.body.ImageGroup
+import com.rusili.superstreet.domain.models.body.Paragraph
 
-data class Body(val text: String,
-                val gallery: Gallery)
+data class Body(val paragraphs: List<Paragraph>,
+                val imagesSingles: List<ImageGallery>,
+                val imagesGroups: List<ImageGroup>)

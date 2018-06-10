@@ -1,8 +1,12 @@
 package com.rusili.superstreet.data.article
 
-import com.rusili.superstreet.data.util.*
+import com.rusili.superstreet.data.util.ARTICLE
+import com.rusili.superstreet.data.util.BaseMapper
+import com.rusili.superstreet.data.util.COMMON
+import com.rusili.superstreet.data.util.FlagMapper
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.models.ArticleHeader
+import com.rusili.superstreet.domain.models.Body
 import com.rusili.superstreet.domain.models.body.ImageGallery
 import com.rusili.superstreet.domain.models.body.ImageGroup
 import com.rusili.superstreet.domain.models.body.Paragraph
@@ -27,12 +31,12 @@ class ArticleMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper(fla
         val body = parseArticleBody(doc)
         val footer = parseFooterElement(article)
 
-        val articleModel = ArticleFullModel(flag, header, footer)
+        val articleModel = ArticleFullModel(flag, header, body, footer)
 
         return articleModel
     }
 
-    private fun parseArticleBody(doc: Document): Any {
+    private fun parseArticleBody(doc: Document): Body {
         val articleParagraphList = mutableListOf<Paragraph>()
         val articleImageGalleryList = mutableListOf<ImageGallery>()
         val articleImageGroupList = mutableListOf<ImageGroup>()
@@ -72,7 +76,7 @@ class ArticleMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper(fla
             articleImageGroupList.add(ImageGroup(id.toInt(), imageSet))
         }
 
-        return articleBody
+        return Body(articleParagraphList, articleImageGalleryList, articleImageGroupList)
     }
 
     private fun parseArticleHeaderElement(element: Element, imageEle: Element): ArticleHeader {

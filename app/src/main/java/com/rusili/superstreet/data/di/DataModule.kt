@@ -1,7 +1,7 @@
 package com.rusili.superstreet.data.di
 
-import com.rusili.superstreet.data.util.FlagMapper
 import com.rusili.superstreet.data.util.BaseMapper
+import com.rusili.superstreet.data.util.FlagMapper
 import dagger.Module
 import dagger.Provides
 
