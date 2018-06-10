@@ -1,15 +1,15 @@
 package com.rusili.superstreet.ui.article.rv
 
 import androidx.recyclerview.widget.DiffUtil
-import com.rusili.superstreet.domain.models.body.BaseBody2
+import com.rusili.superstreet.domain.models.body.AbstractBodyModel
 
 class ArticleDiffCallback
-    : DiffUtil.ItemCallback<BaseBody2>() {
+    : DiffUtil.ItemCallback<AbstractBodyModel>() {
 
-    override fun areItemsTheSame(oldItem: BaseBody2,
-                                 newItem: BaseBody2) =
+    override fun areItemsTheSame(oldItem: AbstractBodyModel,
+                                 newItem: AbstractBodyModel) =
             oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: BaseBody2, newItem: BaseBody2) =
+    override fun areContentsTheSame(oldItem: AbstractBodyModel, newItem: AbstractBodyModel) =
             oldItem == newItem
 }

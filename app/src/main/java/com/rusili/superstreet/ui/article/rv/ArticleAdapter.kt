@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.models.body.ArticleViewType
-import com.rusili.superstreet.domain.models.body.BaseBody2
+import com.rusili.superstreet.domain.models.body.AbstractBodyModel
 import com.rusili.superstreet.ui.common.BaseViewHolder
 
 class ArticleAdapter()
-    : ListAdapter<BaseBody2, RecyclerView.ViewHolder>(ArticleDiffCallback()) {
+    : ListAdapter<AbstractBodyModel, RecyclerView.ViewHolder>(ArticleDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): RecyclerView.ViewHolder =
@@ -23,9 +23,5 @@ class ArticleAdapter()
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder,
                                   position: Int) =
-            (holder as BaseViewHolder<BaseBody2>).bind(getItem(position))
-
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
+            (holder as BaseViewHolder<AbstractBodyModel>).bind(getItem(position))
 }
