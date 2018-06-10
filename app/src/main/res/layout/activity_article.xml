@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,53 +16,17 @@
             app:navigationIcon="?attr/homeAsUpIndicator" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/articleProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="@dimen/progress_bar_size"
+        android:layout_height="@dimen/progress_bar_size"
+        android:layout_gravity="center" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/articleRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/articleThumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                tools:src="@drawable/ic_launcher_background" />
-
-            <TextView
-                android:id="@+id/articleTitle"
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                tools:text="2005 Boxster 2007 Cayman S - Porsche Pandemic" />
-
-            <TextView
-                android:id="@+id/articleDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="These Porsches may not have a whole lot of mods or be built to be best-of-show winners, but they do have sweet interiors, and swagger you'll only be able to find in Japan" />
-
-            <TextView
-                android:id="@+id/articleType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="features /features/" />
-
-            <TextView
-                android:id="@+id/articleMag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="SuperStreetOnline Magazine /super-street-magazine/" />
-
-            <TextView
-                android:id="@+id/articleAuthorTimestamp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="David Ishikawa May 18, 2018" />
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

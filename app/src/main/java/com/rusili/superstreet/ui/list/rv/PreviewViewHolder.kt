@@ -16,7 +16,6 @@ class PreviewViewHolder(override val containerView: View,
     : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
 
     override fun bind(preview: ArticlePreviewModel) {
-
         Glide.with(containerView)
                 .load(preview.header.image.src)
                 .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(12)))

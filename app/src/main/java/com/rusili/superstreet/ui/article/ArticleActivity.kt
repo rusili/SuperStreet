@@ -3,13 +3,18 @@ package com.rusili.superstreet.ui.article
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
+import com.rusili.superstreet.ui.article.rv.ArticleAdapter
 import com.rusili.superstreet.ui.common.BUNDLE_KEY
 import com.rusili.superstreet.ui.common.BaseActivity
+import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
 import kotlinx.android.synthetic.main.activity_article.*
+import kotlinx.android.synthetic.main.fragment_list.*
 import javax.inject.Inject
 
 class ArticleActivity : BaseActivity() {
@@ -17,9 +22,13 @@ class ArticleActivity : BaseActivity() {
     lateinit var viewModelFactory: ArticleViewModelFactory
     private lateinit var viewModel: ArticleViewModel
 
+    private val adapter: ArticleAdapter = ArticleAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article)
+        setupViews()
+        articleProgressBar.show()
 
         activityArticleToolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -43,15 +52,16 @@ class ArticleActivity : BaseActivity() {
         })
     }
 
-    private fun renderData(article: ArticleFullModel) {
-        Glide.with(this)
-                .load(article.header.image.imgSmall)
-                .into(articleThumbnail)
+    private fun setupViews() {
+        articleRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            itemAnimator = DefaultItemAnimator()
+            adapter = this@ArticleActivity.adapter
+        }
+    }
 
-        articleTitle.text = article.header.title.value
-        articleDesc.text = article.header.desc
-        articleMag.text = article.flag.magazine.value
-        articleType.text = article.flag.type.value
-        articleAuthorTimestamp.text = article.footer.author.value + article.footer.date.toLocaleString()
+    private fun renderData(article: ArticleFullModel) {
+        articleProgressBar.hide()
+        adapter.submitList(article.body.paragraphs)
     }
 }

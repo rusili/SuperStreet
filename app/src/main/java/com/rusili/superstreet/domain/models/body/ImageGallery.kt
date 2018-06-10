@@ -1,8 +1,8 @@
 package com.rusili.superstreet.domain.models.body
 
-data class ImageGallery(val id: Int,
+data class ImageGallery(override val id: Int,
                         val hrefSmall: String,
-                        val hrefFull: String) : BaseBody {
+                        val hrefFull: String) : BaseBody2(id) {
 
-    override fun getViewType() = ArticleViewType.IMAGE.viewType
+    override fun getViewType() = ArticleViewType.GALLERY.viewType
 }
