@@ -4,11 +4,20 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="colorTextPrimary">@color/gray900</color>
-    <color name="colorTextLight">@color/gray800</color>
+    <color name="colorTextPrimary">@color/grey_900</color>
+    <color name="colorTextLight">@color/grey_500</color>
 
-    <color name="gray900">#3c3c3c</color>
-    <color name="gray800">#606060</color>
-    <color name="gray200">#F5F5F5</color>
-    <color name="gray100">#FAFAFA</color>
+    <!--grey-->
+    <color name="grey_50">#FAFAFA</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_400">#BDBDBD</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="grey_600">#757575</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_800">#424242</color>
+    <color name="grey_900">#212121</color>
+    <color name="black_1000">#000000</color>
+    <color name="white_1000">#ffffff</color>
 </resources>

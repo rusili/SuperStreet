@@ -15,15 +15,15 @@
 
     <!-- List Fragment -->
     <style name="PreviewTitle" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textColor">@color/gray100</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
     </style>
 
     <style name="PreviewMagazine" parent="TextAppearance.MaterialComponents.Overline">
-        <item name="android:textColor">@color/gray100</item>
+        <item name="android:textColor">@color/colorTextLight</item>
     </style>
 
     <style name="PreviewType" parent="TextAppearance.MaterialComponents.Overline">
-        <item name="android:textColor">@color/gray100</item>
+        <item name="android:textColor">@color/colorTextLight</item>
     </style>
 
     <!-- Article Fragment -->
