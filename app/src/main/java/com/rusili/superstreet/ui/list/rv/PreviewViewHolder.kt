@@ -23,8 +23,8 @@ class PreviewViewHolder(override val containerView: View,
 
         previewTitle.text = preview.header.title.value
         previewDesc.text = preview.header.desc
-        previewMag.text = preview.flag.magazine.value + " " + preview.flag.magazine.href
-        previewType.text = preview.flag.type.value + " " + preview.flag.type.href
+        previewMag.text = preview.flag.magazine.value
+        previewType.text = preview.flag.type.value
         previewAuthorTimestamp.text = preview.footer.author.value + " " + preview.footer.author.href + " " + preview.footer.date.toLocaleString()
 
         previewTitle.setOnClickListener { onClick(preview.header.title) }

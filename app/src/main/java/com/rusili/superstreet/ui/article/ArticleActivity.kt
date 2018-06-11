@@ -62,6 +62,7 @@ class ArticleActivity : BaseActivity() {
 
     private fun renderData(article: ArticleFullModel) {
         articleProgressBar.hide()
-        adapter.submitList(article.body.paragraphs)
+        val combinedList = article.body.combineLists()
+        adapter.submitList(combinedList)
     }
 }

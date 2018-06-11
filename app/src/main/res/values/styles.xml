@@ -14,6 +14,17 @@
     </style>
 
     <!-- List Fragment -->
+    <style name="PreviewTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/gray100</item>
+    </style>
+
+    <style name="PreviewMagazine" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:textColor">@color/gray100</item>
+    </style>
+
+    <style name="PreviewType" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:textColor">@color/gray100</item>
+    </style>
 
     <!-- Article Fragment -->
 

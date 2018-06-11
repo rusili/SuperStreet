@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/preview_viewholder_height"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/preview_viewholder_margin_horizontal"
     android:layout_marginTop="@dimen/preview_viewholder_margin_vertical"
     android:layout_marginRight="@dimen/preview_viewholder_margin_horizontal"
@@ -38,6 +38,7 @@
             style="@style/TextAppearance.MaterialComponents.Overline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/preview_viewholder_type_margin_left"
             android:layout_marginTop="@dimen/preview_viewholder_image_margin_bottom"
             app:layout_constraintLeft_toRightOf="@id/previewMag"
             app:layout_constraintTop_toBottomOf="@id/previewThumbnail"
@@ -47,10 +48,10 @@
             android:id="@+id/previewTitle"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/preview_viewholder_image_margin_bottom"
             android:layout_marginBottom="@dimen/preview_viewholder_image_margin_bottom"
-            android:lines="@integer/preview_title_max_lines"
+            android:maxLines="@integer/preview_description_max_lines"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/previewMag"
             tools:text="2005 Boxster 2007 Cayman S - Porsche Pandemic" />
@@ -59,7 +60,7 @@
             android:id="@+id/previewDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="@integer/preview_description_max_lines"
+            android:maxLines="@integer/preview_description_max_lines"
             android:visibility="gone"
             tools:text="These Porsches may not have a whole lot of mods or be built to be best-of-show winners, but they do have sweet interiors, and swagger you'll only be able to find in Japan" />
 
@@ -69,14 +70,5 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             tools:text="David Ishikawa May 18, 2018" />
-
-        <TextView
-            android:layout_width="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:background="@color/colorAccent"
-            android:layout_height="1dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </com.google.android.material.card.MaterialCardView>

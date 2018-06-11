@@ -12,6 +12,7 @@
     <dimen name="preview_viewholder_image_height">192dp</dimen>
     <dimen name="preview_viewholder_image_margin_bottom">12dp</dimen>
     <dimen name="preview_viewholder_card_elevation">0dp</dimen>
+    <dimen name="preview_viewholder_type_margin_left">16dp</dimen>
 
     <!-- Article Fragment -->
 

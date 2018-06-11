@@ -18,8 +18,4 @@ class DataModule {
     @Provides
     fun provideFlagMapper() =
             FlagMapper()
-
-    @Provides
-    fun provideSuperStreetMapper(mapper: FlagMapper) =
-            BaseMapper(mapper)
 }
