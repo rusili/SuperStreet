@@ -44,36 +44,36 @@ class PreviewListMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper
 
     private fun parseFeatureHeaderElement(element: Element): Header {
         // TitlePreview
-        val infoNode = element.select("div.info").first()
+        val infoNode = element.select(PREVIEW_HEADER.INFO.value).first()
         val titleNode = infoNode.select(COMMON.A.value).first()
 
-        val titleValue = titleNode.attr(HEADER.TITLE.value)
+        val titleValue = titleNode.attr(PREVIEW_HEADER.TITLE.value)
         val titleHrefEndpoint = titleNode.attr(COMMON.HREF.value)
         val title = Title(titleValue, titleHrefEndpoint)
 
         // Desc
-        val desc = element.select(HEADER.DESC.value).text()
+        val desc = element.select(PREVIEW_HEADER.DESC.value).text()
 
         // Image:
         var imageTitle: String
         var imageHref: String
 
-        val nonFeatureImageNode = infoNode.select(HEADER.IMG.value)        // For non-feature stories:
+        val nonFeatureImageNode = infoNode.select(PREVIEW_HEADER.IMG.value)        // For non-feature stories:
         if (nonFeatureImageNode.isNotEmpty()) {
-            imageTitle = nonFeatureImageNode.first().attr(HEADER.DATA_ALT.value)
-            imageHref = nonFeatureImageNode.first().attr(HEADER.DATA_SRC.value)
+            imageTitle = nonFeatureImageNode.first().attr(PREVIEW_HEADER.DATA_ALT.value)
+            imageHref = nonFeatureImageNode.first().attr(PREVIEW_HEADER.DATA_SRC.value)
         } else {
             val imageNode = element.children()[1].select(COMMON.A.value)            // For feature stories:
-            val featureImageNode = imageNode.select("img")
+            val featureImageNode = imageNode.select(PREVIEW_HEADER.IMG.value)
 
             // Top Story:
-            imageTitle = featureImageNode.attr("alt") // "title"
-            imageHref = featureImageNode.attr("src") // "data-src"
+            imageTitle = featureImageNode.attr(PREVIEW_HEADER.ALT.value)
+            imageHref = featureImageNode.attr(PREVIEW_HEADER.SRC.value)
 
             // Feature Stories:
             if (imageTitle.isBlank() && imageHref.isBlank()) {
-                imageTitle = featureImageNode.attr("title")
-                imageHref = featureImageNode.attr("data-src")
+                imageTitle = featureImageNode.attr(PREVIEW_HEADER.TITLE.value)
+                imageHref = featureImageNode.attr(PREVIEW_HEADER.DATA_SRC.value)
             }
         }
         val image = Image(imageTitle, imageHref)

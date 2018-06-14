@@ -1,9 +1,6 @@
 package com.rusili.superstreet.data.article
 
-import com.rusili.superstreet.data.util.ARTICLE
-import com.rusili.superstreet.data.util.BaseMapper
-import com.rusili.superstreet.data.util.COMMON
-import com.rusili.superstreet.data.util.FlagMapper
+import com.rusili.superstreet.data.util.*
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.models.ArticleHeader
 import com.rusili.superstreet.domain.models.Body
@@ -46,14 +43,14 @@ class ArticleMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper(fla
 
         val articleParagraphs = articleBody.first().getElementsByClass("article-paragraph")
         for (element in articleParagraphs) {
-            val id = element.attr("id").replace("article-paragraph-", "")
+            val id = element.attr(ARTICLE_BODY.ID.value).replace("article-paragraph-", "")
             val text = element.getElementsByClass("article-text").first().text()
             articleParagraphList.add(Paragraph(id.toInt(), text))
         }
 
         val articleImages = articleBody.first().getElementsByClass("article-image")
         for (element in articleImages) {
-            val id = element.attr("id").replace("article-image-", "")
+            val id = element.attr(ARTICLE_BODY.ID.value).replace("article-image-", "")
             val image = element.getElementsByClass("img-link").first()
             val imageFull = image.attr("href")
             val imageSmall = image.getElementsByTag("img").attr("data-img-src")
@@ -62,14 +59,14 @@ class ArticleMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper(fla
 
         val articleImageGroups = articleBody.first().getElementsByClass("article-image-group")
         for (element in articleImageGroups) {
-            val id = element.attr("id").replace("article-image-group-", "")
+            val id = element.attr(ARTICLE_BODY.ID.value).replace("article-image-group-", "")
             val imageGroup = element.getElementsByTag("ul").first()
 
-            val imageSet = mutableSetOf<ImageGallery>()
+            val imageSet = mutableListOf<ImageGallery>()
             val images = imageGroup.getElementsByClass("img-wrap")
             for (imageElement in images) {
-                val image = imageElement.getElementsByTag("div").first().getElementsByTag("a")
-                val imageFull = image.attr("href")
+                val image = imageElement.getElementsByTag("div").first().getElementsByTag(COMMON.A.value)
+                val imageFull = image.attr(COMMON.HREF.value)
                 val imageThumb = image.first().getElementsByTag("img").first().attr("data-img-src")
                 imageSet.add(ImageGallery(-1, imageThumb, imageFull))
             }
@@ -83,11 +80,11 @@ class ArticleMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper(fla
         val header = element.getElementsByClass(COMMON.INFO.value).first()
 
         // TitlePreview
-        val titleValue = header.select("h1.title").text()
+        val titleValue = header.select(ARTICLE_HEADER.TITLE.value).text()
         val title = Title(titleValue, "")
 
         // Desc
-        val desc = header.select("h2.desc").text()
+        val desc = header.select(ARTICLE_HEADER.DESC.value).text()
 
         // Image
         val image = buildArticleImage(imageEle)
@@ -96,10 +93,10 @@ class ArticleMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper(fla
     }
 
     private fun buildArticleImage(image: Element): HeaderImageArticle {
-        val itemprop = image.getElementsByClass("img-wrap").first().select("a").first()
-        val imgTitle = itemprop.attr("title")
-        val imgFull = itemprop.attr("href")
-        val imgSmall = itemprop.select("img").attr("src")
+        val itemprop = image.getElementsByClass(ARTICLE_HEADER.IMG_WRAP.value).first().select(COMMON.A.value).first()
+        val imgTitle = itemprop.attr(COMMON.TITLE.value)
+        val imgFull = itemprop.attr(COMMON.HREF.value)
+        val imgSmall = itemprop.select(ARTICLE_HEADER.IMG.value).attr(ARTICLE_HEADER.SRC.value)
 
         return HeaderImageArticle(imgTitle, imgSmall, imgFull)
     }

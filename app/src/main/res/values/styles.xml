@@ -27,5 +27,11 @@
     </style>
 
     <!-- Article Fragment -->
+    <style name="ArticleParagraph">
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+    <style name="ArticleImageGroup">
+    </style>
 
 </resources>

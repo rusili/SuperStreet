@@ -19,5 +19,7 @@ class ImageViewHolder(override val containerView: View)
                 .load(model.hrefSmall)
                 .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(12)))
                 .into(articleImageView)
+
+        // TODO: Add clicklistener to view enlarged image
     }
 }

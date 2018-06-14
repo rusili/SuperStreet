@@ -8,7 +8,6 @@
     android:layout_marginTop="@dimen/preview_viewholder_margin_vertical"
     android:layout_marginRight="@dimen/preview_viewholder_margin_horizontal"
     app:cardBackgroundColor="@color/grey_50"
-    app:cardCornerRadius="8dp"
     app:cardElevation="@dimen/preview_viewholder_card_elevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +21,8 @@
             android:layout_height="@dimen/preview_viewholder_image_height"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@color/colorPrimary" />
+            tools:scaleType="centerCrop"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/previewMag"
