@@ -14,10 +14,17 @@ class DateHelper {
         fun formatToMMMDDYYY(date: Date): String =
                 dateFormat.format(date)
 
-        fun convertToNumOfDaysAgo(date: Date): Int {
+        fun getDateDifference(date: Date): DateDiffWrapper {
             val today = Date()
             val diffInMillis = today.time - date.time
-            return TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS).toInt();
+            val diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+
+            return when {
+                diffInDays < 7 -> DateDiffWrapper(diffInDays, TimePeriod.DAY)
+                diffInDays < 30 -> DateDiffWrapper(diffInDays / 7, TimePeriod.WEEK)
+                diffInDays < 365 -> DateDiffWrapper(diffInDays / 30, TimePeriod.MONTH)
+                else -> DateDiffWrapper(diffInDays / 365, TimePeriod.YEAR)
+            }
         }
     }
 }

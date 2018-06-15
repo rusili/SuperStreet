@@ -1,6 +1,8 @@
 package com.rusili.superstreet
 
+import com.rusili.superstreet.ui.util.DateDiffWrapper
 import com.rusili.superstreet.ui.util.DateHelper
+import com.rusili.superstreet.ui.util.TimePeriod
 import org.junit.Assert
 import org.junit.Test
 import java.text.SimpleDateFormat
@@ -19,17 +21,56 @@ class DateHelperTest {
         // Then:
         Assert.assertEquals(formatted, "Dec 21, 2012")
     }
-    
+
     @Test
-    fun `Test convertToNumOfDaysAgo method`(){
+    fun `Test getDateDifference method return days`(){
         // Given:
         val format = SimpleDateFormat("dd/MM/yyyy")
         val date = format.parse("10/6/2018")
 
         // When:
-        val days = DateHelper.convertToNumOfDaysAgo(date)
+        val days = DateHelper.getDateDifference(date)
 
         // Then:
-        Assert.assertEquals(days, 5)
+        Assert.assertEquals(days, DateDiffWrapper(5, TimePeriod.DAY))
+    }
+
+    @Test
+    fun `Test getDateDifference method return weeks`(){
+        // Given:
+        val format = SimpleDateFormat("dd/MM/yyyy")
+        val date = format.parse("20/5/2018")
+
+        // When:
+        val days = DateHelper.getDateDifference(date)
+
+        // Then:
+        Assert.assertEquals(days, DateDiffWrapper(3, TimePeriod.WEEK))
+    }
+
+    @Test
+    fun `Test getDateDifference method return months`(){
+        // Given:
+        val format = SimpleDateFormat("dd/MM/yyyy")
+        val date = format.parse("20/3/2018")
+
+        // When:
+        val days = DateHelper.getDateDifference(date)
+
+        // Then:
+        Assert.assertEquals(days, DateDiffWrapper(2, TimePeriod.MONTH))
+    }
+
+    @Test
+    fun `Test getDateDifference method return years`(){
+        // Given:
+        val format = SimpleDateFormat("dd/MM/yyyy")
+        val date = format.parse("20/5/2015")
+
+        // When:
+        val days = DateHelper.getDateDifference(date)
+
+        // Then:
+        Assert.assertEquals(days, DateDiffWrapper(3, TimePeriod.YEAR))
     }
 }
