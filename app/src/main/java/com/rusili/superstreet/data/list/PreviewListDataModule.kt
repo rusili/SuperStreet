@@ -11,7 +11,7 @@ class PreviewListDataModule {
     @Provides
     fun provideArticleListApi(BASE_HTML: String,
                               mapper: PreviewListMapper): PreviewListApi =
-            PreviewListJsoup(mapper, BASE_HTML)
+            PreviewListSerivce(mapper, BASE_HTML)
 
     @Provides
     fun provideArticleListRepository(api: PreviewListApi): ArticleListRepository =

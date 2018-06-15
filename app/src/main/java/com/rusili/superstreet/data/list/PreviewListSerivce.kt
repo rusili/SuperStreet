@@ -7,8 +7,8 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
-class PreviewListJsoup @Inject constructor(private val previewListMapper: PreviewListMapper,
-                                           private val baseHtml: String)
+class PreviewListSerivce @Inject constructor(private val previewListMapper: PreviewListMapper,
+                                             private val baseHtml: String)
     : PreviewListApi {
 
     override fun getArticleStream(): Flowable<List<ArticlePreviewModel>> =

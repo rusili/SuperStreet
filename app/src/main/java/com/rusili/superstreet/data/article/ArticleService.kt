@@ -6,8 +6,8 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
-class ArticleJsoup @Inject constructor(private val articleMapper: ArticleMapper,
-                                       private val baseHtml: String)
+class ArticleService @Inject constructor(private val articleMapper: ArticleMapper,
+                                         private val baseHtml: String)
     : ArticleApi {
 
     override fun getArticle(href: String): Single<ArticleFullModel> =

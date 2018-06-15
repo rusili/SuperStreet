@@ -6,9 +6,12 @@ package com.rusili.superstreet.data.util
 enum class COMMON(val value: String) {
     A("a"),
     FLAG("flag"),
+    DIV("div"),
     INFO("info"),
     HREF("href"),
-    TITLE("title");
+    TITLE("title"),
+    IMG("img"),
+    SRC("src");
 }
 
 enum class FLAG(val value: String) {
@@ -38,10 +41,7 @@ enum class LIST(val value: String) {
 
 enum class PREVIEW_HEADER(val value: String) {
     INFO("div.info"),
-    TITLE("title"),
-    IMG("img"),
     ALT("alt"),
-    SRC("src"),
     DATA_SRC("data-src"),
     DATA_ALT("data-alt"),
     DESC("div.desc");
@@ -58,14 +58,19 @@ enum class ARTICLE_HEADER(val value: String) {
     TITLE("h1.title"),
     DESC("h2.desc"),
     IMG_WRAP("img-wrap"),
-    IMG("img"),
-    SRC("src");
 }
 
 enum class ARTICLE_BODY(val value: String) {
     ID("id"),
     DESC("h2.desc"),
+    UL("ul"),
     IMG_WRAP("img-wrap"),
-    IMG("img"),
-    SRC("src");
+    IMG_LINK("img-link"),
+    DATA_IMG_SRC("data-img-src"),
+    MOD_ARTICLE_CONTENT("mod-article-content"),
+    ARTICLE_PAGE("article-page"),
+    ARTICLE_PARAGRAPH("article-paragraph"),
+    ARTICLE_TEXT("article-text"),
+    ARTICLE_IMAGE("article-image"),
+    ARTICLE_IMAGE_GROUP("article-image-group"),
 }

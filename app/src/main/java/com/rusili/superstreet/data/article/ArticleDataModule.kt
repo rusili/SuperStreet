@@ -11,7 +11,7 @@ class ArticleDataModule {
     @Provides
     fun provideArticleApi(BASE_HTML: String,
                           mapper: ArticleMapper): ArticleApi =
-            ArticleJsoup(mapper, BASE_HTML)
+            ArticleService(mapper, BASE_HTML)
 
     @Provides
     fun provideArticleRepository(api: ArticleApi): ArticleRepository =

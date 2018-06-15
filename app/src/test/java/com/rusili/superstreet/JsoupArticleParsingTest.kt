@@ -9,6 +9,11 @@ import org.junit.Test
 
 import org.junit.Before
 import java.io.File
+import java.text.SimpleDateFormat
+import java.time.ZoneId
+import java.time.ZoneId.systemDefault
+import java.util.*
+
 
 class JsoupArticleParsingTest {
     private val inputMain = File("/Users/rusi.li/Documents/SuperStreet/app/src/test/resources/json/2007Boxter&CaymanArticle.html")
@@ -59,9 +64,10 @@ class JsoupArticleParsingTest {
     fun `Test article timestamp parsing`() {
         // Given
         val timestamp = article.footer.date
+        val dateFormat = SimpleDateFormat("MMM dd, yyyy")
 
         // Then
-        Assert.assertEquals(timestamp.toLocaleString(), "May 18, 2018 12:00:00 AM")
+        Assert.assertEquals(dateFormat.format(timestamp), "May 18, 2018")
     }
 
     @Test
