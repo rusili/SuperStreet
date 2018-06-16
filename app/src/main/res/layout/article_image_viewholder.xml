@@ -4,5 +4,5 @@
     android:id="@+id/articleImageView"
     android:layout_width="match_parent"
     android:layout_height="@dimen/article_viewholder_image_height"
-    tools:scaleType="centerCrop"
+    android:scaleType="centerCrop"
     tools:src="@tools:sample/backgrounds/scenic" />

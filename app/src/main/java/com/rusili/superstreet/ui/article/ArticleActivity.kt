@@ -12,17 +12,23 @@ import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
 import com.rusili.superstreet.ui.article.rv.ArticleAdapter
 import com.rusili.superstreet.ui.common.BUNDLE_KEY
 import com.rusili.superstreet.ui.common.BaseActivity
-import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
 import kotlinx.android.synthetic.main.activity_article.*
-import kotlinx.android.synthetic.main.fragment_list.*
 import javax.inject.Inject
+import androidx.core.app.ActivityOptionsCompat
+import android.content.Intent
+import android.view.View
+import com.bumptech.glide.RequestManager
+import com.rusili.superstreet.ui.image.ImageActivity
+
 
 class ArticleActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ArticleViewModelFactory
     private lateinit var viewModel: ArticleViewModel
 
-    private val adapter: ArticleAdapter = ArticleAdapter()
+    private lateinit var adapter: ArticleAdapter
+    private val onClick: (View, String) -> Unit = this::onTitleClicked
+    private lateinit var glide: RequestManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +59,9 @@ class ArticleActivity : BaseActivity() {
     }
 
     private fun setupViews() {
+        glide = Glide.with(this)
+        adapter = ArticleAdapter(onClick, glide)
+
         articleRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             itemAnimator = DefaultItemAnimator()
@@ -64,5 +73,13 @@ class ArticleActivity : BaseActivity() {
         articleProgressBar.hide()
         val combinedList = article.body.combineLists()
         adapter.submitList(combinedList)
+    }
+
+    private fun onTitleClicked(view: View,
+                               href: String) {
+        val intent = Intent(this, ImageActivity::class.java)
+        intent.putExtra(BUNDLE_KEY, href)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, getString(R.string.transition_image))
+        startActivity(intent, options.toBundle())
     }
 }

@@ -2,6 +2,7 @@ package com.rusili.superstreet.ui.list.rv
 
 import android.view.View
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -12,12 +13,12 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.preview_viewholder.*
 
 class PreviewViewHolder(override val containerView: View,
-                        private val onClick: (Title) -> Unit)
+                        private val onClick: (Title) -> Unit,
+                        private val glide: RequestManager)
     : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
 
     override fun bind(preview: ArticlePreviewModel) {
-        Glide.with(containerView)
-                .load(preview.header.image.src)
+        glide.load(preview.header.image.src)
                 .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(12)))
                 .into(previewThumbnail)
 

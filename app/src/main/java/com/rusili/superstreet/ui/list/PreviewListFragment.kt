@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.header.Title
@@ -22,9 +24,9 @@ class PreviewListFragment : BaseFragment() {
     lateinit var viewModelFactory: PreviewListViewModelFactory
     private lateinit var viewModel: PreviewViewModel
 
+    private lateinit var adapter: PreviewListAdapter
     private val onClick: (Title) -> Unit = this::onTitleClicked
-
-    private val adapter: PreviewListAdapter = PreviewListAdapter(onClick)
+    private lateinit var glide: RequestManager
 
     companion object {
         fun getInstance() = PreviewListFragment()
@@ -55,6 +57,9 @@ class PreviewListFragment : BaseFragment() {
     }
 
     private fun setupViews() {
+        glide = Glide.with(this)
+        adapter = PreviewListAdapter(onClick, glide)
+
         fragmentListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             itemAnimator = DefaultItemAnimator()
