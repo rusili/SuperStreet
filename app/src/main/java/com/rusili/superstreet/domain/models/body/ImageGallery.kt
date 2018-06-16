@@ -5,13 +5,16 @@ data class ImageGallery(override val id: Int,
 
     override fun getViewType() = ArticleViewType.IMAGE.viewType
 
-    fun resizeToFull(): String =
-            resize(0, 0, 100)
+    fun resizeToDefaultSize() =
+            resize(600, 400)
+
+    fun resizeTo1920By1280(): String =
+            resize(1920, 1280, 90)
 
     // Default Image width & height is 660 x 440
-    fun resize(width: Int,
-               height: Int,
-               quality: Int? = 80): String =
+    private fun resize(width: Int,
+                       height: Int,
+                       quality: Int? = 80): String =
             src.replace("w660", "w" + width.toString())
                     .replace("h440", "h" + height.toString())
                     .replace("q80", "q" + quality.toString())

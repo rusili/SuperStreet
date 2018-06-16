@@ -1,7 +1,6 @@
 package com.rusili.superstreet.ui.article.rv
 
 import android.view.View
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -22,10 +21,10 @@ class ImageViewHolder(override val containerView: View,
                 .error(R.drawable.ic_error_outline_black_24dp)
                 .transforms(CenterCrop(), RoundedCorners(12))
 
-        glide.load(model.resize(600, 400))
+        glide.load(model.resizeToDefaultSize())
                 .apply(requestOptions)
                 .into(articleImageView)
 
-        containerView.setOnClickListener { onClick(containerView, model.resizeToFull()) }
+        containerView.setOnClickListener { onClick(containerView, model.resizeTo1920By1280()) }
     }
 }

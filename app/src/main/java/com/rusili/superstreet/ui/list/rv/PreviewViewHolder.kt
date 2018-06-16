@@ -22,7 +22,7 @@ class PreviewViewHolder(override val containerView: View,
                 .error(R.drawable.ic_error_outline_black_24dp)
                 .transforms(CenterCrop(), RoundedCorners(12))
 
-        glide.load(preview.header.headerImage.resize(600, 400))
+        glide.load(preview.header.headerImage.resizeToDefaultSize())
                 .apply(requestOptions)
                 .into(previewThumbnail)
 
