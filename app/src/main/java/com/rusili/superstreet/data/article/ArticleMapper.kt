@@ -2,12 +2,12 @@ package com.rusili.superstreet.data.article
 
 import com.rusili.superstreet.data.util.*
 import com.rusili.superstreet.domain.article.ArticleFullModel
-import com.rusili.superstreet.domain.models.ArticleHeader
 import com.rusili.superstreet.domain.models.Body
+import com.rusili.superstreet.domain.models.Header
 import com.rusili.superstreet.domain.models.body.ImageGallery
 import com.rusili.superstreet.domain.models.body.ImageGroup
 import com.rusili.superstreet.domain.models.body.Paragraph
-import com.rusili.superstreet.domain.models.header.HeaderImageArticle
+import com.rusili.superstreet.domain.models.header.HeaderImage
 import com.rusili.superstreet.domain.models.header.Title
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -34,7 +34,7 @@ class ArticleMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper(fla
     }
 
     private fun parseArticleHeaderElement(element: Element,
-                                          imageEle: Element): ArticleHeader {
+                                          imageEle: Element): Header {
         val header = element.getElementsByClass(COMMON.INFO.value).first()
 
         // TitlePreview
@@ -44,10 +44,10 @@ class ArticleMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper(fla
         // Desc
         val desc = header.select(ARTICLE_HEADER.DESC.value).text()
 
-        // Image
+        // HeaderImage
         val image = buildArticleImage(imageEle)
 
-        return ArticleHeader(title, image, desc)
+        return Header(title, image, desc)
     }
 
     private fun parseArticleBody(doc: Document): Body {
@@ -68,37 +68,34 @@ class ArticleMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper(fla
         val articleImages = articleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE.value)
         for (element in articleImages) {
             val id = element.attr(ARTICLE_BODY.ID.value).replace(ARTICLE_BODY.ARTICLE_IMAGE.value + "-", "")
-            val image = element.getElementsByClass(ARTICLE_BODY.IMG_LINK.value).first()
-            val imageFull = image.attr(COMMON.HREF.value)
-            val imageSmall = image.getElementsByTag(COMMON.IMG.value).attr(ARTICLE_BODY.DATA_IMG_SRC.value)
-            articleImageGalleryList.add(ImageGallery(id.toInt(), imageSmall, imageFull))
+            val img = element.getElementsByClass(ARTICLE_BODY.IMG_LINK.value).first()
+            val imgSrc = img.getElementsByTag(COMMON.IMG.value).attr(ARTICLE_BODY.DATA_IMG_SRC.value)
+            articleImageGalleryList.add(ImageGallery(id.toInt(), imgSrc))
         }
 
         val articleImageGroups = articleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value)
         for (element in articleImageGroups) {
             val id = element.attr(ARTICLE_BODY.ID.value).replace(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value + "-", "")
-            val imageGroup = element.getElementsByTag(ARTICLE_BODY.UL.value).first()
+            val imgGroup = element.getElementsByTag(ARTICLE_BODY.UL.value).first()
 
-            val imageSet = mutableListOf<ImageGallery>()
-            val images = imageGroup.getElementsByClass(ARTICLE_BODY.IMG_WRAP.value)
-            for (imageElement in images) {
-                val image = imageElement.getElementsByTag(COMMON.DIV.value).first().getElementsByTag(COMMON.A.value)
-                val imageFull = image.attr(COMMON.HREF.value)
-                val imageThumb = image.first().getElementsByTag(COMMON.IMG.value).first().attr(ARTICLE_BODY.DATA_IMG_SRC.value)
-                imageSet.add(ImageGallery(-1, imageThumb, imageFull))
+            val imgSet = mutableListOf<ImageGallery>()
+            val imgs = imgGroup.getElementsByClass(ARTICLE_BODY.IMG_WRAP.value)
+            for (imgElement in imgs) {
+                val img = imgElement.getElementsByTag(COMMON.DIV.value).first().getElementsByTag(COMMON.A.value)
+                val imgSrc = img.first().getElementsByTag(COMMON.IMG.value).first().attr(ARTICLE_BODY.DATA_IMG_SRC.value)
+                imgSet.add(ImageGallery(-1, imgSrc))
             }
-            articleImageGroupList.add(ImageGroup(id.toInt(), imageSet))
+            articleImageGroupList.add(ImageGroup(id.toInt(), imgSet))
         }
 
         return Body(articleParagraphList, articleImageGalleryList, articleImageGroupList)
     }
 
-    private fun buildArticleImage(image: Element): HeaderImageArticle {
+    private fun buildArticleImage(image: Element): HeaderImage {
         val itemprop = image.getElementsByClass(ARTICLE_HEADER.IMG_WRAP.value).first().select(COMMON.A.value).first()
         val imgTitle = itemprop.attr(COMMON.TITLE.value)
-        val imgFull = itemprop.attr(COMMON.HREF.value)
-        val imgSmall = itemprop.select(COMMON.IMG.value).attr(COMMON.SRC.value)
+        val imgSrc = itemprop.select(COMMON.IMG.value).attr(COMMON.SRC.value)
 
-        return HeaderImageArticle(imgTitle, imgSmall, imgFull)
+        return HeaderImage(imgTitle, imgSrc)
     }
 }

@@ -1,12 +1,7 @@
-package com.rusili.superstreet.domain.models.body
+package com.rusili.superstreet.domain.models.header
 
-data class ImageGallery(override val id: Int,
-                        private val src: String) : AbstractBodyModel(id) {
-
-    override fun getViewType() = ArticleViewType.IMAGE.viewType
-
-    fun resizeToFull(): String =
-            resize(0, 0, 100)
+data class HeaderImage(val title: String,
+                       private val src: String) {
 
     // Default Image width & height is 660 x 440
     fun resize(width: Int,

@@ -3,7 +3,7 @@ package com.rusili.superstreet.data.list
 import com.rusili.superstreet.data.util.*
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.Header
-import com.rusili.superstreet.domain.models.header.Image
+import com.rusili.superstreet.domain.models.header.HeaderImage
 import com.rusili.superstreet.domain.models.header.Title
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -54,29 +54,29 @@ class PreviewListMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper
         // Desc
         val desc = element.select(PREVIEW_HEADER.DESC.value).text()
 
-        // Image:
-        var imageTitle: String
-        var imageHref: String
+        // HeaderImage:
+        var imgTitle: String
+        var imgSrc: String
 
         val nonFeatureImageNode = infoNode.select(COMMON.IMG.value)        // For non-feature stories:
         if (nonFeatureImageNode.isNotEmpty()) {
-            imageTitle = nonFeatureImageNode.first().attr(PREVIEW_HEADER.DATA_ALT.value)
-            imageHref = nonFeatureImageNode.first().attr(PREVIEW_HEADER.DATA_SRC.value)
+            imgTitle = nonFeatureImageNode.first().attr(PREVIEW_HEADER.DATA_ALT.value)
+            imgSrc = nonFeatureImageNode.first().attr(PREVIEW_HEADER.DATA_SRC.value)
         } else {
             val imageNode = element.children()[1].select(COMMON.A.value)            // For feature stories:
             val featureImageNode = imageNode.select(COMMON.IMG.value)
 
             // Top Story:
-            imageTitle = featureImageNode.attr(PREVIEW_HEADER.ALT.value)
-            imageHref = featureImageNode.attr(COMMON.SRC.value)
+            imgTitle = featureImageNode.attr(PREVIEW_HEADER.ALT.value)
+            imgSrc = featureImageNode.attr(COMMON.SRC.value)
 
             // Feature Stories:
-            if (imageTitle.isBlank() && imageHref.isBlank()) {
-                imageTitle = featureImageNode.attr(COMMON.TITLE.value)
-                imageHref = featureImageNode.attr(PREVIEW_HEADER.DATA_SRC.value)
+            if (imgTitle.isBlank() && imgSrc.isBlank()) {
+                imgTitle = featureImageNode.attr(COMMON.TITLE.value)
+                imgSrc = featureImageNode.attr(PREVIEW_HEADER.DATA_SRC.value)
             }
         }
-        val image = Image(imageTitle, imageHref)
+        val image = HeaderImage(imgTitle, imgSrc)
 
         return Header(title, image, desc)
     }

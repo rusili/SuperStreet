@@ -29,6 +29,6 @@ class ImageGroupViewHolder(override val containerView: View)
                 .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(6)))
                 .into(imageGroupImage3)
 
-        // TODO: Add clicklistener to view enlarged image
+        // TODO: Add clicklistener to view enlarged headerImage
     }
 }

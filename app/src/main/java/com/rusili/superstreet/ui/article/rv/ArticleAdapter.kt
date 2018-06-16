@@ -28,15 +28,11 @@ class ArticleAdapter(private val onClick: (View, String) -> Unit,
                                   position: Int) =
             (holder as BaseViewHolder<AbstractBodyModel>).bind(getItem(position))
 
-    override fun getItemViewType(position: Int): Int {
-        val item = getItem(position)
-        val type = item.getViewType()
-
-        return when (getItem(position).getViewType()) {
-            ArticleViewType.PARAGRAPH.viewType -> ArticleViewType.PARAGRAPH.viewType
-            ArticleViewType.IMAGE.viewType -> ArticleViewType.IMAGE.viewType
-            ArticleViewType.IMAGE_GROUP.viewType -> ArticleViewType.IMAGE_GROUP.viewType
-            else -> -1
-        }
-    }
+    override fun getItemViewType(position: Int) =
+            when (getItem(position).getViewType()) {
+                ArticleViewType.PARAGRAPH.viewType -> ArticleViewType.PARAGRAPH.viewType
+                ArticleViewType.IMAGE.viewType -> ArticleViewType.IMAGE.viewType
+                ArticleViewType.IMAGE_GROUP.viewType -> ArticleViewType.IMAGE_GROUP.viewType
+                else -> -1
+            }
 }

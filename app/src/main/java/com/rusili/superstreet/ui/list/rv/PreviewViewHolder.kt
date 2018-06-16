@@ -1,11 +1,11 @@
 package com.rusili.superstreet.ui.list.rv
 
 import android.view.View
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.common.BaseViewHolder
@@ -18,8 +18,12 @@ class PreviewViewHolder(override val containerView: View,
     : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
 
     override fun bind(preview: ArticlePreviewModel) {
-        glide.load(preview.header.image.src)
-                .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(12)))
+        val requestOptions = RequestOptions().placeholder(R.drawable.bg_placeholder)
+                .error(R.drawable.ic_error_outline_black_24dp)
+                .transforms(CenterCrop(), RoundedCorners(12))
+
+        glide.load(preview.header.headerImage.resize(600, 400))
+                .apply(requestOptions)
                 .into(previewThumbnail)
 
         previewTitle.text = preview.header.title.value

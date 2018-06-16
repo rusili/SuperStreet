@@ -1,8 +1,8 @@
 package com.rusili.superstreet.domain.models
 
-import com.rusili.superstreet.domain.models.header.Image
+import com.rusili.superstreet.domain.models.header.HeaderImage
 import com.rusili.superstreet.domain.models.header.Title
 
 data class Header(val title: Title,
-                  val image: Image,
+                  val headerImage: HeaderImage,
                   val desc: String)

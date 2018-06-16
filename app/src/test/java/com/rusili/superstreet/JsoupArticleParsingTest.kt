@@ -10,9 +10,6 @@ import org.junit.Test
 import org.junit.Before
 import java.io.File
 import java.text.SimpleDateFormat
-import java.time.ZoneId
-import java.time.ZoneId.systemDefault
-import java.util.*
 
 
 class JsoupArticleParsingTest {
@@ -95,13 +92,11 @@ class JsoupArticleParsingTest {
     @Test
     fun `Test article images parsing`() {
         // Given
-        val title = article.header.image.title
-        val imgSmall = article.header.image.imgSmall
-        val imgFull = article.header.image.imgFull
+        val title = article.header.headerImage.title
+        val imgSrc = article.header.headerImage.resize(600, 400)
 
         // Then
         Assert.assertEquals(title, "2005 Porsche Boxster 2007 Porsche Cayman S")
-        Assert.assertEquals(imgSmall, "http://image.superstreetonline.com/f/254875289+w660+h440+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
-        Assert.assertEquals(imgFull, "http://image.superstreetonline.com/f/254875289+w+h+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
+        Assert.assertEquals(imgSrc, "http://image.superstreetonline.com/f/254875289+w600+h400+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
     }
 }

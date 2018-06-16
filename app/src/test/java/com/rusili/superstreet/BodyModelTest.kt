@@ -14,11 +14,9 @@ class BodyModelTest {
         val paragraph2 = Paragraph(3, "")
         val paragraphList = listOf<Paragraph>(paragraph1, paragraph2)
 
-        val image1 = ImageGallery(2, "", "")
-        val image2 = ImageGallery(4, "", "")
+        val image1 = ImageGallery(2, "")
+        val image2 = ImageGallery(4, "")
         val imageList = listOf<ImageGallery>(image1, image2)
-
-
 
         // Then
         Assert.assertTrue(paragraph1 < paragraph2)

@@ -54,15 +54,15 @@ androidExtensions {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Experimental:
-    implementation 'com.google.android.material:material:1.0.0-alpha1'
+    implementation 'com.google.android.material:material:1.0.0-alpha3'
 
     // Android:
-    implementation "androidx.core:core:1.0.0-alpha2"
+    implementation "androidx.core:core:1.0.0-alpha3"
     implementation "androidx.arch.core:core-common:2.0.0-alpha1"
-    implementation "androidx.annotation:annotation:1.0.0-alpha1"
-    implementation "androidx.appcompat:appcompat:1.0.0-alpha1"
-    implementation "androidx.recyclerview:recyclerview:1.0.0-alpha1"
-    implementation "androidx.constraintlayout:constraintlayout:1.1.0"
+    implementation "androidx.annotation:annotation:1.0.0-alpha3"
+    implementation "androidx.appcompat:appcompat:1.0.0-alpha3"
+    implementation "androidx.recyclerview:recyclerview:1.0.0-alpha3"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.2"
 
     // Android Lifecycle:
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-alpha1'
@@ -70,7 +70,7 @@ dependencies {
     // Android Room:
     implementation 'androidx.room:room-runtime:2.0.0-alpha1'
     implementation 'androidx.room:room-rxjava2:2.0.0-alpha1'
-    annotationProcessor 'androidx.room:room-compiler:2.0.0-alpha1'
+    kapt 'androidx.room:room-compiler:2.0.0-alpha1'
 
     // Android Paging:
     implementation 'androidx.paging:paging-runtime:2.0.0-alpha1'
@@ -78,7 +78,6 @@ dependencies {
 
     // Glide:
     implementation "com.github.bumptech.glide:glide:$glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     // JSoup:
     implementation "org.jsoup:jsoup:$jSoupVersion"

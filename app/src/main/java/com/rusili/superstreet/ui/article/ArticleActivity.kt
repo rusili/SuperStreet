@@ -77,6 +77,8 @@ class ArticleActivity : BaseActivity() {
 
     private fun onTitleClicked(view: View,
                                href: String) {
+        getWindow().setExitTransition(null)
+
         val intent = Intent(this, ImageActivity::class.java)
         intent.putExtra(BUNDLE_KEY, href)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, getString(R.string.transition_image))

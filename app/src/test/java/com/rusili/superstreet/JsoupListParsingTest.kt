@@ -63,22 +63,22 @@ class JsoupListParsingTest {
     @Test
     fun `Test preview image parsing feature story`(){
         // Given
-        val link = previewList.get(0).header.image.src
-        val title = previewList.get(0).header.image.title
+        val link = previewList.get(0).header.headerImage.resize(600, 400)
+        val title = previewList.get(0).header.headerImage.title
 
         // Then
-        Assert.assertEquals(link, "http://image.superstreetonline.com/f/254875289+w660+h440+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
+        Assert.assertEquals(link, "http://image.superstreetonline.com/f/254875289+w600+h400+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
         Assert.assertEquals(title, "2005 Boxster & 2007 Cayman S - Porsche Pandemic")
     }
 
     @Test
     fun `Test preview image parsing non-feature story`(){
         // Given
-        val link = previewList.get(1).header.image.src
-        val title = previewList.get(1).header.image.title
+        val link = previewList.get(1).header.headerImage.resize(600, 400)
+        val title = previewList.get(1).header.headerImage.title
 
         // Then
-        Assert.assertEquals(link, "http://image.superstreetonline.com/f/254929901+w660+h440+q80+re0+cr1+ar0/ss-july-2018-issue-preview-lead.jpg")
+        Assert.assertEquals(link, "http://image.superstreetonline.com/f/254929901+w600+h400+q80+re0+cr1+ar0/ss-july-2018-issue-preview-lead.jpg")
         Assert.assertEquals(title, "Super Street July 2018 Preview – THE JAPAN ISSUE")
     }
 
