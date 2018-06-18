@@ -10,9 +10,9 @@ import kotlinx.android.synthetic.main.activity_image.*
 class ImageActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        getWindow().setEnterTransition(null)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
-        getWindow().setEnterTransition(null)
 
         intent.getStringExtra(BUNDLE_KEY)?.let { href ->
             Glide.with(this)

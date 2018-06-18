@@ -10,6 +10,7 @@ class ArticleDiffCallback
                                  newItem: AbstractBodyModel) =
             oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: AbstractBodyModel, newItem: AbstractBodyModel) =
+    override fun areContentsTheSame(oldItem: AbstractBodyModel,
+                                    newItem: AbstractBodyModel) =
             oldItem == newItem
 }

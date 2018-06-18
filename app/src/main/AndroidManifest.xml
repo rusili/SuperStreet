@@ -23,8 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".ui.article.ArticleActivity" />
-        <activity android:name=".ui.image.ImageActivity" />
+
+        <activity
+            android:name=".ui.image.ImageActivity"
+            android:theme="@style/Theme.Transparent" />
 
     </application>
 

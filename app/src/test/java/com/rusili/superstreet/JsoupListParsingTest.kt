@@ -63,7 +63,7 @@ class JsoupListParsingTest {
     @Test
     fun `Test preview image parsing feature story`(){
         // Given
-        val link = previewList.get(0).header.headerImage.resize(600, 400)
+        val link = previewList.get(0).header.headerImage.resizeToDefaultSize()
         val title = previewList.get(0).header.headerImage.title
 
         // Then
@@ -74,7 +74,7 @@ class JsoupListParsingTest {
     @Test
     fun `Test preview image parsing non-feature story`(){
         // Given
-        val link = previewList.get(1).header.headerImage.resize(600, 400)
+        val link = previewList.get(1).header.headerImage.resizeToDefaultSize()
         val title = previewList.get(1).header.headerImage.title
 
         // Then

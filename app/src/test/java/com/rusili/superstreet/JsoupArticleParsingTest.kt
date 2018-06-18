@@ -93,7 +93,7 @@ class JsoupArticleParsingTest {
     fun `Test article images parsing`() {
         // Given
         val title = article.header.headerImage.title
-        val imgSrc = article.header.headerImage.resize(600, 400)
+        val imgSrc = article.header.headerImage.resizeToDefaultSize()
 
         // Then
         Assert.assertEquals(title, "2005 Porsche Boxster 2007 Porsche Cayman S")

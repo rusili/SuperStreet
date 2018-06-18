@@ -30,9 +30,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/preview_viewholder_image_margin_bottom"
+            android:layout_marginLeft="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/previewThumbnail"
-            tools:text="SuperStreetOnline" />
+            app:layout_constraintTop_toTopOf="@id/previewThumbnail"
+            tools:text="Super Street" />
 
         <TextView
             android:id="@+id/previewType"
@@ -42,8 +43,8 @@
             android:layout_marginLeft="@dimen/preview_viewholder_type_margin_left"
             android:layout_marginTop="@dimen/preview_viewholder_image_margin_bottom"
             app:layout_constraintLeft_toRightOf="@id/previewMag"
-            app:layout_constraintTop_toBottomOf="@id/previewThumbnail"
-            tools:text="Event Coverage" />
+            app:layout_constraintTop_toTopOf="@id/previewThumbnail"
+            tools:text="Event" />
 
         <TextView
             android:id="@+id/previewTitle"
@@ -53,7 +54,7 @@
             android:layout_marginTop="@dimen/preview_viewholder_title_margin_vertical"
             android:maxLines="@integer/preview_description_max_lines"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/previewMag"
+            app:layout_constraintTop_toBottomOf="@id/previewThumbnail"
             tools:text="2005 Boxster 2007 Cayman S - Porsche Pandemic" />
 
         <TextView
