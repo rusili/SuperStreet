@@ -8,6 +8,9 @@ data class ImageGallery(override val id: Int,
     fun resizeToDefaultSize() =
             resize(600, 400)
 
+    fun resizeToGroupSize() =
+            resize(300, 200)
+
     fun resizeTo1920By1280(): String =
             resize(1920, 1280, 90)
 

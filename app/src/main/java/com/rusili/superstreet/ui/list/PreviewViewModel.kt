@@ -23,7 +23,10 @@ class PreviewViewModel(private val usecase: ArticleListUsecase) : BaseViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onNext = { livedata.postValue(LiveDataWrapper(it)) },
-                        onError = { Timber.e(it, "Error getting preview articles.") }
+                        onError = {
+                            livedata.postValue(LiveDataWrapper(null, it))
+                            Timber.e(it, "Error getting preview articles.")
+                        }
                 ))
     }
 }

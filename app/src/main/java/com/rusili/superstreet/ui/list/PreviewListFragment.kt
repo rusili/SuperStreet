@@ -48,11 +48,12 @@ class PreviewListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         fragmentListProgressBar.show()
+        fragmentListSwipeRefresh.isEnabled = false
 
         viewModel.livedata.observe(this, Observer { wrapper ->
             wrapper?.data?.let { previewList ->
                 renderData(previewList)
-            } ?: navigator.showError(wrapper?.error)
+            } ?: showError(wrapper?.error)
         })
     }
 
@@ -62,6 +63,7 @@ class PreviewListFragment : BaseFragment() {
 
         fragmentListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            (layoutManager as LinearLayoutManager).isItemPrefetchEnabled = true
             itemAnimator = DefaultItemAnimator()
             adapter = this@PreviewListFragment.adapter
         }
@@ -74,6 +76,8 @@ class PreviewListFragment : BaseFragment() {
 
     private fun renderData(previewList: List<ArticlePreviewModel>) {
         fragmentListProgressBar.hide()
+        fragmentListSwipeRefresh.isEnabled = true
+
         adapter.submitList(previewList)
         fragmentListSwipeRefresh.isRefreshing = false
     }

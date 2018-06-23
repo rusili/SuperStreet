@@ -9,6 +9,7 @@ import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.common.BaseViewHolder
+import com.rusili.superstreet.ui.util.DateHelper
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.preview_viewholder.*
 
@@ -30,7 +31,7 @@ class PreviewViewHolder(override val containerView: View,
         previewDesc.text = preview.header.desc
         previewMag.text = preview.flag.magazine.value
         previewType.text = preview.flag.type.value
-        previewAuthorTimestamp.text = preview.footer.author.value + " " + preview.footer.author.href + " " + preview.footer.date.toLocaleString()
+        previewAuthorTimestamp.text = preview.footer.author.value + " " + DateHelper.getDateDifferenceString(preview.footer.date)
 
         previewTitle.setOnClickListener { onClick(preview.header.title) }
     }

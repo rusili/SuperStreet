@@ -67,13 +67,12 @@
 
         <TextView
             android:id="@+id/previewAuthorTimestamp"
-            style="@style/PreviewType"
-            android:layout_width="match_parent"
+            style="@style/PreviewTimestamp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preview_viewholder_title_margin_vertical"
-            android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="4dp"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/previewTitle"
-            tools:text="David Ishikawa May 18, 2018" />
+            tools:text="1 week ago" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

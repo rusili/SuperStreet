@@ -4,8 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.rusili.superstreet.R
 import dagger.android.AndroidInjection
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 const val BUNDLE_KEY = "BUNDLE_KEY"
 
@@ -19,6 +22,13 @@ abstract class BaseActivity : AppCompatActivity() {
         container = R.id.activityFragmentContainer
     }
 
+    fun <T> goToActivity(clazz: Class<T>,
+                         value: String? = null) {
+        val intent = Intent(this, clazz)
+        intent.putExtra(BUNDLE_KEY, value)
+        startActivity(intent)
+    }
+
     fun inflateFragment(fragment: Fragment) =
             supportFragmentManager.beginTransaction()
 //            .setCustomAnimations()
@@ -26,19 +36,28 @@ abstract class BaseActivity : AppCompatActivity() {
                     .addToBackStack(fragment.tag)
                     .commit()
 
-    fun showError(error: Throwable? = null) {
-        // TODO: Show specific error using throwable & generic error
+    open fun showError(error: Throwable?) {
+        when (error) {
+            is NoIntentException -> showErrorDialogToFinish()
+            is UnknownHostException -> showNetworkError()
+            is SocketTimeoutException -> showNetworkError()
+            else -> showUnknownError()
+        }
     }
 
-    fun showErrorAndFinish(error: Throwable? = null) {
-        showError(error)
-        finish()
+    private fun showErrorDialogToFinish() {
+        // TODO: Show alert dialog & finish
     }
 
-    fun <T> goToActivity(clazz: Class<T>,
-                         value: String? = null) {
-        val intent = Intent(this, clazz)
-        intent.putExtra(BUNDLE_KEY, value)
-        startActivity(intent)
+    private fun showUnknownError() {
+        window?.decorView?.rootView?.let {
+            Snackbar.make(it, "Error", Snackbar.LENGTH_LONG).show()
+        }
+    }
+
+    private fun showNetworkError() {
+        window?.decorView?.rootView?.let {
+            Snackbar.make(it, "No internet connection", Snackbar.LENGTH_LONG).show()
+        }
     }
 }

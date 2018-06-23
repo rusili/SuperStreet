@@ -6,6 +6,8 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
+private const val TIMEOUT_DURATION = 5000
+
 class ArticleService @Inject constructor(private val articleMapper: ArticleMapper,
                                          private val baseHtml: String)
     : ArticleApi {
@@ -18,7 +20,7 @@ class ArticleService @Inject constructor(private val articleMapper: ArticleMappe
 
     private fun getArticleData(href: String): Single<Document> =
             Single.fromCallable {
-                return@fromCallable Jsoup.connect(baseHtml + href).get()
+                return@fromCallable Jsoup.connect(baseHtml + href).timeout(TIMEOUT_DURATION).get()
             }
 
     private fun parseDocumentToArticle(document: Document): ArticleFullModel =

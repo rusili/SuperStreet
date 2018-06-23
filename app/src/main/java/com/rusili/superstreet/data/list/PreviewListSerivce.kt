@@ -7,6 +7,8 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
+private const val TIMEOUT_DURATION = 5000
+
 class PreviewListSerivce @Inject constructor(private val previewListMapper: PreviewListMapper,
                                              private val baseHtml: String)
     : PreviewListApi {
@@ -19,7 +21,7 @@ class PreviewListSerivce @Inject constructor(private val previewListMapper: Prev
 
     private fun getAllWebsiteData(): Single<Document> =
             Single.fromCallable {
-                return@fromCallable Jsoup.connect(baseHtml).get()
+                return@fromCallable Jsoup.connect(baseHtml).timeout(TIMEOUT_DURATION).get()
             }
 
     private fun parseDocumentToList(document: Document): List<ArticlePreviewModel> =

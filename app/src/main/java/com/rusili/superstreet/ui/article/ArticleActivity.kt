@@ -18,6 +18,7 @@ import androidx.core.app.ActivityOptionsCompat
 import android.content.Intent
 import android.view.View
 import com.bumptech.glide.RequestManager
+import com.rusili.superstreet.ui.common.NoIntentException
 import com.rusili.superstreet.ui.image.ImageActivity
 
 
@@ -43,9 +44,7 @@ class ArticleActivity : BaseActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
         intent.getStringExtra(BUNDLE_KEY)?.let { href ->
             viewModel.getArticle(href)
-        } ?: run {
-            showErrorAndFinish(Throwable("Empty intent"))
-        }
+        } ?: showError(NoIntentException())
     }
 
     override fun onStart() {
@@ -54,7 +53,7 @@ class ArticleActivity : BaseActivity() {
         viewModel.livedata.observe(this, Observer { wrapper ->
             wrapper?.data?.let { article ->
                 renderData(article)
-            } ?: showErrorAndFinish(wrapper?.error)
+            } ?: showError(wrapper?.error)
         })
     }
 

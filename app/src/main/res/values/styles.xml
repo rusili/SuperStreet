@@ -35,6 +35,10 @@
         <item name="android:textColor">@color/white_1000</item>
     </style>
 
+    <style name="PreviewTimestamp" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/colorTextLight</item>
+    </style>
+
     <!-- Article Fragment -->
     <style name="ArticleParagraph">
         <item name="android:textColor">@color/colorTextPrimary</item>

@@ -14,6 +14,16 @@ class DateHelper {
         fun formatToMMMDDYYY(date: Date): String =
                 dateFormat.format(date)
 
+        fun getDateDifferenceString(date: Date): String {
+            val dateDiff = getDateDifference(date)
+
+            var dateDiffString = dateDiff.length.toString() + " " + dateDiff.period.name
+            if (dateDiff.length > 1) {
+                dateDiffString += "s"
+            }
+            return dateDiffString + "ago"
+        }
+
         fun getDateDifference(date: Date): DateDiffWrapper {
             val today = Date()
             val diffInMillis = today.time - date.time
@@ -27,4 +37,7 @@ class DateHelper {
             }
         }
     }
+
+    data class DateDiffWrapper(val length: Long,
+                               val period: TimePeriod)
 }
