@@ -21,7 +21,7 @@ class DateHelper {
             if (dateDiff.length > 1) {
                 dateDiffString += "s"
             }
-            return dateDiffString + "ago"
+            return dateDiffString.toLowerCase() + " ago"
         }
 
         fun getDateDifference(date: Date): DateDiffWrapper {

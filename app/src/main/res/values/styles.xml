@@ -42,6 +42,7 @@
     <!-- Article Fragment -->
     <style name="ArticleParagraph">
         <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:fontFamily">@font/pt_serif</item>
     </style>
 
     <style name="ArticleImageGroup">

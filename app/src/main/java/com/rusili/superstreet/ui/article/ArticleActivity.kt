@@ -18,6 +18,7 @@ import androidx.core.app.ActivityOptionsCompat
 import android.content.Intent
 import android.view.View
 import com.bumptech.glide.RequestManager
+import com.rusili.superstreet.domain.models.body.ArticleHeader
 import com.rusili.superstreet.ui.common.NoIntentException
 import com.rusili.superstreet.ui.image.ImageActivity
 
@@ -35,7 +36,6 @@ class ArticleActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article)
         setupViews()
-        articleProgressBar.show()
 
         activityArticleToolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -43,8 +43,12 @@ class ArticleActivity : BaseActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
         intent.getStringExtra(BUNDLE_KEY)?.let { href ->
+            articleProgressBar.show()
             viewModel.getArticle(href)
-        } ?: showError(NoIntentException())
+        } ?: run {
+            articleProgressBar.hide()
+            showError(NoIntentException())
+        }
     }
 
     override fun onStart() {
@@ -70,6 +74,8 @@ class ArticleActivity : BaseActivity() {
 
     private fun renderData(article: ArticleFullModel) {
         articleProgressBar.hide()
+
+        val articleHeader = ArticleHeader(0, article.header, article.footer, article.flag)
         val combinedList = article.body.combineLists()
         adapter.submitList(combinedList)
     }

@@ -11,7 +11,7 @@ data class Body(val paragraphs: List<Paragraph>,
                 val imagesSingles: List<ImageGallery>,
                 val imagesGroups: List<ImageGroup>) {
 
-    fun combineLists(): List<AbstractBodyModel> {
+    fun combineLists(): List<ArticleModel> {
         val combinedList = ArrayList<AbstractBodyModel>()
         combinedList.addAll(paragraphs)
         combinedList.addAll(imagesSingles)

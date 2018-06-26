@@ -18,6 +18,7 @@ class ArticleAdapter(private val onClick: (View, String) -> Unit,
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): RecyclerView.ViewHolder =
             when (viewType) {
+                ArticleViewType.HEADER.viewType -> ParagraphViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.article_header_viewholder, parent, false));
                 ArticleViewType.PARAGRAPH.viewType -> ParagraphViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.article_paragraph_viewholder, parent, false));
                 ArticleViewType.IMAGE.viewType -> ImageViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.article_image_viewholder, parent, false), onClick, glide);
                 ArticleViewType.IMAGE_GROUP.viewType -> ImageGroupViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.article_imagegroup_viewholder, parent, false));
@@ -30,6 +31,7 @@ class ArticleAdapter(private val onClick: (View, String) -> Unit,
 
     override fun getItemViewType(position: Int) =
             when (getItem(position).getViewType()) {
+                ArticleViewType.HEADER.viewType -> ArticleViewType.HEADER.viewType
                 ArticleViewType.PARAGRAPH.viewType -> ArticleViewType.PARAGRAPH.viewType
                 ArticleViewType.IMAGE.viewType -> ArticleViewType.IMAGE.viewType
                 ArticleViewType.IMAGE_GROUP.viewType -> ArticleViewType.IMAGE_GROUP.viewType

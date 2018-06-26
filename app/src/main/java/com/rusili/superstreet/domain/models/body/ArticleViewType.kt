@@ -2,8 +2,9 @@ package com.rusili.superstreet.domain.models.body
 
 enum class ArticleViewType(val viewType: Int) {
 
-    PARAGRAPH(0),
-    IMAGE(1),
-    IMAGE_GROUP(2),
-    GALLERY(3);
+    HEADER(0),
+    PARAGRAPH(1),
+    IMAGE(2),
+    IMAGE_GROUP(3),
+    GALLERY(4);
 }
