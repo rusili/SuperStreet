@@ -31,8 +31,9 @@ class PreviewViewHolder(override val containerView: View,
         previewDesc.text = preview.header.desc
         previewMag.text = preview.flag.magazine.value
         previewType.text = preview.flag.type.value
-        previewAuthorTimestamp.text = preview.footer.author.value + " " + DateHelper.getDateDifferenceString(preview.footer.date)
+        previewAuthorTimestamp.text = DateHelper.getDateDifferenceString(preview.footer.date)
 
         previewTitle.setOnClickListener { onClick(preview.header.title) }
+        previewThumbnail.setOnClickListener { onClick(preview.header.title) }
     }
 }

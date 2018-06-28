@@ -3,6 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/articleHeaderImageView"
     android:layout_width="match_parent"
-    android:layout_height="256"
+    android:layout_height="256dp"
     android:scaleType="centerCrop"
     tools:src="@tools:sample/backgrounds/scenic" />
