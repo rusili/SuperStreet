@@ -16,17 +16,17 @@ class ImageGroupViewHolder(override val containerView: View)
     override fun bind(model: ImageGroup) {
         Glide.with(containerView)
                 .load(model.imageList[0].resizeToGroupSize())
-                .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(6)))
+                .apply(RequestOptions().transforms(CenterCrop()))
                 .into(imageGroupImage1)
 
         Glide.with(containerView)
                 .load(model.imageList[1].resizeToGroupSize())
-                .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(6)))
+                .apply(RequestOptions().transforms(CenterCrop()))
                 .into(imageGroupImage2)
 
         Glide.with(containerView)
                 .load(model.imageList[2].resizeToGroupSize())
-                .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(6)))
+                .apply(RequestOptions().transforms(CenterCrop()))
                 .into(imageGroupImage3)
 
         // TODO: Add clicklistener to view enlarged headerImage

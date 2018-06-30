@@ -1,7 +1,5 @@
 package com.rusili.superstreet.ui.common
 
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,16 +17,11 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
+        window.enterTransition = null
+        window.exitTransition = null
         super.onCreate(savedInstanceState)
 
         container = R.id.activityFragmentContainer
-    }
-
-    fun <T> goToActivity(clazz: Class<T>,
-                         value: String? = null) {
-        val intent = Intent(this, clazz)
-        intent.putExtra(BUNDLE_KEY, value)
-        startActivity(intent)
     }
 
     fun inflateFragment(fragment: Fragment) =
