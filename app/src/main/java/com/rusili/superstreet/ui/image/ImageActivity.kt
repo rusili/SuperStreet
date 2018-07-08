@@ -5,16 +5,12 @@ import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.rusili.superstreet.ui.common.BUNDLE_KEY
 import com.rusili.superstreet.ui.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_image.*
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
 import com.rusili.superstreet.R
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
 import com.bumptech.glide.request.target.Target
 import timber.log.Timber
 

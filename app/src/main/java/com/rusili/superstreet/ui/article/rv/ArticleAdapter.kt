@@ -21,7 +21,7 @@ class ArticleAdapter(private val onClick: (View, String) -> Unit,
                 ArticleViewType.HEADER.viewType -> HeaderViewHolder(inflate(parent, R.layout.article_header_viewholder), glide);
                 ArticleViewType.PARAGRAPH.viewType -> ParagraphViewHolder(inflate(parent, R.layout.article_paragraph_viewholder));
                 ArticleViewType.IMAGE.viewType -> ImageViewHolder(inflate(parent, R.layout.article_image_viewholder), onClick, glide);
-                ArticleViewType.IMAGE_GROUP.viewType -> ImageGroupViewHolder(inflate(parent, R.layout.article_imagegroup_viewholder));
+                ArticleViewType.IMAGE_GROUP.viewType -> ImageGroupViewHolder(inflate(parent, R.layout.article_imagegroup_viewholder), onClick, glide);
                 else -> ParagraphViewHolder(inflate(parent, R.layout.article_paragraph_viewholder));
             }
 

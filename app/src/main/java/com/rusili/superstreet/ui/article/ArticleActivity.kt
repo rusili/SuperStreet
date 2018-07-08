@@ -85,7 +85,7 @@ class ArticleActivity : BaseActivity() {
         articleRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             itemAnimator = DefaultItemAnimator()
-            adapter = AlphaInAnimationAdapter(this@ArticleActivity.adapter)
+            adapter = this@ArticleActivity.adapter
         }
     }
 
@@ -97,6 +97,7 @@ class ArticleActivity : BaseActivity() {
 
         val combinedList = mutableListOf<AbstractBodyModel>(articleHeader)
         combinedList.addAll(articleBody)
+        articleRecyclerView.adapter = AlphaInAnimationAdapter(this@ArticleActivity.adapter)
         adapter.submitList(combinedList)
     }
 
