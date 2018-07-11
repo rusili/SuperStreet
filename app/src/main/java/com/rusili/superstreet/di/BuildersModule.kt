@@ -21,9 +21,9 @@ abstract class BuildersModule {
     @ContributesAndroidInjector
     abstract fun bindImageActivity(): ImageActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(PreviewListModule::class))
+    @ContributesAndroidInjector(modules = [PreviewListModule::class])
     abstract fun bindArticleListFragment(): PreviewListFragment
 
-    @ContributesAndroidInjector(modules = arrayOf(ArticleModule::class))
+    @ContributesAndroidInjector(modules = [ArticleModule::class])
     abstract fun bindArticleActivity(): ArticleActivity
 }

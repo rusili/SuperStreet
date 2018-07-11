@@ -15,9 +15,9 @@ import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.common.BaseFragment
 import com.rusili.superstreet.ui.list.di.PreviewListViewModelFactory
 import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
 import javax.inject.Inject
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 
 class PreviewListFragment : BaseFragment() {
     @Inject

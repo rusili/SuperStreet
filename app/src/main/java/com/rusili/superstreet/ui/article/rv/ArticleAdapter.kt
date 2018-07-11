@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
-import com.rusili.superstreet.domain.models.body.ArticleViewType
 import com.rusili.superstreet.domain.models.body.AbstractBodyModel
+import com.rusili.superstreet.domain.models.body.ArticleViewType
 import com.rusili.superstreet.ui.common.BaseViewHolder
 
 class ArticleAdapter(private val onClick: (View, String) -> Unit,

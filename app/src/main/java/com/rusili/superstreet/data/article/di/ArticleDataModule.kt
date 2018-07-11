@@ -1,11 +1,15 @@
-package com.rusili.superstreet.data.article
+package com.rusili.superstreet.data.article.di
 
+import com.rusili.superstreet.data.article.ArticleApi
+import com.rusili.superstreet.data.article.ArticleMapper
+import com.rusili.superstreet.data.article.ArticleRepositoryImpl
+import com.rusili.superstreet.data.article.ArticleService
 import com.rusili.superstreet.data.di.DataModule
 import com.rusili.superstreet.domain.article.ArticleRepository
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = arrayOf(DataModule::class))
+@Module(includes = [DataModule::class])
 class ArticleDataModule {
 
     @Provides

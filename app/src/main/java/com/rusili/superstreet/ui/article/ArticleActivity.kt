@@ -1,29 +1,29 @@
 package com.rusili.superstreet.ui.article
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.article.ArticleFullModel
+import com.rusili.superstreet.domain.models.body.AbstractBodyModel
+import com.rusili.superstreet.domain.models.body.ArticleHeader
 import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
 import com.rusili.superstreet.ui.article.rv.ArticleAdapter
 import com.rusili.superstreet.ui.common.BUNDLE_KEY
 import com.rusili.superstreet.ui.common.BaseActivity
-import kotlinx.android.synthetic.main.activity_article.*
-import javax.inject.Inject
-import androidx.core.app.ActivityOptionsCompat
-import android.content.Intent
-import android.view.MenuItem
-import android.view.View
-import com.bumptech.glide.RequestManager
-import com.rusili.superstreet.domain.models.body.AbstractBodyModel
-import com.rusili.superstreet.domain.models.body.ArticleHeader
 import com.rusili.superstreet.ui.common.NoIntentException
 import com.rusili.superstreet.ui.image.ImageActivity
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
+import kotlinx.android.synthetic.main.activity_article.*
+import javax.inject.Inject
 
 class ArticleActivity : BaseActivity() {
     @Inject

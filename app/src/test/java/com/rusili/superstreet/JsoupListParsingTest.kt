@@ -1,13 +1,12 @@
 package com.rusili.superstreet
 
-import com.rusili.superstreet.data.util.FlagMapper
 import com.rusili.superstreet.data.list.PreviewListMapper
+import com.rusili.superstreet.data.util.FlagMapper
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import org.jsoup.Jsoup
 import org.junit.Assert
-import org.junit.Test
-
 import org.junit.Before
+import org.junit.Test
 import java.io.File
 
 class JsoupListParsingTest {
