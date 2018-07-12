@@ -13,15 +13,15 @@ class PreviewListSerivce @Inject constructor(private val previewListMapper: Prev
                                              private val baseHtml: String)
     : PreviewListApi {
 
-    override fun getArticleStream(): Flowable<List<ArticlePreviewModel>> =
-            getAllWebsiteData().toFlowable()
+    override fun getArticleStream(page: String?): Flowable<List<ArticlePreviewModel>> =
+            getAllWebsiteData(page).toFlowable()
                     .map { document ->
                         return@map parseDocumentToList(document)
                     }
 
-    private fun getAllWebsiteData(): Single<Document> =
+    private fun getAllWebsiteData(page: String?): Single<Document> =
             Single.fromCallable {
-                return@fromCallable Jsoup.connect(baseHtml).timeout(TIMEOUT_DURATION).get()
+                return@fromCallable Jsoup.connect(baseHtml + page).timeout(TIMEOUT_DURATION).get()
             }
 
     private fun parseDocumentToList(document: Document): List<ArticlePreviewModel> =
