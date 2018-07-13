@@ -10,10 +10,10 @@ import dagger.Provides
 class PreviewListModule() {
 
     @Provides
-    fun provideArticleListViewModelFactory(usecase: ArticleListUsecase) =
-            PreviewListViewModelFactory(usecase)
+    fun provideArticleListViewModelFactory(dataSourceFactory: ArticleListDataSourceFactory) =
+            PreviewListViewModelFactory(dataSourceFactory)
 
     @Provides
     protected fun provideArticleListDataSourceFactory(repository: ArticleListRepository) =
-            ArticleListDataSourceFactory()
+            ArticleListDataSourceFactory(repository).create()
 }

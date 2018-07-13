@@ -13,11 +13,11 @@ import dagger.Provides
 class ArticleDataModule {
 
     @Provides
-    fun provideArticleApi(BASE_HTML: String,
-                          mapper: ArticleMapper): ArticleApi =
-            ArticleService(mapper, BASE_HTML)
-
-    @Provides
     fun provideArticleRepository(api: ArticleApi): ArticleRepository =
             ArticleRepositoryImpl(api)
+
+    @Provides
+    protected fun provideArticleApi(BASE_HTML: String,
+                          mapper: ArticleMapper): ArticleApi =
+            ArticleService(mapper, BASE_HTML)
 }

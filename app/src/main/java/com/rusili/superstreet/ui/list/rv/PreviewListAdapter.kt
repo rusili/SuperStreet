@@ -12,7 +12,7 @@ import com.rusili.superstreet.domain.models.header.Title
 
 class PreviewListAdapter(private val onClick: (View, Title) -> Unit,
                          private val glide: RequestManager)
-    : ListAdapter<ArticlePreviewModel, PreviewViewHolder>(PreviewDiffCallback()) {
+    : PagedListAdapter<ArticlePreviewModel, PreviewViewHolder>(PreviewDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): PreviewViewHolder {

@@ -11,11 +11,11 @@ class PreviewViewModel(dataSourceFactory: ArticleListDataSourceFactory) : BaseVi
     val livedata: LiveData<PagedList<ArticlePreviewModel>>
 
     init {
-        ArticleListDataSourceFactory().create()
         val pagedListConfig = PagedList.Config.Builder()
-                .setEnablePlaceholders(false)
-                .setInitialLoadSizeHint(10)
-                .setPageSize(10)
+                .setEnablePlaceholders(true)
+                .setInitialLoadSizeHint(1)
+                .setPageSize(1)
+                .setPrefetchDistance(2)
                 .build()
         livedata = LivePagedListBuilder(dataSourceFactory, pagedListConfig).build()
     }

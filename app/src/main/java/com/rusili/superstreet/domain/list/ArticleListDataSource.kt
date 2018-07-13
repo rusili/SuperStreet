@@ -3,22 +3,24 @@ package com.rusili.superstreet.domain.list
 import androidx.paging.PageKeyedDataSource
 import io.reactivex.disposables.CompositeDisposable
 
-class ArticleListDataSource(private val disposable: CompositeDisposable,
-                            private val articleListRepository: ArticleListRepository,
-                            private val searchTerm: String)
-    : PageKeyedDataSource<String, ArticlePreviewModel>() {
+private const val PAGE_PATH = "page-"
+private const val BACKSLASH = "/"
 
-    override fun loadInitial(params: LoadInitialParams<String>,
-                             callback: LoadInitialCallback<String, ArticlePreviewModel>) {
-        params.
+class ArticleListDataSource(private val articleListRepository: ArticleListRepository)
+    : PageKeyedDataSource<Int, ArticlePreviewModel>() {
+
+    override fun loadInitial(params: LoadInitialParams<Int>,
+                             callback: LoadInitialCallback<Int, ArticlePreviewModel>) =
+            callback.onResult(articleListRepository.getArticleStream(), 1, 2)
+
+    override fun loadAfter(params: LoadParams<Int>,
+                           callback: LoadCallback<Int, ArticlePreviewModel>) =
+            callback.onResult(articleListRepository.getArticleStream(pageToPath(params.key)), params.key + 1)
+
+    override fun loadBefore(params: LoadParams<Int>,
+                            callback: LoadCallback<Int, ArticlePreviewModel>) {
     }
 
-    override fun loadAfter(params: LoadParams<String>,
-                           callback: LoadCallback<String, ArticlePreviewModel>) {
-    }
-
-    override fun loadBefore(params: LoadParams<String>,
-                            callback: LoadCallback<String, ArticlePreviewModel>) {
-    }
-
+    fun pageToPath(page: Int) =
+            PAGE_PATH + page + BACKSLASH
 }

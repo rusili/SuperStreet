@@ -4,11 +4,9 @@ import androidx.paging.DataSource
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class ArticleListDataSourceFactory @Inject constructor(private val disposable: CompositeDisposable,
-                                                       private val repository: ArticleListRepository,
-                                                       private val searchTerm: String)
-    : DataSource.Factory<String, ArticlePreviewModel>() {
+class ArticleListDataSourceFactory @Inject constructor(private val repository: ArticleListRepository)
+    : DataSource.Factory<Int, ArticlePreviewModel>() {
 
-    override fun create(): DataSource<String, ArticlePreviewModel> =
-            ArticleListDataSource(disposable, repository, searchTerm)
+    override fun create(): DataSource<Int, ArticlePreviewModel> =
+            ArticleListDataSource(repository)
 }
