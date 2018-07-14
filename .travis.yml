@@ -4,5 +4,7 @@ android:
     - tools
     - platform-tools
     - tools
+    - build-tools-27.0.3
+    - android-27
 after_success:
   - bash <(curl -s https://codecov.io/bash)
