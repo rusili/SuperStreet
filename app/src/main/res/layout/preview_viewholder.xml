@@ -56,22 +56,22 @@
             app:layout_constraintTop_toTopOf="@id/previewThumbnail"
             tools:text="Event" />
 
-        <TextView
-            android:id="@+id/previewTitle"
-            style="@style/PreviewTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preview_viewholder_title_margin_vertical"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:maxLines="@integer/preview_description_max_lines"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="4dp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/previewThumbnail"
-            tools:text="2005 Boxster 2007 Cayman S - Porsche Pandemic" />
+            <TextView
+                android:id="@+id/previewTitle"
+                style="@style/PreviewTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preview_viewholder_title_margin_vertical"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:maxLines="@integer/preview_description_max_lines"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="4dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/previewThumbnail"
+                tools:text="2005 Boxster 2007 Cayman S - Porsche Pandemic" />
 
         <TextView
             android:id="@+id/previewDesc"

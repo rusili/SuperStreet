@@ -6,13 +6,13 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class ArticleModule(){
-
-    @Provides
-    fun provideArticleUsecase(repository: ArticleRepository) =
-            ArticleUsecase(repository)
+class ArticleModule {
 
     @Provides
     fun provideArticleViewModelFactory(usecase: ArticleUsecase) =
             ArticleViewModelFactory(usecase)
+
+    @Provides
+    protected fun provideArticleUsecase(repository: ArticleRepository) =
+            ArticleUsecase(repository)
 }

@@ -1,14 +1,8 @@
 package com.rusili.superstreet
 
-import com.rusili.superstreet.data.article.ArticleMapper
-import com.rusili.superstreet.data.util.FlagMapper
-import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.models.body.Paragraph
-import org.jsoup.Jsoup
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
-import java.io.File
 
 class AbstractBodyModelTest {
 

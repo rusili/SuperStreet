@@ -22,12 +22,13 @@ class PreviewListMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper
         val topStoryElement = mainColumn.getElementsByClass(LIST.TOP_STORY.value).first()
         val stories = mainColumn.getElementsByClass(LIST.STORIES_CONTAINER.value).first()
 
-        val topStoryFlag = parseFlagElement(topStoryElement)
-        val topStoryHeader = parseFeatureHeaderElement(topStoryElement)
-        val topStoryFooter = parseFooterElement(topStoryElement)
-        val topStoryArticlePreviewModel = ArticlePreviewModel(topStoryFlag, topStoryHeader, topStoryFooter)
-
-        previewsList.add(topStoryArticlePreviewModel)
+        topStoryElement?.let {
+            val topStoryFlag = parseFlagElement(topStoryElement)
+            val topStoryHeader = parseFeatureHeaderElement(topStoryElement)
+            val topStoryFooter = parseFooterElement(topStoryElement)
+            val topStoryArticlePreviewModel = ArticlePreviewModel(topStoryFlag, topStoryHeader, topStoryFooter)
+            previewsList.add(topStoryArticlePreviewModel)
+        }
 
         for (story in stories.children()) {
             if (story.hasClass(LIST.PART_ITEM.value) || story.hasClass(LIST.PART_HERO.value)) {

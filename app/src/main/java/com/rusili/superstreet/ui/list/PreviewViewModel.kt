@@ -1,32 +1,22 @@
 package com.rusili.superstreet.ui.list
 
-import androidx.lifecycle.MutableLiveData
-import com.rusili.superstreet.domain.list.ArticleListUsecase
+import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.rusili.superstreet.domain.list.ArticleListDataSourceFactory
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.ui.common.BaseViewModel
-import com.rusili.superstreet.ui.util.LiveDataWrapper
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 
-class PreviewViewModel(private val usecase: ArticleListUsecase) : BaseViewModel() {
-    val livedata = MutableLiveData<LiveDataWrapper<List<ArticlePreviewModel>>>()
+class PreviewViewModel(dataSourceFactory: ArticleListDataSourceFactory) : BaseViewModel() {
+    val livedata: LiveData<PagedList<ArticlePreviewModel>>
 
-    fun refresh() {
-        getArticleList()
-    }
-
-    private fun getArticleList() {
-        addDisposable(usecase.getArticleStream()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onNext = { livedata.postValue(LiveDataWrapper(it)) },
-                        onError = {
-                            livedata.postValue(LiveDataWrapper(null, it))
-                            Timber.e(it, "Error getting preview articles.")
-                        }
-                ))
+    init {
+        val pagedListConfig = PagedList.Config.Builder()
+                .setEnablePlaceholders(true)
+                .setInitialLoadSizeHint(1)
+                .setPageSize(1)
+                .setPrefetchDistance(2)
+                .build()
+        livedata = LivePagedListBuilder(dataSourceFactory, pagedListConfig).build()
     }
 }
