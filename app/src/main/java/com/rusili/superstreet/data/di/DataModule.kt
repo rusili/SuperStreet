@@ -12,7 +12,7 @@ import dagger.Provides
 class DataModule {
 
     @Provides
-    fun provideBaseHtml() = "http://www.superstreetonline.com/"
+    fun provideBaseHtml() = "http://www.superstreetonline.com"
 
     @Provides
     fun provideFlagMapper() =

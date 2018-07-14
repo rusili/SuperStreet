@@ -40,6 +40,13 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    open fun showSnackbar(message: String,
+                          length: Int = -1) {
+        window?.decorView?.rootView?.let {
+            Snackbar.make(it, message, length).show()
+        }
+    }
+
     private fun showErrorDialogToFinish() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage("Error")
@@ -50,15 +57,7 @@ abstract class BaseActivity : AppCompatActivity() {
         builder.create().show()
     }
 
-    private fun showUnknownError() {
-        window?.decorView?.rootView?.let {
-            Snackbar.make(it, "Error", Snackbar.LENGTH_LONG).show()
-        }
-    }
+    private fun showUnknownError() = showSnackbar("Unknown Error")
 
-    private fun showNetworkError() {
-        window?.decorView?.rootView?.let {
-            Snackbar.make(it, "No internet connection", Snackbar.LENGTH_LONG).show()
-        }
-    }
+    private fun showNetworkError() = showSnackbar("No internet connection", Snackbar.LENGTH_LONG)
 }

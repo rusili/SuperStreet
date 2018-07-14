@@ -4,9 +4,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 ext {
-    lifecycleVersion = "1.1.1"
-    persistenceVersion = "1.1.0"
-    pagingVersion = "1.0.0"
+    materialVersion = "1.0.0-beta01"
+    materialVersion = "1.0.0-beta01"
+    lifecycleVersion = "2.0.0-beta01"
+    roomVersion = "2.0.0-beta01"
+    pagingVersion = "2.0.0-beta01"
+    constraintVersion = "1.1.2"
 
     rxJavaVersion = "2.1.6"
     rxAndroidVersion = "2.0.2"
@@ -57,7 +60,7 @@ androidExtensions {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Experimental:
-    implementation 'com.google.android.material:material:1.0.0-beta01'
+    implementation "com.google.android.material:material:$materialVersion"
 
     // UI:
     implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
@@ -70,18 +73,18 @@ dependencies {
     implementation "androidx.annotation:annotation:1.0.0-beta01"
     implementation "androidx.appcompat:appcompat:1.0.0-beta01"
     implementation "androidx.recyclerview:recyclerview:1.0.0-beta01"
-    implementation "androidx.constraintlayout:constraintlayout:1.1.2"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintVersion"
 
     // Android Lifecycle:
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-beta01'
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
 
     // Android Room:
-    implementation 'androidx.room:room-runtime:2.0.0-beta01'
-    implementation 'androidx.room:room-rxjava2:2.0.0-beta01'
-    kapt 'androidx.room:room-compiler:2.0.0-beta01'
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-rxjava2:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 
     // Android Paging:
-    implementation 'androidx.paging:paging-runtime:2.0.0-beta01'
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
     implementation "android.arch.paging:rxjava2:1.0.1"
 
     // Glide:
