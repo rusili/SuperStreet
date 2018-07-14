@@ -5,4 +5,5 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/article_viewholder_image_height"
     android:scaleType="centerCrop"
+    android:transitionName="@string/transition_to_article"
     tools:src="@tools:sample/backgrounds/scenic" />

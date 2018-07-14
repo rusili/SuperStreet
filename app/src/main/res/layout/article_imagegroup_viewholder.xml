@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/articleImageGroup"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/article_viewholder_image_height">
+    android:layout_height="@dimen/article_viewholder_imagegroup_height">
 
     <ImageView
         android:id="@+id/imageGroupImage1"

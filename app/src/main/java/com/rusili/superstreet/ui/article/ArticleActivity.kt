@@ -16,12 +16,14 @@ import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 import androidx.core.app.ActivityOptionsCompat
 import android.content.Intent
+import android.view.MenuItem
 import android.view.View
 import com.bumptech.glide.RequestManager
+import com.rusili.superstreet.domain.models.body.AbstractBodyModel
 import com.rusili.superstreet.domain.models.body.ArticleHeader
 import com.rusili.superstreet.ui.common.NoIntentException
 import com.rusili.superstreet.ui.image.ImageActivity
-
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 
 class ArticleActivity : BaseActivity() {
     @Inject
@@ -61,6 +63,21 @@ class ArticleActivity : BaseActivity() {
         })
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                supportFinishAfterTransition()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        supportFinishAfterTransition()
+        super.onBackPressed()
+    }
+
     private fun setupViews() {
         glide = Glide.with(this)
         adapter = ArticleAdapter(onClick, glide)
@@ -76,7 +93,11 @@ class ArticleActivity : BaseActivity() {
         articleProgressBar.hide()
 
         val articleHeader = ArticleHeader(0, article.header, article.footer, article.flag)
-        val combinedList = article.body.combineLists()
+        val articleBody = article.body.combineLists()
+
+        val combinedList = mutableListOf<AbstractBodyModel>(articleHeader)
+        combinedList.addAll(articleBody)
+        articleRecyclerView.adapter = AlphaInAnimationAdapter(this@ArticleActivity.adapter)
         adapter.submitList(combinedList)
     }
 
@@ -86,7 +107,7 @@ class ArticleActivity : BaseActivity() {
 
         val intent = Intent(this, ImageActivity::class.java)
         intent.putExtra(BUNDLE_KEY, href)
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, getString(R.string.transition_image))
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, getString(R.string.transition_to_image))
         startActivity(intent, options.toBundle())
     }
 }

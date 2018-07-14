@@ -24,5 +24,7 @@
     <!-- transparent -->
     <color name="black_10_1000">#16000000</color>
     <color name="black_20_1000">#32000000</color>
+    <color name="black_50_1000">#80000000</color>
+    <color name="black_90_1000">#E6000000</color>
 
 </resources>

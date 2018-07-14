@@ -2,12 +2,14 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.MaterialComponents.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/preview_viewholder_margin_horizontal"
-    android:layout_marginTop="@dimen/preview_viewholder_margin_vertical"
-    android:layout_marginRight="@dimen/preview_viewholder_margin_horizontal"
-    app:cardBackgroundColor="@color/grey_50"
+    android:layout_marginLeft="@dimen/mtrl_card_spacing"
+    android:layout_marginTop="@dimen/mtrl_card_spacing"
+    android:layout_marginRight="@dimen/mtrl_card_spacing"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="2dp"
     app:cardElevation="@dimen/preview_viewholder_card_elevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +21,8 @@
             android:id="@+id/previewThumbnail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/preview_viewholder_image_height"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:scaleType="centerCrop"
@@ -33,6 +37,7 @@
             android:paddingLeft="12dp"
             android:paddingTop="@dimen/preview_viewholder_image_margin_bottom"
             android:paddingBottom="12dp"
+            android:transitionName="@string/transition_to_article"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@id/previewThumbnail"
             tools:text="Super Street" />
@@ -57,7 +62,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/preview_viewholder_title_margin_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:maxLines="@integer/preview_description_max_lines"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="4dp"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/previewThumbnail"
             tools:text="2005 Boxster 2007 Cayman S - Porsche Pandemic" />
@@ -76,7 +87,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            app:layout_constraintRight_toRightOf="parent"
+            android:paddingLeft="16dp"
+            android:paddingBottom="12dp"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/previewTitle"
             tools:text="1 week ago" />
     </androidx.constraintlayout.widget.ConstraintLayout>

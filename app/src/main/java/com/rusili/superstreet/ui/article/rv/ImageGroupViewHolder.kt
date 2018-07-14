@@ -1,34 +1,26 @@
 package com.rusili.superstreet.ui.article.rv
 
 import android.view.View
-import com.bumptech.glide.Glide
+import android.widget.ImageView
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.rusili.superstreet.R
+import com.rusili.superstreet.domain.models.body.ImageGallery
 import com.rusili.superstreet.domain.models.body.ImageGroup
+import com.rusili.superstreet.ui.common.BaseImageViewHolder
 import com.rusili.superstreet.ui.common.BaseViewHolder
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.article_imagegroup_viewholder.*
 
-class ImageGroupViewHolder(override val containerView: View)
-    : BaseViewHolder<ImageGroup>(containerView), LayoutContainer {
+class ImageGroupViewHolder(override val containerView: View,
+                           override val onClick: (View, String) -> Unit,
+                           override val glide: RequestManager)
+    : BaseImageViewHolder<ImageGroup>(containerView, onClick, glide), LayoutContainer {
 
     override fun bind(model: ImageGroup) {
-        Glide.with(containerView)
-                .load(model.imageList[0].resizeToGroupSize())
-                .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(6)))
-                .into(imageGroupImage1)
-
-        Glide.with(containerView)
-                .load(model.imageList[1].resizeToGroupSize())
-                .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(6)))
-                .into(imageGroupImage2)
-
-        Glide.with(containerView)
-                .load(model.imageList[2].resizeToGroupSize())
-                .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(6)))
-                .into(imageGroupImage3)
-
-        // TODO: Add clicklistener to view enlarged headerImage
+        loadImage(model.imageList[0], imageGroupImage1)
+        loadImage(model.imageList[1], imageGroupImage2)
+        loadImage(model.imageList[2], imageGroupImage3)
     }
 }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -18,6 +17,7 @@ import com.rusili.superstreet.ui.list.di.PreviewListViewModelFactory
 import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
 import javax.inject.Inject
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 
 class PreviewListFragment : BaseFragment() {
     @Inject
@@ -25,7 +25,7 @@ class PreviewListFragment : BaseFragment() {
     private lateinit var viewModel: PreviewViewModel
 
     private lateinit var adapter: PreviewListAdapter
-    private val onClick: (Title) -> Unit = this::onTitleClicked
+    private val onClick: (View, Title) -> Unit = this::onTitleClicked
     private lateinit var glide: RequestManager
 
     companion object {
@@ -64,8 +64,7 @@ class PreviewListFragment : BaseFragment() {
         fragmentListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             (layoutManager as LinearLayoutManager).isItemPrefetchEnabled = true
-            itemAnimator = DefaultItemAnimator()
-            adapter = this@PreviewListFragment.adapter
+            adapter = AlphaInAnimationAdapter(this@PreviewListFragment.adapter)
         }
 
         fragmentListSwipeRefresh.apply {
@@ -82,7 +81,8 @@ class PreviewListFragment : BaseFragment() {
         fragmentListSwipeRefresh.isRefreshing = false
     }
 
-    private fun onTitleClicked(title: Title) {
-        navigator.goToArticle(title.href)
+    private fun onTitleClicked(view: View,
+                               title: Title) {
+        navigator.goToArticle(view, title.href)
     }
 }

@@ -14,7 +14,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.preview_viewholder.*
 
 class PreviewViewHolder(override val containerView: View,
-                        private val onClick: (Title) -> Unit,
+                        private val onClick: (View, Title) -> Unit,
                         private val glide: RequestManager)
     : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
 
@@ -31,8 +31,9 @@ class PreviewViewHolder(override val containerView: View,
         previewDesc.text = preview.header.desc
         previewMag.text = preview.flag.magazine.value
         previewType.text = preview.flag.type.value
-        previewAuthorTimestamp.text = preview.footer.author.value + " " + DateHelper.getDateDifferenceString(preview.footer.date)
+        previewAuthorTimestamp.text = DateHelper.getDateDifferenceString(preview.footer.date)
 
-        previewTitle.setOnClickListener { onClick(preview.header.title) }
+        previewTitle.setOnClickListener { onClick(containerView, preview.header.title) }
+        previewThumbnail.setOnClickListener { onClick(containerView, preview.header.title) }
     }
 }

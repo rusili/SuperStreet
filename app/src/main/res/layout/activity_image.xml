@@ -1,9 +1,9 @@
 <com.github.chrisbanes.photoview.PhotoView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_photoView"
+    android:id="@+id/activityPhotoView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/black_1000"
-    android:transitionName="@string/transition_image"
+    android:background="@color/black_90_1000"
+    android:transitionName="@string/transition_to_image"
     tools:src="@tools:sample/backgrounds/scenic" />

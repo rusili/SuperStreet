@@ -52,27 +52,32 @@ androidExtensions {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Experimental:
-    implementation 'com.google.android.material:material:1.0.0-alpha3'
+    implementation 'com.google.android.material:material:1.0.0-beta01'
+
+    // UI:
+    implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
+    implementation 'com.ethanhua:skeleton:1.1.1'
+    implementation 'io.supercharge:shimmerlayout:2.1.0'
 
     // Android:
-    implementation "androidx.core:core:1.0.0-alpha3"
-    implementation "androidx.arch.core:core-common:2.0.0-alpha1"
-    implementation "androidx.annotation:annotation:1.0.0-alpha3"
-    implementation "androidx.appcompat:appcompat:1.0.0-alpha3"
-    implementation "androidx.recyclerview:recyclerview:1.0.0-alpha3"
+    implementation "androidx.core:core:1.0.0-beta01"
+    implementation "androidx.arch.core:core-common:2.0.0-beta01"
+    implementation "androidx.annotation:annotation:1.0.0-beta01"
+    implementation "androidx.appcompat:appcompat:1.0.0-beta01"
+    implementation "androidx.recyclerview:recyclerview:1.0.0-beta01"
     implementation "androidx.constraintlayout:constraintlayout:1.1.2"
 
     // Android Lifecycle:
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-alpha1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-beta01'
 
     // Android Room:
-    implementation 'androidx.room:room-runtime:2.0.0-alpha1'
-    implementation 'androidx.room:room-rxjava2:2.0.0-alpha1'
-    kapt 'androidx.room:room-compiler:2.0.0-alpha1'
+    implementation 'androidx.room:room-runtime:2.0.0-beta01'
+    implementation 'androidx.room:room-rxjava2:2.0.0-beta01'
+    kapt 'androidx.room:room-compiler:2.0.0-beta01'
 
     // Android Paging:
-    implementation 'androidx.paging:paging-runtime:2.0.0-alpha1'
-    implementation "android.arch.paging:rxjava2:1.0.0-rc1"
+    implementation 'androidx.paging:paging-runtime:2.0.0-beta01'
+    implementation "android.arch.paging:rxjava2:1.0.1"
 
     // Glide:
     implementation("com.github.bumptech.glide:glide:$glideVersion") {
@@ -113,8 +118,8 @@ dependencies {
     // Testing:
     testImplementation 'junit:junit:4.12'
     testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
-    testImplementation 'androidx.arch.core:core-testing:2.0.0-alpha1'
-    testImplementation 'androidx.paging:paging-common:2.0.0-alpha1'
+    testImplementation 'androidx.arch.core:core-testing:2.0.0-beta01'
+    testImplementation 'androidx.paging:paging-common:2.0.0-beta01'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
 }
