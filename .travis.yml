@@ -1,3 +1,5 @@
+sudo: false
+
 language: android
 jdk: oraclejdk8
 android:
@@ -12,5 +14,10 @@ before_install:
     # TODO: Remove when travis supports android 27
     # https://github.com/travis-ci/travis-ci/issues/8874
     - yes | sdkmanager "platforms;android-27"
+    - yes | sdkmanager "platforms;android-28"
+    
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  
+licenses:
+  - '.+'
