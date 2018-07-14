@@ -25,7 +25,7 @@ class PreviewListFragment : BaseFragment() {
     private lateinit var viewModel: PreviewViewModel
 
     private lateinit var adapter: PreviewListAdapter
-    private val onClick: (Title) -> Unit = this::onTitleClicked
+    private val onClick: (View, Title) -> Unit = this::onTitleClicked
     private lateinit var glide: RequestManager
 
     companion object {
@@ -82,7 +82,8 @@ class PreviewListFragment : BaseFragment() {
         fragmentListSwipeRefresh.isRefreshing = false
     }
 
-    private fun onTitleClicked(title: Title) {
-        navigator.goToArticle(title.href)
+    private fun onTitleClicked(view: View,
+                               title: Title) {
+        navigator.goToArticle(view, title.href)
     }
 }

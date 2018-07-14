@@ -37,6 +37,7 @@
             android:paddingLeft="12dp"
             android:paddingTop="@dimen/preview_viewholder_image_margin_bottom"
             android:paddingBottom="12dp"
+            android:transitionName="@string/transition_to_article"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@id/previewThumbnail"
             tools:text="Super Street" />

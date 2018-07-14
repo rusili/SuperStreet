@@ -11,6 +11,7 @@ import com.rusili.superstreet.domain.models.body.ArticleHeader
 import com.rusili.superstreet.domain.models.body.ImageGallery
 import com.rusili.superstreet.ui.common.BaseViewHolder
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.article_header_viewholder.*
 import kotlinx.android.synthetic.main.article_image_viewholder.*
 
 class HeaderViewHolder(override val containerView: View,
@@ -20,9 +21,12 @@ class HeaderViewHolder(override val containerView: View,
     override fun bind(model: ArticleHeader) {
         val requestOptions = RequestOptions().placeholder(R.drawable.bg_placeholder)
                 .error(R.drawable.ic_error_outline_black_24dp)
-                .transforms(CenterCrop(), RoundedCorners(12))
+                .transforms(CenterCrop())
 
         glide.load(model.header.headerImage.resizeToDefaultSize())
                 .apply(requestOptions)
+                .into(articleHeaderImageView)
+
+        articleHeaderTitle.text = model.header.title.value
     }
 }

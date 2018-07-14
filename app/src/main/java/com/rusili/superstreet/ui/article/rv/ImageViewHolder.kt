@@ -19,7 +19,7 @@ class ImageViewHolder(override val containerView: View,
     override fun bind(model: ImageGallery) {
         val requestOptions = RequestOptions().placeholder(R.drawable.bg_placeholder)
                 .error(R.drawable.ic_error_outline_black_24dp)
-                .transforms(CenterCrop(), RoundedCorners(12))
+                .transforms(CenterCrop())
 
         glide.load(model.resizeToDefaultSize())
                 .apply(requestOptions)
