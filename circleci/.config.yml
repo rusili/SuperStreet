@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-28-alpha
+      - image: circleci/android:api-27-alpha
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
@@ -11,6 +11,8 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
+          sdkmanager --install "ndk-bundle"
+          sdkmanager --licenses
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache:
