@@ -23,7 +23,7 @@ ext {
 }
 
 android {
-    compileSdkVersion 'android-P'
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.rusili.superstreet"
         minSdkVersion 21
