@@ -8,6 +8,6 @@ import javax.inject.Inject
 class PreviewListRepositoryImpl @Inject constructor(private val api: PreviewListApi)
     : ArticleListRepository {
 
-    override fun getArticleStream(): Flowable<List<ArticlePreviewModel>> =
-            api.getArticleStream()
+    override fun getArticleStream(page: String?): List<ArticlePreviewModel> =
+            api.getArticleStream(page)
 }

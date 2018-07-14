@@ -1,18 +1,19 @@
 package com.rusili.superstreet.ui.list.di
 
+import com.rusili.superstreet.domain.list.ArticleListDataSourceFactory
 import com.rusili.superstreet.domain.list.ArticleListRepository
 import com.rusili.superstreet.domain.list.ArticleListUsecase
 import dagger.Module
 import dagger.Provides
 
 @Module
-class PreviewListModule(){
+class PreviewListModule() {
 
     @Provides
-    fun provideArticleListUsecase(repository: ArticleListRepository) =
-            ArticleListUsecase(repository)
+    fun provideArticleListViewModelFactory(dataSourceFactory: ArticleListDataSourceFactory) =
+            PreviewListViewModelFactory(dataSourceFactory)
 
     @Provides
-    fun provideArticleListViewModelFactory(usecase: ArticleListUsecase) =
-            PreviewListViewModelFactory(usecase)
+    protected fun provideArticleListDataSourceFactory(repository: ArticleListRepository) =
+            ArticleListDataSourceFactory(repository).create()
 }

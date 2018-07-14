@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -15,9 +16,9 @@ import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.common.BaseFragment
 import com.rusili.superstreet.ui.list.di.PreviewListViewModelFactory
 import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
 import javax.inject.Inject
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 
 class PreviewListFragment : BaseFragment() {
     @Inject
@@ -35,7 +36,6 @@ class PreviewListFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(PreviewViewModel::class.java)
-        viewModel.refresh()
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -50,10 +50,10 @@ class PreviewListFragment : BaseFragment() {
         fragmentListProgressBar.show()
         fragmentListSwipeRefresh.isEnabled = false
 
-        viewModel.livedata.observe(this, Observer { wrapper ->
-            wrapper?.data?.let { previewList ->
+        viewModel.livedata.observe(this, Observer { list ->
+            list?.let { previewList ->
                 renderData(previewList)
-            } ?: showError(wrapper?.error)
+            }
         })
     }
 
@@ -67,13 +67,13 @@ class PreviewListFragment : BaseFragment() {
             adapter = AlphaInAnimationAdapter(this@PreviewListFragment.adapter)
         }
 
-        fragmentListSwipeRefresh.apply {
-            setProgressViewOffset(false, 150, 250)
-            setOnRefreshListener { viewModel.refresh() }
-        }
+//        fragmentListSwipeRefresh.apply {
+//            setProgressViewOffset(false, 150, 250)
+//            setOnRefreshListener { viewModel.refresh() }
+//        }
     }
 
-    private fun renderData(previewList: List<ArticlePreviewModel>) {
+    private fun renderData(previewList: PagedList<ArticlePreviewModel>) {
         fragmentListProgressBar.hide()
         fragmentListSwipeRefresh.isEnabled = true
 

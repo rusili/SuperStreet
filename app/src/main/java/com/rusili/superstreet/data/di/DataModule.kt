@@ -1,6 +1,5 @@
 package com.rusili.superstreet.data.di
 
-import com.rusili.superstreet.data.util.BaseMapper
 import com.rusili.superstreet.data.util.FlagMapper
 import dagger.Module
 import dagger.Provides
@@ -13,7 +12,7 @@ import dagger.Provides
 class DataModule {
 
     @Provides
-    fun provideBaseHtml() = "http://www.superstreetonline.com"
+    fun provideBaseHtml() = "http://www.superstreetonline.com/"
 
     @Provides
     fun provideFlagMapper() =
