@@ -23,7 +23,7 @@ import com.rusili.superstreet.domain.models.body.AbstractBodyModel
 import com.rusili.superstreet.domain.models.body.ArticleHeader
 import com.rusili.superstreet.ui.common.NoIntentException
 import com.rusili.superstreet.ui.image.ImageActivity
-
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 
 class ArticleActivity : BaseActivity() {
     @Inject
@@ -85,7 +85,7 @@ class ArticleActivity : BaseActivity() {
         articleRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             itemAnimator = DefaultItemAnimator()
-            adapter = this@ArticleActivity.adapter
+            adapter = AlphaInAnimationAdapter(this@ArticleActivity.adapter)
         }
     }
 
