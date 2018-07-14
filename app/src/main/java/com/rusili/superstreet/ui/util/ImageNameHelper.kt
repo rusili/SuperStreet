@@ -1,5 +1,7 @@
 package com.rusili.superstreet.ui.util
 
+import java.util.*
+
 class ImageNameHelper {
 
     fun getImageName(url: String): String {
@@ -8,6 +10,6 @@ class ImageNameHelper {
         val removeFileType = url.removeRange(url.length - 4, url.length)
         val removeDomain = removeFileType.removeRange(0, indexOfLastBackslash + 1)
 
-        return removeDomain + System.currentTimeMillis() / 1000
+        return removeDomain + Date().time / 1000
     }
 }

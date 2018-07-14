@@ -84,7 +84,7 @@ class JsoupArticleParsingTest {
         val href = article.flag.type.href
 
         // Then
-        Assert.assertEquals(value, "Features")
+        Assert.assertEquals(value, "Feature")
         Assert.assertEquals(href, "/features/")
     }
 

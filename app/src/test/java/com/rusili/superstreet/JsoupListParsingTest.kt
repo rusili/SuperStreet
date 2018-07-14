@@ -117,7 +117,7 @@ class JsoupListParsingTest {
         val href = previewList.get(0).flag.type.href
 
         // Then
-        Assert.assertEquals(value, "Features")
+        Assert.assertEquals(value, "Feature")
         Assert.assertEquals(href, "/features/")
     }
 }
