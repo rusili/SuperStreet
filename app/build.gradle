@@ -26,6 +26,10 @@ ext {
 }
 
 android {
+    if (project.hasProperty('devbuild')){
+        splits.density.enable = false
+    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.rusili.superstreet"
@@ -47,7 +51,7 @@ android {
             targetCompatibility JavaVersion.VERSION_1_8
         }
     }
-    
+
     lintOptions {
         abortOnError false
     }

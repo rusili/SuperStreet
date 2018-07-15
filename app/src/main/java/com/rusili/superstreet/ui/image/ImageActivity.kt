@@ -19,15 +19,19 @@ import com.google.android.material.snackbar.Snackbar
 import com.rusili.superstreet.R
 import com.rusili.superstreet.ui.common.BUNDLE_KEY
 import com.rusili.superstreet.ui.common.BaseActivity
+import com.rusili.superstreet.ui.util.ImageNameHelper
 import kotlinx.android.synthetic.main.activity_image.*
 import timber.log.Timber
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
+import javax.inject.Inject
 
 class ImageActivity : BaseActivity() {
+    @Inject
+    lateinit var imageHelper: ImageNameHelper
+
     private var imageHref: String? = null
-    private lateinit var bitmap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,15 +49,19 @@ class ImageActivity : BaseActivity() {
 
         activityImageSaveButton.setOnClickListener {
             ((activityImagePhotoView as PhotoView).drawable as? BitmapDrawable)?.let {
-                saveImage(it.bitmap)
+                saveImage(imageHref, it.bitmap)
             }
         }
     }
 
-    private fun saveImage(bitmap: Bitmap) {
+    private fun saveImage(imageHref: String?,
+                          bitmap: Bitmap) {
+        if (imageHref == null) return
+
         var fileOutputStream: FileOutputStream? = null
         try {
-            fileOutputStream = baseContext.openFileOutput(imageHref, Context.MODE_PRIVATE)
+            val imageName = imageHelper.getImageName(imageHref)
+            fileOutputStream = baseContext.openFileOutput(imageName, Context.MODE_PRIVATE)
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
@@ -70,7 +78,6 @@ class ImageActivity : BaseActivity() {
     private fun displayImage(href: String) {
         val requestOptions = RequestOptions().placeholder(R.drawable.bg_placeholder)
                 .error(R.drawable.ic_error_outline_black_24dp)
-                .format(DecodeFormat.PREFER_ARGB_8888)
                 .dontAnimate()
 
         Glide.with(this)
