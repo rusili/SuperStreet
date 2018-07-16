@@ -32,7 +32,7 @@ abstract class BaseActivity : AppCompatActivity() {
                     .addToBackStack(fragment.tag)
                     .commit()
 
-    open fun showError(error: Throwable?) {
+    fun showError(error: Throwable?) {
         when (error) {
             is NoIntentException -> showErrorDialogToFinish()
             is UnknownHostException -> showNetworkError()
@@ -41,14 +41,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    open fun showSnackbar(message: String,
-                          length: Int = -1) {
-        window?.decorView?.rootView?.let {
-            Snackbar.make(it, message, length).show()
-        }
-    }
-
-    private fun showErrorDialogToFinish() {
+    fun showErrorDialogToFinish() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage("Error")
                 .setPositiveButton("Ok") { dialog, which ->
@@ -56,6 +49,13 @@ abstract class BaseActivity : AppCompatActivity() {
                     finish()
                 };
         builder.create().show()
+    }
+
+    fun showSnackbar(message: String,
+                     length: Int = -1) {
+        window?.decorView?.rootView?.let {
+            Snackbar.make(it, message, length).show()
+        }
     }
 
     private fun showUnknownError() = showSnackbar("Unknown Error")
