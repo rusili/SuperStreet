@@ -16,7 +16,6 @@ abstract class BaseImageViewHolder<T>(override val containerView: View,
 
     private val requestOptions = RequestOptions().placeholder(R.drawable.bg_placeholder)
             .error(R.drawable.ic_error_outline_black_24dp)
-            .transforms(CenterCrop())
 
     open fun loadImage(image: ImageGallery,
                           view: ImageView) {

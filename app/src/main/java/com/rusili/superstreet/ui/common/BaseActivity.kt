@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.rusili.superstreet.R
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_image.*
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
