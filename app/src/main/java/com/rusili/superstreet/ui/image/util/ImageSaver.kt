@@ -110,11 +110,10 @@ class ImageSaver() {
     }
 
     @VisibleForTesting
-
     fun parseImageName(url: String): String {
         val indexOfLastBackslash = url.lastIndexOf('/')
 
-        val removeFileType = url.removeRange(url.length - 5, url.length)
+        val removeFileType = url.removeRange(url.length - 4, url.length)
         return removeFileType.removeRange(0, indexOfLastBackslash + 1)
     }
 }
