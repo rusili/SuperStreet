@@ -20,6 +20,8 @@ import timber.log.Timber
 import javax.inject.Inject
 import com.rusili.superstreet.ui.util.ImageSaver
 import com.rusili.superstreet.ui.util.PermissionsHelper
+import android.content.Intent
+
 
 private const val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
 
@@ -49,11 +51,13 @@ class ImageActivity : BaseActivity() {
     private fun setOnClickListeners(imageHref: String) {
         activityImageSaveButton.setOnClickListener {
             ((activityImagePhotoView as PhotoView).drawable as? BitmapDrawable)?.let {
-                if (permissionsHelper.checkPermissionAndRequest(this@ImageActivity, WRITE_EXTERNAL_STORAGE_PERMISSION)) {
-                    imageSaver.saveImage(getContentResolver(), it.bitmap, imageHref, imageHref)?.let {
-                        showSnackbar("Image saved as: " + imageHref)
-                    } ?: showSnackbar("Error saving image")
-                }
+                saveImage(it, imageHref)
+            }
+        }
+
+        activityImageShareButton.setOnClickListener {
+            ((activityImagePhotoView as PhotoView).drawable as? BitmapDrawable)?.let {
+                sendLinkIntent(imageHref)
             }
         }
     }
@@ -77,5 +81,22 @@ class ImageActivity : BaseActivity() {
                     }
                 })
                 .into(activityImagePhotoView)
+    }
+
+    private fun saveImage(it: BitmapDrawable,
+                          imageHref: String) {
+        if (permissionsHelper.checkPermissionAndRequest(this@ImageActivity, WRITE_EXTERNAL_STORAGE_PERMISSION)) {
+            imageSaver.saveImage(getContentResolver(), it.bitmap, imageHref, imageHref)?.let {
+                showSnackbar(getString(R.string.image_save_as) + imageHref)
+            } ?: showSnackbar(getString(R.string.error_image_saving))
+        }
+    }
+
+    private fun sendLinkIntent(imageHref: String) {
+        Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, imageHref)
+            startActivity(Intent.createChooser(this, getString(R.string.share_link_message)))
+        }
     }
 }

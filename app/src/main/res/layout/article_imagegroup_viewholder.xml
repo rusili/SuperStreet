@@ -14,7 +14,6 @@
         app:layout_constraintEnd_toStartOf="@+id/imageGroupImage2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:scaleType=""
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <ImageView
