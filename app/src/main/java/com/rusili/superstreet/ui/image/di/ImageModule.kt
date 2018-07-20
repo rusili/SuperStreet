@@ -1,6 +1,7 @@
 package com.rusili.superstreet.ui.image.di
 
-import com.rusili.superstreet.ui.util.ImageNameHelper
+import com.rusili.superstreet.ui.util.ImageSaver
+import com.rusili.superstreet.ui.util.PermissionsHelper
 import dagger.Module
 import dagger.Provides
 
@@ -8,6 +9,10 @@ import dagger.Provides
 class ImageModule {
 
     @Provides
-    fun provideImageNameHelper() =
-            ImageNameHelper()
+    fun provideImageSaverHelper() =
+            ImageSaver()
+
+    @Provides
+    fun providePermissionHelper() =
+            PermissionsHelper()
 }

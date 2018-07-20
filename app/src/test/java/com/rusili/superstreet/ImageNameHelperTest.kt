@@ -1,6 +1,5 @@
 package com.rusili.superstreet
 
-import com.rusili.superstreet.ui.util.ImageNameHelper
 import org.junit.Assert
 import org.junit.Test
 import java.util.*

@@ -14,6 +14,7 @@ data class ImageGallery(override val id: Int,
     fun resizeTo1920By1280(): String =
             resize(1920, 1280, 90)
 
+    // TODO: Not all images are default to 660 x 440
     // Default Image width & height is 660 x 440
     private fun resize(width: Int,
                        height: Int,
