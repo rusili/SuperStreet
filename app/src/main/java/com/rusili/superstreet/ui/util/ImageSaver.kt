@@ -8,7 +8,9 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.provider.MediaStore
 import android.provider.MediaStore.Images
+import androidx.annotation.VisibleForTesting
 import timber.log.Timber
+import java.util.*
 
 /**
  * Android internals have been modified to store images in the media folder with
@@ -27,11 +29,11 @@ class ImageSaver {
      */
     fun saveImage(contentResolver: ContentResolver,
                   source: Bitmap,
-                  title: String,
+                  fullUrl: String,
                   description: String? = null): String? {
         val values = ContentValues().apply {
-            put(Images.Media.TITLE, title)
-            put(Images.Media.DISPLAY_NAME, title)
+            put(Images.Media.TITLE, parseImageName(fullUrl))
+            put(Images.Media.DISPLAY_NAME, parseImageName(fullUrl))
             put(Images.Media.DESCRIPTION, description)
             put(Images.Media.MIME_TYPE, MIME_TYPE_DIR)
             // Add the date meta data to ensure the image is added at the front of the gallery
@@ -105,5 +107,14 @@ class ImageSaver {
             Timber.e(e, "Error creating thumbnail for image")
             return null
         }
+    }
+
+    @VisibleForTesting
+
+    fun parseImageName(url: String): String {
+        val indexOfLastBackslash = url.lastIndexOf('/')
+
+        val removeFileType = url.removeRange(url.length - 5, url.length)
+        return removeFileType.removeRange(0, indexOfLastBackslash + 1)
     }
 }
