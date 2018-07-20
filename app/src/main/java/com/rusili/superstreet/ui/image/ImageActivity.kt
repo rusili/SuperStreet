@@ -1,6 +1,5 @@
 package com.rusili.superstreet.ui.image
 
-import android.Manifest
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -18,12 +17,9 @@ import com.rusili.superstreet.ui.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_image.*
 import timber.log.Timber
 import javax.inject.Inject
-import com.rusili.superstreet.ui.util.ImageSaver
-import com.rusili.superstreet.ui.util.PermissionsHelper
+import com.rusili.superstreet.ui.image.util.PermissionsHelper
 import android.content.Intent
-
-
-private const val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
+import com.rusili.superstreet.ui.image.util.ImageSaver
 
 class ImageActivity : BaseActivity() {
     @Inject
@@ -40,7 +36,7 @@ class ImageActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        permissionsHelper.checkPermissionAndRequest(this@ImageActivity, WRITE_EXTERNAL_STORAGE_PERMISSION)
+        permissionsHelper.checkPermissionandRequestStorageAccess(this@ImageActivity)
 
         intent?.getStringExtra(BUNDLE_KEY)?.let {
             displayImage(it)
@@ -85,8 +81,8 @@ class ImageActivity : BaseActivity() {
 
     private fun saveImage(it: BitmapDrawable,
                           imageHref: String) {
-        if (permissionsHelper.checkPermissionAndRequest(this@ImageActivity, WRITE_EXTERNAL_STORAGE_PERMISSION)) {
-            imageSaver.saveImage(getContentResolver(), it.bitmap, imageHref, imageHref)?.let {
+        if (permissionsHelper.checkPermissionandRequestStorageAccess(this@ImageActivity)) {
+            imageSaver.saveImage(getContentResolver(), it.bitmap, imageHref)?.let {
                 showSnackbar(getString(R.string.image_save_as) + imageHref)
             } ?: showSnackbar(getString(R.string.error_image_saving))
         }
