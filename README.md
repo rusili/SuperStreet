@@ -6,8 +6,9 @@
 
 ## Built With
 
-MinSdk: 21
-TargetSdk: 28
+|MinSdk|TargetSdk|
+|------|-------|-|
+https://img.shields.io/badge/MinSdk-21-lightgrey.svg|https://img.shields.io/badge/TargetSdk-28-lightgrey.svg
 
 *
 
