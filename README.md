@@ -7,7 +7,7 @@
 ## Built With
 
 |MinSdk|TargetSdk|
-|------|-------|-|
+|------|---------|
 https://img.shields.io/badge/MinSdk-21-lightgrey.svg|https://img.shields.io/badge/TargetSdk-28-lightgrey.svg
 
 *
