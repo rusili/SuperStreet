@@ -2,5 +2,8 @@
     <string name="app_name">SuperStreet</string>
 
     <string name="network_error">Network Error</string>
+    <string name="share_link_message">Share link using</string>
+    <string name="error_image_saving">Error saving image</string>
+    <string name="image_save_as">Image saved as:</string>
 
 </resources>

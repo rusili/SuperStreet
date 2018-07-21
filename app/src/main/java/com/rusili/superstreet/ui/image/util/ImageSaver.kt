@@ -1,4 +1,4 @@
-package com.rusili.superstreet.ui.util
+package com.rusili.superstreet.ui.image.util
 
 import android.content.ContentResolver
 import android.content.ContentUris
@@ -20,7 +20,7 @@ import java.util.*
  */
 private const val MIME_TYPE_DIR = "image/png"
 
-class ImageSaver {
+class ImageSaver() {
     /**
      * A copy of the Android internals  insertImage method, this method populates the
      * meta data with DATE_ADDED and DATE_TAKEN. This fixes a common problem where media
@@ -110,11 +110,10 @@ class ImageSaver {
     }
 
     @VisibleForTesting
-
     fun parseImageName(url: String): String {
         val indexOfLastBackslash = url.lastIndexOf('/')
 
-        val removeFileType = url.removeRange(url.length - 5, url.length)
+        val removeFileType = url.removeRange(url.length - 4, url.length)
         return removeFileType.removeRange(0, indexOfLastBackslash + 1)
     }
 }
