@@ -1,4 +1,4 @@
-package com.rusili.superstreet
+package com.rusili.superstreet.ui
 
 import com.nhaarman.mockito_kotlin.mock
 import com.rusili.superstreet.ui.util.DateHelper

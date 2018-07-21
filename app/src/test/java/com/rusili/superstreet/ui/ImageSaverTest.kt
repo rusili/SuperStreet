@@ -1,4 +1,4 @@
-package com.rusili.superstreet
+package com.rusili.superstreet.ui
 
 import com.rusili.superstreet.ui.image.util.ImageSaver
 import org.junit.Assert
