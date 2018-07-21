@@ -14,6 +14,8 @@
 
 ## Authors
 
+![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg)
+
 * **Rusi Li**
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
