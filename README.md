@@ -6,6 +6,9 @@
 
 ## Built With
 
+|MinSdk|TargetSdk|
+|--21--|----28---|
+
 *
 
 ## Authors
