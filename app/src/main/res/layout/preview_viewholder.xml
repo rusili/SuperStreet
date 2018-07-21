@@ -8,8 +8,8 @@
     android:layout_marginLeft="@dimen/mtrl_card_spacing"
     android:layout_marginTop="@dimen/mtrl_card_spacing"
     android:layout_marginRight="@dimen/mtrl_card_spacing"
-    android:layout_marginBottom="16dp"
-    app:cardCornerRadius="2dp"
+    android:layout_marginBottom="@dimen/preview_viewholder_margin_bottom"
+    app:cardCornerRadius="@dimen/card_corner_radius_default"
     app:cardElevation="@dimen/preview_viewholder_card_elevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,9 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black_20_1000"
-            android:paddingLeft="12dp"
+            android:paddingLeft="@dimen/preview_viewholder_flags_padding_horizontal"
             android:paddingTop="@dimen/preview_viewholder_image_margin_bottom"
-            android:paddingBottom="12dp"
+            android:paddingBottom="@dimen/preview_viewholder_image_margin_bottom"
             android:transitionName="@string/transition_to_article"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@id/previewThumbnail"
@@ -50,28 +50,28 @@
             android:background="@color/black_20_1000"
             android:paddingLeft="@dimen/preview_viewholder_type_margin_left"
             android:paddingTop="@dimen/preview_viewholder_image_margin_bottom"
-            android:paddingRight="12dp"
-            android:paddingBottom="12dp"
+            android:paddingRight="@dimen/preview_viewholder_flags_padding_horizontal"
+            android:paddingBottom="@dimen/preview_viewholder_flags_padding_horizontal"
             app:layout_constraintLeft_toRightOf="@id/previewMag"
             app:layout_constraintTop_toTopOf="@id/previewThumbnail"
             tools:text="Event" />
 
-            <TextView
-                android:id="@+id/previewTitle"
-                style="@style/PreviewTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/preview_viewholder_title_margin_vertical"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:maxLines="@integer/preview_description_max_lines"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="4dp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/previewThumbnail"
-                tools:text="2005 Boxster 2007 Cayman S - Porsche Pandemic" />
+        <TextView
+            android:id="@+id/previewTitle"
+            style="@style/PreviewTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/preview_viewholder_title_margin_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:maxLines="@integer/preview_description_max_lines"
+            android:paddingLeft="@dimen/preview_viewholder_title_margin_horizontal"
+            android:paddingRight="@dimen/preview_viewholder_title_margin_horizontal"
+            android:paddingBottom="@dimen/preview_viewholder_title_margin_bottom"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/previewThumbnail"
+            tools:text="2005 Boxster 2007 Cayman S - Porsche Pandemic" />
 
         <TextView
             android:id="@+id/previewDesc"
@@ -86,9 +86,9 @@
             style="@style/PreviewTimestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:paddingLeft="16dp"
-            android:paddingBottom="12dp"
+            android:layout_marginTop="@dimen/preview_viewholder_timestamp_margin_top"
+            android:paddingLeft="@dimen/preview_viewholder_timestamp_margin_horizontal"
+            android:paddingBottom="@dimen/preview_viewholder_timestamp_margin_bottom"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/previewTitle"
             tools:text="1 week ago" />

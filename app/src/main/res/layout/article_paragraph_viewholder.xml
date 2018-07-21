@@ -5,6 +5,6 @@
     style="@style/ArticleParagraph"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
+    android:paddingLeft="@dimen/article_paragraph_padding_horizontal"
+    android:paddingRight="@dimen/article_paragraph_padding_horizontal"
     tools:text="@tools:sample/lorem/random" />

@@ -2,7 +2,10 @@
 <resources>
 
     <!-- Common -->
+    <dimen name="elevation_low">2dp</dimen>
     <dimen name="progress_bar_size">64dp</dimen>
+    <dimen name="card_corner_radius_default">2dp</dimen>
+    <dimen name="snackbar_margin_bottom">64dp</dimen>
 
     <!-- List Fragment -->
     <dimen name="preview_viewholder_height">296dp</dimen>
@@ -14,9 +17,23 @@
     <dimen name="preview_viewholder_title_margin_vertical">12dp</dimen>
     <dimen name="preview_viewholder_card_elevation">2dp</dimen>
     <dimen name="preview_viewholder_type_margin_left">16dp</dimen>
+    <dimen name="preview_viewholder_margin_bottom">16dp</dimen>
+    <dimen name="preview_viewholder_flags_padding_horizontal">12dp</dimen>
+    <dimen name="preview_viewholder_timestamp_margin_top">4dp</dimen>
+    <dimen name="preview_viewholder_timestamp_margin_bottom">12dp</dimen>
+    <dimen name="preview_viewholder_timestamp_margin_horizontal">16dp</dimen>
+    <dimen name="preview_viewholder_title_margin_bottom">4dp</dimen>
+    <dimen name="preview_viewholder_title_margin_horizontal">16dp</dimen>
 
     <!-- Article Fragment -->
+    <dimen name="fragment_list_rv_margin_bottom">24dp</dimen>
+    <dimen name="article_header_image_height">256dp</dimen>
     <dimen name="article_viewholder_image_height">274dp</dimen>
     <dimen name="article_viewholder_imagegroup_height">128dp</dimen>
+    <dimen name="article_paragraph_padding_horizontal">8dp</dimen>
+    
+    <!-- Image Activity -->
+    <dimen name="image_icon_share_size">36dp</dimen>
+    <dimen name="image_icon_margin_horizontal">24dp</dimen>
 
 </resources>
