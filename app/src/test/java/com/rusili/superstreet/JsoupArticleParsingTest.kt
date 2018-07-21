@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 
 
 class JsoupArticleParsingTest {
-    private val inputMain = File("/Users/rusi.li/Documents/SuperStreet/app/src/test/resources/json/2007Boxter&CaymanArticle.html")
+    private val inputMain = File("/Users/rusi.li/Documents/SuperStreet/app/src/test/resources/html/2007Boxter&CaymanArticle.html")
     private val doc = Jsoup.parse(inputMain, "UTF-8", "")
 
     private val flagMapper = FlagMapper()
