@@ -1,6 +1,7 @@
 package com.rusili.superstreet.ui.util
 
 import android.annotation.SuppressLint
+import androidx.annotation.VisibleForTesting
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -14,8 +15,9 @@ class DateHelper {
         fun formatToMMMDDYYY(date: Date): String =
                 dateFormat.format(date)
 
-        fun getDateDifferenceString(date: Date): String {
-            val dateDiff = getDateDifference(date)
+        fun getDateDifferenceString(todaysDate: Date,
+                                    articleDate: Date): String {
+            val dateDiff = getDateDifference(todaysDate, articleDate)
 
             var dateDiffString = dateDiff.length.toString() + " " + dateDiff.period.name
             if (dateDiff.length > 1) {
@@ -24,9 +26,10 @@ class DateHelper {
             return dateDiffString.toLowerCase() + " ago"
         }
 
-        fun getDateDifference(date: Date): DateDiffWrapper {
-            val today = Date()
-            val diffInMillis = today.time - date.time
+        @VisibleForTesting
+        fun getDateDifference(todaysDate: Date,
+                                      articleDate: Date): DateDiffWrapper {
+            val diffInMillis = todaysDate.time - articleDate.time
             val diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
 
             return when {

@@ -1,4 +1,4 @@
-package com.rusili.superstreet
+package com.rusili.superstreet.data
 
 import com.rusili.superstreet.data.article.ArticleMapper
 import com.rusili.superstreet.data.util.FlagMapper
@@ -7,13 +7,11 @@ import org.jsoup.Jsoup
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import java.io.File
 import java.text.SimpleDateFormat
 
 
 class JsoupArticleParsingTest {
-    private val inputMain = File("/Users/rusi.li/Documents/SuperStreet/app/src/test/resources/json/2007Boxter&CaymanArticle.html")
-    private val doc = Jsoup.parse(inputMain, "UTF-8", "")
+    private val doc = Jsoup.connect("http://www.superstreetonline.com/features/18052005-boxster-and-2007-cayman-s-porsche-pandemic/").get()
 
     private val flagMapper = FlagMapper()
     private val parser = ArticleMapper(flagMapper)

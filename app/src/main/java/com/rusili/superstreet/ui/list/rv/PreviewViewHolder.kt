@@ -12,6 +12,7 @@ import com.rusili.superstreet.ui.common.BaseViewHolder
 import com.rusili.superstreet.ui.util.DateHelper
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.preview_viewholder.*
+import java.util.*
 
 class PreviewViewHolder(override val containerView: View,
                         private val onClick: (View, Title) -> Unit,
@@ -25,11 +26,12 @@ class PreviewViewHolder(override val containerView: View,
                 .apply(requestOptions)
                 .into(previewThumbnail)
 
+        val dateString = DateHelper.getDateDifferenceString(Date(), preview.footer.date)
         previewTitle.text = preview.header.title.value
         previewDesc.text = preview.header.desc
         previewMag.text = preview.flag.magazine.value
         previewType.text = preview.flag.type.value
-        previewAuthorTimestamp.text = DateHelper.getDateDifferenceString(preview.footer.date)
+        previewAuthorTimestamp.text = dateString
 
         previewTitle.setOnClickListener { onClick(containerView, preview.header.title) }
         previewThumbnail.setOnClickListener { onClick(containerView, preview.header.title) }

@@ -1,4 +1,4 @@
-package com.rusili.superstreet
+package com.rusili.superstreet.domain
 
 import com.rusili.superstreet.domain.models.body.Paragraph
 import org.junit.Assert
