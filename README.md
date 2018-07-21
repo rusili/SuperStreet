@@ -6,9 +6,9 @@
 
 ## Built With
 
-|MinSdk|TargetSdk|
+|MinSDK|TargetSDK|
 |------|---------|
-![MinSdk 21](https://img.shields.io/badge/MinSdk-21-lightgray.svg)|![MinSdk 21](https://img.shields.io/badge/TargetSdk-28-lightgray.svg)
+![MinSdk 21](https://img.shields.io/badge/MinSDK-21-lightgray.svg)|![MinSdk 21](https://img.shields.io/badge/TargetSDK-28-lightgray.svg)
 
 *
 
