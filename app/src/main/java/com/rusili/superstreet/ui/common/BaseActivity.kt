@@ -44,7 +44,7 @@ abstract class BaseActivity : AppCompatActivity() {
     fun showErrorDialogToFinish() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage("Error")
-                .setPositiveButton("Ok") { dialog, which ->
+                .setPositiveButton("Ok") { _, _ ->
                     getWindow().setExitTransition(null)
                     finish()
                 };
