@@ -19,9 +19,7 @@ class PreviewViewHolder(override val containerView: View,
     : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
 
     override fun bind(preview: ArticlePreviewModel) {
-        val requestOptions = RequestOptions().placeholder(R.drawable.bg_placeholder)
-                .error(R.drawable.ic_error_outline_black_24dp)
-                .transforms(CenterCrop(), RoundedCorners(12))
+        val requestOptions = RequestOptions().transforms(CenterCrop(), RoundedCorners(12))
 
         glide.load(preview.header.headerImage.resizeToDefaultSize())
                 .apply(requestOptions)

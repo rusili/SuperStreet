@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.rusili.superstreet.R
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_image.*
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -31,7 +32,7 @@ abstract class BaseActivity : AppCompatActivity() {
                     .addToBackStack(fragment.tag)
                     .commit()
 
-    open fun showError(error: Throwable?) {
+    fun showError(error: Throwable?) {
         when (error) {
             is NoIntentException -> showErrorDialogToFinish()
             is UnknownHostException -> showNetworkError()
@@ -40,7 +41,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    private fun showErrorDialogToFinish() {
+    fun showErrorDialogToFinish() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage("Error")
                 .setPositiveButton("Ok") { dialog, which ->
@@ -50,15 +51,14 @@ abstract class BaseActivity : AppCompatActivity() {
         builder.create().show()
     }
 
-    private fun showUnknownError() {
+    fun showSnackbar(message: String,
+                     length: Int = -1) {
         window?.decorView?.rootView?.let {
-            Snackbar.make(it, "Error", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(it, message, length).show()
         }
     }
 
-    private fun showNetworkError() {
-        window?.decorView?.rootView?.let {
-            Snackbar.make(it, "No internet connection", Snackbar.LENGTH_LONG).show()
-        }
-    }
+    private fun showUnknownError() = showSnackbar("Unknown Error")
+
+    private fun showNetworkError() = showSnackbar("No internet connection", Snackbar.LENGTH_LONG)
 }

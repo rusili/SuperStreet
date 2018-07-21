@@ -15,9 +15,7 @@ class HeaderViewHolder(override val containerView: View,
     : BaseViewHolder<ArticleHeader>(containerView), LayoutContainer {
 
     override fun bind(model: ArticleHeader) {
-        val requestOptions = RequestOptions().placeholder(R.drawable.bg_placeholder)
-                .error(R.drawable.ic_error_outline_black_24dp)
-                .transforms(CenterCrop())
+        val requestOptions = RequestOptions().transforms(CenterCrop())
 
         glide.load(model.header.headerImage.resizeToDefaultSize())
                 .apply(requestOptions)

@@ -14,14 +14,9 @@ abstract class BaseImageViewHolder<T>(override val containerView: View,
                                       open val glide: RequestManager)
     : BaseViewHolder<T>(containerView), LayoutContainer {
 
-    private val requestOptions = RequestOptions().placeholder(R.drawable.bg_placeholder)
-            .error(R.drawable.ic_error_outline_black_24dp)
-            .transforms(CenterCrop())
-
     open fun loadImage(image: ImageGallery,
-                          view: ImageView) {
+                       view: ImageView) {
         glide.load(image.resizeToGroupSize())
-                .apply(requestOptions)
                 .into(view)
         view.setOnClickListener { onClick(it, image.resizeTo1920By1280()) }
     }
