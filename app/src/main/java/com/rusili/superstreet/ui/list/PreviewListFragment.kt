@@ -16,13 +16,14 @@ import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.common.BaseFragment
 import com.rusili.superstreet.ui.list.di.PreviewListViewModelFactory
 import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
+import com.rusili.superstreet.ui.util.DateHelper
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
 import javax.inject.Inject
 
 class PreviewListFragment : BaseFragment() {
-    @Inject
-    lateinit var viewModelFactory: PreviewListViewModelFactory
+    @Inject lateinit var dateHelper: DateHelper
+    @Inject lateinit var viewModelFactory: PreviewListViewModelFactory
     private lateinit var viewModel: PreviewViewModel
 
     private lateinit var adapter: PreviewListAdapter
@@ -59,7 +60,7 @@ class PreviewListFragment : BaseFragment() {
 
     private fun setupViews() {
         glide = Glide.with(this)
-        adapter = PreviewListAdapter(onClick, glide)
+        adapter = PreviewListAdapter(onClick, glide, dateHelper)
 
         fragmentListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

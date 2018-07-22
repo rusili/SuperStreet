@@ -41,7 +41,14 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun showErrorDialogToFinish() {
+    fun showSnackbar(message: String,
+                     length: Int = -1) {
+        window?.decorView?.rootView?.let {
+            Snackbar.make(it, message, length).show()
+        }
+    }
+
+    private fun showErrorDialogToFinish() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage("Error")
                 .setPositiveButton("Ok") { _, _ ->
@@ -49,13 +56,6 @@ abstract class BaseActivity : AppCompatActivity() {
                     finish()
                 };
         builder.create().show()
-    }
-
-    fun showSnackbar(message: String,
-                     length: Int = -1) {
-        window?.decorView?.rootView?.let {
-            Snackbar.make(it, message, length).show()
-        }
     }
 
     private fun showUnknownError() = showSnackbar("Unknown Error")

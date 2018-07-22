@@ -63,6 +63,8 @@ androidExtensions {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.2.51"
+
     // Experimental:
     implementation "com.google.android.material:material:$materialVersion"
 

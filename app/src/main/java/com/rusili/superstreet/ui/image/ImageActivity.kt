@@ -19,13 +19,12 @@ import timber.log.Timber
 import javax.inject.Inject
 import com.rusili.superstreet.ui.image.util.PermissionsHelper
 import android.content.Intent
+import com.rusili.superstreet.ui.common.NoIntentException
 import com.rusili.superstreet.ui.image.util.ImageSaver
 
 class ImageActivity : BaseActivity() {
-    @Inject
-    lateinit var imageSaver: ImageSaver
-    @Inject
-    lateinit var permissionsHelper: PermissionsHelper
+    @Inject lateinit var imageSaver: ImageSaver
+    @Inject lateinit var permissionsHelper: PermissionsHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +40,7 @@ class ImageActivity : BaseActivity() {
         intent?.getStringExtra(BUNDLE_KEY)?.let {
             displayImage(it)
             setOnClickListeners(it)
-        } ?: showErrorDialogToFinish()
+        } ?: showError(NoIntentException())
     }
 
     private fun setOnClickListeners(imageHref: String) {
