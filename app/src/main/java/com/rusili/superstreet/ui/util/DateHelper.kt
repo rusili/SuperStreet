@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit
 @SuppressLint("SimpleDateFormat")
 private val dateFormat = SimpleDateFormat("MMM dd, yyyy")
 
+// TODO: Inject this class
 class DateHelper {
 
     companion object {
@@ -26,7 +27,6 @@ class DateHelper {
             return dateDiffString.toLowerCase() + " ago"
         }
 
-        @VisibleForTesting
         fun getDateDifference(todaysDate: Date,
                                       articleDate: Date): DateDiffWrapper {
             val diffInMillis = todaysDate.time - articleDate.time
