@@ -7,10 +7,10 @@ import com.rusili.superstreet.domain.list.ArticleListDataSourceFactory
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.ui.common.BaseViewModel
 
-class PreviewViewModel(dataSourceFactory: ArticleListDataSourceFactory) : BaseViewModel() {
-    val livedata: LiveData<PagedList<ArticlePreviewModel>>
+class PreviewViewModel(private val dataSourceFactory: ArticleListDataSourceFactory) : BaseViewModel() {
+    lateinit var livedata: LiveData<PagedList<ArticlePreviewModel>>
 
-    init {
+    fun loadData() {
         val pagedListConfig = PagedList.Config.Builder()
                 .setEnablePlaceholders(true)
                 .setInitialLoadSizeHint(1)

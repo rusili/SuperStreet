@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
+import com.rusili.superstreet.domain.NetworkHelper
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.models.body.AbstractBodyModel
 import com.rusili.superstreet.domain.models.body.ArticleHeader
@@ -20,12 +21,14 @@ import com.rusili.superstreet.ui.article.rv.ArticleAdapter
 import com.rusili.superstreet.ui.common.BUNDLE_KEY
 import com.rusili.superstreet.ui.common.BaseActivity
 import com.rusili.superstreet.ui.common.NoIntentException
+import com.rusili.superstreet.ui.common.NoNetworkException
 import com.rusili.superstreet.ui.image.ImageActivity
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 
 class ArticleActivity : BaseActivity() {
+    @Inject lateinit var networkHelper: NetworkHelper
     @Inject lateinit var viewModelFactory: ArticleViewModelFactory
     private lateinit var viewModel: ArticleViewModel
 
@@ -102,11 +105,14 @@ class ArticleActivity : BaseActivity() {
 
     private fun onTitleClicked(view: View,
                                href: String) {
-        getWindow().setExitTransition(null)
+        if (networkHelper.isConnected(view.context)) {
+            getWindow().setExitTransition(null)
 
-        val intent = Intent(this, ImageActivity::class.java)
-        intent.putExtra(BUNDLE_KEY, href)
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, getString(R.string.transition_to_image))
-        startActivity(intent, options.toBundle())
+            Intent(this, ImageActivity::class.java).apply {
+                putExtra(BUNDLE_KEY, href)
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@ArticleActivity, view, getString(R.string.transition_to_image))
+                startActivity(this, options.toBundle())
+            }
+        } else showError(NoNetworkException())
     }
 }

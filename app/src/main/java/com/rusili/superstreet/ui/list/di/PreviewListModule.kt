@@ -1,8 +1,8 @@
 package com.rusili.superstreet.ui.list.di
 
+import com.rusili.superstreet.di.AppModule
 import com.rusili.superstreet.domain.list.ArticleListDataSourceFactory
 import com.rusili.superstreet.domain.list.ArticleListRepository
-import com.rusili.superstreet.domain.list.ArticleListUsecase
 import com.rusili.superstreet.ui.util.DateHelper
 import dagger.Module
 import dagger.Provides

@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.rusili.superstreet.R
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_image.*
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -35,6 +34,7 @@ abstract class BaseActivity : AppCompatActivity() {
     fun showError(error: Throwable?) {
         when (error) {
             is NoIntentException -> showErrorDialogToFinish()
+            is NoNetworkException -> showNetworkError()
             is UnknownHostException -> showNetworkError()
             is SocketTimeoutException -> showNetworkError()
             else -> showUnknownError()
@@ -42,7 +42,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun showSnackbar(message: String,
-                     length: Int = -1) {
+                     length: Int = 0) {
         window?.decorView?.rootView?.let {
             Snackbar.make(it, message, length).show()
         }
@@ -58,7 +58,7 @@ abstract class BaseActivity : AppCompatActivity() {
         builder.create().show()
     }
 
-    private fun showUnknownError() = showSnackbar("Unknown Error")
+    private fun showUnknownError() = showSnackbar(getString(R.string.error_generic))
 
-    private fun showNetworkError() = showSnackbar("No internet connection", Snackbar.LENGTH_LONG)
+    private fun showNetworkError() = showSnackbar(getString(R.string.error_no_internet))
 }

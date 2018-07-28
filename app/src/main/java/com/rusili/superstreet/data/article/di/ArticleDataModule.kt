@@ -18,6 +18,6 @@ class ArticleDataModule {
 
     @Provides
     protected fun provideArticleApi(BASE_HTML: String,
-                          mapper: ArticleMapper): ArticleApi =
+                                    mapper: ArticleMapper): ArticleApi =
             ArticleService(mapper, BASE_HTML)
 }

@@ -3,7 +3,6 @@ package com.rusili.superstreet.ui.list.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.rusili.superstreet.domain.list.ArticleListDataSourceFactory
-import com.rusili.superstreet.domain.list.ArticleListUsecase
 import com.rusili.superstreet.ui.list.PreviewViewModel
 
 class PreviewListViewModelFactory(private val dataSourceFactory: ArticleListDataSourceFactory)
