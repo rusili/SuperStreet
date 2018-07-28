@@ -9,6 +9,7 @@ import java.util.*
 
 class DateHelperTest {
     private val todaysDate = Date(1531590471199)
+    private val testSubject = DateHelper()
 
     @Test
     fun `Test formatToMMDDYYY method`() {
@@ -17,7 +18,7 @@ class DateHelperTest {
         val date = format.parse("21/12/2012")
 
         // When:
-        val formatted = DateHelper.formatToMMMDDYYY(date)
+        val formatted = testSubject.formatToMMMDDYYY(date)
 
         // Then:
         Assert.assertEquals(formatted, "Dec 21, 2012")
@@ -30,7 +31,7 @@ class DateHelperTest {
         val articleDate = format.parse("10/7/2018")
 
         // When:
-        val days = DateHelper.getDateDifference(todaysDate, articleDate)
+        val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
         Assert.assertEquals(days, DateHelper.DateDiffWrapper(4, TimePeriod.DAY))
@@ -43,7 +44,7 @@ class DateHelperTest {
         val articleDate = format.parse("20/6/2018")
 
         // When:
-        val days = DateHelper.getDateDifference(todaysDate, articleDate)
+        val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
         Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.WEEK))
@@ -56,7 +57,7 @@ class DateHelperTest {
         val articleDate = format.parse("20/3/2018")
 
         // When:
-        val days = DateHelper.getDateDifference(todaysDate, articleDate)
+        val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
         Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.MONTH))
@@ -69,7 +70,7 @@ class DateHelperTest {
         val articleDate = format.parse("20/5/2015")
 
         // When:
-        val days = DateHelper.getDateDifference(todaysDate, articleDate)
+        val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
         Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.YEAR))

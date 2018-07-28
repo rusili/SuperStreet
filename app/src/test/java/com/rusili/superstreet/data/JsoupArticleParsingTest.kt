@@ -9,7 +9,6 @@ import org.junit.Before
 import org.junit.Test
 import java.text.SimpleDateFormat
 
-
 class JsoupArticleParsingTest {
     private val doc = Jsoup.connect("http://www.superstreetonline.com/features/18052005-boxster-and-2007-cayman-s-porsche-pandemic/").get()
 

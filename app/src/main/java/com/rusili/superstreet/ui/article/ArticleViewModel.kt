@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.article.ArticleUsecase
 import com.rusili.superstreet.ui.common.BaseViewModel
-import com.rusili.superstreet.ui.util.LiveDataWrapper
+import com.rusili.superstreet.ui.common.LiveDataWrapper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
