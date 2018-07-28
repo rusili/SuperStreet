@@ -16,7 +16,8 @@ import java.util.*
 
 class PreviewViewHolder(override val containerView: View,
                         private val onClick: (View, Title) -> Unit,
-                        private val glide: RequestManager)
+                        private val glide: RequestManager,
+                        private val dateHelper: DateHelper)
     : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
 
     override fun bind(preview: ArticlePreviewModel) {
@@ -26,7 +27,7 @@ class PreviewViewHolder(override val containerView: View,
                 .apply(requestOptions)
                 .into(previewThumbnail)
 
-        val dateString = DateHelper.getDateDifferenceString(Date(), preview.footer.date)
+        val dateString = dateHelper.getDateDifferenceString(Date(), preview.footer.date)
         previewTitle.text = preview.header.title.value
         previewDesc.text = preview.header.desc
         previewMag.text = preview.flag.magazine.value
