@@ -1,5 +1,6 @@
 package com.rusili.superstreet.ui.article.rv
 
+import android.media.Image
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.RequestManager
@@ -10,7 +11,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.article_image_viewholder.*
 
 class ImageViewHolder(override val containerView: View,
-                      val onClick: (View, String) -> Unit,
+                      val onClick: (View, ImageGallery) -> Unit,
                       val glide: RequestManager)
     : BaseViewHolder<ImageGallery>(containerView), LayoutContainer {
 
@@ -22,6 +23,6 @@ class ImageViewHolder(override val containerView: View,
                           view: ImageView) {
         glide.load(image.resizeToDefaultSize())
                 .into(view)
-        view.setOnClickListener { onClick(it, image.resizeTo1920By1280()) }
+        view.setOnClickListener { onClick(it, image) }
     }
 }

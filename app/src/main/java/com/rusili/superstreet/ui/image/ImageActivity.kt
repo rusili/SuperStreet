@@ -19,50 +19,69 @@ import timber.log.Timber
 import javax.inject.Inject
 import com.rusili.superstreet.ui.image.util.PermissionsHelper
 import android.content.Intent
+import com.rusili.superstreet.domain.models.body.ImageGallery
 import com.rusili.superstreet.ui.common.NoIntentException
 import com.rusili.superstreet.ui.image.util.ImageSaver
+import android.R.transition
+import android.transition.Transition
+import androidx.transition.TransitionListenerAdapter
+
 
 class ImageActivity : BaseActivity() {
     @Inject lateinit var imageSaver: ImageSaver
     @Inject lateinit var permissionsHelper: PermissionsHelper
+
+    private lateinit var image: ImageGallery
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportPostponeEnterTransition();
         setContentView(R.layout.activity_image)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-    }
 
-    override fun onStart() {
-        super.onStart()
         permissionsHelper.checkPermissionandRequestStorageAccess(this@ImageActivity)
 
-        intent?.getStringExtra(BUNDLE_KEY)?.let {
-            displayImage(it)
+        intent?.getParcelableExtra<ImageGallery>(BUNDLE_KEY)?.let {
+            image = it
+            initialDisplayImage(it)
             setOnClickListeners(it)
         } ?: showError(NoIntentException())
     }
 
-    private fun setOnClickListeners(imageHref: String) {
+//    override fun onStart() {
+//        super.onStart()
+//
+//        val sharedElementEnterTransition = window.sharedElementEnterTransition
+//        sharedElementEnterTransition.addListener(object : TransitionListenerAdapter(), Transition.TransitionListener {
+//            override fun onTransitionEnd(p0: Transition?) {
+//                secondaryImageLoad(image)
+//            }
+//
+//            override fun onTransitionResume(p0: Transition?) = Unit
+//            override fun onTransitionPause(p0: Transition?) = Unit
+//            override fun onTransitionCancel(p0: Transition?) = Unit
+//            override fun onTransitionStart(p0: Transition?) = Unit
+//        })
+//    }
+
+    private fun setOnClickListeners(image: ImageGallery) {
         activityImageSaveButton.setOnClickListener {
             ((activityImagePhotoView as PhotoView).drawable as? BitmapDrawable)?.let {
-                saveImage(it, imageHref)
+                saveImage(it, image.resizeTo1920By1280())
             }
         }
 
         activityImageShareButton.setOnClickListener {
             ((activityImagePhotoView as PhotoView).drawable as? BitmapDrawable)?.let {
-                sendLinkIntent(imageHref)
+                sendLinkIntent(image.resizeTo1920By1280())
             }
         }
     }
 
-    private fun displayImage(href: String) {
-        val requestOptions = RequestOptions().dontAnimate()
-
+    private fun initialDisplayImage(image: ImageGallery) {
         Glide.with(this)
-                .load(href)
-                .apply(requestOptions)
+                .load(image.resizeTo1920By1280())
+                .apply(RequestOptions().dontAnimate())
                 .listener(object : RequestListener<Drawable> {
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                         supportStartPostponedEnterTransition()
@@ -75,6 +94,13 @@ class ImageActivity : BaseActivity() {
                         return false
                     }
                 })
+                .into(activityImagePhotoView)
+    }
+
+    private fun secondaryImageLoad(image: ImageGallery) {
+        Glide.with(this)
+                .load(image.resizeToGroupSize())
+                .apply(RequestOptions().dontAnimate())
                 .into(activityImagePhotoView)
     }
 

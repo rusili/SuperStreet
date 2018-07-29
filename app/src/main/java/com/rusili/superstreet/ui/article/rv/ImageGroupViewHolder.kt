@@ -10,7 +10,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.article_imagegroup_viewholder.*
 
 class ImageGroupViewHolder(override val containerView: View,
-                           val onClick: (View, String) -> Unit,
+                           val onClick: (View, ImageGallery) -> Unit,
                            val glide: RequestManager)
     : BaseViewHolder<ImageGroup>(containerView), LayoutContainer {
 
@@ -24,6 +24,6 @@ class ImageGroupViewHolder(override val containerView: View,
                           view: ImageView) {
         glide.load(image.resizeToGroupSize())
                 .into(view)
-        view.setOnClickListener { onClick(it, image.resizeTo1920By1280()) }
+        view.setOnClickListener { onClick(it, image) }
     }
 }

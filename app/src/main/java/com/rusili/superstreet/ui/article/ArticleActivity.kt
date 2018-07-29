@@ -16,6 +16,7 @@ import com.rusili.superstreet.domain.NetworkHelper
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.models.body.AbstractBodyModel
 import com.rusili.superstreet.domain.models.body.ArticleHeader
+import com.rusili.superstreet.domain.models.body.ImageGallery
 import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
 import com.rusili.superstreet.ui.article.rv.ArticleAdapter
 import com.rusili.superstreet.ui.common.BUNDLE_KEY
@@ -33,7 +34,7 @@ class ArticleActivity : BaseActivity() {
     private lateinit var viewModel: ArticleViewModel
 
     private lateinit var adapter: ArticleAdapter
-    private val onClick: (View, String) -> Unit = this::onTitleClicked
+    private val onClick: (View, ImageGallery) -> Unit = this::onTitleClicked
     private lateinit var glide: RequestManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,7 +87,7 @@ class ArticleActivity : BaseActivity() {
 
         articleRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            itemAnimator = DefaultItemAnimator()
+            (layoutManager as LinearLayoutManager).isItemPrefetchEnabled = true
             adapter = this@ArticleActivity.adapter
         }
     }
@@ -99,20 +100,17 @@ class ArticleActivity : BaseActivity() {
 
         val combinedList = mutableListOf<AbstractBodyModel>(articleHeader)
         combinedList.addAll(articleBody)
-        articleRecyclerView.adapter = AlphaInAnimationAdapter(this@ArticleActivity.adapter)
         adapter.submitList(combinedList)
     }
 
     private fun onTitleClicked(view: View,
-                               href: String) {
-        if (networkHelper.isConnected(view.context)) {
-            getWindow().setExitTransition(null)
+                               image: ImageGallery) {
+        getWindow().setExitTransition(null)
 
-            Intent(this, ImageActivity::class.java).apply {
-                putExtra(BUNDLE_KEY, href)
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@ArticleActivity, view, getString(R.string.transition_to_image))
-                startActivity(this, options.toBundle())
-            }
-        } else showError(NoNetworkException())
+        Intent(this, ImageActivity::class.java).apply {
+            putExtra(BUNDLE_KEY, image)
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@ArticleActivity, view, getString(R.string.transition_to_image))
+            startActivity(this, options.toBundle())
+        }
     }
 }

@@ -1,15 +1,19 @@
 package com.rusili.superstreet.domain.models.body
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class ImageGallery(override val id: Int,
-                        private val url: String) : AbstractBodyModel(id) {
+                        private val url: String) : AbstractBodyModel(id), Parcelable {
 
     override fun getViewType() = ArticleViewType.IMAGE.viewType
 
     fun resizeToDefaultSize() =
-            resize(900, 600)
+            resize(720, 480)
 
     fun resizeToGroupSize() =
-            resize(300, 200)
+            resize(240, 160)
 
     fun resizeTo1920By1280(): String =
             resize(1920, 1280, 90)

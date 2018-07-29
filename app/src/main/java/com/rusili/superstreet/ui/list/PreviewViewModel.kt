@@ -10,6 +10,10 @@ import com.rusili.superstreet.ui.common.BaseViewModel
 class PreviewViewModel(private val dataSourceFactory: ArticleListDataSourceFactory) : BaseViewModel() {
     lateinit var livedata: LiveData<PagedList<ArticlePreviewModel>>
 
+    init {
+        loadData()
+    }
+
     fun loadData() {
         val pagedListConfig = PagedList.Config.Builder()
                 .setEnablePlaceholders(true)
