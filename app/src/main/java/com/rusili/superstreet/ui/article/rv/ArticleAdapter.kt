@@ -10,9 +10,10 @@ import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.models.body.AbstractBodyModel
 import com.rusili.superstreet.domain.models.body.ArticleViewType
 import com.rusili.superstreet.domain.models.body.ImageGallery
+import com.rusili.superstreet.domain.models.body.ImageSize
 import com.rusili.superstreet.ui.common.BaseViewHolder
 
-class ArticleAdapter(private val onClick: (View, ImageGallery) -> Unit,
+class ArticleAdapter(private val onClick: (View, ImageGallery, ImageSize) -> Unit,
                      private val glide: RequestManager)
     : ListAdapter<AbstractBodyModel, RecyclerView.ViewHolder>(ArticleDiffCallback()) {
 

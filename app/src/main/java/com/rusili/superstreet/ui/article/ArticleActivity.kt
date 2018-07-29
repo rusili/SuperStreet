@@ -1,13 +1,13 @@
 package com.rusili.superstreet.ui.article
 
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -17,14 +17,14 @@ import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.models.body.AbstractBodyModel
 import com.rusili.superstreet.domain.models.body.ArticleHeader
 import com.rusili.superstreet.domain.models.body.ImageGallery
+import com.rusili.superstreet.domain.models.body.ImageSize
 import com.rusili.superstreet.ui.article.di.ArticleViewModelFactory
 import com.rusili.superstreet.ui.article.rv.ArticleAdapter
-import com.rusili.superstreet.ui.common.BUNDLE_KEY
 import com.rusili.superstreet.ui.common.BaseActivity
 import com.rusili.superstreet.ui.common.NoIntentException
-import com.rusili.superstreet.ui.common.NoNetworkException
+import com.rusili.superstreet.ui.image.IMAGE_SIZE_BUNDLE_KEY
+import com.rusili.superstreet.ui.image.IMAGE_URL_BUNDLE_KEY
 import com.rusili.superstreet.ui.image.ImageActivity
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 
@@ -34,7 +34,7 @@ class ArticleActivity : BaseActivity() {
     private lateinit var viewModel: ArticleViewModel
 
     private lateinit var adapter: ArticleAdapter
-    private val onClick: (View, ImageGallery) -> Unit = this::onTitleClicked
+    private val onClick: (View, ImageGallery, ImageSize) -> Unit = this::onTitleClicked
     private lateinit var glide: RequestManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +47,7 @@ class ArticleActivity : BaseActivity() {
         }
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
-        intent.getStringExtra(BUNDLE_KEY)?.let { href ->
+        intent.getStringExtra(IMAGE_URL_BUNDLE_KEY)?.let { href ->
             articleProgressBar.show()
             viewModel.getArticle(href)
         } ?: run {
@@ -104,11 +104,13 @@ class ArticleActivity : BaseActivity() {
     }
 
     private fun onTitleClicked(view: View,
-                               image: ImageGallery) {
+                               image: ImageGallery,
+                               size: ImageSize) {
         getWindow().setExitTransition(null)
 
         Intent(this, ImageActivity::class.java).apply {
-            putExtra(BUNDLE_KEY, image)
+            putExtra(IMAGE_URL_BUNDLE_KEY, image)
+            putExtra(IMAGE_SIZE_BUNDLE_KEY, size)
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@ArticleActivity, view, getString(R.string.transition_to_image))
             startActivity(this, options.toBundle())
         }
