@@ -1,5 +1,6 @@
 package com.rusili.superstreet.ui.list
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
+import com.rusili.superstreet.domain.NetworkHelper
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.header.Title
+import com.rusili.superstreet.ui.MainNavigator
 import com.rusili.superstreet.ui.common.BaseFragment
+import com.rusili.superstreet.ui.common.NoNetworkException
 import com.rusili.superstreet.ui.list.di.PreviewListViewModelFactory
 import com.rusili.superstreet.ui.list.rv.PreviewListAdapter
 import com.rusili.superstreet.ui.util.DateHelper
@@ -23,8 +27,11 @@ import javax.inject.Inject
 
 class PreviewListFragment : BaseFragment() {
     @Inject lateinit var dateHelper: DateHelper
+    @Inject lateinit var networkHelper: NetworkHelper
     @Inject lateinit var viewModelFactory: PreviewListViewModelFactory
     private lateinit var viewModel: PreviewViewModel
+
+    private lateinit var navigator: MainNavigator
 
     private lateinit var adapter: PreviewListAdapter
     private val onClick: (View, Title) -> Unit = this::onTitleClicked
@@ -32,6 +39,11 @@ class PreviewListFragment : BaseFragment() {
 
     companion object {
         fun getInstance() = PreviewListFragment()
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        navigator = context as MainNavigator
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +68,8 @@ class PreviewListFragment : BaseFragment() {
                 renderData(previewList)
             }
         })
+
+        viewModel.loadData()
     }
 
     private fun setupViews() {
@@ -68,10 +82,10 @@ class PreviewListFragment : BaseFragment() {
             adapter = AlphaInAnimationAdapter(this@PreviewListFragment.adapter)
         }
 
-//        fragmentListSwipeRefresh.apply {
-//            setProgressViewOffset(false, 150, 250)
-//            setOnRefreshListener { viewModel.refresh() }
-//        }
+        fragmentListSwipeRefresh.apply {
+            setProgressViewOffset(false, 150, 250)
+            setOnRefreshListener { viewModel.loadData() }
+        }
     }
 
     private fun renderData(previewList: PagedList<ArticlePreviewModel>) {
@@ -84,6 +98,8 @@ class PreviewListFragment : BaseFragment() {
 
     private fun onTitleClicked(view: View,
                                title: Title) {
-        navigator.goToArticle(view, title.href)
+        if (networkHelper.isConnected(view.context)) {
+            navigator.goToArticle(view, title.href)
+        } else showError(NoNetworkException())
     }
 }

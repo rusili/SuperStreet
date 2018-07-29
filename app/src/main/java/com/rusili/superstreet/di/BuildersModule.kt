@@ -9,6 +9,7 @@ import com.rusili.superstreet.ui.list.PreviewListFragment
 import com.rusili.superstreet.ui.list.di.PreviewListModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import javax.inject.Singleton
 
 /**
  * Binds all sub-components within the app.
@@ -19,12 +20,12 @@ abstract class BuildersModule {
     @ContributesAndroidInjector
     abstract fun bindMainActivity(): MainActivity
 
-    @ContributesAndroidInjector(modules = [ImageModule::class])
+    @ContributesAndroidInjector(modules = [AppModule::class, ImageModule::class])
     abstract fun bindImageActivity(): ImageActivity
 
-    @ContributesAndroidInjector(modules = [PreviewListModule::class])
+    @ContributesAndroidInjector(modules = [AppModule::class, PreviewListModule::class])
     abstract fun bindArticleListFragment(): PreviewListFragment
 
-    @ContributesAndroidInjector(modules = [ArticleModule::class])
+    @ContributesAndroidInjector(modules = [AppModule::class, ArticleModule::class])
     abstract fun bindArticleActivity(): ArticleActivity
 }
