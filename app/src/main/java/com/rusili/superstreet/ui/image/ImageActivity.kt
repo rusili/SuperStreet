@@ -15,7 +15,6 @@ import com.rusili.superstreet.domain.models.body.ImageGallery
 import com.rusili.superstreet.domain.models.body.ImageSize
 import com.rusili.superstreet.ui.common.NoIntentException
 import com.rusili.superstreet.ui.image.util.ImageSaver
-import java.io.Serializable
 
 const val IMAGE_URL_BUNDLE_KEY = "IMAGE_URL_BUNDLE_KEY"
 const val IMAGE_SIZE_BUNDLE_KEY = "IMAGE_SIZE_BUNDLE_KEY"
