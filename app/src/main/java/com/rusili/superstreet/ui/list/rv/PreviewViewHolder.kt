@@ -11,7 +11,7 @@ import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.common.BaseViewHolder
 import com.rusili.superstreet.ui.util.DateHelper
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.preview_viewholder.*
+import kotlinx.android.synthetic.main.preview_viewholder_large.*
 import java.util.*
 
 class PreviewViewHolder(override val containerView: View,
