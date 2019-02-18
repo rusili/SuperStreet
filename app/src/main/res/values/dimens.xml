@@ -8,11 +8,11 @@
     <dimen name="snackbar_margin_bottom">64dp</dimen>
 
     <!-- List Fragment -->
-    <dimen name="preview_viewholder_height">296dp</dimen>
     <dimen name="preview_viewholder_corner_size">4dp</dimen>
     <dimen name="preview_viewholder_margin_horizontal">10dp</dimen>
     <dimen name="preview_viewholder_margin_vertical">16dp</dimen>
     <dimen name="preview_viewholder_image_height">256dp</dimen>
+    <dimen name="preview_viewholder_small_image_height">128dp</dimen>
     <dimen name="preview_viewholder_image_margin_bottom">12dp</dimen>
     <dimen name="preview_viewholder_title_margin_vertical">12dp</dimen>
     <dimen name="preview_viewholder_card_elevation">2dp</dimen>

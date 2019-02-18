@@ -14,10 +14,12 @@ import com.rusili.superstreet.R
 @GlideModule
 class AppGlideModule : AppGlideModule() {
 
-    override fun applyOptions(context: Context,
-                              builder: GlideBuilder) {
+    override fun applyOptions(
+        context: Context,
+        builder: GlideBuilder
+    ) {
         builder.setDefaultRequestOptions(
-                RequestOptions().placeholder(R.drawable.bg_placeholder)
-                        .error(R.drawable.ic_error_outline_black_24dp))
+            RequestOptions().placeholder(R.drawable.bg_placeholder)
+                .error(R.drawable.ic_error_outline_black_24dp))
     }
 }

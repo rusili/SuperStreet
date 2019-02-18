@@ -14,10 +14,12 @@ class ArticleDataModule {
 
     @Provides
     fun provideArticleRepository(api: ArticleApi): ArticleRepository =
-            ArticleRepositoryImpl(api)
+        ArticleRepositoryImpl(api)
 
     @Provides
-    protected fun provideArticleApi(BASE_HTML: String,
-                                    mapper: ArticleMapper): ArticleApi =
-            ArticleService(mapper, BASE_HTML)
+    protected fun provideArticleApi(
+        BASE_HTML: String,
+        mapper: ArticleMapper
+    ): ArticleApi =
+        ArticleService(mapper, BASE_HTML)
 }

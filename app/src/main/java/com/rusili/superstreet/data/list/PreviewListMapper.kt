@@ -2,6 +2,7 @@ package com.rusili.superstreet.data.list
 
 import com.rusili.superstreet.data.util.*
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
+import com.rusili.superstreet.domain.list.CardSize
 import com.rusili.superstreet.domain.models.Header
 import com.rusili.superstreet.domain.models.header.HeaderImage
 import com.rusili.superstreet.domain.models.header.Title
@@ -26,7 +27,7 @@ class PreviewListMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper
             val topStoryFlag = parseFlagElement(topStoryElement)
             val topStoryHeader = parseFeatureHeaderElement(topStoryElement)
             val topStoryFooter = parseFooterElement(topStoryElement)
-            val topStoryArticlePreviewModel = ArticlePreviewModel(topStoryFlag, topStoryHeader, topStoryFooter)
+            val topStoryArticlePreviewModel = ArticlePreviewModel(topStoryFlag, topStoryHeader, topStoryFooter, CardSize.Large)
             previewsList.add(topStoryArticlePreviewModel)
         }
 
@@ -35,8 +36,12 @@ class PreviewListMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper
                 val flag = parseFlagElement(story)
                 val header = parseFeatureHeaderElement(story)
                 val footer = parseFooterElement(story)
+                val size = when {
+                    story.hasClass(LIST.PART_HERO.value) -> CardSize.Large
+                    else -> CardSize.Small
+                }
 
-                val articlePreview = ArticlePreviewModel(flag, header, footer)
+                val articlePreview = ArticlePreviewModel(flag, header, footer, size)
                 previewsList.add(articlePreview)
             }
         }

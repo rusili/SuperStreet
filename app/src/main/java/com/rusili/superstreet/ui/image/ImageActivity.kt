@@ -1,20 +1,20 @@
 package com.rusili.superstreet.ui.image
 
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.WindowManager
 import com.bumptech.glide.Glide
 import com.github.chrisbanes.photoview.PhotoView
 import com.rusili.superstreet.R
-import com.rusili.superstreet.ui.common.BaseActivity
-import kotlinx.android.synthetic.main.activity_image.*
-import javax.inject.Inject
-import com.rusili.superstreet.ui.image.util.PermissionsHelper
-import android.content.Intent
 import com.rusili.superstreet.domain.models.body.ImageGallery
 import com.rusili.superstreet.domain.models.body.ImageSize
+import com.rusili.superstreet.ui.common.BaseActivity
 import com.rusili.superstreet.ui.common.NoIntentException
 import com.rusili.superstreet.ui.image.util.ImageSaver
+import com.rusili.superstreet.ui.image.util.PermissionsHelper
+import kotlinx.android.synthetic.main.activity_image.*
+import javax.inject.Inject
 
 const val IMAGE_URL_BUNDLE_KEY = "IMAGE_URL_BUNDLE_KEY"
 const val IMAGE_SIZE_BUNDLE_KEY = "IMAGE_SIZE_BUNDLE_KEY"
