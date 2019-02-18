@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
-import com.rusili.superstreet.domain.NetworkHelper
+import com.rusili.superstreet.ui.util.NetworkHelper
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.MainNavigator

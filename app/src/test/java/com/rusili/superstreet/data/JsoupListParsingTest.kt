@@ -1,6 +1,6 @@
 //package com.rusili.superstreet.data
 //
-//import com.rusili.superstreet.data.list.PreviewListMapper
+//import com.rusili.superstreet.data.list.PreviewListParser
 //import com.rusili.superstreet.data.util.FlagMapper
 //import com.rusili.superstreet.domain.list.ArticlePreviewModel
 //import org.jsoup.Jsoup
@@ -14,7 +14,7 @@
 //    private val doc = Jsoup.parse(inputMain, "UTF-8", "")
 //
 //    private val flagMapper = FlagMapper()
-//    private val parser = PreviewListMapper(flagMapper)
+//    private val parser = PreviewListParser(flagMapper)
 //    private lateinit var previewList: List<ArticlePreviewModel>
 //
 //    @Before

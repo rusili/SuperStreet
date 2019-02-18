@@ -2,9 +2,10 @@ package com.rusili.superstreet.data.util
 
 import com.rusili.superstreet.domain.models.Flag
 import com.rusili.superstreet.domain.models.Footer
-import com.rusili.superstreet.domain.models.flag.Magazine
-import com.rusili.superstreet.domain.models.flag.Type
+import com.rusili.superstreet.data.common.Magazine
+import com.rusili.superstreet.data.common.Type
 import com.rusili.superstreet.domain.models.footer.Author
+import org.jsoup.helper.StringUtil.isBlank
 import org.jsoup.nodes.Element
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,27 +16,26 @@ import java.util.*
  *  - Flag(Magazine & Type)
  *  - Footer(Author & Date)
  */
-open class BaseMapper(private val flagMapper: FlagMapper) {
+open class CommonParser {
 
-    fun parseFlagElement(element: Element): Flag {
-        val magazine = parseMagazine(element)
-        val type = parseType(element)
+    fun parseFlagElement(element: Element): Flag =
+        Flag(
+            parseMagazine(element),
+            parseType(element)
+        )
 
-        return Flag(magazine, type)
-    }
+    fun parseFooterElement(element: Element): Footer =
+        Footer(
+            parseAuthor(element),
+            parseDate(element)
+        )
 
-    fun parseFooterElement(element: Element): Footer {
-        val author = parseAuthor(element)
-        val date = parseDate(element)
-
-        return Footer(author, date)
-    }
-
-    private fun parseMagazine(element: Element): Magazine {
-        val flagMag = element.select(COMMON.A.value).first()
-        val flagMagValue = flagMag.attr(FLAG.TITLE.value)
-        return flagMapper.getMagazine(flagMagValue)
-    }
+    private fun parseMagazine(element: Element): Magazine =
+        Magazine.fromString(
+            element.select(COMMON.A.value)
+                .first()
+                .attr(FLAG.TITLE.value)
+        )
 
     private fun parseType(element: Element): Type {
         val flagType = element.select(COMMON.A.value)[1]
@@ -43,7 +43,7 @@ open class BaseMapper(private val flagMapper: FlagMapper) {
         if (flagTypeValue.isBlank()) {
             flagTypeValue = flagType.textNodes().first().text()      // For Preview parsing
         }
-        return flagMapper.getType(flagTypeValue)
+        return Type.fromString(flagTypeValue)
     }
 
     private fun parseAuthor(element: Element): Author {
@@ -53,17 +53,18 @@ open class BaseMapper(private val flagMapper: FlagMapper) {
             value = element.select(FOOTER.AUTHOR_CONTIBUTING_2.value).text()
         }
         if (value.isBlank()) {
-            val ele = element.select(FOOTER.AUTHOR_STAFF_DIV.value)
-                    .select(FOOTER.AUTHOR_STAFF_ATTR.value)
+            val ele = element
+                .select(FOOTER.AUTHOR_STAFF_DIV.value)
+                .select(FOOTER.AUTHOR_STAFF_ATTR.value)
             value = ele.text()
             href = ele.attr(COMMON.HREF.value)
         }
         return Author(value, href)
     }
 
-    private fun parseDate(element: Element): Date {
-        val format = SimpleDateFormat(FOOTER.TIMESTAMP_FORMAT.value, Locale.ENGLISH)
-        val timestamp = element.select(FOOTER.TIMESTAMP.value).text()
-        return format.parse(timestamp)
-    }
+    private fun parseDate(element: Element): Date =
+        SimpleDateFormat(FOOTER.TIMESTAMP_FORMAT.value, Locale.ENGLISH)
+            .parse(element
+                .select(FOOTER.TIMESTAMP.value)
+                .text())
 }

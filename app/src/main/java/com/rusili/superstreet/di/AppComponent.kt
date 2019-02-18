@@ -2,7 +2,6 @@ package com.rusili.superstreet.di
 
 import com.rusili.superstreet.App
 import com.rusili.superstreet.data.article.di.ArticleDataModule
-import com.rusili.superstreet.data.di.DataModule
 import com.rusili.superstreet.data.list.di.PreviewListDataModule
 import dagger.BindsInstance
 import dagger.Component
@@ -12,9 +11,9 @@ import dagger.android.support.AndroidSupportInjectionModule
     AndroidSupportInjectionModule::class,
     AppModule::class,
     BuildersModule::class,
-    DataModule::class,
     ArticleDataModule::class,
-    PreviewListDataModule::class])
+    PreviewListDataModule::class
+])
 interface AppComponent {
 
     @Component.Builder

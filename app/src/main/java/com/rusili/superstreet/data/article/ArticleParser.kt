@@ -16,7 +16,7 @@ import javax.inject.Inject
 /**
  * Parses an Html file to Article-related models.
  */
-class ArticleMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper(flagMapper) {
+class ArticleParser : CommonParser() {
 
     fun parseToArticle(doc: Document): ArticleFullModel {
         val flags = doc.getElementsByClass(COMMON.FLAG.value)

@@ -1,4 +1,4 @@
-package com.rusili.superstreet.domain
+package com.rusili.superstreet.ui.util
 
 import android.content.Context
 import android.net.ConnectivityManager

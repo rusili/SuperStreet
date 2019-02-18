@@ -8,10 +8,11 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
-import com.rusili.superstreet.domain.NetworkHelper
+import com.rusili.superstreet.ui.util.NetworkHelper
 import com.rusili.superstreet.domain.article.ArticleFullModel
 import com.rusili.superstreet.domain.models.body.AbstractBodyModel
 import com.rusili.superstreet.domain.models.body.ArticleHeader
@@ -85,7 +86,7 @@ class ArticleActivity : BaseActivity() {
         adapter = ArticleAdapter(onClick, glide)
 
         articleRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             (layoutManager as LinearLayoutManager).isItemPrefetchEnabled = true
             adapter = this@ArticleActivity.adapter
         }

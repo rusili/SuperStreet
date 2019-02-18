@@ -14,7 +14,7 @@ import javax.inject.Inject
 /**
  * Parses an Html file to PreviewList related models.
  */
-class PreviewListMapper @Inject constructor(flagMapper: FlagMapper) : BaseMapper(flagMapper) {
+class PreviewListParser : CommonParser() {
 
     fun parseToList(doc: Document): List<ArticlePreviewModel> {
         val previewsList = ArrayList<ArticlePreviewModel>()
