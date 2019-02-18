@@ -14,10 +14,12 @@ class PreviewListDataModule {
 
     @Provides
     fun provideArticleListRepository(api: PreviewListApi): ArticleListRepository =
-            PreviewListRepositoryImpl(api)
+        PreviewListRepositoryImpl(api)
 
     @Provides
-    protected fun provideArticleListApi(BASE_HTML: String,
-                                        mapper: PreviewListMapper): PreviewListApi =
-            PreviewListSerivce(mapper, BASE_HTML)
+    protected fun provideArticleListApi(
+        BASE_HTML: String,
+        mapper: PreviewListMapper
+    ): PreviewListApi =
+        PreviewListSerivce(mapper, BASE_HTML)
 }

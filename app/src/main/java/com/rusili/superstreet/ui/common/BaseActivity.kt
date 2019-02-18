@@ -10,8 +10,6 @@ import dagger.android.AndroidInjection
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-const val BUNDLE_KEY = "BUNDLE_KEY"
-
 abstract class BaseActivity : AppCompatActivity() {
     var container = 0
 

@@ -9,7 +9,6 @@ import com.rusili.superstreet.ui.list.PreviewListFragment
 import com.rusili.superstreet.ui.list.di.PreviewListModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import javax.inject.Singleton
 
 /**
  * Binds all sub-components within the app.

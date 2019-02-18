@@ -7,6 +7,7 @@ import androidx.paging.PagedListAdapter
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
+import com.rusili.superstreet.domain.list.CardSize
 import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.util.DateHelper
 
@@ -16,10 +17,12 @@ class PreviewListAdapter(private val onClick: (View, Title) -> Unit,
     : PagedListAdapter<ArticlePreviewModel, PreviewViewHolder>(PreviewDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): PreviewViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.preview_viewholder, parent, false)
-        return PreviewViewHolder(view, onClick, glide, dateHelper)
-    }
+                                    viewType: Int): PreviewViewHolder =
+            when (viewType) {
+                CardSize.Large.viewType -> PreviewViewHolder(inflate(parent, R.layout.preview_viewholder_large), onClick, glide, dateHelper)
+                CardSize.Small.viewType -> PreviewViewHolder(inflate(parent, R.layout.preview_viewholder_small), onClick, glide, dateHelper)
+                else -> PreviewViewHolder(inflate(parent, R.layout.preview_viewholder_small), onClick, glide, dateHelper)
+            }
 
     override fun onBindViewHolder(holder: PreviewViewHolder,
                                   position: Int) {
@@ -27,4 +30,15 @@ class PreviewListAdapter(private val onClick: (View, Title) -> Unit,
             holder.bind(it)
         }
     }
+
+    override fun getItemViewType(position: Int) =
+            when (getItem(position)?.getViewType()) {
+                CardSize.Large.viewType -> CardSize.Large.viewType
+                CardSize.Small.viewType -> CardSize.Small.viewType
+                else -> -1
+            }
+
+    private fun inflate(parent: ViewGroup,
+                        layout: Int) =
+            LayoutInflater.from(parent.context).inflate(layout, parent, false)
 }

@@ -1,26 +1,23 @@
 package com.rusili.superstreet.ui.image
 
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.WindowManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.github.chrisbanes.photoview.PhotoView
 import com.rusili.superstreet.R
-import com.rusili.superstreet.ui.common.BUNDLE_KEY
+import com.rusili.superstreet.domain.models.body.ImageGallery
+import com.rusili.superstreet.domain.models.body.ImageSize
 import com.rusili.superstreet.ui.common.BaseActivity
-import kotlinx.android.synthetic.main.activity_image.*
-import timber.log.Timber
-import javax.inject.Inject
-import com.rusili.superstreet.ui.image.util.PermissionsHelper
-import android.content.Intent
 import com.rusili.superstreet.ui.common.NoIntentException
 import com.rusili.superstreet.ui.image.util.ImageSaver
+import com.rusili.superstreet.ui.image.util.PermissionsHelper
+import kotlinx.android.synthetic.main.activity_image.*
+import javax.inject.Inject
+
+const val IMAGE_URL_BUNDLE_KEY = "IMAGE_URL_BUNDLE_KEY"
+const val IMAGE_SIZE_BUNDLE_KEY = "IMAGE_SIZE_BUNDLE_KEY"
 
 class ImageActivity : BaseActivity() {
     @Inject lateinit var imageSaver: ImageSaver
@@ -31,51 +28,39 @@ class ImageActivity : BaseActivity() {
         supportPostponeEnterTransition();
         setContentView(R.layout.activity_image)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-    }
 
-    override fun onStart() {
-        super.onStart()
         permissionsHelper.checkPermissionandRequestStorageAccess(this@ImageActivity)
 
-        intent?.getStringExtra(BUNDLE_KEY)?.let {
-            displayImage(it)
+        val imageSize = intent?.getSerializableExtra(IMAGE_SIZE_BUNDLE_KEY) as ImageSize
+        intent?.getParcelableExtra<ImageGallery>(IMAGE_URL_BUNDLE_KEY)?.let {
+            initialDisplayImage(it, imageSize)
             setOnClickListeners(it)
         } ?: showError(NoIntentException())
     }
 
-    private fun setOnClickListeners(imageHref: String) {
+    private fun initialDisplayImage(image: ImageGallery,
+                                    imageSize: ImageSize) {
+        Glide.with(this)
+                .load(image.resizeTo1920By1280())
+                .thumbnail(Glide.with(this)
+                        .load(if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize()))
+                .into(activityImagePhotoView)
+
+        supportStartPostponedEnterTransition()
+    }
+
+    private fun setOnClickListeners(image: ImageGallery) {
         activityImageSaveButton.setOnClickListener {
             ((activityImagePhotoView as PhotoView).drawable as? BitmapDrawable)?.let {
-                saveImage(it, imageHref)
+                saveImage(it, image.resizeTo1920By1280())
             }
         }
 
         activityImageShareButton.setOnClickListener {
             ((activityImagePhotoView as PhotoView).drawable as? BitmapDrawable)?.let {
-                sendLinkIntent(imageHref)
+                sendLinkIntent(image.resizeTo1920By1280())
             }
         }
-    }
-
-    private fun displayImage(href: String) {
-        val requestOptions = RequestOptions().dontAnimate()
-
-        Glide.with(this)
-                .load(href)
-                .apply(requestOptions)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        supportStartPostponedEnterTransition()
-                        return false
-                    }
-
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        Timber.e(e, "Error loading image into ImageActivity")
-                        supportStartPostponedEnterTransition()
-                        return false
-                    }
-                })
-                .into(activityImagePhotoView)
     }
 
     private fun saveImage(it: BitmapDrawable,

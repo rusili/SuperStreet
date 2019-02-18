@@ -23,6 +23,6 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingBottom="@dimen/fragment_list_rv_margin_bottom"
-            tools:listitem="@layout/preview_viewholder" />
+            tools:listitem="@layout/preview_viewholder_large" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>

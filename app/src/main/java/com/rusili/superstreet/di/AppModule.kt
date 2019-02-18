@@ -5,7 +5,6 @@ import com.rusili.superstreet.App
 import com.rusili.superstreet.domain.NetworkHelper
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 /**
  * Provides app-wide dependencies
@@ -13,7 +12,6 @@ import javax.inject.Singleton
 @Module
 class AppModule {
 
-    @Singleton
     @Provides
     fun provideContext(application: App): Context =
             application.applicationContext

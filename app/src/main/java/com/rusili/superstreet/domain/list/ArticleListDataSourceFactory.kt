@@ -1,7 +1,6 @@
 package com.rusili.superstreet.domain.list
 
 import androidx.paging.DataSource
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class ArticleListDataSourceFactory @Inject constructor(private val repository: ArticleListRepository)
