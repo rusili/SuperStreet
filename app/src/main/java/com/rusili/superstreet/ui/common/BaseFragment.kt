@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.rusili.superstreet.R
-import com.rusili.superstreet.ui.MainNavigator
 import dagger.android.support.AndroidSupportInjection
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException

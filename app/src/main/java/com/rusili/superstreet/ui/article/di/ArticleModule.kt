@@ -1,6 +1,5 @@
 package com.rusili.superstreet.ui.article.di
 
-import com.rusili.superstreet.di.AppModule
 import com.rusili.superstreet.domain.article.ArticleRepository
 import com.rusili.superstreet.domain.article.ArticleUsecase
 import dagger.Module

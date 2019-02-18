@@ -12,10 +12,11 @@ import com.rusili.superstreet.ui.common.BaseViewHolder
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.article_imagegroup_viewholder.*
 
-class ImageGroupViewHolder(override val containerView: View,
-                           val onClick: (View, ImageGallery, ImageSize) -> Unit,
-                           val glide: RequestManager)
-    : BaseViewHolder<ImageGroup>(containerView), LayoutContainer {
+class ImageGroupViewHolder(
+    override val containerView: View,
+    val onClick: (View, ImageGallery, ImageSize) -> Unit,
+    val glide: RequestManager
+) : BaseViewHolder<ImageGroup>(containerView), LayoutContainer {
 
     override fun bind(model: ImageGroup) {
         loadImage(model.imageList[0], imageGroupImage1)
@@ -23,11 +24,13 @@ class ImageGroupViewHolder(override val containerView: View,
         loadImage(model.imageList[2], imageGroupImage3)
     }
 
-    private fun loadImage(image: ImageGallery,
-                          view: ImageView) {
+    private fun loadImage(
+        image: ImageGallery,
+        view: ImageView
+    ) {
         glide.load(image.resizeToGroupSize())
-                .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
-                .into(view)
+            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
+            .into(view)
         view.setOnClickListener { onClick(it, image, ImageSize.GROUP) }
     }
 }

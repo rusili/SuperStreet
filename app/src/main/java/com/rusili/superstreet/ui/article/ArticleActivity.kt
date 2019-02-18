@@ -1,7 +1,6 @@
 package com.rusili.superstreet.ui.article
 
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View

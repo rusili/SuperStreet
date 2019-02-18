@@ -5,7 +5,6 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.rusili.superstreet.R
 import com.rusili.superstreet.domain.list.ArticlePreviewModel
 import com.rusili.superstreet.domain.models.header.Title
 import com.rusili.superstreet.ui.common.BaseViewHolder
@@ -14,18 +13,19 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.preview_viewholder_large.*
 import java.util.*
 
-class PreviewViewHolder(override val containerView: View,
-                        private val onClick: (View, Title) -> Unit,
-                        private val glide: RequestManager,
-                        private val dateHelper: DateHelper)
-    : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
+class PreviewViewHolder(
+    override val containerView: View,
+    private val onClick: (View, Title) -> Unit,
+    private val glide: RequestManager,
+    private val dateHelper: DateHelper
+) : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
 
     override fun bind(preview: ArticlePreviewModel) {
         val requestOptions = RequestOptions().transforms(CenterCrop(), RoundedCorners(12))
 
         glide.load(preview.header.headerImage.resizeToDefaultSize())
-                .apply(requestOptions)
-                .into(previewThumbnail)
+            .apply(requestOptions)
+            .into(previewThumbnail)
 
         val dateString = dateHelper.getDateDifferenceString(Date(), preview.footer.date)
         previewTitle.text = preview.header.title.value

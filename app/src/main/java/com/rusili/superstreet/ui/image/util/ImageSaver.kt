@@ -10,7 +10,6 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Images
 import androidx.annotation.VisibleForTesting
 import timber.log.Timber
-import java.util.*
 
 /**
  * Android internals have been modified to store images in the media folder with

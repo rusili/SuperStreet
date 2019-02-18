@@ -1,7 +1,6 @@
 package com.rusili.superstreet.domain.list
 
 import androidx.paging.PageKeyedDataSource
-import io.reactivex.disposables.CompositeDisposable
 
 private const val PAGE_PATH = "page-"
 private const val BACKSLASH = "/"
