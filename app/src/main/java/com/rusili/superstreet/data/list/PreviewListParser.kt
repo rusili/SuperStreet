@@ -14,7 +14,7 @@ import javax.inject.Inject
 /**
  * Parses an Html file to PreviewList related models.
  */
-class PreviewListParser : CommonParser() {
+class PreviewListParser @Inject constructor(private val commonParser: CommonParser) {
 
     fun parseToList(doc: Document): List<ArticlePreviewModel> {
         val previewsList = ArrayList<ArticlePreviewModel>()
@@ -24,18 +24,18 @@ class PreviewListParser : CommonParser() {
         val stories = mainColumn.getElementsByClass(LIST.STORIES_CONTAINER.value).first()
 
         topStoryElement?.let {
-            val topStoryFlag = parseFlagElement(topStoryElement)
+            val topStoryFlag = commonParser.parseFlagElement(topStoryElement)
             val topStoryHeader = parseFeatureHeaderElement(topStoryElement)
-            val topStoryFooter = parseFooterElement(topStoryElement)
+            val topStoryFooter = commonParser.parseFooterElement(topStoryElement)
             val topStoryArticlePreviewModel = ArticlePreviewModel(topStoryFlag, topStoryHeader, topStoryFooter, CardSize.Large)
             previewsList.add(topStoryArticlePreviewModel)
         }
 
         for (story in stories.children()) {
             if (story.hasClass(LIST.PART_ITEM.value) || story.hasClass(LIST.PART_HERO.value)) {
-                val flag = parseFlagElement(story)
+                val flag = commonParser.parseFlagElement(story)
                 val header = parseFeatureHeaderElement(story)
-                val footer = parseFooterElement(story)
+                val footer = commonParser.parseFooterElement(story)
                 val size = when {
                     story.hasClass(LIST.PART_HERO.value) -> CardSize.Large
                     else -> CardSize.Small

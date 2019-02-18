@@ -1,5 +1,5 @@
 package com.rusili.superstreet.domain.list
 
-interface ArticleListRepository{
+interface PreviewListRepository{
     fun getArticleStream(page: String? = "") : List<ArticlePreviewModel>
 }

@@ -16,17 +16,17 @@ import javax.inject.Inject
 /**
  * Parses an Html file to Article-related models.
  */
-class ArticleParser : CommonParser() {
+class ArticleParser @Inject constructor(private val commonParser: CommonParser) {
 
     fun parseToArticle(doc: Document): ArticleFullModel {
         val flags = doc.getElementsByClass(COMMON.FLAG.value)
         val article = doc.getElementsByClass(COMMON.INFO.value).first()
         val image = doc.getElementsByClass(ARTICLE.HEADER_IMAGE.value)[1]
 
-        val flag = parseFlagElement(flags.first())
+        val flag = commonParser.parseFlagElement(flags.first())
         val header = parseArticleHeaderElement(article, image)
         val body = parseArticleBody(doc)
-        val footer = parseFooterElement(article)
+        val footer = commonParser.parseFooterElement(article)
 
         val articleModel = ArticleFullModel(flag, header, body, footer)
 

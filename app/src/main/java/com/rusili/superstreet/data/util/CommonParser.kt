@@ -16,7 +16,7 @@ import java.util.*
  *  - Flag(Magazine & Type)
  *  - Footer(Author & Date)
  */
-open class CommonParser {
+class CommonParser {
 
     fun parseFlagElement(element: Element): Flag =
         Flag(
