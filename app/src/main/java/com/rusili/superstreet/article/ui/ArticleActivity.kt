@@ -32,8 +32,7 @@ class ArticleActivity : BaseActivity() {
     private lateinit var viewModel: ArticleViewModel
 
     private lateinit var adapter: ArticleAdapter
-    private val onClick: (View, ImageGallery, ImageSize) -> Unit = this::onTitleClicked
-    private lateinit var glide: RequestManager
+    private val onClick: (View, ImageGallery, ImageSize) -> Unit = ::onTitleClicked
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,9 +57,9 @@ class ArticleActivity : BaseActivity() {
         super.onStart()
 
         viewModel.livedata.observe(this, Observer { wrapper ->
-            wrapper?.data?.let { article ->
-                renderData(article)
-            } ?: showError(wrapper?.error)
+            wrapper?.data
+                ?.let(::renderData)
+                ?: showError(wrapper?.error)
         })
     }
 
@@ -80,8 +79,7 @@ class ArticleActivity : BaseActivity() {
     }
 
     private fun setupViews() {
-        glide = Glide.with(this)
-        adapter = ArticleAdapter(onClick, glide)
+        adapter = ArticleAdapter(onClick, Glide.with(this))
 
         articleRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -93,12 +91,12 @@ class ArticleActivity : BaseActivity() {
     private fun renderData(article: ArticleFullModel) {
         articleProgressBar.hide()
 
-        val articleHeader = ArticleHeader(0, article.header, article.footer, article.flag)
-        val articleBody = article.body.combineLists()
-
-        val combinedList = mutableListOf<AbstractBodyModel>(articleHeader)
-        combinedList.addAll(articleBody)
-        adapter.submitList(combinedList)
+        mutableListOf<AbstractBodyModel>().apply {
+            add(ArticleHeader(0, article.header, article.footer, article.flag))
+            addAll(article.body.combineLists())
+        }.also {
+            adapter.submitList(it.toList())
+        }
     }
 
     private fun onTitleClicked(

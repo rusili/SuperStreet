@@ -18,16 +18,10 @@ class ImageViewHolder(
 ) : BaseViewHolder<ImageGallery>(containerView), LayoutContainer {
 
     override fun bind(model: ImageGallery) {
-        loadImage(model, articleImageView)
-    }
-
-    private fun loadImage(
-        image: ImageGallery,
-        view: ImageView
-    ) {
-        glide.load(image.resizeToDefaultSize())
+        glide.load(model.resizeToDefaultSize())
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
-            .into(view)
-        view.setOnClickListener { onClick(it, image, ImageSize.DEFAULT) }
+            .into(articleImageView)
+
+        articleImageView.setOnClickListener { onClick(it, model, ImageSize.DEFAULT) }
     }
 }

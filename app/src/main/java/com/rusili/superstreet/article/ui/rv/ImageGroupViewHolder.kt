@@ -31,6 +31,7 @@ class ImageGroupViewHolder(
         glide.load(image.resizeToGroupSize())
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
             .into(view)
+
         view.setOnClickListener { onClick(it, image, ImageSize.GROUP) }
     }
 }
