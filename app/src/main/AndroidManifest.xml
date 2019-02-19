@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,10 +27,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.article.ArticleActivity" />
+        <activity android:name=".article.ui.ArticleActivity" />
 
         <activity
-            android:name=".ui.image.ImageActivity"
+            android:name="com.rusili.superstreet.image.ImageActivity"
             android:theme="@style/Theme.Transparent" />
 
         <meta-data

@@ -1,12 +1,11 @@
 package com.rusili.superstreet.di
 
-import com.rusili.superstreet.ui.MainActivity
-import com.rusili.superstreet.ui.article.ArticleActivity
-import com.rusili.superstreet.ui.article.di.ArticleModule
-import com.rusili.superstreet.ui.image.ImageActivity
-import com.rusili.superstreet.ui.image.di.ImageModule
-import com.rusili.superstreet.ui.list.PreviewListFragment
-import com.rusili.superstreet.ui.list.di.PreviewListModule
+import com.rusili.superstreet.MainActivity
+import com.rusili.superstreet.article.di.ArticleModule
+import com.rusili.superstreet.article.ui.ArticleActivity
+import com.rusili.superstreet.image.ImageActivity
+import com.rusili.superstreet.previewlist.di.PreviewListModule
+import com.rusili.superstreet.previewlist.ui.PreviewListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -19,7 +18,7 @@ abstract class BuildersModule {
     @ContributesAndroidInjector
     abstract fun bindMainActivity(): MainActivity
 
-    @ContributesAndroidInjector(modules = [AppModule::class, ImageModule::class])
+    @ContributesAndroidInjector(modules = [AppModule::class])
     abstract fun bindImageActivity(): ImageActivity
 
     @ContributesAndroidInjector(modules = [AppModule::class, PreviewListModule::class])
