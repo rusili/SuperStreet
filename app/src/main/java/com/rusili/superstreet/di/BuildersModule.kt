@@ -4,7 +4,6 @@ import com.rusili.superstreet.MainActivity
 import com.rusili.superstreet.article.ui.ArticleActivity
 import com.rusili.superstreet.article.ui.di.ArticleModule
 import com.rusili.superstreet.image.ImageActivity
-import com.rusili.superstreet.image.di.ImageModule
 import com.rusili.superstreet.previewlist.ui.PreviewListFragment
 import com.rusili.superstreet.previewlist.ui.di.PreviewListModule
 import dagger.Module
@@ -19,7 +18,7 @@ abstract class BuildersModule {
     @ContributesAndroidInjector
     abstract fun bindMainActivity(): MainActivity
 
-    @ContributesAndroidInjector(modules = [AppModule::class, ImageModule::class])
+    @ContributesAndroidInjector(modules = [AppModule::class])
     abstract fun bindImageActivity(): ImageActivity
 
     @ContributesAndroidInjector(modules = [AppModule::class, PreviewListModule::class])

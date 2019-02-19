@@ -1,22 +1,34 @@
 package com.rusili.superstreet.ui
 
-import com.rusili.superstreet.image.util.ImageSaver
-import org.junit.Assert
+import com.rusili.superstreet.image.extensions.parseImageName
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ImageSaverTest {
-    private val imageSaver = ImageSaver()
 
     @Test
-    fun `Given complete image url, When getImageName is called, Return only the image name plus a timestamp`() {
+    fun `Given complete image url, When getImageName is called, Return only the image name`() {
         // Given
         val testSubject = "http://image.superstreetonline.com/f/170094988+w640+h427+q90+re0+cr1/97bmw-m-performance-parts-concept-.jpg"
         val correctName = "97bmw-m-performance-parts-concept-"
 
         // When
-        val testName = imageSaver.parseImageName(testSubject)
+        val testName = testSubject.parseImageName()
 
         // Then
-        Assert.assertEquals(testName, correctName)
+        assertEquals(testName, correctName)
+    }
+
+    @Test
+    fun `Given invalid image url, When getImageName is called, Return the original string`() {
+        // Given
+        val testSubject = "170094988+w640+h427+q90+re0+cr197bmw-m-performance-parts-concept-"
+        val correctName = "170094988+w640+h427+q90+re0+cr197bmw-m-performance-parts-concept-"
+
+        // When
+        val testName = testSubject.parseImageName()
+
+        // Then
+        assertEquals(testName, correctName)
     }
 }

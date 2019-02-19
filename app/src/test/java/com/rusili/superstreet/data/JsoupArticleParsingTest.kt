@@ -1,8 +1,8 @@
 package com.rusili.superstreet.data
 
 import com.rusili.superstreet.article.data.ArticleParser
-import com.rusili.superstreet.data.util.FlagMapper
 import com.rusili.superstreet.article.domain.ArticleFullModel
+import com.rusili.superstreet.common.CommonParser
 import org.jsoup.Jsoup
 import org.junit.Assert
 import org.junit.Before
@@ -12,8 +12,8 @@ import java.text.SimpleDateFormat
 class JsoupArticleParsingTest {
     private val doc = Jsoup.connect("http://www.superstreetonline.com/features/18052005-boxster-and-2007-cayman-s-porsche-pandemic/").get()
 
-    private val flagMapper = FlagMapper()
-    private val parser = ArticleParser(flagMapper)
+    private val commonParser = CommonParser()
+    private val parser = ArticleParser(commonParser)
     private lateinit var article: ArticleFullModel
 
     @Before

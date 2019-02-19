@@ -12,16 +12,13 @@ import com.rusili.superstreet.common.models.body.ImageGallery
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.BaseActivity
 import com.rusili.superstreet.common.ui.NoIntentException
-import com.rusili.superstreet.image.util.ImageSaver
-import com.rusili.superstreet.image.util.PermissionsHelper
+import com.rusili.superstreet.image.extensions.checkPermissionAndRequest
+import com.rusili.superstreet.image.extensions.saveImage
 import kotlinx.android.synthetic.main.activity_image.*
-import javax.inject.Inject
 
 private const val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
 
 class ImageActivity : BaseActivity() {
-    @Inject protected lateinit var imageSaver: ImageSaver
-    @Inject protected lateinit var permissionsHelper: PermissionsHelper
 
     companion object {
         const val IMAGE_URL_BUNDLE_KEY = "IMAGE_URL_BUNDLE_KEY"
@@ -34,7 +31,7 @@ class ImageActivity : BaseActivity() {
         setContentView(R.layout.activity_image)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
-        permissionsHelper.checkPermissionAndRequest(this@ImageActivity, WRITE_EXTERNAL_STORAGE_PERMISSION)
+        checkPermissionAndRequest(WRITE_EXTERNAL_STORAGE_PERMISSION)
 
         val imageSize = intent?.getSerializableExtra(IMAGE_SIZE_BUNDLE_KEY) as ImageSize
         intent?.getParcelableExtra<ImageGallery>(IMAGE_URL_BUNDLE_KEY)?.let {
@@ -74,8 +71,8 @@ class ImageActivity : BaseActivity() {
         image: BitmapDrawable,
         imageHref: String
     ) {
-        if (permissionsHelper.checkPermissionAndRequest(this@ImageActivity, WRITE_EXTERNAL_STORAGE_PERMISSION)) {
-            imageSaver.saveImage(getContentResolver(), image.bitmap, imageHref)?.let {
+        if (checkPermissionAndRequest(WRITE_EXTERNAL_STORAGE_PERMISSION)) {
+            contentResolver.saveImage(image.bitmap, imageHref)?.let {
                 showSnackbar(getString(R.string.image_save_as) + imageHref)
             } ?: showSnackbar(getString(R.string.error_image_saving))
         }
