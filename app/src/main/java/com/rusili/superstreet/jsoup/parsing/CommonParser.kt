@@ -1,8 +1,5 @@
-package com.rusili.superstreet.common
+package com.rusili.superstreet.jsoup.parsing
 
-import com.rusili.superstreet.article.data.COMMON
-import com.rusili.superstreet.article.data.FLAG
-import com.rusili.superstreet.article.data.FOOTER
 import com.rusili.superstreet.common.models.Flag
 import com.rusili.superstreet.common.models.Footer
 import com.rusili.superstreet.common.models.Magazine

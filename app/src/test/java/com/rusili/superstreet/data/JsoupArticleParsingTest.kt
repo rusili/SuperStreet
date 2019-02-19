@@ -1,8 +1,8 @@
 package com.rusili.superstreet.data
 
-import com.rusili.superstreet.article.data.ArticleParser
+import com.rusili.superstreet.jsoup.parsing.ArticleParser
 import com.rusili.superstreet.article.domain.ArticleFullModel
-import com.rusili.superstreet.common.CommonParser
+import com.rusili.superstreet.jsoup.parsing.CommonParser
 import org.jsoup.Jsoup
 import org.junit.Assert
 import org.junit.Before

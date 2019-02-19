@@ -1,9 +1,5 @@
-package com.rusili.superstreet.previewlist.data
+package com.rusili.superstreet.jsoup.parsing
 
-import com.rusili.superstreet.article.data.COMMON
-import com.rusili.superstreet.article.data.LIST
-import com.rusili.superstreet.article.data.PREVIEW_HEADER
-import com.rusili.superstreet.common.CommonParser
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.domain.CardSize
 import com.rusili.superstreet.common.models.Header

@@ -2,6 +2,8 @@ package com.rusili.superstreet.article.data
 
 import com.rusili.superstreet.article.domain.ArticleFullModel
 import com.rusili.superstreet.article.domain.ArticleRepository
+import com.rusili.superstreet.jsoup.api.ArticleApi
+import com.rusili.superstreet.jsoup.parsing.ArticleParser
 import io.reactivex.Single
 import javax.inject.Inject
 

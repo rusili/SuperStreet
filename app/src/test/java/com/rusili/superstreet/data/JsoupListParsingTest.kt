@@ -1,6 +1,6 @@
 //package com.rusili.superstreet.data
 //
-//import com.rusili.superstreet.previewlist.data.PreviewListParser
+//import com.rusili.superstreet.jsoup.parsing.PreviewListParser
 //import com.rusili.superstreet.data.util.FlagMapper
 //import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 //import org.jsoup.Jsoup

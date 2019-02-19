@@ -1,5 +1,7 @@
 package com.rusili.superstreet.previewlist.data
 
+import com.rusili.superstreet.jsoup.api.PreviewListApi
+import com.rusili.superstreet.jsoup.parsing.PreviewListParser
 import com.rusili.superstreet.previewlist.domain.PreviewListRepository
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import javax.inject.Inject

@@ -1,6 +1,4 @@
-@file:JvmName("Tags")
-
-package com.rusili.superstreet.article.data
+package com.rusili.superstreet.jsoup.parsing
 
 // Base:
 enum class COMMON(val value: String) {

@@ -1,7 +1,6 @@
-package com.rusili.superstreet.article.data
+package com.rusili.superstreet.jsoup.parsing
 
 import com.rusili.superstreet.article.domain.ArticleFullModel
-import com.rusili.superstreet.common.CommonParser
 import com.rusili.superstreet.common.models.Body
 import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.common.models.body.ImageGallery
@@ -33,8 +32,10 @@ class ArticleParser @Inject constructor(private val commonParser: CommonParser) 
         return articleModel
     }
 
-    private fun parseArticleHeaderElement(element: Element,
-                                          imageEle: Element): Header {
+    private fun parseArticleHeaderElement(
+        element: Element,
+        imageEle: Element
+    ): Header {
         val header = element.getElementsByClass(COMMON.INFO.value).first()
 
         // TitlePreview

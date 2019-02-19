@@ -1,28 +1,18 @@
 package com.rusili.superstreet.article.di
 
-import com.rusili.superstreet.article.data.ArticleApi
-import com.rusili.superstreet.article.data.ArticleParser
+import com.rusili.superstreet.jsoup.api.ArticleApi
+import com.rusili.superstreet.jsoup.parsing.ArticleParser
 import com.rusili.superstreet.article.data.ArticleRepositoryImpl
-import com.rusili.superstreet.article.data.ArticleService
-import com.rusili.superstreet.common.CommonParser
+import com.rusili.superstreet.jsoup.api.ArticleService
+import com.rusili.superstreet.jsoup.parsing.CommonParser
 import com.rusili.superstreet.article.domain.ArticleRepository
+import com.rusili.superstreet.jsoup.di.JsoupModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module(includes = [JsoupModule::class])
 abstract class ArticleDataModule {
-
-    @Module
-    companion object {
-        @JvmStatic
-        @Provides
-        protected fun provideArticleParser(commonParser: CommonParser): ArticleParser =
-            ArticleParser(commonParser)
-    }
-
-    @Binds
-    abstract fun provideArticleApi(service: ArticleService): ArticleApi
 
     @Binds
     abstract fun provideArticleRepository(repositoryImpl: ArticleRepositoryImpl): ArticleRepository

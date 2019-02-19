@@ -4,24 +4,28 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ImageGallery(override val id: Int,
-                        private val url: String) : AbstractBodyModel(id), Parcelable {
+data class ImageGallery(
+    override val id: Int,
+    private val url: String
+) : AbstractBodyModel(id), Parcelable {
 
     override fun getViewType() = ArticleViewType.IMAGE.viewType
 
     fun resizeToDefaultSize() =
-            resize(720, 480)
+        resize(720, 480)
 
     fun resizeToGroupSize() =
-            resize(240, 160)
+        resize(240, 160)
 
     fun resizeTo1920By1280(): String =
-            resize(1920, 1280, 90)
+        resize(1920, 1280, 90)
 
     // Default Image width & height is 6xx x 4xx
-    private fun resize(width: Int,
-                       height: Int,
-                       quality: Int? = 80): String {
+    private fun resize(
+        width: Int,
+        height: Int,
+        quality: Int? = 80
+    ): String {
         var resizedUrl = url
 
         val widthIndex = resizedUrl.indexOf("+w")
