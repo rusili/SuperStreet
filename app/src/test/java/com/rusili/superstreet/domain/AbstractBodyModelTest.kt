@@ -1,6 +1,6 @@
 package com.rusili.superstreet.domain
 
-import com.rusili.superstreet.domain.models.body.Paragraph
+import com.rusili.superstreet.common.models.body.Paragraph
 import org.junit.Assert
 import org.junit.Test
 

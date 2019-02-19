@@ -1,0 +1,91 @@
+package com.rusili.superstreet.image
+
+import android.Manifest
+import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
+import android.os.Bundle
+import android.view.WindowManager
+import com.bumptech.glide.Glide
+import com.github.chrisbanes.photoview.PhotoView
+import com.rusili.superstreet.R
+import com.rusili.superstreet.common.models.body.ImageGallery
+import com.rusili.superstreet.common.models.body.ImageSize
+import com.rusili.superstreet.common.ui.BaseActivity
+import com.rusili.superstreet.common.ui.NoIntentException
+import com.rusili.superstreet.image.util.ImageSaver
+import com.rusili.superstreet.image.util.PermissionsHelper
+import kotlinx.android.synthetic.main.activity_image.*
+import javax.inject.Inject
+
+private const val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+class ImageActivity : BaseActivity() {
+    @Inject protected lateinit var imageSaver: ImageSaver
+    @Inject protected lateinit var permissionsHelper: PermissionsHelper
+
+    companion object {
+        const val IMAGE_URL_BUNDLE_KEY = "IMAGE_URL_BUNDLE_KEY"
+        const val IMAGE_SIZE_BUNDLE_KEY = "IMAGE_SIZE_BUNDLE_KEY"
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        supportPostponeEnterTransition();
+        setContentView(R.layout.activity_image)
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
+        permissionsHelper.checkPermissionAndRequest(this@ImageActivity, WRITE_EXTERNAL_STORAGE_PERMISSION)
+
+        val imageSize = intent?.getSerializableExtra(IMAGE_SIZE_BUNDLE_KEY) as ImageSize
+        intent?.getParcelableExtra<ImageGallery>(IMAGE_URL_BUNDLE_KEY)?.let {
+            initialDisplayImage(it, imageSize)
+            setOnClickListeners(it)
+        } ?: showError(NoIntentException())
+    }
+
+    private fun initialDisplayImage(
+        image: ImageGallery,
+        imageSize: ImageSize
+    ) {
+        Glide.with(this@ImageActivity)
+            .load(image.resizeTo1920By1280())
+            .thumbnail(Glide.with(this)
+                .load(if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize()))
+            .into(activityImagePhotoView)
+
+        supportStartPostponedEnterTransition()
+    }
+
+    private fun setOnClickListeners(image: ImageGallery) {
+        activityImageSaveButton.setOnClickListener {
+            ((activityImagePhotoView as PhotoView).drawable as? BitmapDrawable)?.let {
+                saveImage(it, image.resizeTo1920By1280())
+            }
+        }
+
+        activityImageShareButton.setOnClickListener {
+            ((activityImagePhotoView as PhotoView).drawable as? BitmapDrawable)?.let {
+                sendLinkIntent(image.resizeTo1920By1280())
+            }
+        }
+    }
+
+    private fun saveImage(
+        image: BitmapDrawable,
+        imageHref: String
+    ) {
+        if (permissionsHelper.checkPermissionAndRequest(this@ImageActivity, WRITE_EXTERNAL_STORAGE_PERMISSION)) {
+            imageSaver.saveImage(getContentResolver(), image.bitmap, imageHref)?.let {
+                showSnackbar(getString(R.string.image_save_as) + imageHref)
+            } ?: showSnackbar(getString(R.string.error_image_saving))
+        }
+    }
+
+    private fun sendLinkIntent(imageHref: String) {
+        Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, imageHref)
+            startActivity(Intent.createChooser(this, getString(R.string.share_link_message)))
+        }
+    }
+}

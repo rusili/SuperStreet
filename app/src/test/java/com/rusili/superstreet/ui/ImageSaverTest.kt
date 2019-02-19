@@ -1,6 +1,6 @@
 package com.rusili.superstreet.ui
 
-import com.rusili.superstreet.ui.image.util.ImageSaver
+import com.rusili.superstreet.image.util.ImageSaver
 import org.junit.Assert
 import org.junit.Test
 
