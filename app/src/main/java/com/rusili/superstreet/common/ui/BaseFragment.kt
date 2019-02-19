@@ -24,8 +24,10 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    fun showSnackbar(message: String,
-                     length: Int = 0) {
+    fun showSnackbar(
+        message: String,
+        length: Int = 0
+    ) {
         view?.let {
             Snackbar.make(it, message, length).show()
         }

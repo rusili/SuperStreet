@@ -2,7 +2,6 @@ package com.rusili.superstreet.article.ui
 
 import androidx.lifecycle.MutableLiveData
 import com.rusili.superstreet.article.domain.ArticleFullModel
-import com.rusili.superstreet.article.domain.ArticleUsecase
 import com.rusili.superstreet.common.ui.BaseViewModel
 import com.rusili.superstreet.common.ui.LiveDataWrapper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,7 +13,7 @@ class ArticleViewModel(private val usecase: ArticleUsecase) : BaseViewModel() {
     val livedata = MutableLiveData<LiveDataWrapper<ArticleFullModel>>()
 
     fun getArticle(href: String) {
-        addDisposable(usecase.getArticleList(href)
+        addDisposable(usecase.getArticle(href)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(

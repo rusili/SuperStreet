@@ -35,5 +35,5 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
     }
 
     private fun inflateListFragment() =
-            inflateFragment(PreviewListFragment.getInstance())
+            inflateFragment(PreviewListFragment.newInstance())
 }

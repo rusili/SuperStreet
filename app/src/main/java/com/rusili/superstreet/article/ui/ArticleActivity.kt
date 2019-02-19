@@ -18,7 +18,6 @@ import com.rusili.superstreet.common.models.body.AbstractBodyModel
 import com.rusili.superstreet.common.models.body.ArticleHeader
 import com.rusili.superstreet.common.models.body.ImageGallery
 import com.rusili.superstreet.common.models.body.ImageSize
-import com.rusili.superstreet.article.ui.di.ArticleViewModelFactory
 import com.rusili.superstreet.article.ui.rv.ArticleAdapter
 import com.rusili.superstreet.common.ui.BaseActivity
 import com.rusili.superstreet.common.ui.NoIntentException
@@ -29,8 +28,7 @@ import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 
 class ArticleActivity : BaseActivity() {
-    @Inject lateinit var networkHelper: NetworkHelper
-    @Inject lateinit var viewModelFactory: ArticleViewModelFactory
+    @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
     private lateinit var viewModel: ArticleViewModel
 
     private lateinit var adapter: ArticleAdapter
@@ -103,9 +101,10 @@ class ArticleActivity : BaseActivity() {
         adapter.submitList(combinedList)
     }
 
-    private fun onTitleClicked(view: View,
-                               image: ImageGallery,
-                               size: ImageSize
+    private fun onTitleClicked(
+        view: View,
+        image: ImageGallery,
+        size: ImageSize
     ) {
         getWindow().setExitTransition(null)
 

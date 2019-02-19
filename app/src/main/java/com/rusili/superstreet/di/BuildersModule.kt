@@ -1,11 +1,11 @@
 package com.rusili.superstreet.di
 
 import com.rusili.superstreet.MainActivity
+import com.rusili.superstreet.article.di.ArticleModule
 import com.rusili.superstreet.article.ui.ArticleActivity
-import com.rusili.superstreet.article.ui.di.ArticleModule
 import com.rusili.superstreet.image.ImageActivity
+import com.rusili.superstreet.previewlist.di.PreviewListModule
 import com.rusili.superstreet.previewlist.ui.PreviewListFragment
-import com.rusili.superstreet.previewlist.ui.di.PreviewListModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

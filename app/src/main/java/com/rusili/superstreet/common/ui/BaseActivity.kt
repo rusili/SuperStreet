@@ -23,11 +23,11 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun inflateFragment(fragment: Fragment) =
-            supportFragmentManager.beginTransaction()
+        supportFragmentManager.beginTransaction()
 //            .setCustomAnimations()
-                    .replace(container, fragment)
-                    .addToBackStack(fragment.tag)
-                    .commit()
+            .replace(container, fragment)
+            .addToBackStack(fragment.tag)
+            .commit()
 
     fun showError(error: Throwable?) {
         when (error) {
@@ -39,21 +39,25 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun showSnackbar(message: String,
-                     length: Int = 0) {
+    fun showSnackbar(
+        message: String,
+        length: Int = 0
+    ) {
         window?.decorView?.rootView?.let {
             Snackbar.make(it, message, length).show()
         }
     }
 
     private fun showErrorDialogToFinish() {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage("Error")
-                .setPositiveButton("Ok") { _, _ ->
-                    getWindow().setExitTransition(null)
-                    finish()
-                };
-        builder.create().show()
+        AlertDialog.Builder(this).apply {
+            setMessage("Error")
+            setPositiveButton("Ok") { _, _ ->
+                getWindow().setExitTransition(null)
+                finish()
+            };
+        }.also {
+            it.create().show()
+        }
     }
 
     private fun showUnknownError() = showSnackbar(getString(R.string.error_generic))
