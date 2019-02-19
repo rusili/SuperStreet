@@ -1,5 +1,7 @@
 package com.rusili.superstreet.common.models
 
+// TODO: Convert to Sealed class
+
 enum class Type(
     val value: String,
     val href: String

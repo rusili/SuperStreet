@@ -17,7 +17,7 @@ abstract class ArticleModule {
     companion object {
         @JvmStatic
         @Provides
-        fun provideArticleViewModelFactory(usecase: ArticleUsecase) =
+        protected fun provideArticleViewModelFactory(usecase: ArticleUsecase) =
             ArticleViewModelFactory(usecase)
     }
 

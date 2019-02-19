@@ -15,27 +15,31 @@ private const val STRING_YESTERDAY = "Yesterday"
 class DateHelper {
 
     fun formatToMMMDDYYY(date: Date): String =
-            dateFormat.format(date)
+        dateFormat.format(date)
 
-    fun getDateDifferenceString(todaysDate: Date,
-                                articleDate: Date): String =
-            getDateDifference(todaysDate, articleDate).let {
-                when (it) {
-                    DateDiffWrapper(0, TimePeriod.DAY) -> return STRING_TODAY
-                    DateDiffWrapper(1, TimePeriod.DAY) -> return STRING_YESTERDAY
-                    else -> {
-                        var dateDiffString = it.length.toString() + " " + it.period.name
-                        if (it.length > 1) {
-                            dateDiffString += "s"
-                        }
-                        return dateDiffString.toLowerCase() + " ago"
+    fun getDateDifferenceString(
+        todaysDate: Date,
+        articleDate: Date
+    ): String =
+        getDateDifference(todaysDate, articleDate).let {
+            when (it) {
+                DateDiffWrapper(0, TimePeriod.DAY) -> return STRING_TODAY
+                DateDiffWrapper(1, TimePeriod.DAY) -> return STRING_YESTERDAY
+                else -> {
+                    var dateDiffString = it.length.toString() + " " + it.period.name
+                    if (it.length > 1) {
+                        dateDiffString += "s"
                     }
+                    return dateDiffString.toLowerCase() + " ago"
                 }
             }
+        }
 
     @VisibleForTesting
-    fun getDateDifference(todaysDate: Date,
-                          articleDate: Date): DateDiffWrapper {
+    fun getDateDifference(
+        todaysDate: Date,
+        articleDate: Date
+    ): DateDiffWrapper {
         val diffInMillis = todaysDate.time - articleDate.time
         val diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
 
@@ -47,7 +51,8 @@ class DateHelper {
         }
     }
 
-    data class DateDiffWrapper(val length: Long,
-                               val period: TimePeriod
+    data class DateDiffWrapper(
+        val length: Long,
+        val period: TimePeriod
     )
 }

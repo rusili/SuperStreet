@@ -1,5 +1,6 @@
 package com.rusili.superstreet.common.models.body
 
+// TODO: Convert to Sealed class
 enum class ArticleViewType(val viewType: Int) {
 
     HEADER(0),

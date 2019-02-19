@@ -18,12 +18,12 @@ abstract class JsoupModule {
     companion object {
         @JvmStatic
         @Provides
-        protected fun provideArticleParser(commonParser: CommonParser): ArticleParser =
+        fun provideArticleParser(commonParser: CommonParser): ArticleParser =
             ArticleParser(commonParser)
 
         @JvmStatic
         @Provides
-        protected fun providePreviewListParser(commonParser: CommonParser): PreviewListParser =
+        fun providePreviewListParser(commonParser: CommonParser): PreviewListParser =
             PreviewListParser(commonParser)
 
         @JvmStatic
@@ -33,8 +33,8 @@ abstract class JsoupModule {
     }
 
     @Binds
-    abstract fun providePreviewListApi(service: PreviewListService): PreviewListApi
+    abstract fun provideArticleApi(service: ArticleService): ArticleApi
 
     @Binds
-    abstract fun provideArticleApi(service: ArticleService): ArticleApi
+    abstract fun providePreviewListApi(service: PreviewListService): PreviewListApi
 }

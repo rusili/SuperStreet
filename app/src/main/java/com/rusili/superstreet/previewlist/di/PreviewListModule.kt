@@ -36,5 +36,5 @@ abstract class PreviewListModule {
     }
 
     @Binds
-    abstract fun providePreviewListRepository(repositoryImpl: PreviewListRepositoryImpl): PreviewListRepository
+    abstract protected fun providePreviewListRepository(repositoryImpl: PreviewListRepositoryImpl): PreviewListRepository
 }
