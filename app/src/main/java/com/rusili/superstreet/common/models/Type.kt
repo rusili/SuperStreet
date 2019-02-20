@@ -1,23 +1,21 @@
 package com.rusili.superstreet.common.models
 
-// TODO: Convert to Sealed class
-
-enum class Type(
+sealed class Type(
     val value: String,
     val href: String
 ) {
-    FEATURES("Feature", "/features/"),
-    HOW_TO("How To", "/how-to/"),
-    EVENT_COVERAGE("Event", "/event-coverage/"),
-    OTHER("Other", "");
+    object Features : Type("Feature", "/features/")
+    object HowTo : Type("How To", "/how-to/")
+    object EventCoverage : Type("Event", "/event-coverage/")
+    object Other : Type("Other", "")
 
     companion object {
-        fun fromString(value: String) =
+        fun fromString(value: String): Type =
             when (value) {
-                "features" -> FEATURES
-                "how to" -> HOW_TO
-                "event coverage" -> EVENT_COVERAGE
-                else -> OTHER
+                "features" -> Features
+                "how to" -> HowTo
+                "event coverage" -> EventCoverage
+                else -> Other
             }
     }
 }

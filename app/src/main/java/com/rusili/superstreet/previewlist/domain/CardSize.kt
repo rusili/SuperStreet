@@ -1,8 +1,7 @@
 package com.rusili.superstreet.previewlist.domain
 
-// TODO: Convert to Sealed class
-enum class CardSize(val viewType: Int) {
+sealed class CardSize(val viewType: Int) {
 
-    Small(0),
-    Large(1)
+    object Small : CardSize(0)
+    object Large : CardSize(1)
 }

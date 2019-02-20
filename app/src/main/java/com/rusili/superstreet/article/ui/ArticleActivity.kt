@@ -30,7 +30,7 @@ class ArticleActivity : BaseActivity() {
     private lateinit var viewModel: ArticleViewModel
 
     private lateinit var adapter: ArticleAdapter
-    private val onClick: (View, ImageGallery, ImageSize) -> Unit = ::onTitleClicked
+    private val onClick: (View, ImageGallery, ImageSize) -> Unit = ::onImageClicked
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +97,7 @@ class ArticleActivity : BaseActivity() {
         }
     }
 
-    private fun onTitleClicked(
+    private fun onImageClicked(
         view: View,
         image: ImageGallery,
         size: ImageSize

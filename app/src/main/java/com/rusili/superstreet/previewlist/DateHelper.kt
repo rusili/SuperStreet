@@ -23,8 +23,8 @@ class DateHelper {
     ): String =
         getDateDifference(todaysDate, articleDate).let {
             when (it) {
-                DateDiffWrapper(0, TimePeriod.DAY) -> return STRING_TODAY
-                DateDiffWrapper(1, TimePeriod.DAY) -> return STRING_YESTERDAY
+                DateDiffWrapper(0, TimePeriod.Day) -> return STRING_TODAY
+                DateDiffWrapper(1, TimePeriod.Day) -> return STRING_YESTERDAY
                 else -> {
                     var dateDiffString = it.length.toString() + " " + it.period.name
                     if (it.length > 1) {
@@ -44,10 +44,10 @@ class DateHelper {
         val diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
 
         return when {
-            diffInDays < 7 -> DateDiffWrapper(diffInDays, TimePeriod.DAY)
-            diffInDays < 30 -> DateDiffWrapper(diffInDays / 7, TimePeriod.WEEK)
-            diffInDays < 365 -> DateDiffWrapper(diffInDays / 30, TimePeriod.MONTH)
-            else -> DateDiffWrapper(diffInDays / 365, TimePeriod.YEAR)
+            diffInDays < 7 -> DateDiffWrapper(diffInDays, TimePeriod.Day)
+            diffInDays < 30 -> DateDiffWrapper(diffInDays / 7, TimePeriod.Week)
+            diffInDays < 365 -> DateDiffWrapper(diffInDays / 30, TimePeriod.Month)
+            else -> DateDiffWrapper(diffInDays / 365, TimePeriod.Year)
         }
     }
 
