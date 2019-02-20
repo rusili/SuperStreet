@@ -5,9 +5,9 @@ abstract class AbstractBodyModel(open val id: Int) : Comparable<AbstractBodyMode
     abstract fun getViewType(): Int
 
     override fun compareTo(other: AbstractBodyModel) =
-            when {
-                id < other.id -> -1
-                id > other.id -> 1
-                else -> 0
-            }
+        when {
+            id < other.id -> -1
+            id > other.id -> 1
+            else -> 0
+        }
 }

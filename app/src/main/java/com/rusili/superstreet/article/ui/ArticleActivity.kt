@@ -10,9 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
-import com.rusili.superstreet.common.NetworkHelper
 import com.rusili.superstreet.article.domain.ArticleFullModel
 import com.rusili.superstreet.common.models.body.AbstractBodyModel
 import com.rusili.superstreet.common.models.body.ArticleHeader
@@ -93,7 +91,7 @@ class ArticleActivity : BaseActivity() {
 
         mutableListOf<AbstractBodyModel>().apply {
             add(ArticleHeader(0, article.header, article.footer, article.flag))
-            addAll(article.body.combineLists())
+            addAll(article.body.combineParts())
         }.also {
             adapter.submitList(it.toList())
         }

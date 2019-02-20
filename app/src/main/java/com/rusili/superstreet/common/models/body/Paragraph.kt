@@ -5,5 +5,5 @@ data class Paragraph(
     val body: String
 ) : AbstractBodyModel(id) {
 
-    override fun getViewType() = ArticleViewType.PARAGRAPH.viewType
+    override fun getViewType() = ArticleViewType.Paragraph.viewType
 }

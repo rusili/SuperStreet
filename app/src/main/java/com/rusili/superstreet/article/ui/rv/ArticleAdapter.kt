@@ -20,10 +20,10 @@ class ArticleAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
-            ArticleViewType.HEADER.viewType -> HeaderViewHolder(inflate(parent, R.layout.article_header_viewholder), glide)
-            ArticleViewType.PARAGRAPH.viewType -> ParagraphViewHolder(inflate(parent, R.layout.article_paragraph_viewholder))
-            ArticleViewType.IMAGE.viewType -> ImageViewHolder(inflate(parent, R.layout.article_image_viewholder), onClick, glide)
-            ArticleViewType.IMAGE_GROUP.viewType -> ImageGroupViewHolder(inflate(parent, R.layout.article_imagegroup_viewholder), onClick, glide)
+            ArticleViewType.Header.viewType -> HeaderViewHolder(inflate(parent, R.layout.article_header_viewholder), glide)
+            ArticleViewType.Paragraph.viewType -> ParagraphViewHolder(inflate(parent, R.layout.article_paragraph_viewholder))
+            ArticleViewType.Image.viewType -> ImageViewHolder(inflate(parent, R.layout.article_image_viewholder), onClick, glide)
+            ArticleViewType.ImageGroup.viewType -> ImageGroupViewHolder(inflate(parent, R.layout.article_imagegroup_viewholder), onClick, glide)
             else -> ParagraphViewHolder(inflate(parent, R.layout.article_paragraph_viewholder));
         }
 
@@ -32,10 +32,10 @@ class ArticleAdapter(
 
     override fun getItemViewType(position: Int) =
         when (getItem(position).getViewType()) {
-            ArticleViewType.HEADER.viewType -> ArticleViewType.HEADER.viewType
-            ArticleViewType.PARAGRAPH.viewType -> ArticleViewType.PARAGRAPH.viewType
-            ArticleViewType.IMAGE.viewType -> ArticleViewType.IMAGE.viewType
-            ArticleViewType.IMAGE_GROUP.viewType -> ArticleViewType.IMAGE_GROUP.viewType
+            ArticleViewType.Header.viewType -> ArticleViewType.Header.viewType
+            ArticleViewType.Paragraph.viewType -> ArticleViewType.Paragraph.viewType
+            ArticleViewType.Image.viewType -> ArticleViewType.Image.viewType
+            ArticleViewType.ImageGroup.viewType -> ArticleViewType.ImageGroup.viewType
             else -> -1
         }
 

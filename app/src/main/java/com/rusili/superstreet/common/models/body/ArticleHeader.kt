@@ -11,5 +11,5 @@ data class ArticleHeader(
     val flag: Flag
 ) : AbstractBodyModel(id) {
 
-    override fun getViewType() = ArticleViewType.HEADER.viewType
+    override fun getViewType() = ArticleViewType.Header.viewType
 }

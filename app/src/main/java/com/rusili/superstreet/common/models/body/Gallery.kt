@@ -5,5 +5,5 @@ data class Gallery(
     val images: Set<ImageGallery>
 ) : AbstractBodyModel(id) {
 
-    override fun getViewType() = ArticleViewType.GALLERY.viewType
+    override fun getViewType() = ArticleViewType.Gallery.viewType
 }

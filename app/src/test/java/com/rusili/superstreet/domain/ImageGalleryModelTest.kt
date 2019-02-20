@@ -34,7 +34,7 @@ class ImageGalleryModelTest {
     }
 
     @Test
-    fun `Given sample image url w=, h=, q=80, When image resizedto groupSize, Return correct url`() {
+    fun `Given sample image url w=659, h=439, q=80, When image resizedto groupSize, Return correct url`() {
         // Given
         val correctUrl = "http://image.superstreetonline.com/f/170287891+w240+h160+q80+re0+cr1+ar0+st0/2018-lexus-lc-500-hks-exhaust.jpg"
         val testSubject = ImageGallery(1, imageUrl)
