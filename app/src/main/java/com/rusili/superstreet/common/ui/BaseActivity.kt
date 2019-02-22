@@ -15,8 +15,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
-        window.enterTransition = null
-        window.exitTransition = null
+        window.apply {
+            enterTransition = null
+            exitTransition = null
+        }
         super.onCreate(savedInstanceState)
 
         container = R.id.activityFragmentContainer
@@ -43,18 +45,20 @@ abstract class BaseActivity : AppCompatActivity() {
         message: String,
         length: Int = 0
     ) {
-        window?.decorView?.rootView?.let {
-            Snackbar.make(it, message, length).show()
+        window?.let {
+            it.decorView.rootView.let {
+                Snackbar.make(it, message, length).show()
+            }
         }
     }
 
     private fun showErrorDialogToFinish() {
         AlertDialog.Builder(this).apply {
-            setMessage("Error")
-            setPositiveButton("Ok") { _, _ ->
+            setMessage(R.string.error_generic)
+            setPositiveButton(R.string.ok) { _, _ ->
                 getWindow().setExitTransition(null)
                 finish()
-            };
+            }
         }.also {
             it.create().show()
         }

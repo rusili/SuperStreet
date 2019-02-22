@@ -1,7 +1,6 @@
 package com.rusili.superstreet.article.ui.rv
 
 import android.view.View
-import android.widget.ImageView
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions

@@ -1,7 +1,5 @@
-package com.rusili.superstreet.ui
+package com.rusili.superstreet.previewlist
 
-import com.rusili.superstreet.previewlist.DateHelper
-import com.rusili.superstreet.previewlist.TimePeriod
 import org.junit.Assert
 import org.junit.Test
 import java.text.SimpleDateFormat

@@ -2,7 +2,6 @@ package com.rusili.superstreet.article.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.rusili.superstreet.article.domain.ArticleUsecaseImpl
 import javax.inject.Inject
 
 class ArticleViewModelFactory @Inject constructor(private val usecase: ArticleUsecase) : ViewModelProvider.Factory {

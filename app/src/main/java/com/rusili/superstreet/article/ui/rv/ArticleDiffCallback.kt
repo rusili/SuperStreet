@@ -8,12 +8,12 @@ class ArticleDiffCallback : DiffUtil.ItemCallback<AbstractBodyModel>() {
     override fun areItemsTheSame(
         oldItem: AbstractBodyModel,
         newItem: AbstractBodyModel
-    ) =
+    ): Boolean =
         oldItem == newItem
 
     override fun areContentsTheSame(
         oldItem: AbstractBodyModel,
         newItem: AbstractBodyModel
-    ) =
+    ): Boolean =
         oldItem.id == newItem.id
 }

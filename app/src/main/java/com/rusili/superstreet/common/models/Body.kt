@@ -13,7 +13,7 @@ data class Body(
     val imagesGroups: List<ImageGroup>
 ) {
 
-    fun combineParts(): MutableList<AbstractBodyModel> =
+    fun combineSections(): List<AbstractBodyModel> =
         ArrayList<AbstractBodyModel>().apply {
             addAll(paragraphs)
             addAll(imagesSingles)

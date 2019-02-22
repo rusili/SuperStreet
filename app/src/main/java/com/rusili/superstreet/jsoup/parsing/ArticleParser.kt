@@ -18,35 +18,27 @@ import javax.inject.Inject
 class ArticleParser @Inject constructor(private val commonParser: CommonParser) {
 
     fun parseToArticle(doc: Document): ArticleFullModel {
-        val flags = doc.getElementsByClass(COMMON.FLAG.value)
-        val article = doc.getElementsByClass(COMMON.INFO.value).first()
-        val image = doc.getElementsByClass(ARTICLE.HEADER_IMAGE.value)[1]
+        val rawFlag = doc.getElementsByClass(COMMON.FLAG.value).first()
+        val rawInfo = doc.getElementsByClass(COMMON.INFO.value).first()
+        val rawHeaderImage = doc.getElementsByClass(ARTICLE.HEADER_IMAGE.value)[1]
 
-        val flag = commonParser.parseFlagElement(flags.first())
-        val header = parseArticleHeaderElement(article, image)
+        val flag = commonParser.parseFlagElement(rawFlag)
+        val header = parseArticleHeaderElement(rawInfo, rawHeaderImage)
         val body = parseArticleBody(doc)
-        val footer = commonParser.parseFooterElement(article)
+        val footer = commonParser.parseFooterElement(rawInfo)
 
-        val articleModel = ArticleFullModel(flag, header, body, footer)
-
-        return articleModel
+        return ArticleFullModel(flag, header, body, footer)
     }
 
     private fun parseArticleHeaderElement(
-        element: Element,
-        imageEle: Element
+        rawInfo: Element,
+        rawHeaderImage: Element
     ): Header {
-        val header = element.getElementsByClass(COMMON.INFO.value).first()
+        val header = rawInfo.getElementsByClass(COMMON.INFO.value).first()
 
-        // TitlePreview
-        val titleValue = header.select(ARTICLE_HEADER.TITLE.value).text()
-        val title = Title(titleValue, "")
-
-        // Desc
+        val title = Title(header.select(ARTICLE_HEADER.TITLE.value).text(), "")
+        val image = parseArticleImage(rawHeaderImage)
         val desc = header.select(ARTICLE_HEADER.DESC.value).text()
-
-        // HeaderImage
-        val image = buildArticleImage(imageEle)
 
         return Header(title, image, desc)
     }
@@ -56,43 +48,43 @@ class ArticleParser @Inject constructor(private val commonParser: CommonParser) 
         val articleImageGalleryList = mutableListOf<ImageGallery>()
         val articleImageGroupList = mutableListOf<ImageGroup>()
 
-        val articleContent = doc.getElementsByClass(ARTICLE_BODY.MOD_ARTICLE_CONTENT.value)
-        val articleBody = articleContent.first().getElementsByClass(ARTICLE_BODY.ARTICLE_PAGE.value)
+        val rawArticleBody = doc.getElementsByClass(ARTICLE_BODY.MOD_ARTICLE_CONTENT.value).first()
+            .getElementsByClass(ARTICLE_BODY.ARTICLE_PAGE.value)
 
-        val articleParagraphs = articleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_PARAGRAPH.value)
-        for (element in articleParagraphs) {
+        val rawArticleParagraphs = rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_PARAGRAPH.value)
+        for (element in rawArticleParagraphs) {
             val id = element.attr(ARTICLE_BODY.ID.value).replace(ARTICLE_BODY.ARTICLE_PARAGRAPH.value + "-", "")
             val text = element.getElementsByClass(ARTICLE_BODY.ARTICLE_TEXT.value).first().text()
             articleParagraphList.add(Paragraph(id.toInt(), text))
         }
 
-        val articleImages = articleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE.value)
-        for (element in articleImages) {
+        val rawArticleImages = rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE.value)
+        for (element in rawArticleImages) {
             val id = element.attr(ARTICLE_BODY.ID.value).replace(ARTICLE_BODY.ARTICLE_IMAGE.value + "-", "")
             val img = element.getElementsByClass(ARTICLE_BODY.IMG_LINK.value).first()
             val imgSrc = img.getElementsByTag(COMMON.IMG.value).attr(ARTICLE_BODY.DATA_IMG_SRC.value)
             articleImageGalleryList.add(ImageGallery(id.toInt(), imgSrc))
         }
 
-        val articleImageGroups = articleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value)
-        for (element in articleImageGroups) {
+        val rawArticleImageGroups = rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value)
+        for (element in rawArticleImageGroups) {
             val id = element.attr(ARTICLE_BODY.ID.value).replace(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value + "-", "")
             val imgGroup = element.getElementsByTag(ARTICLE_BODY.UL.value).first()
 
             val imgSet = mutableListOf<ImageGallery>()
-            val imgs = imgGroup.getElementsByClass(ARTICLE_BODY.IMG_WRAP.value)
-            for (imgElement in imgs) {
+            val rawImgs = imgGroup.getElementsByClass(ARTICLE_BODY.IMG_WRAP.value)
+            for (imgElement in rawImgs) {
                 val img = imgElement.getElementsByTag(COMMON.DIV.value).first().getElementsByTag(COMMON.A.value)
                 val imgSrc = img.first().getElementsByTag(COMMON.IMG.value).first().attr(ARTICLE_BODY.DATA_IMG_SRC.value)
                 imgSet.add(ImageGallery(-1, imgSrc))
             }
-            articleImageGroupList.add(ImageGroup(id.toInt(), imgSet))
+            articleImageGroupList.add(ImageGroup(id.toInt(), imgSet.toList()))
         }
 
-        return Body(articleParagraphList, articleImageGalleryList, articleImageGroupList)
+        return Body(articleParagraphList.toList(), articleImageGalleryList.toList(), articleImageGroupList.toList())
     }
 
-    private fun buildArticleImage(image: Element): HeaderImage {
+    private fun parseArticleImage(image: Element): HeaderImage {
         val itemprop = image.getElementsByClass(ARTICLE_HEADER.IMG_WRAP.value).first().select(COMMON.A.value).first()
         val imgTitle = itemprop.attr(COMMON.TITLE.value)
         val imgSrc = itemprop.select(COMMON.IMG.value).attr(COMMON.SRC.value)

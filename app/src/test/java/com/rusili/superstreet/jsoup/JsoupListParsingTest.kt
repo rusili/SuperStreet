@@ -1,3 +1,5 @@
+package com.rusili.superstreet.jsoup
+
 //package com.rusili.superstreet.data
 //
 //import com.rusili.superstreet.jsoup.parsing.PreviewListParser
