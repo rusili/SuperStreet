@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
@@ -57,6 +58,14 @@ class PreviewListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
+
+        if (!view.context.isNetworkConnected()){
+            fragmentListErrorView.isVisible = true
+            fragmentListProgressBar.hide()
+            showError(NoNetworkException())
+            return
+        }
+
         fragmentListProgressBar.show()
         fragmentListSwipeRefresh.isEnabled = false
 
@@ -79,6 +88,7 @@ class PreviewListFragment : BaseFragment() {
             adapter = AlphaInAnimationAdapter(this@PreviewListFragment.adapter)
         }
 
+        // TODO: SwipeRefresh not working correctly.
         fragmentListSwipeRefresh.apply {
             setProgressViewOffset(false, 150, 250)
             setOnRefreshListener { viewModel.loadData() }
@@ -86,6 +96,7 @@ class PreviewListFragment : BaseFragment() {
     }
 
     private fun renderData(previewList: PagedList<ArticlePreviewModel>) {
+        fragmentListErrorView.isVisible = false
         fragmentListProgressBar.hide()
         fragmentListSwipeRefresh.isEnabled = true
 
