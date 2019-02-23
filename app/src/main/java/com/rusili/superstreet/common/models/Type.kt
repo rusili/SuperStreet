@@ -1,6 +1,6 @@
 package com.rusili.superstreet.common.models
 
-const val TYPE_FEATURE_STRING = "feature"
+const val TYPE_FEATURE_STRING = "features"
 const val TYPE_HOWTO_STRING = "how to"
 const val TYPE_EVENT_STRING = "event coverage"
 

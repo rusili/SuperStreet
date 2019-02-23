@@ -15,7 +15,7 @@ import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
-    @Inject lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+    @Inject protected lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
 
@@ -26,8 +26,10 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
         inflateListFragment()
     }
 
-    override fun goToArticle(view: View,
-                             href: String) {
+    override fun goToArticle(
+        view: View,
+        href: String
+    ) {
         val intent = Intent(this, ArticleActivity::class.java)
         intent.putExtra(IMAGE_URL_BUNDLE_KEY, href)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, getString(R.string.transition_to_image))
@@ -35,5 +37,5 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
     }
 
     private fun inflateListFragment() =
-            inflateFragment(PreviewListFragment.newInstance())
+        inflateFragment(PreviewListFragment.newInstance())
 }

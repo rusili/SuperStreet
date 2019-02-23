@@ -1,11 +1,9 @@
 package com.rusili.superstreet.previewlist.domain
 
-import androidx.room.Entity
 import com.rusili.superstreet.common.models.Flag
 import com.rusili.superstreet.common.models.Footer
 import com.rusili.superstreet.common.models.Header
 
-@Entity(tableName = "articlePreviews")
 data class ArticlePreviewModel(
     val flag: Flag,
     val header: Header,
