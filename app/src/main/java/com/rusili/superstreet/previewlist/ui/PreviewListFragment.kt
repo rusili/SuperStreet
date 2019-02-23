@@ -23,6 +23,7 @@ import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.ui.rv.PreviewListAdapter
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class PreviewListFragment : BaseFragment() {
@@ -97,6 +98,7 @@ class PreviewListFragment : BaseFragment() {
         title: Title
     ) {
         if (view.context.isNetworkConnected()) {
+            Timber.d("Title: " + title.value + "Href: " + title.href)
             navigator.goToArticle(view, title.href)
         } else showError(NoNetworkException())
     }

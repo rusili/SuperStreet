@@ -23,61 +23,58 @@ class PreviewListParser @Inject constructor(private val commonParser: CommonPars
         val stories = mainColumn.getElementsByClass(LIST.STORIES_CONTAINER.value).first()
 
         topStoryElement?.let {
-            previewsList.add(
-                ArticlePreviewModel(
-                    flag = commonParser.parseFlagElement(it),
-                    header = parseFeatureHeaderElement(it),
-                    footer = commonParser.parseFooterElement(it),
-                    size = CardSize.Large)
+            val topStoryFlag = commonParser.parseFlagElement(topStoryElement)
+            val topStoryHeader = parseFeatureHeaderElement(topStoryElement)
+            val topStoryFooter = commonParser.parseFooterElement(topStoryElement)
+            val topStoryArticlePreviewModel = ArticlePreviewModel(
+                topStoryFlag,
+                topStoryHeader,
+                topStoryFooter,
+                CardSize.Large
             )
+            previewsList.add(topStoryArticlePreviewModel)
         }
 
         for (story in stories.children()) {
             if (story.hasClass(LIST.PART_ITEM.value) || story.hasClass(LIST.PART_HERO.value)) {
-                previewsList.add(
-                    ArticlePreviewModel(
-                        flag = commonParser.parseFlagElement(story),
-                        header = parseFeatureHeaderElement(story),
-                        footer = commonParser.parseFooterElement(story),
-                        size = when {
-                            story.hasClass(LIST.PART_HERO.value) -> CardSize.Large
-                            else -> CardSize.Small
-                        })
-                )
+                val flag = commonParser.parseFlagElement(story)
+                val header = parseFeatureHeaderElement(story)
+                val footer = commonParser.parseFooterElement(story)
+                val size = when {
+                    story.hasClass(LIST.PART_HERO.value) -> CardSize.Large
+                    else -> CardSize.Small
+                }
+
+                val articlePreview = ArticlePreviewModel(flag, header, footer, size)
+                previewsList.add(articlePreview)
             }
         }
-
         return previewsList
     }
 
     private fun parseFeatureHeaderElement(element: Element): Header {
+        // TitlePreview
         val infoNode = element.select(PREVIEW_HEADER.INFO.value).first()
+        val titleNode = infoNode.select(COMMON.A.value).first()
 
-        return Header(
-            title = infoNode.select(COMMON.A.value).first().let {
-                Title(
-                    it.attr(COMMON.TITLE.value),
-                    it.attr(COMMON.HREF.value)
-                )
-            },
-            headerImage = parseHeaderImage(infoNode, element),
-            desc = element.select(PREVIEW_HEADER.DESC.value).text())
-    }
+        val titleValue = titleNode.attr(COMMON.TITLE.value)
+        val titleHrefEndpoint = titleNode.attr(COMMON.HREF.value)
+        val title = Title(titleValue, titleHrefEndpoint)
 
-    private fun parseHeaderImage(
-        infoNode: Element,
-        element: Element
-    ): HeaderImage {
+        // Desc
+        val desc = element.select(PREVIEW_HEADER.DESC.value).text()
+
+        // HeaderImage:
         var imgTitle: String
         var imgSrc: String
 
-        val nonFeatureImageNode = infoNode.select(COMMON.IMG.value)                  // For non-feature stories:
+        val nonFeatureImageNode = infoNode.select(COMMON.IMG.value)        // For non-feature stories:
         if (nonFeatureImageNode.isNotEmpty()) {
             imgTitle = nonFeatureImageNode.first().attr(PREVIEW_HEADER.DATA_ALT.value)
             imgSrc = nonFeatureImageNode.first().attr(PREVIEW_HEADER.DATA_SRC.value)
         } else {
-            val featureImageNode = element.children()[1].select(COMMON.A.value)     // For feature stories:
-                .select(COMMON.IMG.value)
+            val imageNode = element.children()[1].select(COMMON.A.value)            // For feature stories:
+            val featureImageNode = imageNode.select(COMMON.IMG.value)
 
             // Top Story:
             imgTitle = featureImageNode.attr(PREVIEW_HEADER.ALT.value)
@@ -89,7 +86,8 @@ class PreviewListParser @Inject constructor(private val commonParser: CommonPars
                 imgSrc = featureImageNode.attr(PREVIEW_HEADER.DATA_SRC.value)
             }
         }
+        val image = HeaderImage(imgTitle, imgSrc)
 
-        return HeaderImage(imgTitle, imgSrc)
+        return Header(title, image, desc)
     }
 }
