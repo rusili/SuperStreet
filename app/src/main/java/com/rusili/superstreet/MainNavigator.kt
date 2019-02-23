@@ -4,6 +4,8 @@ import android.view.View
 
 interface MainNavigator {
 
-    fun goToArticle(view: View,
-                    href: String)
+    fun goToArticle(
+        view: View,
+        href: String
+    )
 }

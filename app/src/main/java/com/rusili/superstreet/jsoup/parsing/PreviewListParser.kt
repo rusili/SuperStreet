@@ -26,7 +26,12 @@ class PreviewListParser @Inject constructor(private val commonParser: CommonPars
             val topStoryFlag = commonParser.parseFlagElement(topStoryElement)
             val topStoryHeader = parseFeatureHeaderElement(topStoryElement)
             val topStoryFooter = commonParser.parseFooterElement(topStoryElement)
-            val topStoryArticlePreviewModel = ArticlePreviewModel(topStoryFlag, topStoryHeader, topStoryFooter, CardSize.Large)
+            val topStoryArticlePreviewModel = ArticlePreviewModel(
+                topStoryFlag,
+                topStoryHeader,
+                topStoryFooter,
+                CardSize.Large
+            )
             previewsList.add(topStoryArticlePreviewModel)
         }
 

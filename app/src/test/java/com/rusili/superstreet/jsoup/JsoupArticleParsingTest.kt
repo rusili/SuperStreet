@@ -3,10 +3,10 @@ package com.rusili.superstreet.jsoup
 import com.rusili.superstreet.jsoup.parsing.ArticleParser
 import com.rusili.superstreet.article.domain.ArticleFullModel
 import com.rusili.superstreet.jsoup.parsing.CommonParser
+import org.amshove.kluent.shouldEqual
 import org.jsoup.Jsoup
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import java.text.SimpleDateFormat
 
 class JsoupArticleParsingTest {
@@ -16,7 +16,7 @@ class JsoupArticleParsingTest {
     private val parser = ArticleParser(commonParser)
     private lateinit var article: ArticleFullModel
 
-    @Before
+    @BeforeEach
     fun setup() {
         article = parser.parseToArticle(doc)
     }
@@ -27,7 +27,7 @@ class JsoupArticleParsingTest {
         val title = article.header.title.value
 
         // Then
-        Assert.assertEquals(title, "2005 Boxster & 2007 Cayman S - Porsche Pandemic")
+        title shouldEqual "2005 Boxster & 2007 Cayman S - Porsche Pandemic"
     }
 
     @Test
@@ -36,7 +36,7 @@ class JsoupArticleParsingTest {
         val desc = article.header.desc
 
         // Then
-        Assert.assertEquals(desc, "Osaka's answer to two of Porsche's most disregarded cars")
+        desc shouldEqual "Osaka's answer to two of Porsche's most disregarded cars"
     }
 
     @Test
@@ -50,7 +50,7 @@ class JsoupArticleParsingTest {
         val author = article.footer.author.value
 
         // Then
-        Assert.assertEquals(author, "David Ishikawa")
+        author shouldEqual "David Ishikawa"
     }
 
     @Test
@@ -60,29 +60,29 @@ class JsoupArticleParsingTest {
         val dateFormat = SimpleDateFormat("MMM dd, yyyy")
 
         // Then
-        Assert.assertEquals(dateFormat.format(timestamp), "May 18, 2018")
+        dateFormat.format(timestamp) shouldEqual "May 18, 2018"
     }
 
     @Test
     fun `Test article magazine parsing`() {
         // Given
         val value = article.flag.magazine.value
-        val href = article.flag.magazine.href
+        val href = article.flag.magazine.path
 
         // Then
-        Assert.assertEquals(value, "Super Street")
-        Assert.assertEquals(href, "/super-street-magazine/")
+        value shouldEqual "Super Street"
+        href shouldEqual "/super-street-magazine/"
     }
 
     @Test
     fun `Test article type parsing`() {
         // Given
         val value = article.flag.type.value
-        val href = article.flag.type.href
+        val href = article.flag.type.path
 
         // Then
-        Assert.assertEquals(value, "Feature")
-        Assert.assertEquals(href, "/features/")
+        value shouldEqual "Feature"
+        href shouldEqual "/features/"
     }
 
     @Test
@@ -92,7 +92,7 @@ class JsoupArticleParsingTest {
         val imgSrc = article.header.headerImage.resizeToDefaultSize()
 
         // Then
-        Assert.assertEquals(title, "2005 Porsche Boxster 2007 Porsche Cayman S")
-        Assert.assertEquals(imgSrc, "http://image.superstreetonline.com/f/254875289+w600+h400+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg")
+        title shouldEqual "2005 Porsche Boxster 2007 Porsche Cayman S"
+        imgSrc shouldEqual "http://image.superstreetonline.com/f/254875289+w600+h400+q80+re0+cr1+ar0/2005-porsche-boxster-2007-porsche-cayman-s.jpg"
     }
 }

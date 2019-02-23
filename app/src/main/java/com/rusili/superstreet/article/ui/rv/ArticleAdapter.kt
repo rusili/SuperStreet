@@ -9,12 +9,12 @@ import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.models.body.AbstractBodyModel
 import com.rusili.superstreet.common.models.body.ArticleViewType
-import com.rusili.superstreet.common.models.body.ImageGallery
+import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.BaseViewHolder
 
 class ArticleAdapter(
-    private val onClick: (View, ImageGallery, ImageSize) -> Unit,
+    private val onClick: (View, Image, ImageSize) -> Unit,
     private val glide: RequestManager
 ) : ListAdapter<AbstractBodyModel, RecyclerView.ViewHolder>(ArticleDiffCallback()) {
 

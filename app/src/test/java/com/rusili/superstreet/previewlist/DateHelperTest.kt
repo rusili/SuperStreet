@@ -1,9 +1,9 @@
 package com.rusili.superstreet.previewlist
 
-import org.junit.Assert
-import org.junit.Test
+import org.amshove.kluent.shouldEqual
+import org.junit.jupiter.api.Test
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 class DateHelperTest {
     private val todaysDate = Date(1531590471199)
@@ -19,7 +19,7 @@ class DateHelperTest {
         val formatted = testSubject.formatToMMMDDYYY(date)
 
         // Then:
-        Assert.assertEquals(formatted, "Dec 21, 2012")
+        formatted shouldEqual "Dec 21, 2012"
     }
 
     @Test
@@ -32,7 +32,7 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        Assert.assertEquals(days, DateHelper.DateDiffWrapper(4, TimePeriod.Day))
+        days shouldEqual DateHelper.DateDiffWrapper(4, TimePeriod.Day)
     }
 
     @Test
@@ -45,7 +45,7 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.Week))
+        days shouldEqual DateHelper.DateDiffWrapper(3, TimePeriod.Week)
     }
 
     @Test
@@ -58,7 +58,7 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.Month))
+        days shouldEqual DateHelper.DateDiffWrapper(3, TimePeriod.Month)
     }
 
     @Test
@@ -71,6 +71,6 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.Year))
+        days shouldEqual DateHelper.DateDiffWrapper(3, TimePeriod.Year)
     }
 }

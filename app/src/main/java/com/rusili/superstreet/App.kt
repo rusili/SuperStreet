@@ -19,8 +19,7 @@ class App : Application(), HasActivityInjector {
 
         Fabric.with(this, Crashlytics())
 
-        DaggerAppComponent
-                .builder()
+        DaggerAppComponent.builder()
                 .application(this)
                 .build()
                 .inject(this)
