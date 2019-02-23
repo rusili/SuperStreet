@@ -6,8 +6,7 @@ import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageGroup
 import com.rusili.superstreet.common.models.body.Paragraph
 import org.amshove.kluent.shouldEqual
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class BodyTest {
 

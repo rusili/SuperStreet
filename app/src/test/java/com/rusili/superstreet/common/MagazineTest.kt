@@ -2,7 +2,7 @@ package com.rusili.superstreet.common
 
 import com.rusili.superstreet.common.models.*
 import org.amshove.kluent.shouldBe
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class MagazineTest {
 

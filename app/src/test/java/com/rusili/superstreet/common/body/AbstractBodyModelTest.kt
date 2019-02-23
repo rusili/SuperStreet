@@ -1,8 +1,10 @@
 package com.rusili.superstreet.common.body
 
 import com.rusili.superstreet.common.models.body.Paragraph
-import org.junit.Assert
-import org.junit.Test
+import org.amshove.kluent.shouldEqual
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Test
+import kotlin.test.assertTrue
 
 class AbstractBodyModelTest {
 
@@ -13,7 +15,7 @@ class AbstractBodyModelTest {
         val paragraph2 = Paragraph(2, "")
 
         // Then
-        Assert.assertTrue(paragraph1 < paragraph2)
+        assertTrue(paragraph1 < paragraph2)
     }
 
     @Test
@@ -23,7 +25,7 @@ class AbstractBodyModelTest {
         val paragraph2 = Paragraph(2, "")
 
         // Then
-        Assert.assertFalse(paragraph2 < paragraph1)
+        assertFalse(paragraph2 < paragraph1)
     }
 
     @Test
@@ -33,6 +35,6 @@ class AbstractBodyModelTest {
         val paragraph2 = Paragraph(1, "")
 
         // Then
-        Assert.assertTrue(paragraph1 == paragraph2)
+        paragraph1 shouldEqual paragraph2
     }
 }

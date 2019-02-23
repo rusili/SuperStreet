@@ -2,7 +2,7 @@ package com.rusili.superstreet.common.body
 
 import com.rusili.superstreet.common.models.body.ArticleViewType
 import org.amshove.kluent.shouldEqual
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class ArticleViewTypeTest {
 

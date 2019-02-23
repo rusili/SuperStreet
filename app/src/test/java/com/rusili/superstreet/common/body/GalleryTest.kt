@@ -4,7 +4,7 @@ import com.nhaarman.mockito_kotlin.mock
 import com.rusili.superstreet.common.models.body.Gallery
 import com.rusili.superstreet.common.models.body.Image
 import org.amshove.kluent.shouldEqual
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class GalleryTest {
 

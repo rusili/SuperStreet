@@ -6,7 +6,7 @@ import com.rusili.superstreet.common.models.Footer
 import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.common.models.body.ArticleHeader
 import org.amshove.kluent.shouldEqual
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class ArticleHeaderTest {
 

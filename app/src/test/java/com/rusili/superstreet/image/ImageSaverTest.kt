@@ -1,8 +1,8 @@
 package com.rusili.superstreet.image
 
 import com.rusili.superstreet.image.extensions.parseImageName
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.amshove.kluent.shouldEqual
+import org.junit.jupiter.api.Test
 
 class ImageSaverTest {
 
@@ -16,7 +16,7 @@ class ImageSaverTest {
         val testName = testSubject.parseImageName()
 
         // Then
-        assertEquals(testName, correctName)
+        testName shouldEqual correctName
     }
 
     @Test
@@ -29,6 +29,6 @@ class ImageSaverTest {
         val testName = testSubject.parseImageName()
 
         // Then
-        assertEquals(testName, correctName)
+        testName shouldEqual correctName
     }
 }

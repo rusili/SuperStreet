@@ -2,8 +2,7 @@ package com.rusili.superstreet.common.body
 
 import com.rusili.superstreet.common.models.body.Image
 import org.amshove.kluent.shouldEqual
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class ImageTest {
     private val imageUrl = "http://image.superstreetonline.com/f/170287891+w659+h439+q80+re0+cr1+ar0+st0/2018-lexus-lc-500-hks-exhaust.jpg"
@@ -30,7 +29,7 @@ class ImageTest {
         val testResult = testSubject.resizeToDefaultSize()
 
         // Then
-        Assert.assertEquals(testResult, correctUrl)
+        testResult shouldEqual correctUrl
     }
 
     @Test
@@ -43,7 +42,7 @@ class ImageTest {
         val testResult = testSubject.resizeTo1920By1280()
 
         // Then
-        Assert.assertEquals(testResult, correctUrl)
+        testResult shouldEqual correctUrl
     }
 
     @Test
@@ -56,6 +55,6 @@ class ImageTest {
         val testResult = testSubject.resizeToGroupSize()
 
         // Then
-        Assert.assertEquals(testResult, correctUrl)
+        testResult shouldEqual correctUrl
     }
 }

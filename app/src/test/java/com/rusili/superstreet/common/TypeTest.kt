@@ -5,7 +5,7 @@ import com.rusili.superstreet.common.models.TYPE_FEATURE_STRING
 import com.rusili.superstreet.common.models.TYPE_HOWTO_STRING
 import com.rusili.superstreet.common.models.Type
 import org.amshove.kluent.shouldBe
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class TypeTest {
 

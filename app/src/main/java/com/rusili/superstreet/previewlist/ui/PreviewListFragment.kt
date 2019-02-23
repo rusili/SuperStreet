@@ -98,7 +98,7 @@ class PreviewListFragment : BaseFragment() {
         title: Title
     ) {
         if (view.context.isNetworkConnected()) {
-            Timber.d("Title: " + title.value + "Href: " + title.href)
+            Timber.d("Title: %s Href: %s", title.value, title.href)
             navigator.goToArticle(view, title.href)
         } else showError(NoNetworkException())
     }
