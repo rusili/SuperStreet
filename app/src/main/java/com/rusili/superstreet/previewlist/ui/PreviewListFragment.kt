@@ -16,6 +16,7 @@ import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.MainNavigator
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.extensions.isNetworkConnected
+import com.rusili.superstreet.common.extensions.stopAndHide
 import com.rusili.superstreet.common.models.header.Title
 import com.rusili.superstreet.common.ui.BaseFragment
 import com.rusili.superstreet.common.ui.NoNetworkException
@@ -24,6 +25,7 @@ import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.ui.rv.PreviewListAdapter
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
+import kotlinx.android.synthetic.main.fragment_list_loading.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -61,12 +63,11 @@ class PreviewListFragment : BaseFragment() {
 
         if (!view.context.isNetworkConnected()){
             fragmentListErrorView.isVisible = true
-            fragmentListProgressBar.hide()
+            fragmentListLoadingLayout.stopAndHide()
             showError(NoNetworkException())
             return
         }
 
-        fragmentListProgressBar.show()
         fragmentListSwipeRefresh.isEnabled = false
 
         viewModel.livedata.observe(this, Observer { list ->
@@ -97,7 +98,7 @@ class PreviewListFragment : BaseFragment() {
 
     private fun renderData(previewList: PagedList<ArticlePreviewModel>) {
         fragmentListErrorView.isVisible = false
-        fragmentListProgressBar.hide()
+        fragmentListLoadingLayout.stopAndHide()
         fragmentListSwipeRefresh.isEnabled = true
 
         adapter.submitList(previewList)

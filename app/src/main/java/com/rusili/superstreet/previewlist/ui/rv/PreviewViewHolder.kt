@@ -27,14 +27,12 @@ class PreviewViewHolder(
             .apply(requestOptions)
             .into(previewThumbnail)
 
-        val dateString = dateHelper.getDateDifferenceString(Date(), preview.footer.date)
         previewTitle.text = preview.header.title.value
         previewDesc.text = preview.header.desc
         previewMag.text = preview.flag.magazine.value
         previewType.text = preview.flag.type.value
-        previewAuthorTimestamp.text = dateString
+        previewAuthorTimestamp.text = dateHelper.getDateDifferenceString(Date(), preview.footer.date)
 
-        previewTitle.setOnClickListener { onClick(containerView, preview.header.title) }
-        previewThumbnail.setOnClickListener { onClick(containerView, preview.header.title) }
+        itemView.setOnClickListener { onClick(containerView, preview.header.title) }
     }
 }

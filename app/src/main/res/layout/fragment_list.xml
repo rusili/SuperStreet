@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/white_1000">
 
+    <include layout="@layout/fragment_list_loading" />
+
     <ImageView
         android:id="@+id/fragmentListErrorView"
         android:layout_width="@dimen/progress_bar_size"
@@ -12,13 +14,6 @@
         android:layout_gravity="center"
         android:src="@drawable/ic_error_outline_black_24dp"
         android:visibility="gone" />
-
-    <androidx.core.widget.ContentLoadingProgressBar
-        android:id="@+id/fragmentListProgressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="@dimen/progress_bar_size"
-        android:layout_height="@dimen/progress_bar_size"
-        android:layout_gravity="center" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/fragmentListSwipeRefresh"

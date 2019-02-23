@@ -74,8 +74,7 @@ dependencies {
 
     // UI:
     implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
-    implementation 'com.ethanhua:skeleton:1.1.1'
-    implementation 'io.supercharge:shimmerlayout:2.1.0'
+    implementation 'com.facebook.shimmer:shimmer:0.4.0'
 
     // Android:
     implementation "androidx.core:core:1.0.1"
@@ -88,7 +87,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.0.2"
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation "androidx.constraintlayout:constraintlayout:$constraintVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
 
     // Android Lifecycle:
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"

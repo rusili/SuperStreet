@@ -28,7 +28,8 @@ import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 
 class ArticleActivity : BaseActivity() {
-    @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
+    @Inject
+    protected lateinit var viewModelFactory: ArticleViewModelFactory
     private lateinit var viewModel: ArticleViewModel
 
     private lateinit var adapter: ArticleAdapter
@@ -45,10 +46,8 @@ class ArticleActivity : BaseActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
         intent.getStringExtra(IMAGE_URL_BUNDLE_KEY)?.let { href ->
-            if (isNetworkConnected()) {
-                articleProgressBar.show()
-                viewModel.getArticle(href)
-            } else showError(NoNetworkException())
+            articleProgressBar.show()
+            viewModel.getArticle(href)
         } ?: run {
             articleProgressBar.hide()
             showError(NoIntentException())
@@ -60,7 +59,7 @@ class ArticleActivity : BaseActivity() {
 
         viewModel.livedata.observe(this, Observer { wrapper ->
             when {
-                wrapper.error != null ->  showError(wrapper?.error)
+                wrapper.error != null -> showError(wrapper?.error)
                 wrapper.data != null -> renderData(wrapper.data)
                 else -> showError(UnknownError())
             }

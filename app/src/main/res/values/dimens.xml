@@ -12,7 +12,7 @@
     <dimen name="preview_viewholder_margin_horizontal">10dp</dimen>
     <dimen name="preview_viewholder_margin_vertical">16dp</dimen>
     <dimen name="preview_viewholder_image_height">256dp</dimen>
-    <dimen name="preview_viewholder_small_image_height">128dp</dimen>
+    <dimen name="preview_viewholder_small_image_height">160dp</dimen>
     <dimen name="preview_viewholder_image_margin_bottom">12dp</dimen>
     <dimen name="preview_viewholder_title_margin_vertical">12dp</dimen>
     <dimen name="preview_viewholder_card_elevation">2dp</dimen>
@@ -35,5 +35,7 @@
     <!-- Image Activity -->
     <dimen name="image_icon_share_size">32dp</dimen>
     <dimen name="image_icon_margin_horizontal">24dp</dimen>
+    <dimen name="preview_type_minwidth">64dp</dimen>
+    <dimen name="preview_mag_minwidth">88dp</dimen>
 
 </resources>
