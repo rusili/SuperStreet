@@ -8,7 +8,7 @@ import android.view.WindowManager
 import com.bumptech.glide.Glide
 import com.github.chrisbanes.photoview.PhotoView
 import com.rusili.superstreet.R
-import com.rusili.superstreet.common.models.body.ImageGallery
+import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.BaseActivity
 import com.rusili.superstreet.common.ui.NoIntentException
@@ -35,14 +35,14 @@ class ImageActivity : BaseActivity() {
         checkPermissionAndRequest(WRITE_EXTERNAL_STORAGE_PERMISSION)
 
         val imageSize = intent?.getSerializableExtra(IMAGE_SIZE_BUNDLE_KEY) as ImageSize
-        intent?.getParcelableExtra<ImageGallery>(IMAGE_URL_BUNDLE_KEY)?.let {
+        intent?.getParcelableExtra<Image>(IMAGE_URL_BUNDLE_KEY)?.let {
             initialDisplayImage(it, imageSize)
             setOnClickListeners(it)
         } ?: showError(NoIntentException())
     }
 
     private fun initialDisplayImage(
-        image: ImageGallery,
+        image: Image,
         imageSize: ImageSize
     ) {
         Glide.with(this@ImageActivity)
@@ -54,7 +54,7 @@ class ImageActivity : BaseActivity() {
         supportStartPostponedEnterTransition()
     }
 
-    private fun setOnClickListeners(image: ImageGallery) {
+    private fun setOnClickListeners(image: Image) {
         activityImageSaveButton.setOnClickListener {
             ((activityImagePhotoView as PhotoView).drawable as? BitmapDrawable)?.let {
                 saveImage(it, image.resizeTo1920By1280())

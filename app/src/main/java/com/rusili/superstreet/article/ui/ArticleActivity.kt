@@ -16,7 +16,7 @@ import com.rusili.superstreet.article.ui.rv.ArticleAdapter
 import com.rusili.superstreet.common.extensions.isNetworkConnected
 import com.rusili.superstreet.common.models.body.AbstractBodyModel
 import com.rusili.superstreet.common.models.body.ArticleHeader
-import com.rusili.superstreet.common.models.body.ImageGallery
+import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.BaseActivity
 import com.rusili.superstreet.common.ui.NoIntentException
@@ -28,12 +28,11 @@ import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 
 class ArticleActivity : BaseActivity() {
-    @Inject
-    protected lateinit var viewModelFactory: ArticleViewModelFactory
+    @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
     private lateinit var viewModel: ArticleViewModel
 
     private lateinit var adapter: ArticleAdapter
-    private val onClick: (View, ImageGallery, ImageSize) -> Unit = ::onImageClicked
+    private val onClick: (View, Image, ImageSize) -> Unit = ::onImageClicked
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +101,7 @@ class ArticleActivity : BaseActivity() {
 
     private fun onImageClicked(
         view: View,
-        image: ImageGallery,
+        image: Image,
         size: ImageSize
     ) {
         if (view.context.isNetworkConnected()) {

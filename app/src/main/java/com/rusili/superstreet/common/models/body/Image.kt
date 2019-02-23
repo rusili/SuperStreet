@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ImageGallery(
+data class Image(
     override val id: Int,
     private val url: String
 ) : AbstractBodyModel(id), Parcelable {

@@ -3,7 +3,7 @@ package com.rusili.superstreet.jsoup.parsing
 import com.rusili.superstreet.article.domain.ArticleFullModel
 import com.rusili.superstreet.common.models.Body
 import com.rusili.superstreet.common.models.Header
-import com.rusili.superstreet.common.models.body.ImageGallery
+import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageGroup
 import com.rusili.superstreet.common.models.body.Paragraph
 import com.rusili.superstreet.common.models.header.HeaderImage
@@ -45,7 +45,7 @@ class ArticleParser @Inject constructor(private val commonParser: CommonParser) 
 
     private fun parseArticleBody(doc: Document): Body {
         val articleParagraphList = mutableListOf<Paragraph>()
-        val articleImageGalleryList = mutableListOf<ImageGallery>()
+        val articleImageGalleryList = mutableListOf<Image>()
         val articleImageGroupList = mutableListOf<ImageGroup>()
 
         val rawArticleBody = doc.getElementsByClass(ARTICLE_BODY.MOD_ARTICLE_CONTENT.value).first()
@@ -63,7 +63,7 @@ class ArticleParser @Inject constructor(private val commonParser: CommonParser) 
             val id = element.attr(ARTICLE_BODY.ID.value).replace(ARTICLE_BODY.ARTICLE_IMAGE.value + "-", "")
             val img = element.getElementsByClass(ARTICLE_BODY.IMG_LINK.value).first()
             val imgSrc = img.getElementsByTag(COMMON.IMG.value).attr(ARTICLE_BODY.DATA_IMG_SRC.value)
-            articleImageGalleryList.add(ImageGallery(id.toInt(), imgSrc))
+            articleImageGalleryList.add(Image(id.toInt(), imgSrc))
         }
 
         val rawArticleImageGroups = rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value)
@@ -71,12 +71,12 @@ class ArticleParser @Inject constructor(private val commonParser: CommonParser) 
             val id = element.attr(ARTICLE_BODY.ID.value).replace(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value + "-", "")
             val imgGroup = element.getElementsByTag(ARTICLE_BODY.UL.value).first()
 
-            val imgSet = mutableListOf<ImageGallery>()
+            val imgSet = mutableListOf<Image>()
             val rawImgs = imgGroup.getElementsByClass(ARTICLE_BODY.IMG_WRAP.value)
             for (imgElement in rawImgs) {
                 val img = imgElement.getElementsByTag(COMMON.DIV.value).first().getElementsByTag(COMMON.A.value)
                 val imgSrc = img.first().getElementsByTag(COMMON.IMG.value).first().attr(ARTICLE_BODY.DATA_IMG_SRC.value)
-                imgSet.add(ImageGallery(-1, imgSrc))
+                imgSet.add(Image(-1, imgSrc))
             }
             articleImageGroupList.add(ImageGroup(id.toInt(), imgSet.toList()))
         }
