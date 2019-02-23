@@ -1,8 +1,6 @@
 package com.rusili.superstreet.common.body
 
-import com.nhaarman.mockito_kotlin.mock
 import com.rusili.superstreet.common.models.body.Image
-import com.rusili.superstreet.common.models.body.ImageGroup
 import org.amshove.kluent.shouldEqual
 import org.junit.Assert
 import org.junit.Test

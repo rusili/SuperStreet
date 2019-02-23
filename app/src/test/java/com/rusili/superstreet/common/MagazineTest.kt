@@ -1,0 +1,32 @@
+package com.rusili.superstreet.common
+
+import com.rusili.superstreet.common.models.*
+import org.amshove.kluent.shouldBe
+import org.junit.Test
+
+class MagazineTest {
+
+    @Test
+    fun `Given correct String values, When fromString() is called, Then return correct Magazine`(){
+        // Given
+        val superStreetString = MAGAZINE_SUPERSTREET_STRING
+        val europeanCarString = MAGAZINE_EUROPEANCAR_STRING
+        val importTunerString = MAGAZINE_IMPORTTUNER_STRING
+        val hondaTuningString = MAGAZINE_HONDATUNING_STRING
+        val errorString = "error"
+
+        // When
+        val resultSuperStreet = Magazine.fromString(superStreetString)
+        val resultEuropeanCar = Magazine.fromString(europeanCarString)
+        val resultImportTuner = Magazine.fromString(importTunerString)
+        val resultHondaTuning = Magazine.fromString(hondaTuningString)
+        val resultError = Magazine.fromString(errorString)
+
+        // Then
+        resultSuperStreet shouldBe Magazine.SuperStreet
+        resultEuropeanCar shouldBe Magazine.EuropeanCar
+        resultImportTuner shouldBe Magazine.ImportTuner
+        resultHondaTuning shouldBe Magazine.HondaTuning
+        resultError shouldBe Magazine.Error
+    }
+}

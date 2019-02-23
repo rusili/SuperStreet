@@ -46,7 +46,7 @@ package com.rusili.superstreet.jsoup
 //    @Test
 //    fun `Test preview link parsing`(){
 //        // Given
-//        val link = previewList.get(0).header.title.href
+//        val link = previewList.get(0).header.title.path
 //
 //        // Then
 //        Assert.assertEquals(link, "/features/18052005-boxster-and-2007-cayman-s-porsche-pandemic/")
@@ -105,21 +105,21 @@ package com.rusili.superstreet.jsoup
 //    fun `Test preview magazine parsing`(){
 //        // Given
 //        val value = previewList.get(0).flag.magazine.value
-//        val href = previewList.get(0).flag.magazine.href
+//        val path = previewList.get(0).flag.magazine.path
 //
 //        // Then
 //        Assert.assertEquals(value, "Super Street")
-//        Assert.assertEquals(href, "/super-street-magazine/")
+//        Assert.assertEquals(path, "/super-street-magazine/")
 //    }
 //
 //    @Test
 //    fun `Test preview type parsing`(){
 //        // Given
 //        val value = previewList.get(0).flag.type.value
-//        val href = previewList.get(0).flag.type.href
+//        val path = previewList.get(0).flag.type.path
 //
 //        // Then
 //        Assert.assertEquals(value, "Feature")
-//        Assert.assertEquals(href, "/features/")
+//        Assert.assertEquals(path, "/features/")
 //    }
 //}

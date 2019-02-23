@@ -6,7 +6,7 @@ enum class COMMON(val value: String) {
     FLAG("flag"),
     DIV("div"),
     INFO("info"),
-    HREF("href"),
+    HREF("path"),
     TITLE("title"),
     IMG("img"),
     SRC("src");

@@ -67,7 +67,7 @@ class JsoupArticleParsingTest {
     fun `Test article magazine parsing`() {
         // Given
         val value = article.flag.magazine.value
-        val href = article.flag.magazine.href
+        val href = article.flag.magazine.path
 
         // Then
         Assert.assertEquals(value, "Super Street")
@@ -78,7 +78,7 @@ class JsoupArticleParsingTest {
     fun `Test article type parsing`() {
         // Given
         val value = article.flag.type.value
-        val href = article.flag.type.href
+        val href = article.flag.type.path
 
         // Then
         Assert.assertEquals(value, "Feature")
