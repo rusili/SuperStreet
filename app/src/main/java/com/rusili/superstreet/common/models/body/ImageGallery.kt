@@ -9,7 +9,7 @@ data class ImageGallery(
     private val url: String
 ) : AbstractBodyModel(id), Parcelable {
 
-    override fun getViewType() = ArticleViewType.IMAGE.viewType
+    override fun getViewType() = ArticleViewType.Image.viewType
 
     fun resizeToDefaultSize() =
         resize(720, 480)
@@ -28,16 +28,25 @@ data class ImageGallery(
     ): String {
         var resizedUrl = url
 
-        val widthIndex = resizedUrl.indexOf("+w")
-        var heightIndex = resizedUrl.indexOf("+h")
-        resizedUrl = resizedUrl.replaceRange(widthIndex, heightIndex, "+w$width")
+        resizedUrl = with(resizedUrl) {
+            replaceRange(
+                indexOf("+w"),
+                indexOf("+h"),
+                "+w$width")
+        }
 
-        heightIndex = resizedUrl.indexOf("+h")
-        var qualityIndex = resizedUrl.indexOf("+q")
-        resizedUrl = resizedUrl.replaceRange(heightIndex, qualityIndex, "+h$height")
+        resizedUrl = with(resizedUrl) {
+            replaceRange(
+                indexOf("+h"),
+                indexOf("+q"),
+                "+h$height")
+        }
 
-        qualityIndex = resizedUrl.indexOf("+q")
-        val reIndex = resizedUrl.indexOf("+re")
-        return resizedUrl.replaceRange(qualityIndex, reIndex, "+q$quality")
+        return with(resizedUrl) {
+            replaceRange(
+                indexOf("+q"),
+                indexOf("+re"),
+                "+q$quality")
+        }
     }
 }

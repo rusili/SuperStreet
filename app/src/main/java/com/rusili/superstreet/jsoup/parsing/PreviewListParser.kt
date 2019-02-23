@@ -1,10 +1,10 @@
 package com.rusili.superstreet.jsoup.parsing
 
-import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
-import com.rusili.superstreet.previewlist.domain.CardSize
 import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.common.models.header.HeaderImage
 import com.rusili.superstreet.common.models.header.Title
+import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
+import com.rusili.superstreet.previewlist.domain.CardSize
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import java.util.*

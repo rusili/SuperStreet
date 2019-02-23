@@ -10,17 +10,17 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
-import com.rusili.superstreet.common.NetworkHelper
 import com.rusili.superstreet.article.domain.ArticleFullModel
+import com.rusili.superstreet.article.ui.rv.ArticleAdapter
+import com.rusili.superstreet.common.extensions.isNetworkConnected
 import com.rusili.superstreet.common.models.body.AbstractBodyModel
 import com.rusili.superstreet.common.models.body.ArticleHeader
 import com.rusili.superstreet.common.models.body.ImageGallery
 import com.rusili.superstreet.common.models.body.ImageSize
-import com.rusili.superstreet.article.ui.rv.ArticleAdapter
 import com.rusili.superstreet.common.ui.BaseActivity
 import com.rusili.superstreet.common.ui.NoIntentException
+import com.rusili.superstreet.common.ui.NoNetworkException
 import com.rusili.superstreet.image.ImageActivity
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_SIZE_BUNDLE_KEY
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_URL_BUNDLE_KEY
@@ -28,12 +28,12 @@ import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 
 class ArticleActivity : BaseActivity() {
-    @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
+    @Inject
+    protected lateinit var viewModelFactory: ArticleViewModelFactory
     private lateinit var viewModel: ArticleViewModel
 
     private lateinit var adapter: ArticleAdapter
-    private val onClick: (View, ImageGallery, ImageSize) -> Unit = this::onTitleClicked
-    private lateinit var glide: RequestManager
+    private val onClick: (View, ImageGallery, ImageSize) -> Unit = ::onImageClicked
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,9 +58,9 @@ class ArticleActivity : BaseActivity() {
         super.onStart()
 
         viewModel.livedata.observe(this, Observer { wrapper ->
-            wrapper?.data?.let { article ->
-                renderData(article)
-            } ?: showError(wrapper?.error)
+            wrapper?.data
+                ?.let(::renderData)
+                ?: showError(wrapper?.error)
         })
     }
 
@@ -80,8 +80,7 @@ class ArticleActivity : BaseActivity() {
     }
 
     private fun setupViews() {
-        glide = Glide.with(this)
-        adapter = ArticleAdapter(onClick, glide)
+        adapter = ArticleAdapter(onClick, Glide.with(this))
 
         articleRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -93,26 +92,28 @@ class ArticleActivity : BaseActivity() {
     private fun renderData(article: ArticleFullModel) {
         articleProgressBar.hide()
 
-        val articleHeader = ArticleHeader(0, article.header, article.footer, article.flag)
-        val articleBody = article.body.combineLists()
-
-        val combinedList = mutableListOf<AbstractBodyModel>(articleHeader)
-        combinedList.addAll(articleBody)
-        adapter.submitList(combinedList)
+        mutableListOf<AbstractBodyModel>().apply {
+            add(ArticleHeader(0, article.header, article.footer, article.flag))
+            addAll(article.body.combineSections())
+        }.also {
+            adapter.submitList(it.toList())
+        }
     }
 
-    private fun onTitleClicked(
+    private fun onImageClicked(
         view: View,
         image: ImageGallery,
         size: ImageSize
     ) {
-        getWindow().setExitTransition(null)
+        if (view.context.isNetworkConnected()) {
+            getWindow().setExitTransition(null)
 
-        Intent(this, ImageActivity::class.java).apply {
-            putExtra(IMAGE_URL_BUNDLE_KEY, image)
-            putExtra(IMAGE_SIZE_BUNDLE_KEY, size)
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@ArticleActivity, view, getString(R.string.transition_to_image))
-            startActivity(this, options.toBundle())
-        }
+            Intent(this, ImageActivity::class.java).apply {
+                putExtra(IMAGE_URL_BUNDLE_KEY, image)
+                putExtra(IMAGE_SIZE_BUNDLE_KEY, size)
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@ArticleActivity, view, getString(R.string.transition_to_image))
+                startActivity(this, options.toBundle())
+            }
+        } else showError(NoNetworkException())
     }
 }

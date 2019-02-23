@@ -14,14 +14,14 @@ class ArticleViewModel(private val usecase: ArticleUsecase) : BaseViewModel() {
 
     fun getArticle(href: String) {
         addDisposable(usecase.getArticle(href)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = { livedata.postValue(LiveDataWrapper(it)) },
-                        onError = {
-                            livedata.postValue(LiveDataWrapper(null, it))
-                            Timber.e(it, "Error getting preview articles.")
-                        }
-                ))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onSuccess = { livedata.postValue(LiveDataWrapper(it)) },
+                onError = {
+                    livedata.postValue(LiveDataWrapper(null, it))
+                    Timber.e(it, "Error getting preview articles.")
+                }
+            ))
     }
 }

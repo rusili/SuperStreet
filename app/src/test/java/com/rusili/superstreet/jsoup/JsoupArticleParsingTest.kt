@@ -1,4 +1,4 @@
-package com.rusili.superstreet.data
+package com.rusili.superstreet.jsoup
 
 import com.rusili.superstreet.jsoup.parsing.ArticleParser
 import com.rusili.superstreet.article.domain.ArticleFullModel

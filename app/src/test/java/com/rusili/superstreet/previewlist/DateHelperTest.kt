@@ -1,7 +1,5 @@
-package com.rusili.superstreet.ui
+package com.rusili.superstreet.previewlist
 
-import com.rusili.superstreet.previewlist.DateHelper
-import com.rusili.superstreet.previewlist.TimePeriod
 import org.junit.Assert
 import org.junit.Test
 import java.text.SimpleDateFormat
@@ -34,7 +32,7 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        Assert.assertEquals(days, DateHelper.DateDiffWrapper(4, TimePeriod.DAY))
+        Assert.assertEquals(days, DateHelper.DateDiffWrapper(4, TimePeriod.Day))
     }
 
     @Test
@@ -47,7 +45,7 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.WEEK))
+        Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.Week))
     }
 
     @Test
@@ -60,7 +58,7 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.MONTH))
+        Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.Month))
     }
 
     @Test
@@ -73,6 +71,6 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.YEAR))
+        Assert.assertEquals(days, DateHelper.DateDiffWrapper(3, TimePeriod.Year))
     }
 }

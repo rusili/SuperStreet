@@ -1,7 +1,6 @@
 package com.rusili.superstreet.article.ui.rv
 
 import android.view.View
-import android.widget.ImageView
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -18,16 +17,10 @@ class ImageViewHolder(
 ) : BaseViewHolder<ImageGallery>(containerView), LayoutContainer {
 
     override fun bind(model: ImageGallery) {
-        loadImage(model, articleImageView)
-    }
-
-    private fun loadImage(
-        image: ImageGallery,
-        view: ImageView
-    ) {
-        glide.load(image.resizeToDefaultSize())
+        glide.load(model.resizeToDefaultSize())
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
-            .into(view)
-        view.setOnClickListener { onClick(it, image, ImageSize.DEFAULT) }
+            .into(articleImageView)
+
+        articleImageView.setOnClickListener { onClick(it, model, ImageSize.DEFAULT) }
     }
 }

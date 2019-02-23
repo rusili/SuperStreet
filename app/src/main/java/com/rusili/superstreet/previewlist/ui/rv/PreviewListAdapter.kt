@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
-import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
-import com.rusili.superstreet.previewlist.domain.CardSize
 import com.rusili.superstreet.common.models.header.Title
 import com.rusili.superstreet.previewlist.DateHelper
+import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
+import com.rusili.superstreet.previewlist.domain.CardSize
 
 class PreviewListAdapter(
     private val onClick: (View, Title) -> Unit,
@@ -19,9 +19,9 @@ class PreviewListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreviewViewHolder =
         when (viewType) {
-            CardSize.Large.viewType -> PreviewViewHolder(inflate(parent, R.layout.preview_viewholder_large), onClick, glide, dateHelper)
-            CardSize.Small.viewType -> PreviewViewHolder(inflate(parent, R.layout.preview_viewholder_small), onClick, glide, dateHelper)
-            else -> PreviewViewHolder(inflate(parent, R.layout.preview_viewholder_small), onClick, glide, dateHelper)
+            CardSize.Large.viewType -> PreviewViewHolder(parent.inflate(R.layout.preview_viewholder_large), onClick, glide, dateHelper)
+            CardSize.Small.viewType -> PreviewViewHolder(parent.inflate(R.layout.preview_viewholder_small), onClick, glide, dateHelper)
+            else -> PreviewViewHolder(parent.inflate(R.layout.preview_viewholder_small), onClick, glide, dateHelper)
         }
 
     override fun onBindViewHolder(holder: PreviewViewHolder, position: Int) {
@@ -37,9 +37,6 @@ class PreviewListAdapter(
             else -> -1
         }
 
-    private fun inflate(
-        parent: ViewGroup,
-        layout: Int
-    ) =
-        LayoutInflater.from(parent.context).inflate(layout, parent, false)
+    private fun ViewGroup.inflate(layout: Int) =
+        LayoutInflater.from(context).inflate(layout, this, false)
 }

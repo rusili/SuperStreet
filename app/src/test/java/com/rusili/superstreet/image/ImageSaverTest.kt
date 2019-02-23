@@ -1,4 +1,4 @@
-package com.rusili.superstreet.ui
+package com.rusili.superstreet.image
 
 import com.rusili.superstreet.image.extensions.parseImageName
 import org.junit.Assert.assertEquals

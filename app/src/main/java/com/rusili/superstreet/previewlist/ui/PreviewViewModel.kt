@@ -3,9 +3,9 @@ package com.rusili.superstreet.previewlist.ui
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.rusili.superstreet.common.ui.BaseViewModel
 import com.rusili.superstreet.previewlist.domain.ArticleListDataSourceFactory
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
-import com.rusili.superstreet.common.ui.BaseViewModel
 
 class PreviewViewModel(private val dataSourceFactory: ArticleListDataSourceFactory) : BaseViewModel() {
     lateinit var livedata: LiveData<PagedList<ArticlePreviewModel>>

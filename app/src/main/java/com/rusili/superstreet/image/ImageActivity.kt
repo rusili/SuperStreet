@@ -17,6 +17,7 @@ import com.rusili.superstreet.image.extensions.saveImage
 import kotlinx.android.synthetic.main.activity_image.*
 
 private const val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
+private const val INTENT_TYPE_TEXT_PLAIN = "text/plain"
 
 class ImageActivity : BaseActivity() {
 
@@ -80,7 +81,7 @@ class ImageActivity : BaseActivity() {
 
     private fun sendLinkIntent(imageHref: String) {
         Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
+            type = INTENT_TYPE_TEXT_PLAIN
             putExtra(Intent.EXTRA_TEXT, imageHref)
             startActivity(Intent.createChooser(this, getString(R.string.share_link_message)))
         }

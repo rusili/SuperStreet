@@ -21,8 +21,8 @@ data class ArticlePreviewModel(
 
     override fun compareTo(other: ArticlePreviewModel) =
         when {
-            size < other.size -> -1
-            size > other.size -> 1
+            size.viewType < other.size.viewType -> -1
+            size.viewType > other.size.viewType -> 1
             else -> 0
         }
 }
