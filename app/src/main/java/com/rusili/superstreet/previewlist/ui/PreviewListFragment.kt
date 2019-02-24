@@ -14,9 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.MainNavigator
-import com.rusili.superstreet.R
+import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.extensions.isNetworkConnected
-import com.rusili.superstreet.common.extensions.stopAndHide
 import com.rusili.superstreet.common.models.header.Title
 import com.rusili.superstreet.common.ui.BaseFragment
 import com.rusili.superstreet.common.ui.NoNetworkException
@@ -27,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list_loading.*
 import timber.log.Timber
 import javax.inject.Inject
+
 
 class PreviewListFragment : BaseFragment() {
     @Inject protected lateinit var dateHelper: DateHelper
@@ -54,7 +54,7 @@ class PreviewListFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-        LayoutInflater.from(context).inflate(R.layout.fragment_list, container, false)
+        LayoutInflater.from(context).inflate(com.rusili.superstreet.R.layout.fragment_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,7 +62,7 @@ class PreviewListFragment : BaseFragment() {
 
         if (!view.context.isNetworkConnected()){
             fragmentListErrorView.isVisible = true
-            fragmentListLoadingLayout.stopAndHide()
+            fragmentListLoadingLayout.fadeAndHide()
             showError(NoNetworkException())
             return
         }
@@ -99,11 +99,11 @@ class PreviewListFragment : BaseFragment() {
 
     private fun renderData(previewList: PagedList<ArticlePreviewModel>) {
         fragmentListErrorView.isVisible = false
-        fragmentListLoadingLayout.stopAndHide()
         fragmentListSwipeRefresh.isEnabled = true
 
         adapter.submitList(previewList)
         fragmentListSwipeRefresh.isRefreshing = false
+        fragmentListLoadingLayout.fadeAndHide()
     }
 
     private fun onTitleClicked(

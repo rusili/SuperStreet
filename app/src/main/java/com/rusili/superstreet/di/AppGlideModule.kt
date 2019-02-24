@@ -20,7 +20,6 @@ class AppGlideModule : AppGlideModule() {
     ) {
         builder.setDefaultRequestOptions(
             RequestOptions()
-                .placeholder(R.drawable.bg_placeholder)
                 .error(R.drawable.ic_error_outline_black_24dp))
     }
 }

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
+import com.rusili.superstreet.common.extensions.fadeIn
 import com.rusili.superstreet.common.models.header.Title
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
@@ -27,6 +28,7 @@ class PreviewListAdapter(
     override fun onBindViewHolder(holder: PreviewViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it)
+            holder.itemView.fadeIn()
         }
     }
 
