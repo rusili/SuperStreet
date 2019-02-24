@@ -23,7 +23,6 @@ import com.rusili.superstreet.common.ui.NoNetworkException
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.ui.rv.PreviewListAdapter
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list_loading.*
 import timber.log.Timber
@@ -84,9 +83,11 @@ class PreviewListFragment : BaseFragment() {
         adapter = PreviewListAdapter(onClick, glide, dateHelper)
 
         fragmentListRecyclerView.apply {
+            setHasFixedSize(true)
+            itemAnimator = null
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             (layoutManager as LinearLayoutManager).isItemPrefetchEnabled = true
-            adapter = AlphaInAnimationAdapter(this@PreviewListFragment.adapter)
+            adapter = this@PreviewListFragment.adapter
         }
 
         // TODO: SwipeRefresh not working correctly.

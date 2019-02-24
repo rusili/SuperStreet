@@ -73,7 +73,6 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
 
     // UI:
-    implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
 
     // Android:
