@@ -27,8 +27,9 @@ import kotlinx.android.synthetic.main.fragment_list_loading.*
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class PreviewListFragment : BaseFragment() {
+    override val TAG: String = PreviewListFragment::class.java.simpleName
+
     @Inject protected lateinit var dateHelper: DateHelper
     @Inject protected lateinit var viewModelFactory: PreviewListViewModelFactory
     private lateinit var viewModel: PreviewViewModel

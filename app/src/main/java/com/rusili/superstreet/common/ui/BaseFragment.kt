@@ -9,6 +9,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 abstract class BaseFragment : Fragment() {
+    abstract val TAG: String
 
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)

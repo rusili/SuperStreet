@@ -3,7 +3,6 @@ package com.rusili.superstreet.common.ui
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.rusili.superstreet.R
 import dagger.android.AndroidInjection
@@ -24,11 +23,9 @@ abstract class BaseActivity : AppCompatActivity() {
         container = R.id.activityFragmentContainer
     }
 
-    fun inflateFragment(fragment: Fragment) =
+    fun inflateFragment(fragment: BaseFragment) =
         supportFragmentManager.beginTransaction()
-//            .setCustomAnimations()
             .replace(container, fragment)
-            .addToBackStack(fragment.tag)
             .commit()
 
     fun showError(error: Throwable?) {
