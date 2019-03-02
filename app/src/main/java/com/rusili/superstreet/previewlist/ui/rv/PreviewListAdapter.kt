@@ -27,8 +27,10 @@ class PreviewListAdapter(
 
     override fun onBindViewHolder(holder: PreviewViewHolder, position: Int) {
         getItem(position)?.let {
-            holder.bind(it)
-            holder.itemView.fadeIn()
+            holder.apply {
+                bind(it)
+                itemView.fadeIn()
+            }
         }
     }
 

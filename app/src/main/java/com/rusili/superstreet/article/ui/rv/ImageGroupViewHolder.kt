@@ -2,6 +2,7 @@ package com.rusili.superstreet.article.ui.rv
 
 import android.view.View
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -17,11 +18,15 @@ class ImageGroupViewHolder(
     val onClick: (View, Image, ImageSize) -> Unit,
     val glide: RequestManager
 ) : BaseViewHolder<ImageGroup>(containerView), LayoutContainer {
+    private val imageGroup = listOf<ImageView>(imageGroupImage1, imageGroupImage2, imageGroupImage3)
 
     override fun bind(model: ImageGroup) {
-        loadImage(model.imageList[0], imageGroupImage1)
-        loadImage(model.imageList[1], imageGroupImage2)
-        loadImage(model.imageList[2], imageGroupImage3)
+        model.imageList
+            .take(3)
+            .forEachIndexed { index, image ->
+                imageGroup[index].isVisible = true
+                loadImage(model.imageList[index], imageGroup[index])
+            }
     }
 
     private fun loadImage(

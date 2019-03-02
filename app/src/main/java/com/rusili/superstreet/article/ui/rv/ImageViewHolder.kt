@@ -1,14 +1,23 @@
 package com.rusili.superstreet.article.ui.rv
 
+import android.graphics.drawable.Drawable
 import android.view.View
+import androidx.core.view.isVisible
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.BaseViewHolder
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.article_image_viewholder.*
+import timber.log.Timber
 
 class ImageViewHolder(
     override val containerView: View,
@@ -16,11 +25,28 @@ class ImageViewHolder(
     val glide: RequestManager
 ) : BaseViewHolder<Image>(containerView), LayoutContainer {
 
-    override fun bind(model: Image) {
-        glide.load(model.resizeToDefaultSize())
+    override fun bind(image: Image) {
+        val listener = object : RequestListener<Drawable> {
+            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                articleImageLoadingLayout.fadeAndHide()
+                articleImageView.isVisible = true
+                return false
+            }
+
+            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                Timber.e(e, "Error loading full image: %s", image.resizeToDefaultSize())
+                articleImageLoadingLayout.fadeAndHide()
+                articleImageView.isVisible = true
+                return true
+            }
+        }
+
+        glide.load(image.resizeToDefaultSize())
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .listener(listener)
             .into(articleImageView)
 
-        articleImageView.setOnClickListener { onClick(it, model, ImageSize.DEFAULT) }
+        articleImageView.setOnClickListener { onClick(it, image, ImageSize.DEFAULT) }
     }
 }

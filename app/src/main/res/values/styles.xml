@@ -21,21 +21,65 @@
     </style>
 
     <!-- List Fragment -->
+    <style name="PreviewCardLayout" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:layout_marginTop">@dimen/mtrl_card_spacing</item>
+        <item name="android:layout_marginLeft">@dimen/mtrl_card_spacing</item>
+        <item name="android:layout_marginRight">@dimen/mtrl_card_spacing</item>
+        <item name="android:layout_marginBottom">@dimen/preview_viewholder_margin_bottom</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius_default</item>
+        <item name="cardElevation">@dimen/preview_viewholder_card_elevation</item>
+    </style>
+
+    <style name="PreviewThumbnail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/black_10_1000</item>
+    </style>
+
     <style name="PreviewTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:maxLines">@integer/preview_description_max_lines</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/preview_viewholder_title_margin_vertical</item>
+        <item name="android:paddingLeft">@dimen/preview_viewholder_title_margin_horizontal</item>
+        <item name="android:paddingRight">@dimen/preview_viewholder_title_margin_horizontal</item>
+        <item name="android:paddingBottom">@dimen/preview_viewholder_title_margin_bottom</item>
         <item name="fontFamily">@font/open_sans</item>
     </style>
 
-    <style name="PreviewMagazine" parent="TextAppearance.MaterialComponents.Overline">
-        <item name="android:textColor">@color/white_1000</item>
+    <style name="PreviewMagazine" parent="PreviewFlags">
+        <item name="android:minWidth">@dimen/preview_mag_minwidth</item>
+        <item name="android:paddingLeft">@dimen/preview_viewholder_flags_padding_horizontal</item>
     </style>
 
-    <style name="PreviewType" parent="TextAppearance.MaterialComponents.Overline">
+    <style name="PreviewType" parent="PreviewFlags">
+        <item name="android:minWidth">@dimen/preview_type_minwidth</item>
+        <item name="android:paddingLeft">@dimen/preview_viewholder_type_margin_left</item>
+        <item name="android:paddingRight">@dimen/preview_viewholder_flags_padding_horizontal</item>
+    </style>
+
+    <style name="PreviewFlags" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@color/black_20_1000</item>
+        <item name="android:paddingTop">@dimen/preview_viewholder_image_margin_vertical</item>
+        <item name="android:paddingBottom">@dimen/preview_viewholder_image_margin_vertical</item>
         <item name="android:textColor">@color/white_1000</item>
     </style>
 
     <style name="PreviewTimestamp" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:layout_marginTop">@dimen/preview_viewholder_timestamp_margin_top</item>
+        <item name="android:paddingLeft">@dimen/preview_viewholder_timestamp_margin_horizontal
+        </item>
+        <item name="android:paddingBottom">@dimen/preview_viewholder_timestamp_margin_bottom</item>
     </style>
 
     <!-- Article Fragment -->
@@ -49,7 +93,6 @@
         <item name="android:fontFamily">@font/pt_serif</item>
     </style>
 
-    <style name="ArticleImageGroup">
-    </style>
+    <style name="ArticleImageGroup"></style>
 
 </resources>

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
+import com.rusili.superstreet.common.extensions.fadeIn
 import com.rusili.superstreet.common.models.body.AbstractBodyModel
 import com.rusili.superstreet.common.models.body.ArticleViewType
 import com.rusili.superstreet.common.models.body.Image
@@ -29,7 +30,10 @@ class ArticleAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         getItem(position)?.let {
-            (holder as BaseViewHolder<AbstractBodyModel>).bind(it)
+            (holder as BaseViewHolder<AbstractBodyModel>).apply {
+                bind(it)
+                itemView.fadeIn()
+            }
         }
     }
 

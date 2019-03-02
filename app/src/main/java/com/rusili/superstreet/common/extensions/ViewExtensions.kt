@@ -7,9 +7,9 @@ import androidx.core.view.isVisible
 
 private const val ALPHA_100 = 1f
 private const val ALPHA_0 = 0f
-private const val DEFAULT_FADE_DURATION: Long = 250
+private const val DEFAULT_FADE_DURATION: Long = 100
 
-internal fun View.fadeIn(fadeDuration: Long = DEFAULT_FADE_DURATION) {
+fun View.fadeIn(fadeDuration: Long = DEFAULT_FADE_DURATION) {
     AlphaAnimation(ALPHA_0, ALPHA_100).apply {
         duration = fadeDuration
         fillAfter = true
@@ -18,7 +18,7 @@ internal fun View.fadeIn(fadeDuration: Long = DEFAULT_FADE_DURATION) {
     isVisible = true
 }
 
-internal fun View.fadeOut(
+fun View.fadeOut(
     onEndCallback: (() -> Unit)? = null,
     fadeDuration: Long = DEFAULT_FADE_DURATION
 ) {
