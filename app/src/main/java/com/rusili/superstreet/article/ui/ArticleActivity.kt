@@ -45,8 +45,10 @@ class ArticleActivity : BaseActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
         intent.getStringExtra(IMAGE_URL_BUNDLE_KEY)?.let { href ->
-            articleProgressBar.show()
-            viewModel.getArticle(href)
+            if (isNetworkConnected()) {
+                articleProgressBar.show()
+                viewModel.getArticle(href)
+            } else showError(NoNetworkException())
         } ?: run {
             articleProgressBar.hide()
             showError(NoIntentException())
@@ -57,9 +59,11 @@ class ArticleActivity : BaseActivity() {
         super.onStart()
 
         viewModel.livedata.observe(this, Observer { wrapper ->
-            wrapper?.data
-                ?.let(::renderData)
-                ?: showError(wrapper?.error)
+            when {
+                wrapper.error != null ->  showError(wrapper?.error)
+                wrapper.data != null -> renderData(wrapper.data)
+                else -> showError(UnknownError())
+            }
         })
     }
 

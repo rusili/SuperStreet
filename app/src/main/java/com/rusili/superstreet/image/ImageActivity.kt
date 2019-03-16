@@ -3,9 +3,13 @@ package com.rusili.superstreet.image
 import android.Manifest
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
+import com.bumptech.glide.load.DataSource
 import com.github.chrisbanes.photoview.PhotoView
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.models.body.Image
@@ -15,6 +19,11 @@ import com.rusili.superstreet.common.ui.NoIntentException
 import com.rusili.superstreet.image.extensions.checkPermissionAndRequest
 import com.rusili.superstreet.image.extensions.saveImage
 import kotlinx.android.synthetic.main.activity_image.*
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+import timber.log.Timber
 
 private const val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
 private const val INTENT_TYPE_TEXT_PLAIN = "text/plain"
@@ -45,10 +54,29 @@ class ImageActivity : BaseActivity() {
         image: Image,
         imageSize: ImageSize
     ) {
+        val options = RequestOptions()
+            .error(R.drawable.ic_error_outline_white_24dp)
+            .priority(Priority.HIGH)
+
+        val listener = object : RequestListener<Drawable> {
+            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                activityImageProgressBar.isVisible = false
+                return true
+            }
+
+            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                Timber.e(e, "Error loading full image: %s", image.resizeToDefaultSize())
+                activityImageProgressBar.isVisible = false
+                return false
+            }
+        }
+
         Glide.with(this@ImageActivity)
             .load(image.resizeTo1920By1280())
             .thumbnail(Glide.with(this)
                 .load(if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize()))
+            .apply(options)
+            .listener(listener)
             .into(activityImagePhotoView)
 
         supportStartPostponedEnterTransition()
