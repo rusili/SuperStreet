@@ -30,7 +30,7 @@ class PreviewViewHolder(
             .into(previewThumbnail)
 
         previewTitle.text = preview.header.title.value
-        previewDesc.text = preview.header.desc
+//        previewDesc.text = preview.header.desc
         previewMag.text = preview.flag.magazine.value
         previewType.text = preview.flag.type.value
         previewAuthorTimestamp.text = dateHelper.getDateDifferenceString(Date(), preview.footer.date) + " - " + preview.footer.author.value

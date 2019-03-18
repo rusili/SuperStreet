@@ -2,6 +2,7 @@ package com.rusili.superstreet.article.ui.rv
 
 import android.view.View
 import android.widget.ImageView
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -11,6 +12,7 @@ import com.rusili.superstreet.common.models.body.ImageGroup
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.BaseViewHolder
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.article_image_viewholder.*
 import kotlinx.android.synthetic.main.article_imagegroup_viewholder.*
 
 class ImageGroupViewHolder(
@@ -36,6 +38,8 @@ class ImageGroupViewHolder(
         glide.load(image.resizeToGroupSize())
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
             .into(view)
+
+        ViewCompat.setTransitionName(view, image.id.toString())
 
         view.setOnClickListener { onClick(it, image, ImageSize.GROUP) }
     }

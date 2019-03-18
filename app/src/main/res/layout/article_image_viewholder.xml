@@ -9,7 +9,6 @@
         android:id="@+id/articleImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:transitionName="@string/transition_to_article"
         android:visibility="invisible"
         tools:src="@tools:sample/backgrounds/scenic" />
 

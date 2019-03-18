@@ -5,8 +5,11 @@ import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.WindowManager
+import android.view.animation.Interpolator
 import androidx.core.view.isVisible
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DataSource
@@ -33,13 +36,14 @@ class ImageActivity : BaseActivity() {
     companion object {
         const val IMAGE_URL_BUNDLE_KEY = "IMAGE_URL_BUNDLE_KEY"
         const val IMAGE_SIZE_BUNDLE_KEY = "IMAGE_SIZE_BUNDLE_KEY"
+        const val IMAGE_TRANSITION_NAME = "IMAGE_TRANSITION_NAME_KEY"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportPostponeEnterTransition();
         setContentView(R.layout.activity_image)
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        getWindow().sharedElementEnterTransition = TransitionInflater.from(this)
+            .inflateTransition(R.transition.view_sharedelement_slide)
 
         checkPermissionAndRequest(WRITE_EXTERNAL_STORAGE_PERMISSION)
 
@@ -49,6 +53,7 @@ class ImageActivity : BaseActivity() {
                 initialDisplayImage(it, imageSize)
                 setOnClickListeners(it)
             }
+            activityImagePhotoView.transitionName = it.getStringExtra(IMAGE_TRANSITION_NAME)
         } ?: showError(NoIntentException())
     }
 
@@ -56,32 +61,42 @@ class ImageActivity : BaseActivity() {
         image: Image,
         imageSize: ImageSize
     ) {
-        val options = RequestOptions()
-            .error(R.drawable.ic_error_outline_white_24dp)
-            .priority(Priority.HIGH)
-
         val listener = object : RequestListener<Drawable> {
-            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
                 activityImageProgressBar.isVisible = false
+                supportStartPostponedEnterTransition()
                 return false
             }
 
-            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
                 Timber.e(e, "Error loading full image: %s", image.resizeToDefaultSize())
                 activityImageProgressBar.isVisible = false
-                return true
+                supportStartPostponedEnterTransition()
+                return false
             }
         }
 
         Glide.with(this@ImageActivity)
-            .load(image.resizeTo1920By1280())
-            .thumbnail(Glide.with(this)
-                .load(if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize()))
-            .apply(options)
+            .load(
+                if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize()
+            )
+//            .thumbnail(
+//                Glide.with(this)
+//                    .load(if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize())
+//            )
             .listener(listener)
             .into(activityImagePhotoView)
-
-        supportStartPostponedEnterTransition()
     }
 
     private fun setOnClickListeners(image: Image) {

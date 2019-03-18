@@ -2,6 +2,7 @@ package com.rusili.superstreet.article.ui.rv
 
 import android.graphics.drawable.Drawable
 import android.view.View
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.DataSource
@@ -11,6 +12,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.rusili.superstreet.R
 import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
@@ -41,8 +43,10 @@ class ImageViewHolder(
             }
         }
 
+        ViewCompat.setTransitionName(articleImageView, image.id.toString())
+
         glide.load(image.resizeToDefaultSize())
-            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
+            .apply(RequestOptions().dontTransform())
             .transition(DrawableTransitionOptions.withCrossFade())
             .listener(listener)
             .into(articleImageView)
