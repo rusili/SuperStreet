@@ -45,17 +45,15 @@ fun ContentResolver.saveImage(
     var url: Uri? = null
     try {
         url = insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        val imageOut = openOutputStream(url)
-        try {
-            source.compress(COMPRESS_FORMAT, 100, imageOut)
-        } finally {
-            imageOut.close()
+        openOutputStream(url).use {
+            source.compress(COMPRESS_FORMAT, 100, it)
         }
-        val id = ContentUris.parseId(url)
-        // Wait until MINI_KIND thumbnail is generated.
-        val miniThumb = Images.Thumbnails.getThumbnail(this, id, Images.Thumbnails.MINI_KIND, null)
-        // This is for backward compatibility.
-        storeThumbnail(miniThumb, id, 50f, 50f, Images.Thumbnails.MICRO_KIND)
+        ContentUris.parseId(url).let { id ->
+            // Wait until MINI_KIND thumbnail is generated.
+            val miniThumb = Images.Thumbnails.getThumbnail(this, id, Images.Thumbnails.MINI_KIND, null)
+            // This is for backward compatibility.
+            storeThumbnail(miniThumb, id, 50f, 50f, Images.Thumbnails.MICRO_KIND)
+        }
     } catch (e: Exception) {
         Timber.e(e, "Error saving image")
         url?.let {
@@ -87,7 +85,8 @@ fun ContentResolver.storeThumbnail(
         )
     }
 
-    val thumb = Bitmap.createBitmap(source, 0, 0,
+    val thumb = Bitmap.createBitmap(
+        source, 0, 0,
         source.width,
         source.height,
         matrix, true
@@ -101,7 +100,7 @@ fun ContentResolver.storeThumbnail(
     }
 
     val url = insert(Images.Thumbnails.EXTERNAL_CONTENT_URI, values)
-    try {
+        try {
         val thumbOut = openOutputStream(url)
         thumb.compress(COMPRESS_FORMAT, 80, thumbOut)
         thumbOut.close()
@@ -119,6 +118,6 @@ fun ContentResolver.storeThumbnail(
 @VisibleForTesting
 fun String.parseImageName(): String =
     lastIndexOf('/')
-        .takeIf { it > 0  }
+        .takeIf { it > 0 }
         ?.let { substring(it + 1, length - 4) }
         ?: this
