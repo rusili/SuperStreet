@@ -40,7 +40,6 @@
             android:id="@+id/activityImagePhotoView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:transitionName="@string/transition_to_image"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />

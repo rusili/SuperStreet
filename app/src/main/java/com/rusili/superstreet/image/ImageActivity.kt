@@ -5,11 +5,17 @@ import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.Transition
 import android.transition.TransitionInflater
 import android.view.WindowManager
 import android.view.animation.Interpolator
+import androidx.core.transition.addListener
 import androidx.core.view.isVisible
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionListenerAdapter
+import androidx.transition.TransitionSet
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DataSource
@@ -41,9 +47,18 @@ class ImageActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportPostponeEnterTransition();
         setContentView(R.layout.activity_image)
-        getWindow().sharedElementEnterTransition = TransitionInflater.from(this)
-            .inflateTransition(R.transition.view_sharedelement_slide)
+        window.sharedElementEnterTransition.addListener(object : TransitionListenerAdapter(),
+            Transition.TransitionListener {
+            override fun onTransitionResume(transition: Transition?) = Unit
+            override fun onTransitionPause(transition: Transition?) = Unit
+            override fun onTransitionCancel(transition: Transition?) = Unit
+            override fun onTransitionStart(transition: Transition?) = Unit
+
+            override fun onTransitionEnd(transition: Transition?) {
+            }
+        })
 
         checkPermissionAndRequest(WRITE_EXTERNAL_STORAGE_PERMISSION)
 
@@ -83,18 +98,13 @@ class ImageActivity : BaseActivity() {
                 Timber.e(e, "Error loading full image: %s", image.resizeToDefaultSize())
                 activityImageProgressBar.isVisible = false
                 supportStartPostponedEnterTransition()
-                return false
+                return true
             }
         }
 
         Glide.with(this@ImageActivity)
-            .load(
-                if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize()
-            )
-//            .thumbnail(
-//                Glide.with(this)
-//                    .load(if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize())
-//            )
+            .load(if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize())
+            .apply(RequestOptions().onlyRetrieveFromCache(true))
             .listener(listener)
             .into(activityImagePhotoView)
     }
