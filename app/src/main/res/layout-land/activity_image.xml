@@ -36,13 +36,24 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
-        <com.github.chrisbanes.photoview.PhotoView
-            android:id="@+id/activityImagePhotoView"
+        <ViewSwitcher
+            android:id="@+id/activityImageViewSwitcher"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/activityImagePlaceholderView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="ContentDescription"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <com.github.chrisbanes.photoview.PhotoView
+                android:id="@+id/activityImagePhotoView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
+        </ViewSwitcher>
 
         <ProgressBar
             android:id="@+id/activityImageProgressBar"
