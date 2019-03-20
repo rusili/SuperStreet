@@ -20,6 +20,7 @@ import com.rusili.superstreet.image.extensions.checkPermissionAndRequest
 import com.rusili.superstreet.image.extensions.saveImage
 import com.rusili.superstreet.image.ui.SimpleRequestListener
 import com.rusili.superstreet.image.ui.SimpleTransitionListenerAdapter
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.CompletableSubject
 import kotlinx.android.synthetic.main.activity_image.*
 
@@ -27,6 +28,7 @@ private const val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_
 private const val INTENT_TYPE_TEXT_PLAIN = "text/plain"
 
 class ImageActivity : BaseActivity() {
+    private val disposable = CompositeDisposable()
     private val placeholderLoadSubject = CompletableSubject.create()
     private val fullImageLoadSubject = CompletableSubject.create()
 
@@ -46,16 +48,22 @@ class ImageActivity : BaseActivity() {
         retrieveIntent()
     }
 
+    override fun onStop() {
+        disposable.clear()
+        super.onStop()
+    }
+
     private fun setupViewSwitcher() {
         window.sharedElementEnterTransition.addListener(object : SimpleTransitionListenerAdapter() {
             override fun onTransitionEnd(transition: Transition?) {
                 placeholderLoadSubject.onComplete()
             }
         })
-        placeholderLoadSubject.mergeWith(fullImageLoadSubject)
+        disposable.add(placeholderLoadSubject
+            .mergeWith(fullImageLoadSubject)
             .subscribe {
                 activityImageViewSwitcher.showNext()
-            }
+            })
     }
 
     private fun retrieveIntent() {
@@ -67,7 +75,7 @@ class ImageActivity : BaseActivity() {
             image?.let {
                 loadPlaceholderImage(it, originalImageSize)
                 loadFullImage(it)
-                ::setOnClickListeners
+                setOnClickListeners(it)
             }
         } ?: showError(IntentSender.SendIntentException())
     }

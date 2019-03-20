@@ -11,31 +11,6 @@
         android:layout_height="match_parent"
         android:background="@color/black_90_1000">
 
-        <ImageView
-            android:id="@+id/activityImageShareButton"
-            android:layout_width="@dimen/image_icon_share_size"
-            android:layout_height="@dimen/image_icon_share_size"
-            android:layout_marginRight="@dimen/image_icon_margin_horizontal"
-            android:layout_marginBottom="@dimen/image_icon_margin_horizontal"
-            android:background="?android:attr/selectableItemBackground"
-            android:elevation="@dimen/elevation_low"
-            android:src="@drawable/ic_share_white_24dp"
-            app:layout_constraintBottom_toTopOf="@id/activityImageSaveButton"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <ImageView
-            android:id="@+id/activityImageSaveButton"
-            android:layout_width="@dimen/image_icon_share_size"
-            android:layout_height="@dimen/image_icon_share_size"
-            android:layout_marginRight="@dimen/image_icon_margin_horizontal"
-            android:layout_marginBottom="@dimen/snackbar_margin_bottom"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:elevation="@dimen/elevation_low"
-            android:src="@drawable/ic_file_download_white_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
         <ViewSwitcher
             android:id="@+id/activityImageViewSwitcher"
             android:layout_width="match_parent"
@@ -54,6 +29,31 @@
                 android:layout_height="match_parent"
                 tools:src="@tools:sample/backgrounds/scenic" />
         </ViewSwitcher>
+
+        <ImageView
+            android:id="@+id/activityImageShareButton"
+            android:layout_width="@dimen/image_icon_share_size"
+            android:layout_height="@dimen/image_icon_share_size"
+            android:layout_marginRight="@dimen/image_icon_margin_horizontal"
+            android:layout_marginBottom="@dimen/image_icon_margin_horizontal"
+            android:elevation="@dimen/elevation_low"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_share_white_24dp"
+            app:layout_constraintBottom_toTopOf="@id/activityImageSaveButton"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/activityImageSaveButton"
+            android:layout_width="@dimen/image_icon_share_size"
+            android:layout_height="@dimen/image_icon_share_size"
+            android:layout_marginRight="@dimen/image_icon_margin_horizontal"
+            android:layout_marginBottom="@dimen/snackbar_margin_bottom"
+            android:elevation="@dimen/elevation_low"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_file_download_white_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
         <ProgressBar
             android:id="@+id/activityImageProgressBar"
