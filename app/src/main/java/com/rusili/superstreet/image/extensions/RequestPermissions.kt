@@ -14,13 +14,13 @@ fun Activity.checkPermissionAndRequest(permission: String): Boolean {
     return checkPermission(permission)
 }
 
-fun Activity.checkPermission(permission: String): Boolean {
+private fun Activity.checkPermission(permission: String): Boolean {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         return checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
     }
     return true
 }
 
-fun Activity.requestPermission(permission: String) {
+private fun Activity.requestPermission(permission: String) {
     ActivityCompat.requestPermissions(this, arrayOf(permission), STORAGE_PERMISSION_REQUEST_CODE);
 }

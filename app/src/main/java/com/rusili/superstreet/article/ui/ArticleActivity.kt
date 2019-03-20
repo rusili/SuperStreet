@@ -1,6 +1,8 @@
 package com.rusili.superstreet.article.ui
 
+import android.accounts.NetworkErrorException
 import android.content.Intent
+import android.content.IntentSender
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -20,8 +22,6 @@ import com.rusili.superstreet.common.models.body.ArticleHeader
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.BaseActivity
-import com.rusili.superstreet.common.ui.NoIntentException
-import com.rusili.superstreet.common.ui.NoNetworkException
 import com.rusili.superstreet.image.ImageActivity
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_SIZE_BUNDLE_KEY
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_TRANSITION_NAME_KEY
@@ -51,7 +51,7 @@ class ArticleActivity : BaseActivity() {
             viewModel.getArticle(href)
         } ?: run {
             articleProgressBar.hide()
-            showError(NoIntentException())
+            showError(IntentSender.SendIntentException())
         }
     }
 
@@ -122,6 +122,6 @@ class ArticleActivity : BaseActivity() {
                 )
                 startActivity(this, options.toBundle())
             }
-        } else showError(NoNetworkException())
+        } else showError(NetworkErrorException())
     }
 }

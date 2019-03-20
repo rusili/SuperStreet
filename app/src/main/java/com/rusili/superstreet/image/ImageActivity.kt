@@ -2,6 +2,7 @@ package com.rusili.superstreet.image
 
 import android.Manifest
 import android.content.Intent
+import android.content.IntentSender
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.transition.Transition
@@ -15,7 +16,6 @@ import com.rusili.superstreet.R
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.BaseActivity
-import com.rusili.superstreet.common.ui.NoIntentException
 import com.rusili.superstreet.image.extensions.checkPermissionAndRequest
 import com.rusili.superstreet.image.extensions.saveImage
 import com.rusili.superstreet.image.ui.SimpleRequestListener
@@ -69,7 +69,7 @@ class ImageActivity : BaseActivity() {
                 loadFullImage(it)
                 ::setOnClickListeners
             }
-        } ?: showError(NoIntentException())
+        } ?: showError(IntentSender.SendIntentException())
     }
 
     private fun loadPlaceholderImage(

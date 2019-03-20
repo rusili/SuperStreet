@@ -1,5 +1,6 @@
 package com.rusili.superstreet.previewlist.ui
 
+import android.accounts.NetworkErrorException
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,7 +19,6 @@ import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.extensions.isNetworkConnected
 import com.rusili.superstreet.common.models.header.Title
 import com.rusili.superstreet.common.ui.BaseFragment
-import com.rusili.superstreet.common.ui.NoNetworkException
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.ui.rv.PreviewListAdapter
@@ -54,17 +54,21 @@ class PreviewListFragment : BaseFragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(PreviewViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) =
         LayoutInflater.from(context).inflate(com.rusili.superstreet.R.layout.fragment_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
 
-        if (!view.context.isNetworkConnected()){
+        if (!view.context.isNetworkConnected()) {
             fragmentListErrorView.isVisible = true
             fragmentListLoadingLayout.fadeAndHide()
-            showError(NoNetworkException())
+            showError(NetworkErrorException())
             return
         }
 
@@ -114,6 +118,6 @@ class PreviewListFragment : BaseFragment() {
         if (view.context.isNetworkConnected()) {
             Timber.d("Title: %s Href: %s", title.value, title.href)
             navigator.goToArticle(view, title.href)
-        } else showError(NoNetworkException())
+        } else showError(NetworkErrorException())
     }
 }

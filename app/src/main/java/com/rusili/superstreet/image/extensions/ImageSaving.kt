@@ -1,5 +1,6 @@
 package com.rusili.superstreet.image.extensions
 
+import android.accounts.NetworkErrorException
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
@@ -98,16 +99,12 @@ fun ContentResolver.storeThumbnail(
         put(Images.Thumbnails.HEIGHT, thumb.height)
         put(Images.Thumbnails.WIDTH, thumb.width)
     }
-
+    
     val url = insert(Images.Thumbnails.EXTERNAL_CONTENT_URI, values)
-        try {
-        val thumbOut = openOutputStream(url)
-        thumb.compress(COMPRESS_FORMAT, 80, thumbOut)
-        thumbOut.close()
+    openOutputStream(url).use {
+        thumb.compress(COMPRESS_FORMAT, 80, it)
+        it.close()
         return thumb
-    } catch (e: Exception) {
-        Timber.e(e, "Error creating thumbnail for image")
-        return null
     }
 }
 

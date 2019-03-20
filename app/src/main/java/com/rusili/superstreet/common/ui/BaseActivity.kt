@@ -1,5 +1,7 @@
 package com.rusili.superstreet.common.ui
 
+import android.accounts.NetworkErrorException
+import android.content.IntentSender
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -30,8 +32,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun showError(error: Throwable?) {
         when (error) {
-            is NoIntentException -> showErrorDialogToFinish()
-            is NoNetworkException -> showNetworkError()
+            is IntentSender.SendIntentException -> showErrorDialogToFinish()
+            is NetworkErrorException -> showNetworkError()
             is UnknownHostException -> showNetworkError()
             is SocketTimeoutException -> showNetworkError()
             else -> showUnknownError()
