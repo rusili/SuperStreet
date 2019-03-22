@@ -1,21 +1,13 @@
 package com.rusili.superstreet.previewlist
 
-import android.annotation.SuppressLint
 import androidx.annotation.VisibleForTesting
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-
-@SuppressLint("SimpleDateFormat")
-private val dateFormat = SimpleDateFormat("MMM dd, yyyy")
 
 private const val STRING_TODAY = "Today"
 private const val STRING_YESTERDAY = "Yesterday"
 
 class DateHelper {
-
-    fun formatToMMMDDYYY(date: Date): String =
-        dateFormat.format(date)
 
     fun getDateDifferenceString(
         todaysDate: Date,
@@ -23,14 +15,14 @@ class DateHelper {
     ): String =
         getDateDifference(todaysDate, articleDate).let {
             when (it) {
-                DateDiffWrapper(0, TimePeriod.Day) -> return STRING_TODAY
-                DateDiffWrapper(1, TimePeriod.Day) -> return STRING_YESTERDAY
+                DateDiffWrapper(0, TimePeriod.Day) -> STRING_TODAY
+                DateDiffWrapper(1, TimePeriod.Day) -> STRING_YESTERDAY
                 else -> {
                     var value = it.length.toString() + " " + it.period.name
                     if (it.length > 1) {
                         value += "s"
                     }
-                    return value.toLowerCase() + " ago"
+                    value.toLowerCase() + " ago"
                 }
             }
         }
@@ -56,4 +48,11 @@ class DateHelper {
         val length: Long,
         val period: TimePeriod
     )
+
+    enum class TimePeriod{
+        Day,
+        Week,
+        Month,
+        Year
+    }
 }

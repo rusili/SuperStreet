@@ -34,19 +34,6 @@ class DateHelperTest {
     }
 
     @Test
-    fun `Test formatToMMDDYYY method`() {
-        // Given:
-        val format = SimpleDateFormat("dd/MM/yyyy")
-        val date = format.parse("21/12/2012")
-
-        // When:
-        val formatted = testSubject.formatToMMMDDYYY(date)
-
-        // Then:
-        formatted shouldEqual "Dec 21, 2012"
-    }
-
-    @Test
     fun `Test getDateDifference method return days`() {
         // Given:
         val format = SimpleDateFormat("dd/MM/yyyy")
@@ -56,7 +43,7 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        days shouldEqual DateHelper.DateDiffWrapper(4, TimePeriod.Day)
+        days shouldEqual DateHelper.DateDiffWrapper(4, DateHelper.TimePeriod.Day)
     }
 
     @Test
@@ -69,7 +56,7 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        days shouldEqual DateHelper.DateDiffWrapper(3, TimePeriod.Week)
+        days shouldEqual DateHelper.DateDiffWrapper(3, DateHelper.TimePeriod.Week)
     }
 
     @Test
@@ -82,7 +69,7 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        days shouldEqual DateHelper.DateDiffWrapper(3, TimePeriod.Month)
+        days shouldEqual DateHelper.DateDiffWrapper(3, DateHelper.TimePeriod.Month)
     }
 
     @Test
@@ -95,6 +82,6 @@ class DateHelperTest {
         val days = testSubject.getDateDifference(todaysDate, articleDate)
 
         // Then:
-        days shouldEqual DateHelper.DateDiffWrapper(3, TimePeriod.Year)
+        days shouldEqual DateHelper.DateDiffWrapper(3, DateHelper.TimePeriod.Year)
     }
 }

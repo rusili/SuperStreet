@@ -10,6 +10,7 @@ import com.rusili.superstreet.R
 import dagger.android.AndroidInjection
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import android.view.WindowManager
 
 abstract class BaseActivity : AppCompatActivity() {
     var container = 0
@@ -19,6 +20,10 @@ abstract class BaseActivity : AppCompatActivity() {
         window.apply {
             enterTransition = null
             exitTransition = null
+            setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
         }
         super.onCreate(savedInstanceState)
 

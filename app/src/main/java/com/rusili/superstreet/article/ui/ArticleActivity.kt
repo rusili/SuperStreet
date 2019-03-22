@@ -41,10 +41,6 @@ class ArticleActivity : BaseActivity() {
         setContentView(R.layout.activity_article)
         setupViews()
 
-        activityArticleToolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
-
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
         intent.getStringExtra(IMAGE_BUNDLE_KEY)?.let { href ->
             articleProgressBar.show()
