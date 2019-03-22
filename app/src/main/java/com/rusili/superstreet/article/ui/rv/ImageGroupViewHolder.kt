@@ -2,6 +2,8 @@ package com.rusili.superstreet.article.ui.rv
 
 import android.view.View
 import android.widget.ImageView
+import androidx.core.view.ViewCompat
+import androidx.core.view.isVisible
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -10,6 +12,7 @@ import com.rusili.superstreet.common.models.body.ImageGroup
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.BaseViewHolder
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.article_image_viewholder.*
 import kotlinx.android.synthetic.main.article_imagegroup_viewholder.*
 
 class ImageGroupViewHolder(
@@ -17,11 +20,15 @@ class ImageGroupViewHolder(
     val onClick: (View, Image, ImageSize) -> Unit,
     val glide: RequestManager
 ) : BaseViewHolder<ImageGroup>(containerView), LayoutContainer {
+    private val imageGroup = listOf<ImageView>(imageGroupImage1, imageGroupImage2, imageGroupImage3)
 
     override fun bind(model: ImageGroup) {
-        loadImage(model.imageList[0], imageGroupImage1)
-        loadImage(model.imageList[1], imageGroupImage2)
-        loadImage(model.imageList[2], imageGroupImage3)
+        model.imageList
+            .take(3)
+            .forEachIndexed { index, image ->
+                imageGroup[index].isVisible = true
+                loadImage(model.imageList[index], imageGroup[index])
+            }
     }
 
     private fun loadImage(
@@ -31,6 +38,8 @@ class ImageGroupViewHolder(
         glide.load(image.resizeToGroupSize())
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
             .into(view)
+
+        ViewCompat.setTransitionName(view, image.id.toString())
 
         view.setOnClickListener { onClick(it, image, ImageSize.GROUP) }
     }

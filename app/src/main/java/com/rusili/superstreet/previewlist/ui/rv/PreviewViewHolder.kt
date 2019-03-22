@@ -4,6 +4,7 @@ import android.view.View
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.rusili.superstreet.common.models.header.Title
 import com.rusili.superstreet.common.ui.BaseViewHolder
@@ -25,16 +26,15 @@ class PreviewViewHolder(
 
         glide.load(preview.header.headerImage.resizeToDefaultSize())
             .apply(requestOptions)
+            .transition(DrawableTransitionOptions.withCrossFade())
             .into(previewThumbnail)
 
-        val dateString = dateHelper.getDateDifferenceString(Date(), preview.footer.date)
         previewTitle.text = preview.header.title.value
-        previewDesc.text = preview.header.desc
+//        previewDesc.text = preview.header.desc
         previewMag.text = preview.flag.magazine.value
         previewType.text = preview.flag.type.value
-        previewAuthorTimestamp.text = dateString
+        previewAuthorTimestamp.text = dateHelper.getDateDifferenceString(Date(), preview.footer.date) + " - " + preview.footer.author.value
 
-        previewTitle.setOnClickListener { onClick(containerView, preview.header.title) }
-        previewThumbnail.setOnClickListener { onClick(containerView, preview.header.title) }
+        itemView.setOnClickListener { onClick(containerView, preview.header.title) }
     }
 }

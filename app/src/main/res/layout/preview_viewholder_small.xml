@@ -2,28 +2,18 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.MaterialComponents.CardView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/mtrl_card_spacing"
-    android:layout_marginTop="@dimen/mtrl_card_spacing"
-    android:layout_marginRight="@dimen/mtrl_card_spacing"
-    android:layout_marginBottom="@dimen/preview_viewholder_margin_bottom"
-    app:cardCornerRadius="@dimen/card_corner_radius_default"
-    app:cardElevation="@dimen/preview_viewholder_card_elevation">
+    style="@style/PreviewCardLayout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/previewThumbnail"
-            android:layout_width="match_parent"
+            style="@style/PreviewThumbnail"
             android:layout_height="@dimen/preview_viewholder_small_image_height"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:scaleType="centerCrop"
             tools:src="@tools:sample/backgrounds/scenic" />
@@ -31,13 +21,6 @@
         <TextView
             android:id="@+id/previewMag"
             style="@style/PreviewMagazine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/black_20_1000"
-            android:paddingLeft="@dimen/preview_viewholder_flags_padding_horizontal"
-            android:paddingTop="@dimen/preview_viewholder_image_margin_bottom"
-            android:paddingBottom="@dimen/preview_viewholder_image_margin_bottom"
-            android:transitionName="@string/transition_to_article"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@id/previewThumbnail"
             tools:text="Super Street" />
@@ -45,13 +28,6 @@
         <TextView
             android:id="@+id/previewType"
             style="@style/PreviewType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/black_20_1000"
-            android:paddingLeft="@dimen/preview_viewholder_type_margin_left"
-            android:paddingTop="@dimen/preview_viewholder_image_margin_bottom"
-            android:paddingRight="@dimen/preview_viewholder_flags_padding_horizontal"
-            android:paddingBottom="@dimen/preview_viewholder_flags_padding_horizontal"
             app:layout_constraintLeft_toRightOf="@id/previewMag"
             app:layout_constraintTop_toTopOf="@id/previewThumbnail"
             tools:text="Event" />
@@ -59,17 +35,8 @@
         <TextView
             android:id="@+id/previewTitle"
             style="@style/PreviewTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preview_viewholder_title_margin_vertical"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:maxLines="@integer/preview_description_max_lines"
-            android:paddingLeft="@dimen/preview_viewholder_title_margin_horizontal"
-            android:paddingRight="@dimen/preview_viewholder_title_margin_horizontal"
-            android:paddingBottom="@dimen/preview_viewholder_title_margin_bottom"
-            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/previewThumbnail"
             tools:text="2005 Boxster 2007 Cayman S - Porsche Pandemic" />
 
@@ -84,11 +51,6 @@
         <TextView
             android:id="@+id/previewAuthorTimestamp"
             style="@style/PreviewTimestamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preview_viewholder_timestamp_margin_top"
-            android:paddingLeft="@dimen/preview_viewholder_timestamp_margin_horizontal"
-            android:paddingBottom="@dimen/preview_viewholder_timestamp_margin_bottom"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/previewTitle"
             tools:text="1 week ago" />

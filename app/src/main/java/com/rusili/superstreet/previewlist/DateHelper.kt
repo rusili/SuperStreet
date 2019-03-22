@@ -25,14 +25,13 @@ class DateHelper {
             when (it) {
                 DateDiffWrapper(0, TimePeriod.Day) -> return STRING_TODAY
                 DateDiffWrapper(1, TimePeriod.Day) -> return STRING_YESTERDAY
-                else ->
-                    (it.length.toString() + " " + it.period.name).apply {
-                        if (it.length > 1) {
-                            plus("s")
-                        }
-                    }.also {
-                        it.toLowerCase().plus(" ago")
+                else -> {
+                    var value = it.length.toString() + " " + it.period.name
+                    if (it.length > 1) {
+                        value += "s"
                     }
+                    return value.toLowerCase() + " ago"
+                }
             }
         }
 

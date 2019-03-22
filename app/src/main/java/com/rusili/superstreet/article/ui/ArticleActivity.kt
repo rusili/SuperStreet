@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,7 @@ import com.rusili.superstreet.common.ui.NoIntentException
 import com.rusili.superstreet.common.ui.NoNetworkException
 import com.rusili.superstreet.image.ImageActivity
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_SIZE_BUNDLE_KEY
+import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_TRANSITION_NAME
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_URL_BUNDLE_KEY
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
@@ -45,10 +47,8 @@ class ArticleActivity : BaseActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
         intent.getStringExtra(IMAGE_URL_BUNDLE_KEY)?.let { href ->
-            if (isNetworkConnected()) {
-                articleProgressBar.show()
-                viewModel.getArticle(href)
-            } else showError(NoNetworkException())
+            articleProgressBar.show()
+            viewModel.getArticle(href)
         } ?: run {
             articleProgressBar.hide()
             showError(NoIntentException())
@@ -60,7 +60,7 @@ class ArticleActivity : BaseActivity() {
 
         viewModel.livedata.observe(this, Observer { wrapper ->
             when {
-                wrapper.error != null ->  showError(wrapper?.error)
+                wrapper.error != null -> showError(wrapper.error)
                 wrapper.data != null -> renderData(wrapper.data)
                 else -> showError(UnknownError())
             }
@@ -114,7 +114,12 @@ class ArticleActivity : BaseActivity() {
             Intent(this, ImageActivity::class.java).apply {
                 putExtra(IMAGE_URL_BUNDLE_KEY, image)
                 putExtra(IMAGE_SIZE_BUNDLE_KEY, size)
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@ArticleActivity, view, getString(R.string.transition_to_image))
+                putExtra(IMAGE_TRANSITION_NAME, image.id.toString())
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this@ArticleActivity,
+                    view,
+                    ViewCompat.getTransitionName(view)!!
+                )
                 startActivity(this, options.toBundle())
             }
         } else showError(NoNetworkException())

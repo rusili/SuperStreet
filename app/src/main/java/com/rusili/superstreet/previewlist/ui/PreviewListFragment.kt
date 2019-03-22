@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.MainNavigator
-import com.rusili.superstreet.R
+import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.extensions.isNetworkConnected
 import com.rusili.superstreet.common.models.header.Title
 import com.rusili.superstreet.common.ui.BaseFragment
@@ -22,12 +22,14 @@ import com.rusili.superstreet.common.ui.NoNetworkException
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.ui.rv.PreviewListAdapter
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
+import kotlinx.android.synthetic.main.fragment_list_loading.*
 import timber.log.Timber
 import javax.inject.Inject
 
 class PreviewListFragment : BaseFragment() {
+    override val TAG: String = PreviewListFragment::class.java.simpleName
+
     @Inject protected lateinit var dateHelper: DateHelper
     @Inject protected lateinit var viewModelFactory: PreviewListViewModelFactory
     private lateinit var viewModel: PreviewViewModel
@@ -53,7 +55,7 @@ class PreviewListFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-        LayoutInflater.from(context).inflate(R.layout.fragment_list, container, false)
+        LayoutInflater.from(context).inflate(com.rusili.superstreet.R.layout.fragment_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,12 +63,11 @@ class PreviewListFragment : BaseFragment() {
 
         if (!view.context.isNetworkConnected()){
             fragmentListErrorView.isVisible = true
-            fragmentListProgressBar.hide()
+            fragmentListLoadingLayout.fadeAndHide()
             showError(NoNetworkException())
             return
         }
 
-        fragmentListProgressBar.show()
         fragmentListSwipeRefresh.isEnabled = false
 
         viewModel.livedata.observe(this, Observer { list ->
@@ -83,9 +84,11 @@ class PreviewListFragment : BaseFragment() {
         adapter = PreviewListAdapter(onClick, glide, dateHelper)
 
         fragmentListRecyclerView.apply {
+            setHasFixedSize(true)
+            itemAnimator = null
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             (layoutManager as LinearLayoutManager).isItemPrefetchEnabled = true
-            adapter = AlphaInAnimationAdapter(this@PreviewListFragment.adapter)
+            adapter = this@PreviewListFragment.adapter
         }
 
         // TODO: SwipeRefresh not working correctly.
@@ -97,11 +100,11 @@ class PreviewListFragment : BaseFragment() {
 
     private fun renderData(previewList: PagedList<ArticlePreviewModel>) {
         fragmentListErrorView.isVisible = false
-        fragmentListProgressBar.hide()
         fragmentListSwipeRefresh.isEnabled = true
 
         adapter.submitList(previewList)
         fragmentListSwipeRefresh.isRefreshing = false
+        fragmentListLoadingLayout.fadeAndHide()
     }
 
     private fun onTitleClicked(

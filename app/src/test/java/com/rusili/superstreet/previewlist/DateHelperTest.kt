@@ -10,6 +10,30 @@ class DateHelperTest {
     private val testSubject = DateHelper()
 
     @Test
+    fun `Given today, When getDateDifferenceString() is called, Then return "Today`(){
+        // Given
+        val articleDate = todaysDate
+
+        // When
+        val result = testSubject.getDateDifferenceString(todaysDate, articleDate)
+
+        // Then
+        result shouldEqual "Today"
+    }
+
+    @Test
+    fun `Given 3 months ago, When getDateDifferenceString() is called, Then return "3 months ago`(){
+        // Given
+        val articleDate =  Date(1521590471199)
+
+        // When
+        val result = testSubject.getDateDifferenceString(todaysDate, articleDate)
+
+        // Then
+        result shouldEqual "3 months ago"
+    }
+
+    @Test
     fun `Test formatToMMDDYYY method`() {
         // Given:
         val format = SimpleDateFormat("dd/MM/yyyy")
