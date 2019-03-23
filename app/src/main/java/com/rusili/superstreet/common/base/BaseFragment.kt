@@ -1,4 +1,4 @@
-package com.rusili.superstreet.common.ui
+package com.rusili.superstreet.common.base
 
 import android.accounts.NetworkErrorException
 import android.content.Context

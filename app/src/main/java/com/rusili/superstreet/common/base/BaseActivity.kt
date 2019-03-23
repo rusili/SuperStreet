@@ -1,8 +1,9 @@
-package com.rusili.superstreet.common.ui
+package com.rusili.superstreet.common.base
 
 import android.accounts.NetworkErrorException
 import android.content.IntentSender
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -10,7 +11,6 @@ import com.rusili.superstreet.R
 import dagger.android.AndroidInjection
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import android.view.WindowManager
 
 abstract class BaseActivity : AppCompatActivity() {
     var container = 0

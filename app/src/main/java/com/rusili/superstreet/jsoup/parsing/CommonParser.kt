@@ -7,7 +7,8 @@ import com.rusili.superstreet.common.models.Type
 import com.rusili.superstreet.common.models.footer.Author
 import org.jsoup.nodes.Element
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 /**
  * Base class for parsing an Html document to Super Street models.

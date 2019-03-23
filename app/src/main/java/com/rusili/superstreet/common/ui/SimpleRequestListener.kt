@@ -1,4 +1,4 @@
-package com.rusili.superstreet.image.ui
+package com.rusili.superstreet.common.ui
 
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.load.DataSource

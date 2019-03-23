@@ -1,4 +1,4 @@
-package com.rusili.superstreet.common.ui
+package com.rusili.superstreet.common.base
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

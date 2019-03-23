@@ -4,8 +4,7 @@ import com.rusili.superstreet.common.models.body.AbstractBodyModel
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageGroup
 import com.rusili.superstreet.common.models.body.Paragraph
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Collections
 
 data class Body(
     val paragraphs: List<Paragraph>,

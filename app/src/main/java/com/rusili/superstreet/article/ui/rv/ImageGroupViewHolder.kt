@@ -5,21 +5,20 @@ import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.rusili.superstreet.common.base.BaseViewHolder
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageGroup
 import com.rusili.superstreet.common.models.body.ImageSize
-import com.rusili.superstreet.common.ui.BaseViewHolder
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.article_image_viewholder.*
 import kotlinx.android.synthetic.main.article_imagegroup_viewholder.*
 
 class ImageGroupViewHolder(
     override val containerView: View,
-    val onClick: (View, Image, ImageSize) -> Unit,
-    val glide: RequestManager
+    private val onClick: (View, Image, ImageSize) -> Unit,
+    private val glide: RequestManager
 ) : BaseViewHolder<ImageGroup>(containerView), LayoutContainer {
+    private val glideOptions = RequestOptions().dontTransform().centerCrop()
     private val imageGroup = listOf<ImageView>(imageGroupImage1, imageGroupImage2, imageGroupImage3)
 
     override fun bind(model: ImageGroup) {
@@ -35,12 +34,12 @@ class ImageGroupViewHolder(
         image: Image,
         view: ImageView
     ) {
-        glide.load(image.resizeToGroupSize())
-            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
-            .into(view)
-
         ViewCompat.setTransitionName(view, image.id.toString())
 
+        glide.load(image.resizeToGroupSize())
+            .apply(glideOptions)
+            .into(view)
+        
         view.setOnClickListener { onClick(it, image, ImageSize.GROUP) }
     }
 }

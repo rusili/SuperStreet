@@ -6,7 +6,7 @@ import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import com.rusili.superstreet.article.ui.ArticleActivity
-import com.rusili.superstreet.common.ui.BaseActivity
+import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_BUNDLE_KEY
 import com.rusili.superstreet.previewlist.ui.PreviewListFragment
 import dagger.android.AndroidInjector
@@ -30,10 +30,16 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
         view: View,
         href: String
     ) {
-        val intent = Intent(this, ArticleActivity::class.java)
-        intent.putExtra(IMAGE_BUNDLE_KEY, href)
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, getString(R.string.transition_to_image))
-        startActivity(intent, options.toBundle())
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            this,
+            view,
+            getString(R.string.transition_to_image)
+        )
+        Intent(this, ArticleActivity::class.java).apply {
+            putExtra(IMAGE_BUNDLE_KEY, href)
+        }.also {
+            startActivity(it, options.toBundle())
+        }
     }
 
     private fun inflateListFragment() =

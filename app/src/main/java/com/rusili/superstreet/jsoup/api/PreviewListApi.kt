@@ -2,7 +2,6 @@ package com.rusili.superstreet.jsoup.api
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import timber.log.Timber
 import javax.inject.Inject
 
 class PreviewListService @Inject constructor() : PreviewListApi {
