@@ -21,10 +21,10 @@ class ArticleAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
-            ArticleViewType.Paragraph.viewType -> ParagraphViewHolder(parent.inflate(R.layout.article_paragraph_viewholder))
-            ArticleViewType.Image.viewType -> ImageViewHolder(parent.inflate(R.layout.article_image_viewholder), onClick, glide)
-            ArticleViewType.ImageGroup.viewType -> ImageGroupViewHolder(parent.inflate(R.layout.article_imagegroup_viewholder), onClick, glide)
-            else -> ParagraphViewHolder(parent.inflate(R.layout.article_paragraph_viewholder))
+            ArticleViewType.Paragraph.viewType -> ParagraphViewHolder(parent.inflate(R.layout.viewholder_article_paragraph))
+            ArticleViewType.Image.viewType -> ImageViewHolder(parent.inflate(R.layout.viewholder_article_image), onClick, glide)
+            ArticleViewType.ImageGroup.viewType -> ImageGroupViewHolder(parent.inflate(R.layout.viewholder_article_imagegroup), onClick, glide)
+            else -> ParagraphViewHolder(parent.inflate(R.layout.viewholder_article_paragraph))
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

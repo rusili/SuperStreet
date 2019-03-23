@@ -20,9 +20,9 @@ class PreviewListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreviewViewHolder =
         when (viewType) {
-            CardSize.Large.viewType -> PreviewViewHolder(parent.inflate(R.layout.preview_viewholder_large), onClick, glide, dateHelper)
-            CardSize.Small.viewType -> PreviewViewHolder(parent.inflate(R.layout.preview_viewholder_small), onClick, glide, dateHelper)
-            else -> PreviewViewHolder(parent.inflate(R.layout.preview_viewholder_small), onClick, glide, dateHelper)
+            CardSize.Large.viewType -> PreviewViewHolder(parent.inflate(R.layout.viewholder_preview_large), onClick, glide, dateHelper)
+            CardSize.Small.viewType -> PreviewViewHolder(parent.inflate(R.layout.viewholder_preview_small), onClick, glide, dateHelper)
+            else -> PreviewViewHolder(parent.inflate(R.layout.viewholder_preview_small), onClick, glide, dateHelper)
         }
 
     override fun onBindViewHolder(holder: PreviewViewHolder, position: Int) {

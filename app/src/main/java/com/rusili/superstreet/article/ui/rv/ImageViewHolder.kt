@@ -12,7 +12,7 @@ import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.SimpleRequestListener
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.article_image_viewholder.*
+import kotlinx.android.synthetic.main.viewholder_article_image.*
 
 class ImageViewHolder(
     override val containerView: View,

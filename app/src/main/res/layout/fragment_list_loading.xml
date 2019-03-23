@@ -11,13 +11,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/preview_viewholder_large" />
+        <include layout="@layout/viewholder_preview_large" />
 
-        <include layout="@layout/preview_viewholder_small" />
+        <include layout="@layout/viewholder_preview_small" />
 
-        <include layout="@layout/preview_viewholder_small" />
+        <include layout="@layout/viewholder_preview_small" />
 
-        <include layout="@layout/preview_viewholder_large" />
+        <include layout="@layout/viewholder_preview_large" />
     </LinearLayout>
 
 </com.facebook.shimmer.ShimmerFrameLayout>

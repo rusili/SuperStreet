@@ -11,7 +11,7 @@ import com.rusili.superstreet.common.models.header.Title
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.preview_viewholder_large.*
+import kotlinx.android.synthetic.main.viewholder_preview_large.*
 import java.util.Date
 
 class PreviewViewHolder(
