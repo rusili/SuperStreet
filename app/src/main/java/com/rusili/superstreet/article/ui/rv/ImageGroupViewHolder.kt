@@ -5,12 +5,16 @@ import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.rusili.superstreet.common.base.BaseViewHolder
+import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageGroup
 import com.rusili.superstreet.common.models.body.ImageSize
+import com.rusili.superstreet.common.ui.SimpleRequestListener
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.article_image_viewholder.*
 import kotlinx.android.synthetic.main.article_imagegroup_viewholder.*
 
 class ImageGroupViewHolder(
@@ -18,8 +22,9 @@ class ImageGroupViewHolder(
     private val onClick: (View, Image, ImageSize) -> Unit,
     private val glide: RequestManager
 ) : BaseViewHolder<ImageGroup>(containerView), LayoutContainer {
-    private val glideOptions = RequestOptions().dontTransform().centerCrop()
     private val imageGroup = listOf<ImageView>(imageGroupImage1, imageGroupImage2, imageGroupImage3)
+
+    private val glideOptions = RequestOptions().dontTransform()
 
     override fun bind(model: ImageGroup) {
         model.imageList
@@ -36,8 +41,17 @@ class ImageGroupViewHolder(
     ) {
         ViewCompat.setTransitionName(view, image.id.toString())
 
+//        val glideListener = object : SimpleRequestListener() {
+//            override fun onReadyOrFailed() {
+//                articleImageLoadingLayout.fadeAndHide()
+//                articleImageView.isVisible = true
+//            }
+//        }
+
         glide.load(image.resizeToGroupSize())
             .apply(glideOptions)
+            .transition(DrawableTransitionOptions.withCrossFade())
+//            .listener(glideListener)
             .into(view)
         
         view.setOnClickListener { onClick(it, image, ImageSize.GROUP) }
