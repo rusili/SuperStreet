@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- List Fragment -->
+    <dimen name="preview_viewholder_image_height">512dp</dimen>
+    <dimen name="preview_viewholder_small_image_height">320dp</dimen>
+
+    <!-- Article Fragment -->
+    <dimen name="article_header_image_height">512dp</dimen>
+
+</resources>

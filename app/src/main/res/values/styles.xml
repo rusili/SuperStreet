@@ -1,25 +1,5 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
-        <!-- New MaterialComponents attributes. -->
-        <item name="colorSecondary">?attr/colorPrimary</item>
-        <item name="scrimBackground">@color/mtrl_scrim_color</item>
-        <item name="snackbarButtonStyle">?attr/borderlessButtonStyle</item>
-    </style>
-
-    <style name="Theme.Transparent" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
-
     <!-- List Fragment -->
     <style name="PreviewCardLayout" parent="@style/Widget.MaterialComponents.CardView">
         <item name="android:layout_height">wrap_content</item>
