@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
+import com.rusili.superstreet.common.base.BaseViewHolder
 import com.rusili.superstreet.common.extensions.fadeIn
 import com.rusili.superstreet.common.models.body.AbstractBodyModel
 import com.rusili.superstreet.common.models.body.ArticleViewType
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
-import com.rusili.superstreet.common.ui.BaseViewHolder
 
 class ArticleAdapter(
     private val onClick: (View, Image, ImageSize) -> Unit,

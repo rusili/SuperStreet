@@ -13,13 +13,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.github.chrisbanes.photoview.PhotoView
 import com.rusili.superstreet.R
+import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
-import com.rusili.superstreet.common.ui.BaseActivity
+import com.rusili.superstreet.common.ui.SimpleRequestListener
+import com.rusili.superstreet.common.ui.SimpleTransitionListenerAdapter
 import com.rusili.superstreet.image.extensions.checkPermissionAndRequest
 import com.rusili.superstreet.image.extensions.saveImage
-import com.rusili.superstreet.image.ui.SimpleRequestListener
-import com.rusili.superstreet.image.ui.SimpleTransitionListenerAdapter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.CompletableSubject
 import kotlinx.android.synthetic.main.activity_image.*

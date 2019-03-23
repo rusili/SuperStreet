@@ -1,7 +1,7 @@
 package com.rusili.superstreet.previewlist
 
 import androidx.annotation.VisibleForTesting
-import java.util.*
+import java.util.Date
 import java.util.concurrent.TimeUnit
 
 private const val STRING_TODAY = "Today"

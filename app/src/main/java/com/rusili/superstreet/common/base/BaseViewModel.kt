@@ -1,4 +1,4 @@
-package com.rusili.superstreet.common.ui
+package com.rusili.superstreet.common.base
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

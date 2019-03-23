@@ -4,5 +4,5 @@ import io.reactivex.Single
 
 interface ArticleRepository{
 
-    fun getArticle(href: String) : Single<ArticleFullModel>
+    fun getArticleOnce(href: String) : Single<ArticleFullModel>
 }

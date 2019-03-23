@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface ArticleUsecase {
 
-    fun getArticle(href: String): Single<ArticleFullModel>
+    fun getArticleOnce(href: String): Single<ArticleFullModel>
 }
