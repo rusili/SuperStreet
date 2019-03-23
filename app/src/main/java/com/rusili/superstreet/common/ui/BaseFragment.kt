@@ -1,5 +1,6 @@
 package com.rusili.superstreet.common.ui
 
+import android.accounts.NetworkErrorException
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
@@ -18,7 +19,7 @@ abstract class BaseFragment : Fragment() {
 
     open fun showError(error: Throwable?) {
         when (error) {
-            is NoNetworkException -> showNetworkError()
+            is NetworkErrorException -> showNetworkError()
             is UnknownHostException -> showNetworkError()
             is SocketTimeoutException -> showNetworkError()
             else -> showUnknownError()

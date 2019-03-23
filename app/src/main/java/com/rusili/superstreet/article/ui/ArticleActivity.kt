@@ -1,6 +1,8 @@
 package com.rusili.superstreet.article.ui
 
+import android.accounts.NetworkErrorException
 import android.content.Intent
+import android.content.IntentSender
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -20,12 +22,10 @@ import com.rusili.superstreet.common.models.body.ArticleHeader
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.BaseActivity
-import com.rusili.superstreet.common.ui.NoIntentException
-import com.rusili.superstreet.common.ui.NoNetworkException
 import com.rusili.superstreet.image.ImageActivity
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_SIZE_BUNDLE_KEY
-import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_TRANSITION_NAME
-import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_URL_BUNDLE_KEY
+import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_TRANSITION_NAME_KEY
+import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_BUNDLE_KEY
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 
@@ -46,12 +46,12 @@ class ArticleActivity : BaseActivity() {
         }
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
-        intent.getStringExtra(IMAGE_URL_BUNDLE_KEY)?.let { href ->
+        intent.getStringExtra(IMAGE_BUNDLE_KEY)?.let { href ->
             articleProgressBar.show()
             viewModel.getArticle(href)
         } ?: run {
             articleProgressBar.hide()
-            showError(NoIntentException())
+            showError(IntentSender.SendIntentException())
         }
     }
 
@@ -112,9 +112,9 @@ class ArticleActivity : BaseActivity() {
             getWindow().setExitTransition(null)
 
             Intent(this, ImageActivity::class.java).apply {
-                putExtra(IMAGE_URL_BUNDLE_KEY, image)
+                putExtra(IMAGE_BUNDLE_KEY, image)
                 putExtra(IMAGE_SIZE_BUNDLE_KEY, size)
-                putExtra(IMAGE_TRANSITION_NAME, image.id.toString())
+                putExtra(IMAGE_TRANSITION_NAME_KEY, image.id.toString())
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     this@ArticleActivity,
                     view,
@@ -122,6 +122,6 @@ class ArticleActivity : BaseActivity() {
                 )
                 startActivity(this, options.toBundle())
             }
-        } else showError(NoNetworkException())
+        } else showError(NetworkErrorException())
     }
 }

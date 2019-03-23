@@ -1,5 +1,6 @@
 package com.rusili.superstreet.image.extensions
 
+import android.accounts.NetworkErrorException
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
@@ -45,17 +46,15 @@ fun ContentResolver.saveImage(
     var url: Uri? = null
     try {
         url = insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        val imageOut = openOutputStream(url)
-        try {
-            source.compress(COMPRESS_FORMAT, 100, imageOut)
-        } finally {
-            imageOut.close()
+        openOutputStream(url).use {
+            source.compress(COMPRESS_FORMAT, 100, it)
         }
-        val id = ContentUris.parseId(url)
-        // Wait until MINI_KIND thumbnail is generated.
-        val miniThumb = Images.Thumbnails.getThumbnail(this, id, Images.Thumbnails.MINI_KIND, null)
-        // This is for backward compatibility.
-        storeThumbnail(miniThumb, id, 50f, 50f, Images.Thumbnails.MICRO_KIND)
+        ContentUris.parseId(url).let { id ->
+            // Wait until MINI_KIND thumbnail is generated.
+            val miniThumb = Images.Thumbnails.getThumbnail(this, id, Images.Thumbnails.MINI_KIND, null)
+            // This is for backward compatibility.
+            storeThumbnail(miniThumb, id, 50f, 50f, Images.Thumbnails.MICRO_KIND)
+        }
     } catch (e: Exception) {
         Timber.e(e, "Error saving image")
         url?.let {
@@ -87,7 +86,8 @@ fun ContentResolver.storeThumbnail(
         )
     }
 
-    val thumb = Bitmap.createBitmap(source, 0, 0,
+    val thumb = Bitmap.createBitmap(
+        source, 0, 0,
         source.width,
         source.height,
         matrix, true
@@ -99,16 +99,12 @@ fun ContentResolver.storeThumbnail(
         put(Images.Thumbnails.HEIGHT, thumb.height)
         put(Images.Thumbnails.WIDTH, thumb.width)
     }
-
+    
     val url = insert(Images.Thumbnails.EXTERNAL_CONTENT_URI, values)
-    try {
-        val thumbOut = openOutputStream(url)
-        thumb.compress(COMPRESS_FORMAT, 80, thumbOut)
-        thumbOut.close()
+    openOutputStream(url).use {
+        thumb.compress(COMPRESS_FORMAT, 80, it)
+        it.close()
         return thumb
-    } catch (e: Exception) {
-        Timber.e(e, "Error creating thumbnail for image")
-        return null
     }
 }
 
@@ -119,6 +115,6 @@ fun ContentResolver.storeThumbnail(
 @VisibleForTesting
 fun String.parseImageName(): String =
     lastIndexOf('/')
-        .takeIf { it > 0  }
+        .takeIf { it > 0 }
         ?.let { substring(it + 1, length - 4) }
         ?: this

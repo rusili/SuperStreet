@@ -12,6 +12,6 @@ import dagger.Provides
 class AppModule {
 
     @Provides
-    fun provideContext(application: App): Context =
+    fun provideApplicationContext(application: App): Context =
         application.applicationContext
 }
