@@ -9,34 +9,28 @@
     <ImageView
         android:id="@+id/imageGroupImage1"
         style="@style/ArticleImageGroup"
-        android:layout_width="0dp"
-        android:visibility="gone"
-        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageGroupImage2"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <ImageView
         android:id="@+id/imageGroupImage2"
         style="@style/ArticleImageGroup"
-        android:layout_width="0dp"
-        android:visibility="gone"
-        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageGroupImage3"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageGroupImage1"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <ImageView
         android:id="@+id/imageGroupImage3"
         style="@style/ArticleImageGroup"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageGroupImage2"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

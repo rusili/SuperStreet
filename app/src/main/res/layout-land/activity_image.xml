@@ -42,6 +42,7 @@
             app:layout_constraintBottom_toTopOf="@id/activityImageSaveButton"
             app:layout_constraintRight_toRightOf="parent" />
 
+
         <ImageView
             android:id="@+id/activityImageSaveButton"
             android:layout_width="@dimen/image_icon_share_size"
