@@ -73,6 +73,11 @@
         <item name="android:fontFamily">@font/pt_serif</item>
     </style>
 
-    <style name="ArticleImageGroup"></style>
+    <style name="ArticleImageGroup">
+        <item name="android:layout_height">@dimen/article_viewholder_imagegroup_height</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:visibility">gone</item>
+        <item name="layout_constraintHorizontal_bias">0.5</item>
+    </style>
 
 </resources>

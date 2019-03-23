@@ -41,19 +41,11 @@ class ImageGroupViewHolder(
     ) {
         ViewCompat.setTransitionName(view, image.id.toString())
 
-//        val glideListener = object : SimpleRequestListener() {
-//            override fun onReadyOrFailed() {
-//                articleImageLoadingLayout.fadeAndHide()
-//                articleImageView.isVisible = true
-//            }
-//        }
-
         glide.load(image.resizeToGroupSize())
             .apply(glideOptions)
             .transition(DrawableTransitionOptions.withCrossFade())
-//            .listener(glideListener)
             .into(view)
-        
+
         view.setOnClickListener { onClick(it, image, ImageSize.GROUP) }
     }
 }
