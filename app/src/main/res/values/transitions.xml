@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="transition_to_article">transitionToArticle</string>
-    <string name="transition_to_image">transitionToImage</string>
-</resources>

@@ -18,8 +18,6 @@ import com.rusili.superstreet.article.domain.ArticleFullModel
 import com.rusili.superstreet.article.ui.rv.ArticleAdapter
 import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.extensions.isNetworkConnected
-import com.rusili.superstreet.common.models.body.AbstractBodyModel
-import com.rusili.superstreet.common.models.body.ArticleHeader
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.image.ImageActivity
@@ -91,12 +89,7 @@ class ArticleActivity : BaseActivity() {
     private fun renderData(article: ArticleFullModel) {
         articleProgressBar.hide()
 
-        mutableListOf<AbstractBodyModel>().apply {
-            add(ArticleHeader(0, article.header, article.footer, article.flag))
-            addAll(article.body.combineSections())
-        }.also {
-            adapter.submitList(it.toList())
-        }
+        adapter.submitList(article.body.combineSections())
     }
 
     private fun onImageClicked(

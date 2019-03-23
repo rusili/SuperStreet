@@ -4,8 +4,6 @@ import com.nhaarman.mockito_kotlin.mock
 import com.rusili.superstreet.common.models.Flag
 import com.rusili.superstreet.common.models.Footer
 import com.rusili.superstreet.common.models.Header
-import com.rusili.superstreet.common.models.body.ArticleHeader
-import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 class ArticleHeaderTest {

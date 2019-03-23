@@ -30,15 +30,15 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
         view: View,
         href: String
     ) {
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-            this,
-            view,
-            getString(R.string.transition_to_image)
-        )
         Intent(this, ArticleActivity::class.java).apply {
             putExtra(IMAGE_BUNDLE_KEY, href)
         }.also {
-            startActivity(it, options.toBundle())
+//            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                this,
+//                view,
+//                getString(R.string.transition_to_image)
+//            )
+            startActivity(it)
         }
     }
 
