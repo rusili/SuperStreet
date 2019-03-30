@@ -38,7 +38,7 @@ class CommonParser {
         )
 
     private fun parseType(element: Element): Type {
-        val flagType = element.select(COMMON.A.value)[1]
+        val flagType = element.select(COMMON.A.value).second()
         var flagTypeValue = flagType.select(FLAG.SPAN_LABEL.value).text()    // For Article parsing
         if (flagTypeValue.isBlank()) {
             flagTypeValue = flagType.textNodes().first().text()      // For Preview parsing

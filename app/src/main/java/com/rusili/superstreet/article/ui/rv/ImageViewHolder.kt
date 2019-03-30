@@ -14,12 +14,14 @@ import com.rusili.superstreet.common.ui.SimpleRequestListener
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_article_image.*
 
+private val glideOptions = RequestOptions().dontTransform()
+private val crossFadeTransition = DrawableTransitionOptions.withCrossFade()
+
 class ImageViewHolder(
     override val containerView: View,
     private val onClick: (View, Image, ImageSize) -> Unit,
     private val glide: RequestManager
 ) : BaseViewHolder<Image>(containerView), LayoutContainer {
-    private val glideOptions = RequestOptions().dontTransform()
     private val glideListener = object : SimpleRequestListener() {
         override fun onReadyOrFailed() {
             articleImageLoadingLayout.fadeAndHide()
@@ -32,7 +34,7 @@ class ImageViewHolder(
 
         glide.load(model.resizeToDefaultSize())
             .apply(glideOptions)
-            .transition(DrawableTransitionOptions.withCrossFade())
+            .transition(crossFadeTransition)
             .listener(glideListener)
             .into(articleImageView)
 

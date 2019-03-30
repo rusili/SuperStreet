@@ -56,11 +56,9 @@ class PreviewListFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
-
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) =
-        LayoutInflater.from(context).inflate(com.rusili.superstreet.R.layout.fragment_list, container, false)
+    ) = LayoutInflater.from(context).inflate(com.rusili.superstreet.R.layout.fragment_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,12 +71,8 @@ class PreviewListFragment : BaseFragment() {
             return
         }
 
-        fragmentListSwipeRefresh.isEnabled = false
-
         viewModel.livedata.observe(this, Observer { list ->
-            list?.let { previewList ->
-                renderData(previewList)
-            }
+            list?.let(::renderData)
         })
 
         viewModel.loadData()
@@ -94,12 +88,6 @@ class PreviewListFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             (layoutManager as LinearLayoutManager).isItemPrefetchEnabled = true
             adapter = this@PreviewListFragment.adapter
-        }
-
-        // TODO: SwipeRefresh not working correctly.
-        fragmentListSwipeRefresh.apply {
-            setProgressViewOffset(false, 150, 250)
-            setOnRefreshListener { viewModel.loadData() }
         }
     }
 

@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.rusili.superstreet.R
 import dagger.android.AndroidInjection
+import io.reactivex.disposables.CompositeDisposable
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 abstract class BaseActivity : AppCompatActivity() {
+    protected val disposable = CompositeDisposable()
     var container = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +30,11 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         container = R.id.activityFragmentContainer
+    }
+
+    override fun onStop() {
+        disposable.clear()
+        super.onStop()
     }
 
     fun inflateFragment(fragment: BaseFragment) =

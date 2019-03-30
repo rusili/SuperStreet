@@ -3,8 +3,6 @@ package com.rusili.superstreet.previewlist.ui.rv
 import android.view.View
 import androidx.core.view.ViewCompat
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.rusili.superstreet.common.base.BaseViewHolder
@@ -12,9 +10,11 @@ import com.rusili.superstreet.common.models.header.Title
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.viewholder_article_image.*
 import kotlinx.android.synthetic.main.viewholder_preview_large.*
 import java.util.Date
+
+private val glideOptions = RequestOptions().dontTransform()
+private val crossFadeTransition = DrawableTransitionOptions.withCrossFade()
 
 class PreviewViewHolder(
     override val containerView: View,
@@ -27,8 +27,8 @@ class PreviewViewHolder(
         ViewCompat.setTransitionName(previewThumbnail, preview.header.title.href)
 
         glide.load(preview.header.headerImage.resizeToDefaultSize())
-            .apply(RequestOptions().dontTransform())
-            .transition(DrawableTransitionOptions.withCrossFade())
+            .apply(glideOptions)
+            .transition(crossFadeTransition)
             .into(previewThumbnail)
 
         previewTitle.text = preview.header.title.value

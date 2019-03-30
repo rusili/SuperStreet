@@ -73,7 +73,7 @@ class PreviewListParser @Inject constructor(private val commonParser: CommonPars
             imgTitle = nonFeatureImageNode.first().attr(PREVIEW_HEADER.DATA_ALT.value)
             imgSrc = nonFeatureImageNode.first().attr(PREVIEW_HEADER.DATA_SRC.value)
         } else {
-            val imageNode = element.children()[1].select(COMMON.A.value)            // For feature stories:
+            val imageNode = element.children().second().select(COMMON.A.value)            // For feature stories:
             val featureImageNode = imageNode.select(COMMON.IMG.value)
 
             // Top Story:
