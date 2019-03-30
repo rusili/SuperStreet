@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.rusili.superstreet.article.ui.ArticleActivity
 import com.rusili.superstreet.common.base.BaseActivity
+import com.rusili.superstreet.image.ImageActivity
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_BUNDLE_KEY
 import com.rusili.superstreet.previewlist.ui.PreviewListFragment
 import dagger.android.AndroidInjector
@@ -31,14 +33,14 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
         href: String
     ) {
         Intent(this, ArticleActivity::class.java).apply {
-            putExtra(IMAGE_BUNDLE_KEY, href)
+            putExtra(ArticleActivity.ARTICLE_BUNDLE_KEY, href)
         }.also {
-//            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                this,
-//                view,
-//                getString(R.string.transition_to_image)
-//            )
-            startActivity(it)
+           val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+               this,
+               view,
+               ViewCompat.getTransitionName(view)!!
+           )
+            startActivity(it, options.toBundle())
         }
     }
 

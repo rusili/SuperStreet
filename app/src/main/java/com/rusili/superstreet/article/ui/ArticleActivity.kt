@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.rusili.superstreet.R
 import com.rusili.superstreet.article.domain.ArticleFullModel
 import com.rusili.superstreet.article.ui.rv.ArticleAdapter
 import com.rusili.superstreet.common.base.BaseActivity
@@ -26,6 +25,12 @@ import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_SIZE_BUNDLE_KE
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_TRANSITION_NAME_KEY
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
+import android.animation.LayoutTransition
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
+import com.bumptech.glide.request.RequestOptions
+import com.rusili.superstreet.R
+import com.rusili.superstreet.common.ui.SimpleRequestListener
 
 class ArticleActivity : BaseActivity() {
     @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
@@ -34,14 +39,20 @@ class ArticleActivity : BaseActivity() {
     private lateinit var adapter: ArticleAdapter
     private val onClick: (View, Image, ImageSize) -> Unit = ::onImageClicked
 
+    companion object {
+        const val ARTICLE_BUNDLE_KEY = "ARTICLE_BUNDLE_KEY"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportPostponeEnterTransition();
         setContentView(R.layout.activity_article)
         setupViews()
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
-        intent.getStringExtra(IMAGE_BUNDLE_KEY)?.let { href ->
+        intent?.getStringExtra(ARTICLE_BUNDLE_KEY)?.let { href ->
             articleProgressBar.show()
+            articleHeaderImageView.transitionName = href
             viewModel.getArticle(href)
         } ?: run {
             articleProgressBar.hide()
@@ -61,33 +72,32 @@ class ArticleActivity : BaseActivity() {
         })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            android.R.id.home -> {
-                supportFinishAfterTransition()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        supportFinishAfterTransition()
-        super.onBackPressed()
-    }
-
     private fun setupViews() {
+        articleContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         adapter = ArticleAdapter(onClick, Glide.with(this))
 
         articleRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            (layoutManager as LinearLayoutManager).isItemPrefetchEnabled = true
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false).apply {
+                isItemPrefetchEnabled = true
+            }
             adapter = this@ArticleActivity.adapter
         }
     }
 
     private fun renderData(article: ArticleFullModel) {
         articleProgressBar.hide()
+
+        Glide.with(this)
+            .load(article.header.headerImage.resizeToDefaultSize())
+            .apply(RequestOptions().dontTransform())
+            .listener(object : SimpleRequestListener(){
+                override fun onReadyOrFailed() {
+                    articleHeaderTitle.text = article.header.title.value
+                    articleHeaderTitle.isVisible = true
+                    supportStartPostponedEnterTransition()
+                }
+            })
+            .into(articleHeaderImageView)
 
         adapter.submitList(article.body.combineSections())
     }

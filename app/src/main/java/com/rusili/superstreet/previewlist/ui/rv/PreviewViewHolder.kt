@@ -1,6 +1,7 @@
 package com.rusili.superstreet.previewlist.ui.rv
 
 import android.view.View
+import androidx.core.view.ViewCompat
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -11,6 +12,7 @@ import com.rusili.superstreet.common.models.header.Title
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.viewholder_article_image.*
 import kotlinx.android.synthetic.main.viewholder_preview_large.*
 import java.util.Date
 
@@ -22,10 +24,10 @@ class PreviewViewHolder(
 ) : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
 
     override fun bind(preview: ArticlePreviewModel) {
-        val requestOptions = RequestOptions().transforms(CenterCrop(), RoundedCorners(12))
+        ViewCompat.setTransitionName(previewThumbnail, preview.header.title.href)
 
         glide.load(preview.header.headerImage.resizeToDefaultSize())
-            .apply(requestOptions)
+            .apply(RequestOptions().dontTransform())
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(previewThumbnail)
 
@@ -35,6 +37,6 @@ class PreviewViewHolder(
         previewType.text = preview.flag.type.value
         previewAuthorTimestamp.text = dateHelper.getDateDifferenceString(Date(), preview.footer.date) + " - " + preview.footer.author.value
 
-        itemView.setOnClickListener { onClick(containerView, preview.header.title) }
+        itemView.setOnClickListener { onClick(previewThumbnail, preview.header.title) }
     }
 }

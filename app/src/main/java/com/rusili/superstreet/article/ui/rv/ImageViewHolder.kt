@@ -19,7 +19,7 @@ class ImageViewHolder(
     private val onClick: (View, Image, ImageSize) -> Unit,
     private val glide: RequestManager
 ) : BaseViewHolder<Image>(containerView), LayoutContainer {
-    private val glideOptions = RequestOptions().dontTransform().centerCrop()
+    private val glideOptions = RequestOptions().dontTransform()
     private val glideListener = object : SimpleRequestListener() {
         override fun onReadyOrFailed() {
             articleImageLoadingLayout.fadeAndHide()
