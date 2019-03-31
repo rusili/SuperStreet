@@ -4,7 +4,6 @@ import android.accounts.NetworkErrorException
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
@@ -26,11 +25,10 @@ import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_TRANSITION_NAM
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 import android.animation.LayoutTransition
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isVisible
 import com.bumptech.glide.request.RequestOptions
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.ui.SimpleRequestListener
+import io.reactivex.subjects.CompletableSubject
 
 class ArticleActivity : BaseActivity() {
     @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
@@ -41,27 +39,29 @@ class ArticleActivity : BaseActivity() {
 
     companion object {
         const val ARTICLE_BUNDLE_KEY = "ARTICLE_BUNDLE_KEY"
+        const val ARTICLE_POSITION_BUNDLE_KEY = "ARTICLE_POSITION_BUNDLE_KEY"
+        const val ARTICLE_HEADER_IMAGE_BUNDLE_KEY = "ARTICLE_HEADER_IMAGE_BUNDLE_KEY"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportPostponeEnterTransition();
         setContentView(R.layout.activity_article)
-        setupViews()
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
-        intent?.getStringExtra(ARTICLE_BUNDLE_KEY)?.let { href ->
-            articleProgressBar.show()
-            articleHeaderImageView.transitionName = href
-            viewModel.getArticle(href)
+        intent?.let {
+            it.getStringExtra(ARTICLE_HEADER_IMAGE_BUNDLE_KEY)?.let { href ->
+                val position = it.getIntExtra(ARTICLE_POSITION_BUNDLE_KEY, -1)
+                setupViews(href, position)
+            }
+            it.getStringExtra(ARTICLE_BUNDLE_KEY)?.let { href ->
+                articleProgressBar.show()
+                viewModel.getArticle(href)
+            }
         } ?: run {
             articleProgressBar.hide()
             showError(IntentSender.SendIntentException())
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
 
         viewModel.livedata.observe(this, Observer { wrapper ->
             when {
@@ -72,32 +72,37 @@ class ArticleActivity : BaseActivity() {
         })
     }
 
-    private fun setupViews() {
-        articleContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+    private fun setupViews(
+        href: String,
+        position: Int
+    ) {
+        // articleContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        articleHeaderImageView.transitionName = href + position
+
         adapter = ArticleAdapter(onClick, Glide.with(this))
 
         articleRecyclerView.apply {
+            itemAnimator = null
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false).apply {
                 isItemPrefetchEnabled = true
             }
             adapter = this@ArticleActivity.adapter
         }
-    }
-
-    private fun renderData(article: ArticleFullModel) {
-        articleProgressBar.hide()
 
         Glide.with(this)
-            .load(article.header.headerImage.resizeToDefaultSize())
+            .load(href)
             .apply(RequestOptions().dontTransform())
-            .listener(object : SimpleRequestListener(){
+            .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
-                    articleHeaderTitle.text = article.header.title.value
-                    articleHeaderTitle.isVisible = true
                     supportStartPostponedEnterTransition()
                 }
             })
             .into(articleHeaderImageView)
+    }
+
+    private fun renderData(article: ArticleFullModel) {
+        articleProgressBar.hide()
+        articleHeaderTitle.text = article.header.title.value
 
         adapter.submitList(article.body.combineSections())
     }

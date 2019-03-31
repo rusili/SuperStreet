@@ -8,13 +8,10 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.rusili.superstreet.common.base.BaseViewHolder
-import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageGroup
 import com.rusili.superstreet.common.models.body.ImageSize
-import com.rusili.superstreet.common.ui.SimpleRequestListener
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.viewholder_article_image.*
 import kotlinx.android.synthetic.main.viewholder_article_imagegroup.*
 
 private val glideOptions = RequestOptions().dontTransform()
@@ -27,7 +24,10 @@ class ImageGroupViewHolder(
 ) : BaseViewHolder<ImageGroup>(containerView), LayoutContainer {
     private val imageGroup = listOf<ImageView>(imageGroupImage1, imageGroupImage2, imageGroupImage3)
 
-    override fun bind(model: ImageGroup) {
+    override fun bind(
+        model: ImageGroup,
+        position: Int
+    ) {
         model.imageList
             .take(3)
             .forEachIndexed { index, image ->

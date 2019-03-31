@@ -18,7 +18,7 @@ import com.rusili.superstreet.MainNavigator
 import com.rusili.superstreet.common.base.BaseFragment
 import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.extensions.isNetworkConnected
-import com.rusili.superstreet.common.models.header.Title
+import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.ui.rv.PreviewListAdapter
@@ -38,7 +38,7 @@ class PreviewListFragment : BaseFragment() {
 
     private lateinit var adapter: PreviewListAdapter
     private lateinit var glide: RequestManager
-    private val onClick: (View, Title) -> Unit = this::onTitleClicked
+    private val onClick: (View, Header, Int) -> Unit = ::onTitleClicked
 
     companion object {
         fun newInstance() = PreviewListFragment()
@@ -102,11 +102,12 @@ class PreviewListFragment : BaseFragment() {
 
     private fun onTitleClicked(
         view: View,
-        title: Title
+        header: Header,
+        position: Int
     ) {
         if (view.context.isNetworkConnected()) {
-            Timber.d("Title: %s Href: %s", title.value, title.href)
-            navigator.goToArticle(view, title.href)
+            Timber.d("Title: %s Href: %s", header.title.value, header.title.href)
+            navigator.goToArticle(view, header, position)
         } else showError(NetworkErrorException())
     }
 }

@@ -8,8 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.rusili.superstreet.article.ui.ArticleActivity
 import com.rusili.superstreet.common.base.BaseActivity
-import com.rusili.superstreet.image.ImageActivity
-import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_BUNDLE_KEY
+import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.previewlist.ui.PreviewListFragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -30,10 +29,13 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
 
     override fun goToArticle(
         view: View,
-        href: String
+        header: Header,
+        position: Int
     ) {
         Intent(this, ArticleActivity::class.java).apply {
-            putExtra(ArticleActivity.ARTICLE_BUNDLE_KEY, href)
+            putExtra(ArticleActivity.ARTICLE_BUNDLE_KEY, header.title.href)
+            putExtra(ArticleActivity.ARTICLE_POSITION_BUNDLE_KEY, position)
+            putExtra(ArticleActivity.ARTICLE_HEADER_IMAGE_BUNDLE_KEY, header.headerImage.resizeToDefaultSize())
         }.also {
            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                this,

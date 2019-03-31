@@ -21,8 +21,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/articleContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/articleHeaderImageView"
@@ -44,7 +43,6 @@
                 android:paddingTop="@dimen/article_header_title_vertical"
                 android:paddingRight="@dimen/article_header_title_padding_horizontal"
                 android:paddingBottom="@dimen/article_header_title_vertical"
-                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@id/articleHeaderImageView"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />

@@ -39,7 +39,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun inflateFragment(fragment: BaseFragment) =
         supportFragmentManager.beginTransaction()
-            .replace(container, fragment)
+            .add(container, fragment)
             .commit()
 
     fun showError(error: Throwable?) {

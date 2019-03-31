@@ -6,7 +6,7 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.rusili.superstreet.common.base.BaseViewHolder
-import com.rusili.superstreet.common.models.header.Title
+import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import kotlinx.android.extensions.LayoutContainer
@@ -18,13 +18,17 @@ private val crossFadeTransition = DrawableTransitionOptions.withCrossFade()
 
 class PreviewViewHolder(
     override val containerView: View,
-    private val onClick: (View, Title) -> Unit,
+    private val onClick: (View, Header, Int) -> Unit,
     private val glide: RequestManager,
     private val dateHelper: DateHelper
 ) : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
 
-    override fun bind(preview: ArticlePreviewModel) {
-        ViewCompat.setTransitionName(previewThumbnail, preview.header.title.href)
+    override fun bind(
+        preview: ArticlePreviewModel,
+        position: Int
+    ) {
+        val name = preview.header.headerImage.resizeToDefaultSize() + position
+        ViewCompat.setTransitionName(previewThumbnail, name)
 
         glide.load(preview.header.headerImage.resizeToDefaultSize())
             .apply(glideOptions)
@@ -37,6 +41,6 @@ class PreviewViewHolder(
         previewType.text = preview.flag.type.value
         previewAuthorTimestamp.text = dateHelper.getDateDifferenceString(Date(), preview.footer.date) + " - " + preview.footer.author.value
 
-        itemView.setOnClickListener { onClick(previewThumbnail, preview.header.title) }
+        itemView.setOnClickListener { onClick(previewThumbnail, preview.header, position) }
     }
 }

@@ -7,13 +7,13 @@ import androidx.paging.PagedListAdapter
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.extensions.fadeIn
-import com.rusili.superstreet.common.models.header.Title
+import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.domain.CardSize
 
 class PreviewListAdapter(
-    private val onClick: (View, Title) -> Unit,
+    private val onClick: (View, Header, Int) -> Unit,
     private val glide: RequestManager,
     private val dateHelper: DateHelper
 ) : PagedListAdapter<ArticlePreviewModel, PreviewViewHolder>(PreviewDiffCallback()) {
@@ -28,7 +28,7 @@ class PreviewListAdapter(
     override fun onBindViewHolder(holder: PreviewViewHolder, position: Int) {
         getItem(position)?.let {
             holder.apply {
-                bind(it)
+                bind(it, position)
                 itemView.fadeIn()
             }
         }
