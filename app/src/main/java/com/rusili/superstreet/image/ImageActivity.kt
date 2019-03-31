@@ -30,8 +30,6 @@ class ImageActivity : BaseActivity() {
     private val placeholderLoadSubject = CompletableSubject.create()
     private val fullImageLoadSubject = CompletableSubject.create()
 
-    private val staticOption = RequestOptions().dontTransform().dontAnimate()
-
     companion object {
         const val IMAGE_BUNDLE_KEY = "IMAGE_BUNDLE_KEY"
         const val IMAGE_SIZE_BUNDLE_KEY = "IMAGE_SIZE_BUNDLE_KEY"
@@ -64,6 +62,7 @@ class ImageActivity : BaseActivity() {
     private fun retrieveIntent() {
         intent?.let {
             val image = it.getParcelableExtra<Image>(IMAGE_BUNDLE_KEY)
+            // TODO: clean up extras
             val originalImageSize = it.getSerializableExtra(IMAGE_SIZE_BUNDLE_KEY) as ImageSize
 
             activityImageViewSwitcher.apply {
@@ -85,7 +84,6 @@ class ImageActivity : BaseActivity() {
     ) {
         Glide.with(this@ImageActivity)
             .load(if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize())
-            .apply(staticOption)
             .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
                     supportStartPostponedEnterTransition()
@@ -97,7 +95,6 @@ class ImageActivity : BaseActivity() {
     private fun loadFullImage(image: Image) {
         Glide.with(this@ImageActivity)
             .load(image.resizeTo1920By1280())
-            .apply(staticOption)
             .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
                     activityImageProgressBar.isVisible = false

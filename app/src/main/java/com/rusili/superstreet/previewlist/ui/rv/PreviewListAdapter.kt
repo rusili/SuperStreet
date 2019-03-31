@@ -13,7 +13,7 @@ import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.domain.CardSize
 
 class PreviewListAdapter(
-    private val onClick: (View, Header, Int) -> Unit,
+    private val onClick: (View, Header) -> Unit,
     private val glide: RequestManager,
     private val dateHelper: DateHelper
 ) : PagedListAdapter<ArticlePreviewModel, PreviewViewHolder>(PreviewDiffCallback()) {
@@ -28,7 +28,7 @@ class PreviewListAdapter(
     override fun onBindViewHolder(holder: PreviewViewHolder, position: Int) {
         getItem(position)?.let {
             holder.apply {
-                bind(it, position)
+                bind(it)
                 itemView.fadeIn()
             }
         }

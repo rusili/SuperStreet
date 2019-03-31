@@ -15,7 +15,6 @@ class ArticleViewModel(private val usecase: ArticleUsecase) : BaseViewModel() {
     fun getArticle(href: String) {
         addDisposable(usecase.getArticleOnce(href)
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = { livedata.postValue(LiveDataWrapper(it)) },
                 onError = {

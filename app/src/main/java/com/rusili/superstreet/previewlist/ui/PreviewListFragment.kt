@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.MainNavigator
+import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseFragment
 import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.extensions.isNetworkConnected
@@ -37,8 +38,6 @@ class PreviewListFragment : BaseFragment() {
     private lateinit var navigator: MainNavigator
 
     private lateinit var adapter: PreviewListAdapter
-    private lateinit var glide: RequestManager
-    private val onClick: (View, Header, Int) -> Unit = ::onTitleClicked
 
     companion object {
         fun newInstance() = PreviewListFragment()
@@ -58,7 +57,7 @@ class PreviewListFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = LayoutInflater.from(context).inflate(com.rusili.superstreet.R.layout.fragment_list, container, false)
+    ) = LayoutInflater.from(context).inflate(R.layout.fragment_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -71,43 +70,41 @@ class PreviewListFragment : BaseFragment() {
             return
         }
 
-        viewModel.livedata.observe(this, Observer { list ->
-            list?.let(::renderData)
-        })
-
-        viewModel.loadData()
+        viewModel.apply {
+            livedata.observe(this@PreviewListFragment, Observer { list ->
+                list?.let(::renderData)
+            })
+            viewModel.loadData()
+        }
     }
 
     private fun setupViews() {
-        glide = Glide.with(this)
-        adapter = PreviewListAdapter(onClick, glide, dateHelper)
+        adapter = PreviewListAdapter(::onTitleClicked, Glide.with(this), dateHelper)
 
         fragmentListRecyclerView.apply {
             setHasFixedSize(true)
             itemAnimator = null
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            (layoutManager as LinearLayoutManager).isItemPrefetchEnabled = true
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false).apply {
+                isItemPrefetchEnabled = true
+            }
             adapter = this@PreviewListFragment.adapter
         }
     }
 
     private fun renderData(previewList: PagedList<ArticlePreviewModel>) {
         fragmentListErrorView.isVisible = false
-        fragmentListSwipeRefresh.isEnabled = true
 
         adapter.submitList(previewList)
-        fragmentListSwipeRefresh.isRefreshing = false
         fragmentListLoadingLayout.fadeAndHide()
     }
 
     private fun onTitleClicked(
         view: View,
-        header: Header,
-        position: Int
+        header: Header
     ) {
         if (view.context.isNetworkConnected()) {
             Timber.d("Title: %s Href: %s", header.title.value, header.title.href)
-            navigator.goToArticle(view, header, position)
+            navigator.goToArticle(view, header)
         } else showError(NetworkErrorException())
     }
 }

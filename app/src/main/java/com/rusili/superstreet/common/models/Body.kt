@@ -12,7 +12,8 @@ data class Body(
     val imagesGroups: List<ImageGroup>
 ) {
 
-    fun combineSections(): List<AbstractBodyModel> =
+    // TODO: Move to Extension function
+    fun getCombinedSections(): List<AbstractBodyModel> =
         ArrayList<AbstractBodyModel>().apply {
             addAll(paragraphs)
             addAll(imagesSingles)

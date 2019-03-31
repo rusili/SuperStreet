@@ -11,10 +11,7 @@ import kotlinx.android.synthetic.main.viewholder_article_paragraph.*
 class ParagraphViewHolder(override val containerView: View) :
     BaseViewHolder<Paragraph>(containerView), LayoutContainer {
 
-    override fun bind(
-        model: Paragraph,
-        position: Int
-    ) {
+    override fun bind(model: Paragraph) {
         val textFuture = PrecomputedTextCompat.getTextFuture(
             model.body,
             TextViewCompat.getTextMetricsParams(articleParagraph),

@@ -14,9 +14,6 @@ import com.rusili.superstreet.common.ui.SimpleRequestListener
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_article_image.*
 
-private val glideOptions = RequestOptions().dontTransform()
-private val crossFadeTransition = DrawableTransitionOptions.withCrossFade()
-
 class ImageViewHolder(
     override val containerView: View,
     private val onClick: (View, Image, ImageSize) -> Unit,
@@ -29,12 +26,10 @@ class ImageViewHolder(
         }
     }
 
-    override fun bind(model: Image, position: Int) {
+    override fun bind(model: Image) {
         ViewCompat.setTransitionName(articleImageView, model.id.toString())
 
         glide.load(model.resizeToDefaultSize())
-            .apply(glideOptions)
-            .transition(crossFadeTransition)
             .listener(glideListener)
             .into(articleImageView)
 

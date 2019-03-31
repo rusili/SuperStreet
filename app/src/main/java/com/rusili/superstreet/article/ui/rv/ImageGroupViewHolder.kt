@@ -14,9 +14,6 @@ import com.rusili.superstreet.common.models.body.ImageSize
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_article_imagegroup.*
 
-private val glideOptions = RequestOptions().dontTransform()
-private val crossFadeTransition = DrawableTransitionOptions.withCrossFade()
-
 class ImageGroupViewHolder(
     override val containerView: View,
     private val onClick: (View, Image, ImageSize) -> Unit,
@@ -24,10 +21,7 @@ class ImageGroupViewHolder(
 ) : BaseViewHolder<ImageGroup>(containerView), LayoutContainer {
     private val imageGroup = listOf<ImageView>(imageGroupImage1, imageGroupImage2, imageGroupImage3)
 
-    override fun bind(
-        model: ImageGroup,
-        position: Int
-    ) {
+    override fun bind(model: ImageGroup) {
         model.imageList
             .take(3)
             .forEachIndexed { index, image ->
@@ -43,8 +37,6 @@ class ImageGroupViewHolder(
         ViewCompat.setTransitionName(view, image.id.toString())
 
         glide.load(image.resizeToGroupSize())
-            .apply(glideOptions)
-            .transition(crossFadeTransition)
             .into(view)
 
         view.setOnClickListener { onClick(it, image, ImageSize.GROUP) }

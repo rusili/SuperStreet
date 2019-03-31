@@ -13,25 +13,19 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_preview_large.*
 import java.util.Date
 
-private val glideOptions = RequestOptions().dontTransform()
 private val crossFadeTransition = DrawableTransitionOptions.withCrossFade()
 
 class PreviewViewHolder(
     override val containerView: View,
-    private val onClick: (View, Header, Int) -> Unit,
+    private val onClick: (View, Header) -> Unit,
     private val glide: RequestManager,
     private val dateHelper: DateHelper
 ) : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
 
-    override fun bind(
-        preview: ArticlePreviewModel,
-        position: Int
-    ) {
-        val name = preview.header.headerImage.resizeToDefaultSize() + position
-        ViewCompat.setTransitionName(previewThumbnail, name)
+    override fun bind(preview: ArticlePreviewModel) {
+        ViewCompat.setTransitionName(previewThumbnail, preview.header.headerImage.title)
 
         glide.load(preview.header.headerImage.resizeToDefaultSize())
-            .apply(glideOptions)
             .transition(crossFadeTransition)
             .into(previewThumbnail)
 
@@ -41,6 +35,6 @@ class PreviewViewHolder(
         previewType.text = preview.flag.type.value
         previewAuthorTimestamp.text = dateHelper.getDateDifferenceString(Date(), preview.footer.date) + " - " + preview.footer.author.value
 
-        itemView.setOnClickListener { onClick(previewThumbnail, preview.header, position) }
+        itemView.setOnClickListener { onClick(previewThumbnail, preview.header) }
     }
 }

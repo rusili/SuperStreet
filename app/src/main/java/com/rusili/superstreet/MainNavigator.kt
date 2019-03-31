@@ -7,7 +7,6 @@ interface MainNavigator {
 
     fun goToArticle(
         view: View,
-        header: Header,
-        position: Int
+        header: Header
     )
 }

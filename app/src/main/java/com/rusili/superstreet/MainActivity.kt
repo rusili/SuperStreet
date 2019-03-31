@@ -10,6 +10,7 @@ import com.rusili.superstreet.article.ui.ArticleActivity
 import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.previewlist.ui.PreviewListFragment
+import com.squareup.moshi.Moshi
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -17,6 +18,8 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
     @Inject protected lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+    // TODO: INject moshi
+    private val moshi = Moshi.Builder().build().adapter<Header>(Header::class.java)
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
 
@@ -29,13 +32,10 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
 
     override fun goToArticle(
         view: View,
-        header: Header,
-        position: Int
+        header: Header
     ) {
         Intent(this, ArticleActivity::class.java).apply {
-            putExtra(ArticleActivity.ARTICLE_BUNDLE_KEY, header.title.href)
-            putExtra(ArticleActivity.ARTICLE_POSITION_BUNDLE_KEY, position)
-            putExtra(ArticleActivity.ARTICLE_HEADER_IMAGE_BUNDLE_KEY, header.headerImage.resizeToDefaultSize())
+            putExtra(ArticleActivity.ARTICLE_HEADER_BUNDLE_KEY, moshi.toJson(header))
         }.also {
            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                this,

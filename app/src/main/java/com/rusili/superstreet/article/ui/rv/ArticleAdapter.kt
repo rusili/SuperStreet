@@ -30,7 +30,7 @@ class ArticleAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         getItem(position)?.let {
             (holder as BaseViewHolder<AbstractBodyModel>).apply {
-                bind(it, position)
+                bind(it)
                 itemView.fadeIn()
             }
         }

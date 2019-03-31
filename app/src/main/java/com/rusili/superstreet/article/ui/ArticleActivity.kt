@@ -24,23 +24,21 @@ import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_SIZE_BUNDLE_KE
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_TRANSITION_NAME_KEY
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
-import android.animation.LayoutTransition
-import com.bumptech.glide.request.RequestOptions
 import com.rusili.superstreet.R
+import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.common.ui.SimpleRequestListener
-import io.reactivex.subjects.CompletableSubject
+import com.squareup.moshi.Moshi
 
 class ArticleActivity : BaseActivity() {
     @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
     private lateinit var viewModel: ArticleViewModel
+    // TODO: Inject Moshi
+    private val moshi = Moshi.Builder().build().adapter<Header>(Header::class.java)
 
     private lateinit var adapter: ArticleAdapter
-    private val onClick: (View, Image, ImageSize) -> Unit = ::onImageClicked
 
     companion object {
-        const val ARTICLE_BUNDLE_KEY = "ARTICLE_BUNDLE_KEY"
-        const val ARTICLE_POSITION_BUNDLE_KEY = "ARTICLE_POSITION_BUNDLE_KEY"
-        const val ARTICLE_HEADER_IMAGE_BUNDLE_KEY = "ARTICLE_HEADER_IMAGE_BUNDLE_KEY"
+        const val ARTICLE_HEADER_BUNDLE_KEY = "ARTICLE_HEADER_BUNDLE_KEY"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,15 +47,11 @@ class ArticleActivity : BaseActivity() {
         setContentView(R.layout.activity_article)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
-        intent?.let {
-            it.getStringExtra(ARTICLE_HEADER_IMAGE_BUNDLE_KEY)?.let { href ->
-                val position = it.getIntExtra(ARTICLE_POSITION_BUNDLE_KEY, -1)
-                setupViews(href, position)
-            }
-            it.getStringExtra(ARTICLE_BUNDLE_KEY)?.let { href ->
-                articleProgressBar.show()
-                viewModel.getArticle(href)
-            }
+        intent?.getStringExtra(ARTICLE_HEADER_BUNDLE_KEY)?.let { json ->
+            val header = moshi.fromJson(json)!!
+            setupViews(header)
+            articleProgressBar.show()
+            viewModel.getArticle(header.title.href)
         } ?: run {
             articleProgressBar.hide()
             showError(IntentSender.SendIntentException())
@@ -72,14 +66,12 @@ class ArticleActivity : BaseActivity() {
         })
     }
 
-    private fun setupViews(
-        href: String,
-        position: Int
-    ) {
+    private fun setupViews(header: Header) {
         // articleContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-        articleHeaderImageView.transitionName = href + position
+        articleHeaderImageView.transitionName = header.headerImage.title
+        articleHeaderTitle.text = header.title.value
 
-        adapter = ArticleAdapter(onClick, Glide.with(this))
+        adapter = ArticleAdapter(::onImageClicked, Glide.with(this))
 
         articleRecyclerView.apply {
             itemAnimator = null
@@ -90,8 +82,7 @@ class ArticleActivity : BaseActivity() {
         }
 
         Glide.with(this)
-            .load(href)
-            .apply(RequestOptions().dontTransform())
+            .load(header.headerImage.resizeToDefaultSize())
             .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
                     supportStartPostponedEnterTransition()
@@ -102,9 +93,8 @@ class ArticleActivity : BaseActivity() {
 
     private fun renderData(article: ArticleFullModel) {
         articleProgressBar.hide()
-        articleHeaderTitle.text = article.header.title.value
 
-        adapter.submitList(article.body.combineSections())
+        adapter.submitList(article.body.getCombinedSections())
     }
 
     private fun onImageClicked(

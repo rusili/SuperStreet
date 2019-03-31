@@ -27,7 +27,7 @@ class BodyTest {
         val imageGroupList = listOf(imageGroup1, imageGroup2)
 
         // When
-        val result = Body(paragraphList, imageList, imageGroupList).combineSections()
+        val result = Body(paragraphList, imageList, imageGroupList).getCombinedSections()
 
         // Then
         result.size shouldEqual 7
