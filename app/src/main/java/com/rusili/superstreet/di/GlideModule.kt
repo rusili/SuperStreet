@@ -20,9 +20,8 @@ class GlideModule : AppGlideModule() {
         builder
             .setDefaultRequestOptions(
                 RequestOptions()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .dontTransform()
-                    .dontAnimate()
                     .format(DecodeFormat.PREFER_RGB_565)
             )
     }

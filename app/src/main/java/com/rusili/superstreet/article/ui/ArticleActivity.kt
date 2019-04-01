@@ -31,9 +31,8 @@ import com.squareup.moshi.Moshi
 
 class ArticleActivity : BaseActivity() {
     @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
+    @Inject protected lateinit var moshi: Moshi
     private lateinit var viewModel: ArticleViewModel
-    // TODO: Inject Moshi
-    private val moshi = Moshi.Builder().build().adapter<Header>(Header::class.java)
 
     private lateinit var adapter: ArticleAdapter
 
@@ -48,7 +47,7 @@ class ArticleActivity : BaseActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
         intent?.getStringExtra(ARTICLE_HEADER_BUNDLE_KEY)?.let { json ->
-            val header = moshi.fromJson(json)!!
+            val header = moshi.adapter<Header>(Header::class.java).fromJson(json)!!
             setupViews(header)
             articleProgressBar.show()
             viewModel.getArticle(header.title.href)
@@ -71,16 +70,6 @@ class ArticleActivity : BaseActivity() {
         articleHeaderImageView.transitionName = header.headerImage.title
         articleHeaderTitle.text = header.title.value
 
-        adapter = ArticleAdapter(::onImageClicked, Glide.with(this))
-
-        articleRecyclerView.apply {
-            itemAnimator = null
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false).apply {
-                isItemPrefetchEnabled = true
-            }
-            adapter = this@ArticleActivity.adapter
-        }
-
         Glide.with(this)
             .load(header.headerImage.resizeToDefaultSize())
             .listener(object : SimpleRequestListener() {
@@ -89,6 +78,15 @@ class ArticleActivity : BaseActivity() {
                 }
             })
             .into(articleHeaderImageView)
+
+        adapter = ArticleAdapter(::onImageClicked, Glide.with(this))
+        articleRecyclerView.apply {
+            itemAnimator = null
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false).apply {
+                isItemPrefetchEnabled = true
+            }
+            adapter = this@ArticleActivity.adapter
+        }
     }
 
     private fun renderData(article: ArticleFullModel) {

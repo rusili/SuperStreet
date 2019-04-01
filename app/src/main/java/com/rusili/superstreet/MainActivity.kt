@@ -18,8 +18,7 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
     @Inject protected lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
-    // TODO: INject moshi
-    private val moshi = Moshi.Builder().build().adapter<Header>(Header::class.java)
+    @Inject protected lateinit var moshi: Moshi
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
 
@@ -35,13 +34,16 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
         header: Header
     ) {
         Intent(this, ArticleActivity::class.java).apply {
-            putExtra(ArticleActivity.ARTICLE_HEADER_BUNDLE_KEY, moshi.toJson(header))
+            putExtra(
+                ArticleActivity.ARTICLE_HEADER_BUNDLE_KEY,
+                moshi.adapter<Header>(Header::class.java).toJson(header)
+            )
         }.also {
-           val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-               this,
-               view,
-               ViewCompat.getTransitionName(view)!!
-           )
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                view,
+                ViewCompat.getTransitionName(view)!!
+            )
             startActivity(it, options.toBundle())
         }
     }

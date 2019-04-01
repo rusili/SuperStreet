@@ -84,6 +84,7 @@ class ImageActivity : BaseActivity() {
     ) {
         Glide.with(this@ImageActivity)
             .load(if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize())
+            .apply(RequestOptions().onlyRetrieveFromCache(true))
             .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
                     supportStartPostponedEnterTransition()
