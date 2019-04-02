@@ -14,19 +14,12 @@
         android:src="@drawable/ic_error_outline_black_24dp"
         android:visibility="gone" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/fragmentListSwipeRefresh"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragmentListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragmentListRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:clipToPadding="false"
-            android:paddingBottom="@dimen/fragment_list_rv_margin_bottom"
-            tools:listitem="@layout/viewholder_preview_large" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        android:background="@android:color/transparent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/fragment_list_rv_margin_bottom"
+        tools:listitem="@layout/viewholder_preview_large" />
 </FrameLayout>

@@ -2,8 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/articleProgressBar"
@@ -25,7 +24,7 @@
 
             <ImageView
                 android:id="@+id/articleHeaderImageView"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/article_header_image_height"
                 android:scaleType="centerCrop"
                 app:layout_constraintLeft_toLeftOf="parent"

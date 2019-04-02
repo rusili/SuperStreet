@@ -22,10 +22,6 @@ abstract class BaseActivity : AppCompatActivity() {
         window.apply {
             enterTransition = null
             exitTransition = null
-            setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
         }
         super.onCreate(savedInstanceState)
 
