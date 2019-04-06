@@ -20,7 +20,7 @@ class ArticleParser @Inject constructor(private val commonParser: CommonParser) 
     fun parseToArticle(doc: Document): ArticleFullModel {
         val rawFlag = doc.getElementsByClass(COMMON.FLAG.value).first()
         val rawInfo = doc.getElementsByClass(COMMON.INFO.value).first()
-        val rawHeaderImage = doc.getElementsByClass(ARTICLE.HEADER_IMAGE.value)[1]
+        val rawHeaderImage = doc.getElementsByClass(ARTICLE.HEADER_IMAGE.value).second()
 
         val flag = commonParser.parseFlagElement(rawFlag)
         val header = parseArticleHeaderElement(rawInfo, rawHeaderImage)

@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SuperStreet"
+        android:theme="@style/SuperStreet"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
@@ -34,9 +34,7 @@
             android:name=".article.ui.ArticleActivity"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name="com.rusili.superstreet.image.ImageActivity"
-            android:theme="@style/Theme.SuperStreet.Transparent" />
+        <activity android:name="com.rusili.superstreet.image.ImageActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -4,7 +4,6 @@ import android.accounts.NetworkErrorException
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
@@ -13,13 +12,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.rusili.superstreet.R
 import com.rusili.superstreet.article.domain.ArticleFullModel
 import com.rusili.superstreet.article.ui.rv.ArticleAdapter
 import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.extensions.isNetworkConnected
-import com.rusili.superstreet.common.models.body.AbstractBodyModel
-import com.rusili.superstreet.common.models.body.ArticleHeader
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.image.ImageActivity
@@ -28,31 +24,37 @@ import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_SIZE_BUNDLE_KE
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_TRANSITION_NAME_KEY
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
+import com.rusili.superstreet.R
+import com.rusili.superstreet.common.models.Header
+import com.rusili.superstreet.common.ui.SimpleRequestListener
+import com.squareup.moshi.Moshi
 
 class ArticleActivity : BaseActivity() {
     @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
+    @Inject protected lateinit var moshi: Moshi
     private lateinit var viewModel: ArticleViewModel
 
     private lateinit var adapter: ArticleAdapter
-    private val onClick: (View, Image, ImageSize) -> Unit = ::onImageClicked
+
+    companion object {
+        const val ARTICLE_HEADER_BUNDLE_KEY = "ARTICLE_HEADER_BUNDLE_KEY"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportPostponeEnterTransition();
         setContentView(R.layout.activity_article)
-        setupViews()
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
-        intent.getStringExtra(IMAGE_BUNDLE_KEY)?.let { href ->
+        intent?.getStringExtra(ARTICLE_HEADER_BUNDLE_KEY)?.let { json ->
+            val header = moshi.adapter<Header>(Header::class.java).fromJson(json)!!
+            setupViews(header)
             articleProgressBar.show()
-            viewModel.getArticle(href)
+            viewModel.getArticle(header.title.href)
         } ?: run {
             articleProgressBar.hide()
             showError(IntentSender.SendIntentException())
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
 
         viewModel.livedata.observe(this, Observer { wrapper ->
             when {
@@ -63,27 +65,26 @@ class ArticleActivity : BaseActivity() {
         })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            android.R.id.home -> {
-                supportFinishAfterTransition()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+    private fun setupViews(header: Header) {
+        // articleContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        articleHeaderImageView.transitionName = header.headerImage.title
+        articleHeaderTitle.text = header.title.value
 
-    override fun onBackPressed() {
-        supportFinishAfterTransition()
-        super.onBackPressed()
-    }
+        Glide.with(this)
+            .load(header.headerImage.resizeToDefaultSize())
+            .listener(object : SimpleRequestListener() {
+                override fun onReadyOrFailed() {
+                    supportStartPostponedEnterTransition()
+                }
+            })
+            .into(articleHeaderImageView)
 
-    private fun setupViews() {
-        adapter = ArticleAdapter(onClick, Glide.with(this))
-
+        adapter = ArticleAdapter(::onImageClicked, Glide.with(this))
         articleRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            (layoutManager as LinearLayoutManager).isItemPrefetchEnabled = true
+            itemAnimator = null
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false).apply {
+                isItemPrefetchEnabled = true
+            }
             adapter = this@ArticleActivity.adapter
         }
     }
@@ -91,12 +92,7 @@ class ArticleActivity : BaseActivity() {
     private fun renderData(article: ArticleFullModel) {
         articleProgressBar.hide()
 
-        mutableListOf<AbstractBodyModel>().apply {
-            add(ArticleHeader(0, article.header, article.footer, article.flag))
-            addAll(article.body.combineSections())
-        }.also {
-            adapter.submitList(it.toList())
-        }
+        adapter.submitList(article.body.getCombinedSections())
     }
 
     private fun onImageClicked(

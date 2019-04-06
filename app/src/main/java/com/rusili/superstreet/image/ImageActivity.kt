@@ -20,7 +20,6 @@ import com.rusili.superstreet.common.ui.SimpleRequestListener
 import com.rusili.superstreet.common.ui.SimpleTransitionListenerAdapter
 import com.rusili.superstreet.image.extensions.checkPermissionAndRequest
 import com.rusili.superstreet.image.extensions.saveImage
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.CompletableSubject
 import kotlinx.android.synthetic.main.activity_image.*
 
@@ -28,7 +27,6 @@ private const val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_
 private const val INTENT_TYPE_TEXT_PLAIN = "text/plain"
 
 class ImageActivity : BaseActivity() {
-    private val disposable = CompositeDisposable()
     private val placeholderLoadSubject = CompletableSubject.create()
     private val fullImageLoadSubject = CompletableSubject.create()
 
@@ -48,11 +46,6 @@ class ImageActivity : BaseActivity() {
         retrieveIntent()
     }
 
-    override fun onStop() {
-        disposable.clear()
-        super.onStop()
-    }
-
     private fun setupViewSwitcher() {
         window.sharedElementEnterTransition.addListener(object : SimpleTransitionListenerAdapter() {
             override fun onTransitionEnd(transition: Transition?) {
@@ -69,8 +62,13 @@ class ImageActivity : BaseActivity() {
     private fun retrieveIntent() {
         intent?.let {
             val image = it.getParcelableExtra<Image>(IMAGE_BUNDLE_KEY)
+            // TODO: clean up extras
             val originalImageSize = it.getSerializableExtra(IMAGE_SIZE_BUNDLE_KEY) as ImageSize
-            activityImageViewSwitcher.transitionName = it.getStringExtra(IMAGE_TRANSITION_NAME_KEY)
+
+            activityImageViewSwitcher.apply {
+                transitionName = it.getStringExtra(IMAGE_TRANSITION_NAME_KEY)
+                nextView.isInvisible = true
+            }
 
             image?.let {
                 loadPlaceholderImage(it, originalImageSize)
@@ -86,7 +84,6 @@ class ImageActivity : BaseActivity() {
     ) {
         Glide.with(this@ImageActivity)
             .load(if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize())
-            .apply(RequestOptions().dontTransform().dontAnimate())
             .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
                     supportStartPostponedEnterTransition()
@@ -96,11 +93,8 @@ class ImageActivity : BaseActivity() {
     }
 
     private fun loadFullImage(image: Image) {
-        activityImageViewSwitcher.nextView.isInvisible = true
-
         Glide.with(this@ImageActivity)
             .load(image.resizeTo1920By1280())
-            .apply(RequestOptions().dontTransform().dontAnimate())
             .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
                     activityImageProgressBar.isVisible = false

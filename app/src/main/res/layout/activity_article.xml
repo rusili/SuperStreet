@@ -2,8 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/articleProgressBar"
@@ -12,10 +11,49 @@
         android:layout_height="@dimen/progress_bar_size"
         android:layout_gravity="center" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/articleRecyclerView"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/articleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/articleHeaderImageView"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/article_header_image_height"
+                android:scaleType="centerCrop"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/articleHeaderTitle"
+                style="@style/ArticleHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/black_40_1000"
+                android:paddingLeft="@dimen/article_header_title_padding_horizontal"
+                android:paddingTop="@dimen/article_header_title_vertical"
+                android:paddingRight="@dimen/article_header_title_padding_horizontal"
+                android:paddingBottom="@dimen/article_header_title_vertical"
+                app:layout_constraintBottom_toBottomOf="@id/articleHeaderImageView"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/articleRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/articleHeaderImageView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

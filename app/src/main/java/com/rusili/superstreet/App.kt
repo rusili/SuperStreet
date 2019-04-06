@@ -10,7 +10,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class App : Application(), HasActivityInjector {
-    @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+    @Inject protected lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()

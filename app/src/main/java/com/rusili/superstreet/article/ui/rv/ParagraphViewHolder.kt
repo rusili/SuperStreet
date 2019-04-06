@@ -6,7 +6,7 @@ import androidx.core.widget.TextViewCompat
 import com.rusili.superstreet.common.base.BaseViewHolder
 import com.rusili.superstreet.common.models.body.Paragraph
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.article_paragraph_viewholder.*
+import kotlinx.android.synthetic.main.viewholder_article_paragraph.*
 
 class ParagraphViewHolder(override val containerView: View) :
     BaseViewHolder<Paragraph>(containerView), LayoutContainer {
