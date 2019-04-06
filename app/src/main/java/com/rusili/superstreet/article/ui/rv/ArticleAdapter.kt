@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseViewHolder
-import com.rusili.superstreet.common.extensions.fadeIn
 import com.rusili.superstreet.common.models.body.AbstractBodyModel
 import com.rusili.superstreet.common.models.body.ArticleViewType
 import com.rusili.superstreet.common.models.body.Image

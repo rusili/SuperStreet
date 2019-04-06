@@ -13,7 +13,6 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.MainNavigator
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseFragment
@@ -79,7 +78,9 @@ class PreviewListFragment : BaseFragment() {
     }
 
     private fun setupViews() {
-        adapter = PreviewListAdapter(::onTitleClicked, Glide.with(this), dateHelper)
+        adapter = PreviewListAdapter(::onTitleClicked, Glide.with(this), dateHelper).apply {
+            setHasStableIds(true)
+        }
 
         fragmentListRecyclerView.apply {
             setHasFixedSize(true)
