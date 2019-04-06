@@ -2,6 +2,7 @@ package com.rusili.superstreet.di
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.GlideBuilder
 import com.bumptech.glide.Registry
@@ -18,6 +19,7 @@ class GlideModule : AppGlideModule() {
 
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         builder
+            .setLogLevel(Log.VERBOSE)
             .setDefaultRequestOptions(
                 RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)

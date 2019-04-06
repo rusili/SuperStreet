@@ -3,10 +3,10 @@ package com.rusili.superstreet.previewlist.ui.rv
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.paging.PagedListAdapter
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R
-import com.rusili.superstreet.common.extensions.fadeIn
 import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
@@ -29,7 +29,14 @@ class PreviewListAdapter(
         getItem(position)?.let {
             holder.apply {
                 bind(it)
-                itemView.fadeIn()
+                if (position > 2) {
+                    itemView.startAnimation(
+                        AnimationUtils.loadAnimation(
+                            holder.itemView.context,
+                            R.anim.item_animation_fall_down
+                        )
+                    )
+                }
             }
         }
     }

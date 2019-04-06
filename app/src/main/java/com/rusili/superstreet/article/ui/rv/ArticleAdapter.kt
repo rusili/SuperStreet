@@ -31,7 +31,6 @@ class ArticleAdapter(
         getItem(position)?.let {
             (holder as BaseViewHolder<AbstractBodyModel>).apply {
                 bind(it)
-                itemView.fadeIn()
             }
         }
     }
