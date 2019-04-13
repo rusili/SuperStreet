@@ -10,7 +10,6 @@ import android.widget.ImageView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.github.chrisbanes.photoview.PhotoView
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseActivity

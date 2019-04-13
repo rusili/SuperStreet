@@ -12,22 +12,22 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.rusili.superstreet.R
 import com.rusili.superstreet.article.domain.ArticleFullModel
 import com.rusili.superstreet.article.ui.rv.ArticleAdapter
 import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.extensions.isNetworkConnected
+import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
+import com.rusili.superstreet.common.ui.SimpleRequestListener
 import com.rusili.superstreet.image.ImageActivity
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_BUNDLE_KEY
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_SIZE_BUNDLE_KEY
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_TRANSITION_NAME_KEY
+import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
-import com.rusili.superstreet.R
-import com.rusili.superstreet.common.models.Header
-import com.rusili.superstreet.common.ui.SimpleRequestListener
-import com.squareup.moshi.Moshi
 
 class ArticleActivity : BaseActivity() {
     @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
@@ -79,7 +79,9 @@ class ArticleActivity : BaseActivity() {
             })
             .into(articleHeaderImageView)
 
-        adapter = ArticleAdapter(::onImageClicked, Glide.with(this))
+        adapter = ArticleAdapter(::onImageClicked, Glide.with(this)).apply {
+            setHasStableIds(true)
+        }
         articleRecyclerView.apply {
             itemAnimator = null
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false).apply {

@@ -4,8 +4,6 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import com.rusili.superstreet.common.base.BaseViewHolder
 import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.models.body.Image
