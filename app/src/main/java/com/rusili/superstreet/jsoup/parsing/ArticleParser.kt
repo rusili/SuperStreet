@@ -1,6 +1,7 @@
 package com.rusili.superstreet.jsoup.parsing
 
 import com.rusili.superstreet.article.domain.ArticleFullModel
+import com.rusili.superstreet.common.extensions.remove
 import com.rusili.superstreet.common.models.Body
 import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.common.models.body.Image
@@ -13,17 +14,15 @@ import org.jsoup.nodes.Element
 import javax.inject.Inject
 
 /**
- * Parses an Html file to Article-related models.
+ * Parses an Html file f Article-related models.
  */
 class ArticleParser @Inject constructor(private val commonParser: CommonParser) {
 
     fun parseToArticle(doc: Document): ArticleFullModel {
-        val rawFlag = doc.getElementsByClass(COMMON.FLAG.value).first()
         val rawInfo = doc.getElementsByClass(COMMON.INFO.value).first()
-        val rawHeaderImage = doc.getElementsByClass(ARTICLE.HEADER_IMAGE.value).second()
 
-        val flag = commonParser.parseFlagElement(rawFlag)
-        val header = parseArticleHeaderElement(rawInfo, rawHeaderImage)
+        val flag = commonParser.parseFlagElement(doc.getElementsByClass(COMMON.FLAG.value).first())
+        val header = parseArticleHeaderElement(rawInfo, doc.getElementsByClass(ARTICLE.HEADER_IMAGE.value).second())
         val body = parseArticleBody(doc)
         val footer = commonParser.parseFooterElement(rawInfo)
 
@@ -51,30 +50,27 @@ class ArticleParser @Inject constructor(private val commonParser: CommonParser) 
         val rawArticleBody = doc.getElementsByClass(ARTICLE_BODY.MOD_ARTICLE_CONTENT.value).first()
             .getElementsByClass(ARTICLE_BODY.ARTICLE_PAGE.value)
 
-        val rawArticleParagraphs = rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_PARAGRAPH.value)
-        for (element in rawArticleParagraphs) {
-            val id = element.attr(ARTICLE_BODY.ID.value).replace(ARTICLE_BODY.ARTICLE_PARAGRAPH.value + "-", "")
-            val text = element.getElementsByClass(ARTICLE_BODY.ARTICLE_TEXT.value).first().text()
-            articleParagraphList.add(Paragraph(id.toInt(), text))
-        }
+        rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_PARAGRAPH.value)
+            .forEach {
+                val id = it.attr(ARTICLE_BODY.ID.value).remove(ARTICLE_BODY.ARTICLE_PARAGRAPH.value + "-")
+                val text = it.getElementsByClass(ARTICLE_BODY.ARTICLE_TEXT.value).first().text()
+                articleParagraphList.add(Paragraph(id.toInt(), text))
+            }
 
-        val rawArticleImages = rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE.value)
-        for (element in rawArticleImages) {
-            val id = element.attr(ARTICLE_BODY.ID.value).replace(ARTICLE_BODY.ARTICLE_IMAGE.value + "-", "")
-            val img = element.getElementsByClass(ARTICLE_BODY.IMG_LINK.value).first()
+        rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE.value).forEach {
+            val id = it.attr(ARTICLE_BODY.ID.value).remove(ARTICLE_BODY.ARTICLE_IMAGE.value + "-")
+            val img = it.getElementsByClass(ARTICLE_BODY.IMG_LINK.value).first()
             val imgSrc = img.getElementsByTag(COMMON.IMG.value).attr(ARTICLE_BODY.DATA_IMG_SRC.value)
             articleImageGalleryList.add(Image(id.toInt(), imgSrc))
         }
 
-        val rawArticleImageGroups = rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value)
-        for (element in rawArticleImageGroups) {
-            val id = element.attr(ARTICLE_BODY.ID.value).replace(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value + "-", "")
-            val imgGroup = element.getElementsByTag(ARTICLE_BODY.UL.value).first()
+        rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value).forEach {
+            val id = it.attr(ARTICLE_BODY.ID.value).remove(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value + "-")
+            val imgGroup = it.getElementsByTag(ARTICLE_BODY.UL.value).first()
 
             val imgSet = mutableListOf<Image>()
-            val rawImgs = imgGroup.getElementsByClass(ARTICLE_BODY.IMG_WRAP.value)
-            for (imgElement in rawImgs) {
-                val img = imgElement.getElementsByTag(COMMON.DIV.value).first().getElementsByTag(COMMON.A.value)
+            imgGroup.getElementsByClass(ARTICLE_BODY.IMG_WRAP.value).forEach {
+                val img = it.getElementsByTag(COMMON.DIV.value).first().getElementsByTag(COMMON.A.value)
                 val imgSrc = img.first().getElementsByTag(COMMON.IMG.value).first().attr(ARTICLE_BODY.DATA_IMG_SRC.value)
                 imgSet.add(Image(-1, imgSrc))
             }

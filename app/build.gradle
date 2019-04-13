@@ -142,9 +142,10 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5"
 
     testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
+    androidTestImplementation "androidx.arch.core:core-testing:2.0.1"
     testImplementation "androidx.arch.core:core-testing:2.0.1"
     androidTestImplementation "androidx.test:runner:1.2.0-alpha03"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0-alpha03"
+    androidTestImplementation 'junit:junit:4.12'
 
     // Kluent:
     testImplementation "org.amshove.kluent:kluent:$kluentVersion"

@@ -58,7 +58,7 @@ package com.rusili.superstreet.jsoup
 //        val desc = previewList.get(0).header.desc
 //
 //        // Then
-//        Assert.assertEquals(desc, "These Porsches may not have a whole lot of mods or be built to be best-of-show winners, but they do have sweet interiors, and swagger you'll only be able to find in Japan.")
+//        Assert.assertEquals(desc, "These Porsches may not have a whole lot of mods or be built f be best-of-show winners, but they do have sweet interiors, and swagger you'll only be able f find in Japan.")
 //    }
 //
 //    @Test

@@ -11,7 +11,7 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 /**
- * Parses an Html file to PreviewList related models.
+ * Parses an Html file f PreviewList related models.
  */
 class PreviewListParser @Inject constructor(private val commonParser: CommonParser) {
 
@@ -26,28 +26,36 @@ class PreviewListParser @Inject constructor(private val commonParser: CommonPars
             val topStoryFlag = commonParser.parseFlagElement(topStoryElement)
             val topStoryHeader = parseFeatureHeaderElement(topStoryElement)
             val topStoryFooter = commonParser.parseFooterElement(topStoryElement)
-            val topStoryArticlePreviewModel = ArticlePreviewModel(
-                topStoryFlag,
-                topStoryHeader,
-                topStoryFooter,
-                CardSize.Large
+
+            previewsList.add(
+                ArticlePreviewModel(
+                    topStoryFlag,
+                    topStoryHeader,
+                    topStoryFooter,
+                    CardSize.Large
+                )
             )
-            previewsList.add(topStoryArticlePreviewModel)
         }
 
-        for (story in stories.children()) {
-            if (story.hasClass(LIST.PART_ITEM.value) || story.hasClass(LIST.PART_HERO.value)) {
-                val flag = commonParser.parseFlagElement(story)
-                val header = parseFeatureHeaderElement(story)
-                val footer = commonParser.parseFooterElement(story)
-                val size = when {
-                    story.hasClass(LIST.PART_HERO.value) -> CardSize.Large
-                    else -> CardSize.Small
-                }
-
-                val articlePreview = ArticlePreviewModel(flag, header, footer, size)
-                previewsList.add(articlePreview)
+        stories.children().firstOrNull { story ->
+            story.hasClass(LIST.PART_ITEM.value) || story.hasClass(LIST.PART_HERO.value)
+        }?.let { story ->
+            val flag = commonParser.parseFlagElement(story)
+            val header = parseFeatureHeaderElement(story)
+            val footer = commonParser.parseFooterElement(story)
+            val size = when {
+                story.hasClass(LIST.PART_HERO.value) -> CardSize.Large
+                else -> CardSize.Small
             }
+
+            previewsList.add(
+                ArticlePreviewModel(
+                    flag,
+                    header,
+                    footer,
+                    size
+                )
+            )
         }
         return previewsList
     }
@@ -65,8 +73,8 @@ class PreviewListParser @Inject constructor(private val commonParser: CommonPars
         val desc = element.select(PREVIEW_HEADER.DESC.value).text()
 
         // HeaderImage:
-        var imgTitle: String
-        var imgSrc: String
+        val imgTitle: String
+        val imgSrc: String
 
         val nonFeatureImageNode = infoNode.select(COMMON.IMG.value)        // For non-feature stories:
         if (nonFeatureImageNode.isNotEmpty()) {
@@ -77,17 +85,20 @@ class PreviewListParser @Inject constructor(private val commonParser: CommonPars
             val featureImageNode = imageNode.select(COMMON.IMG.value)
 
             // Top Story:
-            imgTitle = featureImageNode.attr(PREVIEW_HEADER.ALT.value)
-            imgSrc = featureImageNode.attr(COMMON.SRC.value)
-
-            // Feature Stories:
-            if (imgTitle.isBlank() && imgSrc.isBlank()) {
-                imgTitle = featureImageNode.attr(COMMON.TITLE.value)
-                imgSrc = featureImageNode.attr(PREVIEW_HEADER.DATA_SRC.value)
+            imgTitle = featureImageNode.attr(PREVIEW_HEADER.ALT.value).ifBlank {
+                featureImageNode.attr(COMMON.TITLE.value)
+            }
+            imgSrc = featureImageNode.attr(COMMON.SRC.value).ifBlank {
+                featureImageNode.attr(PREVIEW_HEADER.DATA_SRC.value)
             }
         }
-        val image = HeaderImage(imgTitle, imgSrc)
 
-        return Header(title, image, desc)
+        return Header(
+            title,
+            HeaderImage(
+                imgTitle,
+                imgSrc),
+            desc
+        )
     }
 }

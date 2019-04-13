@@ -1,8 +1,8 @@
 package com.rusili.superstreet.database.favorites
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.rusili.superstreet.common.models.ModelMapper
 import com.rusili.superstreet.common.models.Flag
 import com.rusili.superstreet.common.models.Footer
 import com.rusili.superstreet.common.models.Header
@@ -15,7 +15,7 @@ import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.domain.CardSize
 import java.util.Date
 
-@Entity
+@Entity(tableName = "favorite_entity")
 data class FavoriteEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = 0,
@@ -28,12 +28,13 @@ data class FavoriteEntity(
     val headerDesc: String,
     val authorValue: String,
     val authorHref: String,
-    @Embedded val date: Date
+    val date: Long
 )
 
-class FavoriteModelAdapter : ModelAdapter<FavoriteEntity, ArticlePreviewModel> {
+class FavoriteModelMapper :
+    ModelMapper<FavoriteEntity, ArticlePreviewModel> {
 
-    override fun from(t: FavoriteEntity): ArticlePreviewModel =
+    override fun to(t: FavoriteEntity): ArticlePreviewModel =
         ArticlePreviewModel(
             Flag(
                 Magazine.fromString(t.magazineValue),
@@ -55,12 +56,14 @@ class FavoriteModelAdapter : ModelAdapter<FavoriteEntity, ArticlePreviewModel> {
                     t.authorValue,
                     t.authorHref
                 ),
-                t.date
+                Date().apply {
+                    time = t.date
+                }
             ),
             CardSize.Small
         )
 
-    override fun to(r: ArticlePreviewModel): FavoriteEntity =
+    override fun from(r: ArticlePreviewModel): FavoriteEntity =
         FavoriteEntity(
             magazineValue = r.flag.magazine.value,
             typeValue = r.flag.type.value,
@@ -71,6 +74,6 @@ class FavoriteModelAdapter : ModelAdapter<FavoriteEntity, ArticlePreviewModel> {
             headerDesc = r.header.desc,
             authorValue = r.footer.author.value,
             authorHref = r.footer.author.href,
-            date = r.footer.date
+            date = r.footer.date.time
         )
 }

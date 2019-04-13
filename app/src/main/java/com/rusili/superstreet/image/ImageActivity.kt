@@ -61,7 +61,6 @@ class ImageActivity : BaseActivity() {
     private fun retrieveIntent() {
         intent?.let {
             val image = it.getParcelableExtra<Image>(IMAGE_BUNDLE_KEY)
-            // TODO: clean up extras
             val originalImageSize = it.getSerializableExtra(IMAGE_SIZE_BUNDLE_KEY) as ImageSize
 
             activityImageViewSwitcher.apply {

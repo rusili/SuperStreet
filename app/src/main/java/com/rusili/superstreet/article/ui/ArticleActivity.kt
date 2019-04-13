@@ -1,6 +1,7 @@
 package com.rusili.superstreet.article.ui
 
 import android.accounts.NetworkErrorException
+import android.animation.LayoutTransition
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
@@ -73,7 +74,6 @@ class ArticleActivity : BaseActivity() {
     }
 
     private fun setupViews(header: Header) {
-        // articleContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         articleHeaderImageView.transitionName = header.headerImage.title
         articleHeaderTitle.text = header.title.value
 
@@ -107,8 +107,6 @@ class ArticleActivity : BaseActivity() {
         size: ImageSize
     ) {
         if (view.context.isNetworkConnected()) {
-            getWindow().setExitTransition(null)
-
             Intent(this, ImageActivity::class.java).apply {
                 putExtra(IMAGE_BUNDLE_KEY, image)
                 putExtra(IMAGE_SIZE_BUNDLE_KEY, size)
