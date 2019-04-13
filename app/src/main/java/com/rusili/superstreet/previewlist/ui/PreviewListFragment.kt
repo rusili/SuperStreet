@@ -1,7 +1,6 @@
 package com.rusili.superstreet.previewlist.ui
 
 import android.accounts.NetworkErrorException
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,31 +31,27 @@ class PreviewListFragment : BaseFragment() {
 
     @Inject protected lateinit var dateHelper: DateHelper
     @Inject protected lateinit var viewModelFactory: PreviewListViewModelFactory
-    private lateinit var viewModel: PreviewViewModel
 
-    private lateinit var navigator: MainNavigator
+    private val viewModel: PreviewViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(PreviewViewModel::class.java)
+    }
 
-    private lateinit var adapter: PreviewListAdapter
+    private val navigator: MainNavigator by lazy {
+        context as MainNavigator
+    }
+
+    private val adapter: PreviewListAdapter by lazy {
+        PreviewListAdapter(::onTitleClicked, Glide.with(this), dateHelper).apply {
+            setHasStableIds(true)
+        }
+    }
 
     companion object {
         fun newInstance() = PreviewListFragment()
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        navigator = context as MainNavigator
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PreviewViewModel::class.java)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = LayoutInflater.from(context).inflate(R.layout.fragment_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+        inflater.inflate(R.layout.fragment_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,19 +64,15 @@ class PreviewListFragment : BaseFragment() {
             return
         }
 
-        viewModel.apply {
-            livedata.observe(this@PreviewListFragment, Observer { list ->
+        viewModel.let {
+            it.livedata.observe(this@PreviewListFragment, Observer { list ->
                 list?.let(::renderData)
             })
-            viewModel.loadData()
+            it.loadData()
         }
     }
 
     private fun setupViews() {
-        adapter = PreviewListAdapter(::onTitleClicked, Glide.with(this), dateHelper).apply {
-            setHasStableIds(true)
-        }
-
         fragmentListRecyclerView.apply {
             setHasFixedSize(true)
             itemAnimator = null
