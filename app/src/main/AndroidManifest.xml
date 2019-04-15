@@ -20,6 +20,10 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
+            android:name=".splash.SplashActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
 
