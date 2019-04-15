@@ -1,8 +1,7 @@
 package com.rusili.superstreet.database.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.rusili.superstreet.database.AppDatabase
 import com.rusili.superstreet.database.favorites.FavoriteDao
 import com.rusili.superstreet.database.favorites.FavoriteModelMapper
@@ -24,9 +23,9 @@ class DatabaseModule {
         FavoriteModelMapper()
 
     @Provides
-    protected fun provideRoomDatabase(app: Application): RoomDatabase =
+    protected fun provideRoomDatabase(context: Context): AppDatabase =
         Room.databaseBuilder(
-            app,
+            context,
             AppDatabase::class.java,
             DATABASE_NAME
         ).build()

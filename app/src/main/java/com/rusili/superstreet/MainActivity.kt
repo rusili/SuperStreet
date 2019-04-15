@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import com.rusili.superstreet.article.ui.ArticleActivity
 import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.models.Header
-import com.rusili.superstreet.previewlist.ui.PreviewListFragment
 import com.squareup.moshi.Moshi
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
@@ -26,7 +26,7 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        inflateListFragment()
+        activityViewPager.adapter = MainPagerAdapter(supportFragmentManager)
     }
 
     override fun goToArticle(
@@ -47,7 +47,4 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
             startActivity(it, options.toBundle())
         }
     }
-
-    private fun inflateListFragment() =
-        inflateFragment(PreviewListFragment.newInstance())
 }
