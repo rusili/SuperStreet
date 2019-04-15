@@ -1,13 +1,13 @@
 package com.rusili.superstreet.favoritelist.ui
 
-import androidx.room.Delete
 import com.rusili.superstreet.database.favorites.FavoriteEntity
+import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 interface FavoriteListUsecase {
 
-    fun getAllFavorites(): Flowable<FavoriteEntity>
+    fun getAllFavorites(): Single<List<ArticlePreviewModel>>
 
     fun removeFavorite(entity: FavoriteEntity): Completable
 

@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.rusili.superstreet.database.AppDatabase
 import com.rusili.superstreet.database.favorites.FavoriteDao
+import com.rusili.superstreet.database.favorites.FavoriteModelMapper
 import com.rusili.superstreet.di.AppModule
 import dagger.Module
 import dagger.Provides
@@ -17,6 +18,10 @@ class DatabaseModule {
     @Provides
     fun provideFavoriteDao(database: AppDatabase): FavoriteDao =
         database.favoriteDao()
+
+    @Provides
+    fun provideFavoriteModelMapper(): FavoriteModelMapper =
+        FavoriteModelMapper()
 
     @Provides
     protected fun provideRoomDatabase(app: Application): RoomDatabase =

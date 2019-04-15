@@ -32,8 +32,8 @@ class PreviewListFragment : BaseFragment() {
     @Inject protected lateinit var dateHelper: DateHelper
     @Inject protected lateinit var viewModelFactory: PreviewListViewModelFactory
 
-    private val viewModel: PreviewViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(PreviewViewModel::class.java)
+    private val viewModel: PreviewListViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(PreviewListViewModel::class.java)
     }
 
     private val navigator: MainNavigator by lazy {

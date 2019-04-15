@@ -5,13 +5,13 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface FavoriteDao {
 
     @Query("SELECT * FROM favorite_entity")
-    fun getAllFavorites(): Flowable<FavoriteEntity>
+    fun getAllFavorites(): Single<List<FavoriteEntity>>
 
     @Insert
     fun addFavorite(entity: FavoriteEntity): Completable

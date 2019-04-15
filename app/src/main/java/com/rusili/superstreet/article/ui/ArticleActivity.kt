@@ -1,7 +1,6 @@
 package com.rusili.superstreet.article.ui
 
 import android.accounts.NetworkErrorException
-import android.animation.LayoutTransition
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle

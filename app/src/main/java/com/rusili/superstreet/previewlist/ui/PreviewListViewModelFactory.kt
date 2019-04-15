@@ -7,8 +7,8 @@ import com.rusili.superstreet.previewlist.domain.ArticleListDataSourceFactory
 class PreviewListViewModelFactory(private val dataSourceFactory: ArticleListDataSourceFactory) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(PreviewViewModel::class.java)) {
-            return PreviewViewModel(dataSourceFactory) as T
+        if (modelClass.isAssignableFrom(PreviewListViewModel::class.java)) {
+            return PreviewListViewModel(dataSourceFactory) as T
         }
         throw IllegalArgumentException("Unknown class $modelClass")
     }

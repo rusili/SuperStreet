@@ -7,7 +7,7 @@ import com.rusili.superstreet.common.base.BaseViewModel
 import com.rusili.superstreet.previewlist.domain.ArticleListDataSourceFactory
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 
-class PreviewViewModel(private val dataSourceFactory: ArticleListDataSourceFactory) : BaseViewModel() {
+class PreviewListViewModel(private val dataSourceFactory: ArticleListDataSourceFactory) : BaseViewModel() {
     private val pagedListConfig = PagedList.Config.Builder()
         .setEnablePlaceholders(true)
         .setInitialLoadSizeHint(1)
