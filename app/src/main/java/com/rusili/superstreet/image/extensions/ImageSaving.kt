@@ -12,7 +12,7 @@ import androidx.annotation.VisibleForTesting
 import timber.log.Timber
 
 /**
- * Android internals have been modified f store images in the media folder with
+ * Android internals have been modified to store images in the media folder with
  * the correct date meta data
  * @author samuelkirton
  * https://gist.github.com/samkirton/0242ba81d7ca00b475b9
@@ -37,7 +37,7 @@ fun ContentResolver.saveImage(
         put(Images.Media.DISPLAY_NAME, fullUrl.parseImageName())
         put(Images.Media.DESCRIPTION, description)
         put(Images.Media.MIME_TYPE, MIME_TYPE_DIR)
-        // Add the date meta data f ensure the image is added at the front of the gallery
+        // Add the date meta data to ensure the image is added at the front of the gallery
         put(Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000)
         put(Images.Media.DATE_TAKEN, System.currentTimeMillis())
     }
