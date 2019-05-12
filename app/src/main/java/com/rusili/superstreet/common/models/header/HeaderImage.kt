@@ -7,6 +7,11 @@ data class HeaderImage(
     private val url: ImageUrl
 ) {
 
+    companion object {
+        const val HEADER_IMAGE_WIDTH = 540
+        const val HEADER_IMAGE_HEIGHT = 360
+    }
+
     fun getDefaultSizeUrl() =
-        url.resize(540, 360)
+        url.resize(HEADER_IMAGE_WIDTH, HEADER_IMAGE_HEIGHT)
 }

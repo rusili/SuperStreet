@@ -14,6 +14,8 @@ import com.github.chrisbanes.photoview.PhotoView
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.models.body.Image
+import com.rusili.superstreet.common.models.body.Image.Companion.IMAGE_HIGHRES_HEIGHT
+import com.rusili.superstreet.common.models.body.Image.Companion.IMAGE_HIGHRES_WIDTH
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.SimpleRequestListener
 import com.rusili.superstreet.common.ui.SimpleTransitionListenerAdapter
@@ -99,6 +101,7 @@ class ImageActivity : BaseActivity() {
                     fullImageLoadSubject.onComplete()
                 }
             })
+            .override(IMAGE_HIGHRES_WIDTH, IMAGE_HIGHRES_HEIGHT)
             .into(activityImageViewSwitcher.nextView as PhotoView)
     }
 

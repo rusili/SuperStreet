@@ -6,6 +6,8 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.rusili.superstreet.common.base.BaseViewHolder
 import com.rusili.superstreet.common.models.Header
+import com.rusili.superstreet.common.models.header.HeaderImage.Companion.HEADER_IMAGE_HEIGHT
+import com.rusili.superstreet.common.models.header.HeaderImage.Companion.HEADER_IMAGE_WIDTH
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import kotlinx.android.extensions.LayoutContainer
@@ -27,6 +29,7 @@ class PreviewViewHolder(
 
         glide.load(preview.header.headerImage.getDefaultSizeUrl())
             .transition(crossFadeTransition)
+            .override(HEADER_IMAGE_WIDTH, HEADER_IMAGE_HEIGHT)
             .into(previewThumbnail)
 
         previewTitle.text = preview.header.title.value

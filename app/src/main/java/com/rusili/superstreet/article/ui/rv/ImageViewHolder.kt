@@ -7,6 +7,8 @@ import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.common.base.BaseViewHolder
 import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.models.body.Image
+import com.rusili.superstreet.common.models.body.Image.Companion.IMAGE_DEFAULT_HEIGHT
+import com.rusili.superstreet.common.models.body.Image.Companion.IMAGE_DEFAULT_WIDTH
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.SimpleRequestListener
 import kotlinx.android.extensions.LayoutContainer
@@ -29,6 +31,7 @@ class ImageViewHolder(
 
         glide.load(model.getDefaultSizeUrl())
             .listener(glideListener)
+            .override(IMAGE_DEFAULT_WIDTH, IMAGE_DEFAULT_HEIGHT)
             .into(articleImageView)
 
         articleImageView.setOnClickListener { onClick(it, model, ImageSize.DEFAULT) }

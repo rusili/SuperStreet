@@ -7,6 +7,8 @@ import androidx.core.view.isVisible
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.common.base.BaseViewHolder
 import com.rusili.superstreet.common.models.body.Image
+import com.rusili.superstreet.common.models.body.Image.Companion.IMAGE_GROUP_HEIGHT
+import com.rusili.superstreet.common.models.body.Image.Companion.IMAGE_GROUP_WIDTH
 import com.rusili.superstreet.common.models.body.ImageGroup
 import com.rusili.superstreet.common.models.body.ImageSize
 import kotlinx.android.extensions.LayoutContainer
@@ -37,6 +39,7 @@ class ImageGroupViewHolder(
         ViewCompat.setTransitionName(view, image.id.toString())
 
         glide.load(image.getGroupSizeUrl())
+            .override(IMAGE_GROUP_WIDTH, IMAGE_GROUP_HEIGHT)
             .into(view)
 
         view.setOnClickListener { onClick(it, image, ImageSize.GROUP) }
