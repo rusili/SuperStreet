@@ -36,7 +36,7 @@ class JsoupArticleParsingTest {
         val desc = article.header.desc
 
         // Then
-        desc shouldEqual "Osaka's answer f two of Porsche's most disregarded cars"
+        desc shouldEqual "Osaka's answer to two of Porsche's most disregarded cars"
     }
 
     @Test

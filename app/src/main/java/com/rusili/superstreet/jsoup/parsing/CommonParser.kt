@@ -11,7 +11,7 @@ import java.util.Date
 import java.util.Locale
 
 /**
- * Base class for parsing an Html document f Super Street models.
+ * Base class for parsing an Html document to Super Street models.
  * Parses:
  *  - Flag(Magazine & Type)
  *  - Footer(Author & Date)
