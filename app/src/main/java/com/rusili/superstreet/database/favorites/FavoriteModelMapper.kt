@@ -52,7 +52,7 @@ class FavoriteModelMapper :
             headerValue = r.header.title.value,
             headerUrl = r.header.title.href,
             headerImageTitle = r.header.headerImage.title,
-            headerImageUrl = r.header.headerImage.resizeToDefaultSize(),
+            headerImageUrl = r.header.headerImage.getDefaultSizeUrl(),
             headerDesc = r.header.desc,
             authorValue = r.footer.author.value,
             authorHref = r.footer.author.href,

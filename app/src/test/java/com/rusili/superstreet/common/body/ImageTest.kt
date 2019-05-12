@@ -26,7 +26,7 @@ class ImageTest {
         val testSubject = Image(1, imageUrl)
 
         // When
-        val testResult = testSubject.resizeToDefaultSize()
+        val testResult = testSubject.getDefaultSizeUrl()
 
         // Then
         testResult shouldEqual correctUrl
@@ -39,7 +39,7 @@ class ImageTest {
         val testSubject = Image(1, imageUrl)
 
         // When
-        val testResult = testSubject.resizeTo1920By1280()
+        val testResult = testSubject.getHighResUrl()
 
         // Then
         testResult shouldEqual correctUrl
@@ -52,7 +52,7 @@ class ImageTest {
         val testSubject = Image(1, imageUrl)
 
         // When
-        val testResult = testSubject.resizeToGroupSize()
+        val testResult = testSubject.getGroupSizeUrl()
 
         // Then
         testResult shouldEqual correctUrl

@@ -23,9 +23,9 @@ class PreviewViewHolder(
 
     override fun bind(preview: ArticlePreviewModel) {
         ViewCompat.setTransitionName(previewThumbnail, preview.header.headerImage.title)
-        ViewCompat.setTransitionName(previewLayout, preview.header.headerImage.resizeToDefaultSize())
+        ViewCompat.setTransitionName(previewLayout, preview.header.headerImage.getDefaultSizeUrl())
 
-        glide.load(preview.header.headerImage.resizeToDefaultSize())
+        glide.load(preview.header.headerImage.getDefaultSizeUrl())
             .transition(crossFadeTransition)
             .into(previewThumbnail)
 

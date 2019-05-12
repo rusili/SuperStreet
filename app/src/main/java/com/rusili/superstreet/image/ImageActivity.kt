@@ -81,7 +81,7 @@ class ImageActivity : BaseActivity() {
         imageSize: ImageSize
     ) {
         Glide.with(this@ImageActivity)
-            .load(if (imageSize == ImageSize.GROUP) image.resizeToGroupSize() else image.resizeToDefaultSize())
+            .load(if (imageSize == ImageSize.GROUP) image.getGroupSizeUrl() else image.getDefaultSizeUrl())
             .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
                     supportStartPostponedEnterTransition()
@@ -92,7 +92,7 @@ class ImageActivity : BaseActivity() {
 
     private fun loadFullImage(image: Image) {
         Glide.with(this@ImageActivity)
-            .load(image.resizeTo1920By1280())
+            .load(image.getHighResUrl())
             .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
                     activityImageProgressBar.isVisible = false
@@ -106,12 +106,12 @@ class ImageActivity : BaseActivity() {
         activityImageSaveButton.setOnClickListener {
             saveImage(
                 (activityImagePhotoView as PhotoView).drawable as BitmapDrawable,
-                image.resizeTo1920By1280()
+                image.getHighResUrl()
             )
         }
 
         activityImageShareButton.setOnClickListener {
-            sendLinkIntent(image.resizeTo1920By1280())
+            sendLinkIntent(image.getHighResUrl())
         }
     }
 

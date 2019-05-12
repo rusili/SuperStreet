@@ -27,7 +27,7 @@ class ImageViewHolder(
     override fun bind(model: Image) {
         ViewCompat.setTransitionName(articleImageView, model.id.toString())
 
-        glide.load(model.resizeToDefaultSize())
+        glide.load(model.getDefaultSizeUrl())
             .listener(glideListener)
             .into(articleImageView)
 

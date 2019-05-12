@@ -14,7 +14,7 @@ class HeaderImageTest {
         val testSubject = HeaderImage("test", imageUrl)
 
         // When
-        val result = testSubject.resizeToDefaultSize()
+        val result = testSubject.getDefaultSizeUrl()
 
         // Then
         result shouldEqual correctUrl

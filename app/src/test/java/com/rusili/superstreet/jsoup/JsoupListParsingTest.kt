@@ -64,7 +64,7 @@ package com.rusili.superstreet.jsoup
 //    @Test
 //    fun `Test preview image parsing feature story`(){
 //        // Given
-//        val link = previewList.get(0).header.headerImage.resizeToDefaultSize()
+//        val link = previewList.get(0).header.headerImage.getDefaultSizeUrl()
 //        val title = previewList.get(0).header.headerImage.title
 //
 //        // Then
@@ -75,7 +75,7 @@ package com.rusili.superstreet.jsoup
 //    @Test
 //    fun `Test preview image parsing non-feature story`(){
 //        // Given
-//        val link = previewList.get(1).header.headerImage.resizeToDefaultSize()
+//        val link = previewList.get(1).header.headerImage.getDefaultSizeUrl()
 //        val title = previewList.get(1).header.headerImage.title
 //
 //        // Then

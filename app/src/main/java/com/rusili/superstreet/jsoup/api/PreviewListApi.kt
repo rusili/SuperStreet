@@ -7,8 +7,8 @@ import javax.inject.Inject
 class PreviewListService @Inject constructor() : PreviewListApi {
 
     override fun getArticleStream(page: String?): Document =
-        Jsoup.connect(Host.BASE_HTML + page)
-            .timeout(Host.TIMEOUT_DURATION)
+        Jsoup.connect(BASE_HTML + page)
+            .timeout(TIMEOUT_DURATION)
             .get()
 }
 
