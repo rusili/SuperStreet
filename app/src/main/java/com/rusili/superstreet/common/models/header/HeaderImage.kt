@@ -8,5 +8,5 @@ data class HeaderImage(
 ) {
 
     fun getDefaultSizeUrl() =
-        url.resize(660, 440)
+        url.resize(540, 360)
 }

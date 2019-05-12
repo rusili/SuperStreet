@@ -1,6 +1,7 @@
 package com.rusili.superstreet.jsoup.parsing
 
 import com.rusili.superstreet.common.models.Header
+import com.rusili.superstreet.common.models.ImageUrl
 import com.rusili.superstreet.common.models.header.HeaderImage
 import com.rusili.superstreet.common.models.header.Title
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
@@ -97,7 +98,7 @@ class PreviewListParser @Inject constructor(private val commonParser: CommonPars
             title,
             HeaderImage(
                 imgTitle,
-                imgSrc),
+                ImageUrl(imgSrc.trim())),
             desc
         )
     }

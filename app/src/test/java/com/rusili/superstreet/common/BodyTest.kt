@@ -1,6 +1,7 @@
 package com.rusili.superstreet.common
 
 import com.rusili.superstreet.common.models.Body
+import com.rusili.superstreet.common.models.ImageUrl
 import com.rusili.superstreet.common.models.body.ArticleViewType
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageGroup
@@ -18,8 +19,8 @@ class BodyTest {
         val paragraph3 = Paragraph(6, "")
         val paragraphList = listOf(paragraph1, paragraph2, paragraph3)
 
-        val image1 = Image(2, "")
-        val image2 = Image(4, "")
+        val image1 = Image(2, ImageUrl(""))
+        val image2 = Image(4, ImageUrl(""))
         val imageList = listOf(image1, image2)
 
         val imageGroup1 = ImageGroup(5, imageList)
