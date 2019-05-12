@@ -89,7 +89,7 @@ class JsoupArticleParsingTest {
     fun `Test article images parsing`() {
         // Given
         val title = article.header.headerImage.title
-        val imgSrc = article.header.headerImage.resizeToDefaultSize()
+        val imgSrc = article.header.headerImage.getDefaultSizeUrl()
 
         // Then
         title shouldEqual "2005 Porsche Boxster 2007 Porsche Cayman S"

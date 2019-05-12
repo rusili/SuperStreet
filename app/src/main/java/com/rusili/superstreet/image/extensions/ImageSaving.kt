@@ -22,7 +22,7 @@ private const val MIME_TYPE_DIR = "image/png"
 private val COMPRESS_FORMAT = Bitmap.CompressFormat.PNG
 
 /**
- * A copy of the Android internals  insertImage method, this method populates the
+ * A copy of the Android internals insertImage method, this method populates the
  * meta data with DATE_ADDED and DATE_TAKEN. This fixes a common problem where media
  * that is inserted manually gets saved at the end of the gallery (because date is not populated).
  * @see android.provider.MediaStore.Images.Media.insertImage
@@ -44,7 +44,7 @@ fun ContentResolver.saveImage(
 
     var url: Uri? = null
     try {
-        url = insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        url = insert(Images.Media.EXTERNAL_CONTENT_URI, values)
         openOutputStream(url).use {
             source.compress(COMPRESS_FORMAT, 100, it)
         }

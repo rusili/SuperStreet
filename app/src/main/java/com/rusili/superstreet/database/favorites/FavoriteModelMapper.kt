@@ -3,6 +3,7 @@ package com.rusili.superstreet.database.favorites
 import com.rusili.superstreet.common.models.Flag
 import com.rusili.superstreet.common.models.Footer
 import com.rusili.superstreet.common.models.Header
+import com.rusili.superstreet.common.models.ImageUrl
 import com.rusili.superstreet.common.models.Magazine
 import com.rusili.superstreet.common.models.ModelMapper
 import com.rusili.superstreet.common.models.Type
@@ -29,7 +30,7 @@ class FavoriteModelMapper :
                 ),
                 HeaderImage(
                     t.headerImageTitle,
-                    t.headerImageUrl
+                    ImageUrl(t.headerImageUrl)
                 ),
                 t.headerDesc
             ),
@@ -52,7 +53,7 @@ class FavoriteModelMapper :
             headerValue = r.header.title.value,
             headerUrl = r.header.title.href,
             headerImageTitle = r.header.headerImage.title,
-            headerImageUrl = r.header.headerImage.resizeToDefaultSize(),
+            headerImageUrl = r.header.headerImage.getDefaultSizeUrl(),
             headerDesc = r.header.desc,
             authorValue = r.footer.author.value,
             authorHref = r.footer.author.href,

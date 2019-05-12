@@ -1,41 +1,12 @@
 package com.rusili.superstreet.common.models.header
 
+import com.rusili.superstreet.common.models.ImageUrl
+
 data class HeaderImage(
     val title: String,
-    private val url: String
+    private val url: ImageUrl
 ) {
 
-    fun resizeToDefaultSize() =
-        resize(600, 400)
-
-    // Default Image width & height is 6xx x 4xx
-    private fun resize(
-        width: Int,
-        height: Int,
-        quality: Int? = 80
-    ): String {
-        var resizedUrl = url
-
-        // TODO: Fix so it doesn't crash if there's no +w/+h characters in the url"
-        resizedUrl = with(resizedUrl) {
-            replaceRange(
-                indexOf("+w"),
-                indexOf("+h"),
-                "+w$width")
-        }
-
-        resizedUrl = with(resizedUrl) {
-            replaceRange(
-                indexOf("+h"),
-                indexOf("+q"),
-                "+h$height")
-        }
-
-        return with(resizedUrl) {
-            replaceRange(
-                indexOf("+q"),
-                indexOf("+re"),
-                "+q$quality")
-        }
-    }
+    fun getDefaultSizeUrl() =
+        url.resize(540, 360)
 }

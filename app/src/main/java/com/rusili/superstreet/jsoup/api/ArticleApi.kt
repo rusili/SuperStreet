@@ -9,8 +9,8 @@ class ArticleService @Inject constructor() : ArticleApi {
 
     override fun getArticle(href: String): Single<Document> =
         Single.fromCallable {
-            Jsoup.connect(Host.BASE_HTML + href)
-                .timeout(Host.TIMEOUT_DURATION)
+            Jsoup.connect(BASE_HTML + href)
+                .timeout(TIMEOUT_DURATION)
                 .get()
         }
 }

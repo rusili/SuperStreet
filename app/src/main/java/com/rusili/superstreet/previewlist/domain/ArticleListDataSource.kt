@@ -17,10 +17,10 @@ class ArticleListDataSource(private val previewListRepository: PreviewListReposi
         params: LoadParams<Int>,
         callback: LoadCallback<Int, ArticlePreviewModel>
     ) =
-        callback.onResult(previewListRepository.getArticleStream(pageToPath(params.key)), params.key + 1)
+         callback.onResult(previewListRepository.getArticleStream(pageToPath(params.key)), params.key + 1)
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, ArticlePreviewModel>) = Unit
 
     private fun pageToPath(page: Int) =
-        BACKSLASH + PAGE_PATH + page
+        BACKSLASH + PAGE_PATH + page + BACKSLASH
 }

@@ -77,7 +77,7 @@ class ArticleActivity : BaseActivity() {
         articleHeaderTitle.text = header.title.value
 
         Glide.with(this)
-            .load(header.headerImage.resizeToDefaultSize())
+            .load(header.headerImage.getDefaultSizeUrl())
             .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
                     supportStartPostponedEnterTransition()

@@ -3,6 +3,7 @@ package com.rusili.superstreet.database
 import com.rusili.superstreet.common.models.Flag
 import com.rusili.superstreet.common.models.Footer
 import com.rusili.superstreet.common.models.Header
+import com.rusili.superstreet.common.models.ImageUrl
 import com.rusili.superstreet.common.models.Magazine
 import com.rusili.superstreet.common.models.Type
 import com.rusili.superstreet.common.models.footer.Author
@@ -30,7 +31,7 @@ class FavoriteModelMapperTest {
             ),
             HeaderImage(
                 "HeaderImageTitle",
-                "http://image.superstreetonline.com/f/170287891+w660+h440+q80+re0+cr1+ar0+st0/2018-lexus-lc-500-hks-exhaust.jpg"
+                ImageUrl("http://image.superstreetonline.com/f/170287891+w660+h440+q80+re0+cr1+ar0+st0/2018-lexus-lc-500-hks-exhaust.jpg")
             ),
             "Desc"
         ),

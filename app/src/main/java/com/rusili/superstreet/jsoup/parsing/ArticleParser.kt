@@ -4,6 +4,7 @@ import com.rusili.superstreet.article.domain.ArticleFullModel
 import com.rusili.superstreet.common.extensions.remove
 import com.rusili.superstreet.common.models.Body
 import com.rusili.superstreet.common.models.Header
+import com.rusili.superstreet.common.models.ImageUrl
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageGroup
 import com.rusili.superstreet.common.models.body.Paragraph
@@ -60,8 +61,8 @@ class ArticleParser @Inject constructor(private val commonParser: CommonParser) 
         rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE.value).forEach {
             val id = it.attr(ARTICLE_BODY.ID.value).remove(ARTICLE_BODY.ARTICLE_IMAGE.value + "-")
             val img = it.getElementsByClass(ARTICLE_BODY.IMG_LINK.value).first()
-            val imgSrc = img.getElementsByTag(COMMON.IMG.value).attr(ARTICLE_BODY.DATA_IMG_SRC.value)
-            articleImageGalleryList.add(Image(id.toInt(), imgSrc))
+            val imgSrc = img.getElementsByTag(COMMON.IMG.value).attr(ARTICLE_BODY.DATA_IMG_SRC.value).trim()
+            articleImageGalleryList.add(Image(id.toInt(), ImageUrl(imgSrc)))
         }
 
         rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value).forEach {
@@ -71,8 +72,8 @@ class ArticleParser @Inject constructor(private val commonParser: CommonParser) 
             val imgSet = mutableListOf<Image>()
             imgGroup.getElementsByClass(ARTICLE_BODY.IMG_WRAP.value).forEach {
                 val img = it.getElementsByTag(COMMON.DIV.value).first().getElementsByTag(COMMON.A.value)
-                val imgSrc = img.first().getElementsByTag(COMMON.IMG.value).first().attr(ARTICLE_BODY.DATA_IMG_SRC.value)
-                imgSet.add(Image(-1, imgSrc))
+                val imgSrc = img.first().getElementsByTag(COMMON.IMG.value).first().attr(ARTICLE_BODY.DATA_IMG_SRC.value).trim()
+                imgSet.add(Image(-1, ImageUrl(imgSrc)))
             }
             articleImageGroupList.add(ImageGroup(id.toInt(), imgSet.toList()))
         }
@@ -83,8 +84,8 @@ class ArticleParser @Inject constructor(private val commonParser: CommonParser) 
     private fun parseArticleImage(image: Element): HeaderImage {
         val itemprop = image.getElementsByClass(ARTICLE_HEADER.IMG_WRAP.value).first().select(COMMON.A.value).first()
         val imgTitle = itemprop.attr(COMMON.TITLE.value)
-        val imgSrc = itemprop.select(COMMON.IMG.value).attr(COMMON.SRC.value)
+        val imgSrc = itemprop.select(COMMON.IMG.value).attr(COMMON.SRC.value).trim()
 
-        return HeaderImage(imgTitle, imgSrc)
+        return HeaderImage(imgTitle, ImageUrl(imgSrc))
     }
 }
