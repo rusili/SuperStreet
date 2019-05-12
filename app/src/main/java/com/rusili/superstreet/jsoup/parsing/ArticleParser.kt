@@ -15,7 +15,7 @@ import org.jsoup.nodes.Element
 import javax.inject.Inject
 
 /**
- * Parses an Html file f Article-related models.
+ * Parses an Html file to Article-related models.
  */
 class ArticleParser @Inject constructor(private val commonParser: CommonParser) {
 

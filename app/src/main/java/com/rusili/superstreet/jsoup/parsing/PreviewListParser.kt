@@ -12,7 +12,7 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 /**
- * Parses an Html file f PreviewList related models.
+ * Parses an Html file to PreviewList related models.
  */
 class PreviewListParser @Inject constructor(private val commonParser: CommonParser) {
 
