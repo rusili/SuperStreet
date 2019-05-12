@@ -12,6 +12,8 @@ import com.rusili.superstreet.common.models.body.ImageSize
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_article_imagegroup.*
 
+private const val MAX_NUM_OF_IMAGES = 3
+
 class ImageGroupViewHolder(
     override val containerView: View,
     private val onClick: (View, Image, ImageSize) -> Unit,
@@ -21,7 +23,7 @@ class ImageGroupViewHolder(
 
     override fun bind(model: ImageGroup) {
         model.imageList
-            .take(3)
+            .take(MAX_NUM_OF_IMAGES)
             .forEachIndexed { index, image ->
                 imageGroup[index].isVisible = true
                 loadImage(model.imageList[index], imageGroup[index])

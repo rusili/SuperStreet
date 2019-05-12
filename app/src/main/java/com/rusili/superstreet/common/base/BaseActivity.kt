@@ -52,7 +52,7 @@ abstract class BaseActivity : AppCompatActivity() {
         length: Int = 0
     ) {
         window?.let {
-            it.decorView.rootView.let {
+            it.decorView.rootView?.let {
                 Snackbar.make(it, message, length).show()
             }
         }

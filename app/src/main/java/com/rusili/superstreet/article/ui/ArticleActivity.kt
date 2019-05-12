@@ -32,9 +32,16 @@ import javax.inject.Inject
 class ArticleActivity : BaseActivity() {
     @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
     @Inject protected lateinit var moshi: Moshi
-    private lateinit var viewModel: ArticleViewModel
 
-    private lateinit var adapter: ArticleAdapter
+    private val viewModel: ArticleViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
+    }
+
+    private val adapter: ArticleAdapter by lazy {
+        ArticleAdapter(::onImageClicked, Glide.with(this)).apply {
+            setHasStableIds(true)
+        }
+    }
 
     companion object {
         const val ARTICLE_HEADER_BUNDLE_KEY = "ARTICLE_HEADER_BUNDLE_KEY"
@@ -45,12 +52,12 @@ class ArticleActivity : BaseActivity() {
         supportPostponeEnterTransition();
         setContentView(R.layout.activity_article)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
         intent?.getStringExtra(ARTICLE_HEADER_BUNDLE_KEY)?.let { json ->
-            val header = moshi.adapter<Header>(Header::class.java).fromJson(json)!!
-            setupViews(header)
-            articleProgressBar.show()
-            viewModel.getArticle(header.title.href)
+            moshi.adapter<Header>(Header::class.java).fromJson(json)?.let { header ->
+                setupViews(header)
+                articleProgressBar.show()
+                viewModel.getArticle(header.title.href)
+            }
         } ?: run {
             articleProgressBar.hide()
             showError(IntentSender.SendIntentException())
@@ -66,7 +73,6 @@ class ArticleActivity : BaseActivity() {
     }
 
     private fun setupViews(header: Header) {
-        // articleContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         articleHeaderImageView.transitionName = header.headerImage.title
         articleHeaderTitle.text = header.title.value
 
@@ -79,9 +85,6 @@ class ArticleActivity : BaseActivity() {
             })
             .into(articleHeaderImageView)
 
-        adapter = ArticleAdapter(::onImageClicked, Glide.with(this)).apply {
-            setHasStableIds(true)
-        }
         articleRecyclerView.apply {
             itemAnimator = null
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false).apply {
@@ -103,8 +106,6 @@ class ArticleActivity : BaseActivity() {
         size: ImageSize
     ) {
         if (view.context.isNetworkConnected()) {
-            getWindow().setExitTransition(null)
-
             Intent(this, ImageActivity::class.java).apply {
                 putExtra(IMAGE_BUNDLE_KEY, image)
                 putExtra(IMAGE_SIZE_BUNDLE_KEY, size)

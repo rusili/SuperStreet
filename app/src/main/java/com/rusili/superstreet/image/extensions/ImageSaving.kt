@@ -66,7 +66,7 @@ fun ContentResolver.saveImage(
 }
 
 /**
- * A copy of the Android internals StoreThumbnail method, it used with the insertImage to
+ * A copy of the Android internals StoreThumbnail method, it used with the insertImage f
  * populate the android.provider.MediaStore.Images.Media#insertImage with all the correct
  * meta data. The StoreThumbnail method is private so it must be duplicated here.
  * @see android.provider.MediaStore.Images.Media

@@ -16,6 +16,7 @@ data class HeaderImage(
     ): String {
         var resizedUrl = url
 
+        // TODO: Fix so it doesn't crash if there's no +w/+h characters in the url"
         resizedUrl = with(resizedUrl) {
             replaceRange(
                 indexOf("+w"),

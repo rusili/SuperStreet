@@ -35,6 +35,6 @@ class PreviewViewHolder(
         previewType.text = preview.flag.type.value
         previewAuthorTimestamp.text = dateHelper.getDateDifferenceString(Date(), preview.footer.date) + " - " + preview.footer.author.value
 
-        itemView.setOnClickListener { onClick(previewThumbnail, preview.header) }
+        containerView.setOnClickListener { onClick(previewThumbnail, preview.header) }
     }
 }
