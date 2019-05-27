@@ -26,19 +26,7 @@ class PreviewListAdapter(
         }
 
     override fun onBindViewHolder(holder: PreviewViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.apply {
-                bind(it)
-                if (position > 2) {
-                    itemView.startAnimation(
-                        AnimationUtils.loadAnimation(
-                            holder.itemView.context,
-                            R.anim.item_animation_fall_down
-                        )
-                    )
-                }
-            }
-        }
+        getItem(position)?.let(holder::bind)
     }
 
     override fun getItemViewType(position: Int) =

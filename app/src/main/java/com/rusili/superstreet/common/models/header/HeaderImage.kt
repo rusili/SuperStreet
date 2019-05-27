@@ -14,4 +14,7 @@ data class HeaderImage(
 
     fun getDefaultSizeUrl() =
         url.resize(HEADER_IMAGE_WIDTH, HEADER_IMAGE_HEIGHT)
+
+    fun isValid() =
+        title.isNotBlank() && url.isValid()
 }

@@ -105,7 +105,7 @@ class ArticleActivity : BaseActivity() {
         image: Image,
         size: ImageSize
     ) {
-        if (view.context.isNetworkConnected()) {
+        if (isNetworkConnected()) {
             Intent(this, ImageActivity::class.java).apply {
                 putExtra(IMAGE_BUNDLE_KEY, image)
                 putExtra(IMAGE_SIZE_BUNDLE_KEY, size)

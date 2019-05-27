@@ -13,10 +13,7 @@ class ArticleRepositoryImpl @Inject constructor(
     private val parser: ArticleParser
 ) : ArticleRepository {
 
-    override fun getArticleOnce(href: String): Single<ArticleFullModel> =
+    override fun getArticle(href: String): Single<ArticleFullModel> =
         api.getArticle(href)
-            .map { document ->
-                Timber.d("Href: %s", href)
-                return@map parser.parseToArticle(document)
-            }
+            .map(parser::parseToArticle)
 }

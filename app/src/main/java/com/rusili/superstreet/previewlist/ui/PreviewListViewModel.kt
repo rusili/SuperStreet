@@ -15,13 +15,5 @@ class PreviewListViewModel(private val dataSourceFactory: ArticleListDataSourceF
         .setPrefetchDistance(2)
         .build()
 
-    lateinit var livedata: LiveData<PagedList<ArticlePreviewModel>>
-
-    init {
-        loadData()
-    }
-
-    fun loadData() {
-        livedata = LivePagedListBuilder(dataSourceFactory, pagedListConfig).build()
-    }
+    val livedata = LivePagedListBuilder(dataSourceFactory, pagedListConfig).build()
 }

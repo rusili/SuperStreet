@@ -20,4 +20,7 @@ data class ImageUrl(val url: String) : Parcelable {
     ): String =
         url.substring(0, url.indexOf(URL_QUERY_CHAR) + 1)
             .plus(URL_QUERY_WIDTH + width + URL_AND_CHAR + URL_QUERY_HEIGHT + height)
+
+    fun isValid() =
+        url.isNotBlank()
 }
