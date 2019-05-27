@@ -3,7 +3,6 @@ package com.rusili.superstreet.previewlist.ui.rv
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.paging.PagedListAdapter
 import com.bumptech.glide.RequestManager
 import com.rusili.superstreet.R

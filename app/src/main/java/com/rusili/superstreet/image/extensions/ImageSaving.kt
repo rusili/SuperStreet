@@ -6,7 +6,6 @@ import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.net.Uri
-import android.provider.MediaStore
 import android.provider.MediaStore.Images
 import androidx.annotation.VisibleForTesting
 import com.rusili.superstreet.common.extensions.isPositive

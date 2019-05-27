@@ -5,7 +5,6 @@ import com.rusili.superstreet.jsoup.parsing.PreviewListParser
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import org.amshove.kluent.shouldEqual
 import org.jsoup.Jsoup
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import java.io.File

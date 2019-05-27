@@ -5,7 +5,6 @@ import com.rusili.superstreet.article.domain.ArticleRepository
 import com.rusili.superstreet.jsoup.api.ArticleApi
 import com.rusili.superstreet.jsoup.parsing.ArticleParser
 import io.reactivex.Single
-import timber.log.Timber
 import javax.inject.Inject
 
 class ArticleRepositoryImpl @Inject constructor(

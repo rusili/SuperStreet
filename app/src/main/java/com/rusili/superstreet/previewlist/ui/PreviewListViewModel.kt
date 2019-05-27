@@ -1,11 +1,9 @@
 package com.rusili.superstreet.previewlist.ui
 
-import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.rusili.superstreet.common.base.BaseViewModel
 import com.rusili.superstreet.previewlist.domain.ArticleListDataSourceFactory
-import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 
 class PreviewListViewModel(private val dataSourceFactory: ArticleListDataSourceFactory) : BaseViewModel() {
     private val pagedListConfig = PagedList.Config.Builder()
