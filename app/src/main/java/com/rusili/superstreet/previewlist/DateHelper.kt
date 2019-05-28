@@ -7,6 +7,10 @@ import java.util.concurrent.TimeUnit
 private const val STRING_TODAY = "Today"
 private const val STRING_YESTERDAY = "Yesterday"
 
+private const val DAYS_PER_WEEK = 7
+private const val DAYS_PER_MONTH = 30
+private const val DAYS_PER_YEAR = 365
+
 class DateHelper {
 
     fun getDateDifferenceString(
@@ -37,10 +41,10 @@ class DateHelper {
             TimeUnit.MILLISECONDS)
 
         return when {
-            diffInDays < 7 -> DateDiffWrapper(diffInDays, TimePeriod.Day)
-            diffInDays < 30 -> DateDiffWrapper(diffInDays / 7, TimePeriod.Week)
-            diffInDays < 365 -> DateDiffWrapper(diffInDays / 30, TimePeriod.Month)
-            else -> DateDiffWrapper(diffInDays / 365, TimePeriod.Year)
+            diffInDays < DAYS_PER_WEEK -> DateDiffWrapper(diffInDays, TimePeriod.Day)
+            diffInDays < DAYS_PER_MONTH -> DateDiffWrapper(diffInDays / DAYS_PER_WEEK, TimePeriod.Week)
+            diffInDays < DAYS_PER_YEAR -> DateDiffWrapper(diffInDays / DAYS_PER_MONTH, TimePeriod.Month)
+            else -> DateDiffWrapper(diffInDays / DAYS_PER_YEAR, TimePeriod.Year)
         }
     }
 

@@ -41,9 +41,7 @@ class PreviewListFragment : BaseFragment() {
     }
 
     private val adapter: PreviewListAdapter by lazy {
-        PreviewListAdapter(::onTitleClicked, Glide.with(this), dateHelper).apply {
-            setHasStableIds(true)
-        }
+        PreviewListAdapter(::onTitleClicked, Glide.with(this), dateHelper)
     }
 
     companion object {
@@ -68,7 +66,6 @@ class PreviewListFragment : BaseFragment() {
             it.livedata.observe(this@PreviewListFragment, Observer { list ->
                 list?.let(::renderData)
             })
-            it.loadData()
         }
     }
 

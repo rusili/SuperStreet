@@ -14,6 +14,8 @@ import com.github.chrisbanes.photoview.PhotoView
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.models.body.Image
+import com.rusili.superstreet.common.models.body.Image.Companion.IMAGE_HIGHRES_HEIGHT
+import com.rusili.superstreet.common.models.body.Image.Companion.IMAGE_HIGHRES_WIDTH
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.SimpleRequestListener
 import com.rusili.superstreet.common.ui.SimpleTransitionListenerAdapter
@@ -80,7 +82,7 @@ class ImageActivity : BaseActivity() {
         image: Image,
         imageSize: ImageSize
     ) {
-        Glide.with(this@ImageActivity)
+        Glide.with(this)
             .load(if (imageSize == ImageSize.GROUP) image.getGroupSizeUrl() else image.getDefaultSizeUrl())
             .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
@@ -91,7 +93,7 @@ class ImageActivity : BaseActivity() {
     }
 
     private fun loadFullImage(image: Image) {
-        Glide.with(this@ImageActivity)
+        Glide.with(this)
             .load(image.getHighResUrl())
             .listener(object : SimpleRequestListener() {
                 override fun onReadyOrFailed() {
@@ -99,14 +101,15 @@ class ImageActivity : BaseActivity() {
                     fullImageLoadSubject.onComplete()
                 }
             })
+            .override(IMAGE_HIGHRES_WIDTH, IMAGE_HIGHRES_HEIGHT)
             .into(activityImageViewSwitcher.nextView as PhotoView)
     }
 
     private fun setOnClickListeners(image: Image) {
         activityImageSaveButton.setOnClickListener {
             saveImage(
-                (activityImagePhotoView as PhotoView).drawable as BitmapDrawable,
-                image.getHighResUrl()
+                image = (activityImagePhotoView as PhotoView).drawable as BitmapDrawable,
+                imageHref = image.getHighResUrl()
             )
         }
 

@@ -1,7 +1,7 @@
 package com.rusili.superstreet.jsoup
 
-import com.rusili.superstreet.jsoup.parsing.ArticleParser
 import com.rusili.superstreet.article.domain.ArticleFullModel
+import com.rusili.superstreet.jsoup.parsing.ArticleParser
 import com.rusili.superstreet.jsoup.parsing.CommonParser
 import org.amshove.kluent.shouldEqual
 import org.jsoup.Jsoup

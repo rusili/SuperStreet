@@ -6,9 +6,9 @@ import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.net.Uri
-import android.provider.MediaStore
 import android.provider.MediaStore.Images
 import androidx.annotation.VisibleForTesting
+import com.rusili.superstreet.common.extensions.isPositive
 import timber.log.Timber
 
 /**
@@ -50,7 +50,8 @@ fun ContentResolver.saveImage(
         }
         ContentUris.parseId(url).let { id ->
             // Wait until MINI_KIND thumbnail is generated.
-            val miniThumb = Images.Thumbnails.getThumbnail(this, id, Images.Thumbnails.MINI_KIND, null)
+            val miniThumb =
+                Images.Thumbnails.getThumbnail(this, id, Images.Thumbnails.MINI_KIND, null)
             // This is for backward compatibility.
             storeThumbnail(miniThumb, id, 50f, 50f, Images.Thumbnails.MICRO_KIND)
         }
@@ -102,7 +103,7 @@ fun ContentResolver.storeThumbnail(
     val url = insert(Images.Thumbnails.EXTERNAL_CONTENT_URI, values)
     openOutputStream(url).use {
         thumb.compress(COMPRESS_FORMAT, 80, it)
-        it.close()
+        it?.close()
         return thumb
     }
 }
@@ -114,6 +115,6 @@ fun ContentResolver.storeThumbnail(
 @VisibleForTesting
 fun String.parseImageName(): String =
     lastIndexOf('/')
-        .takeIf { it > 0 }
+        .takeIf(Number::isPositive)
         ?.let { substring(it + 1, length - 4) }
         ?: this

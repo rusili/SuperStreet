@@ -27,11 +27,7 @@ class ArticleAdapter(
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        getItem(position)?.let {
-            (holder as BaseViewHolder<AbstractBodyModel>).apply {
-                bind(it)
-            }
-        }
+        getItem(position)?.let((holder as BaseViewHolder<AbstractBodyModel>)::bind)
     }
 
     override fun getItemViewType(position: Int) =

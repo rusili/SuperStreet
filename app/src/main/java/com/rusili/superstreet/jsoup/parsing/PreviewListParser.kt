@@ -18,8 +18,8 @@ class PreviewListParser @Inject constructor(private val commonParser: CommonPars
 
     fun parseToList(doc: Document): List<ArticlePreviewModel> {
         val previewsList = ArrayList<ArticlePreviewModel>()
-
         val mainColumn = doc.getElementsByClass(LIST.MAIN_COLUMN.value).first()
+
         val topStoryElement = mainColumn.getElementsByClass(LIST.TOP_STORY.value).first()
         val stories = mainColumn.getElementsByClass(LIST.STORIES_CONTAINER.value).first()
 
@@ -38,26 +38,29 @@ class PreviewListParser @Inject constructor(private val commonParser: CommonPars
             )
         }
 
-        stories.children().firstOrNull { story ->
-            story.hasClass(LIST.PART_ITEM.value) || story.hasClass(LIST.PART_HERO.value)
-        }?.let { story ->
-            val flag = commonParser.parseFlagElement(story)
-            val header = parseFeatureHeaderElement(story)
-            val footer = commonParser.parseFooterElement(story)
-            val size = when {
-                story.hasClass(LIST.PART_HERO.value) -> CardSize.Large
-                else -> CardSize.Small
-            }
+        stories.children().forEach { child ->
+            child.takeIf {
+                it.hasClass(LIST.PART_ITEM.value) || it.hasClass(LIST.PART_HERO.value)
+            }?.let { story ->
+                val flag = commonParser.parseFlagElement(story)
+                val header = parseFeatureHeaderElement(story)
+                val footer = commonParser.parseFooterElement(story)
+                val size = when {
+                    story.hasClass(LIST.PART_HERO.value) -> CardSize.Large
+                    else -> CardSize.Small
+                }
 
-            previewsList.add(
-                ArticlePreviewModel(
-                    flag,
-                    header,
-                    footer,
-                    size
+                previewsList.add(
+                    ArticlePreviewModel(
+                        flag,
+                        header,
+                        footer,
+                        size
+                    )
                 )
-            )
+            }
         }
+
         return previewsList
     }
 

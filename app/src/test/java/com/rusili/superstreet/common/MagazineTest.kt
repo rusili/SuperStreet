@@ -1,6 +1,10 @@
 package com.rusili.superstreet.common
 
-import com.rusili.superstreet.common.models.*
+import com.rusili.superstreet.common.models.MAGAZINE_EUROPEANCAR_STRING
+import com.rusili.superstreet.common.models.MAGAZINE_HONDATUNING_STRING
+import com.rusili.superstreet.common.models.MAGAZINE_IMPORTTUNER_STRING
+import com.rusili.superstreet.common.models.MAGAZINE_SUPERSTREET_STRING
+import com.rusili.superstreet.common.models.Magazine
 import org.amshove.kluent.shouldBe
 import org.junit.jupiter.api.Test
 
