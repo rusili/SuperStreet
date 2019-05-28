@@ -41,7 +41,7 @@ class PreviewListFragment : BaseFragment() {
     }
 
     private val adapter: PreviewListAdapter by lazy {
-        PreviewListAdapter(::onTitleClicked, Glide.with(this), dateHelper)
+        PreviewListAdapter(navigator, Glide.with(this), dateHelper)
     }
 
     companion object {
@@ -85,15 +85,5 @@ class PreviewListFragment : BaseFragment() {
 
         adapter.submitList(previewList)
         fragmentListLoadingLayout.fadeAndHide()
-    }
-
-    private fun onTitleClicked(
-        view: View,
-        header: Header
-    ) {
-        if (view.context.isNetworkConnected()) {
-            Timber.d("Title: %s Href: %s", header.title.value, header.title.href)
-            navigator.goToArticle(view, header)
-        } else showError(NetworkErrorException())
     }
 }

@@ -41,7 +41,7 @@ class FavoriteListFragment : BaseFragment() {
     }
 
     private val adapter: PreviewListAdapter by lazy {
-        PreviewListAdapter(::onTitleClicked, Glide.with(this), dateHelper).apply {
+        PreviewListAdapter(navigator, Glide.with(this), dateHelper).apply {
             setHasStableIds(true)
         }
     }
@@ -81,15 +81,5 @@ class FavoriteListFragment : BaseFragment() {
 
         // adapter.submitList(favoriteList)
         fragmentListLoadingLayout.fadeAndHide()
-    }
-
-    private fun onTitleClicked(
-        view: View,
-        header: Header
-    ) {
-        if (view.context.isNetworkConnected()) {
-            Timber.d("Title: %s Href: %s", header.title.value, header.title.href)
-            navigator.goToArticle(view, header)
-        } else showError(NetworkErrorException())
     }
 }

@@ -1,6 +1,7 @@
 package com.rusili.superstreet.common.base
 
 import android.accounts.NetworkErrorException
+import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -11,6 +12,10 @@ import dagger.android.AndroidInjection
 import io.reactivex.disposables.CompositeDisposable
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+
+private const val STRING_SHARE_TYPE = "text/plain"
+private const val STRING_SHARE_SUBJECT = "Sharing URL"
+private const val STRING_SHARE_VIA = "Share via: "
 
 abstract class BaseActivity : AppCompatActivity() {
     protected val disposable = CompositeDisposable()
@@ -32,12 +37,25 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onStop()
     }
 
-    fun inflateFragment(fragment: BaseFragment) =
+    protected fun inflateFragment(fragment: BaseFragment) =
         supportFragmentManager.beginTransaction()
             .add(container, fragment)
             .commit()
 
-    fun showError(error: Throwable?) {
+    protected fun internalShareLink(link: String) {
+        startActivity(
+            Intent.createChooser(
+                Intent(Intent.ACTION_SEND).apply {
+                    setType(STRING_SHARE_TYPE)
+                    putExtra(Intent.EXTRA_SUBJECT, STRING_SHARE_SUBJECT)
+                    putExtra(Intent.EXTRA_TEXT, link)
+                },
+                STRING_SHARE_VIA
+            )
+        )
+    }
+
+    protected fun showError(error: Throwable?) {
         when (error) {
             is IntentSender.SendIntentException -> showErrorDialogToFinish()
             is NetworkErrorException -> showNetworkError()
@@ -47,7 +65,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun showSnackbar(
+    protected fun showSnackbar(
         message: String,
         length: Int = 0
     ) {

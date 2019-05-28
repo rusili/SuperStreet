@@ -75,6 +75,7 @@ class ArticleActivity : BaseActivity() {
     private fun setupViews(header: Header) {
         articleHeaderImageView.transitionName = header.headerImage.title
         articleHeaderTitle.text = header.title.value
+        articleShare.setOnClickListener { internalShareLink(header.title.href) }
 
         Glide.with(this)
             .load(header.headerImage.getDefaultSizeUrl())

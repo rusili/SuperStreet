@@ -58,8 +58,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textColor">@color/colorTextLight</item>
         <item name="android:layout_marginTop">@dimen/preview_viewholder_timestamp_margin_top</item>
-        <item name="android:paddingLeft">@dimen/preview_viewholder_timestamp_margin_horizontal
-        </item>
+        <item name="android:paddingLeft">@dimen/preview_viewholder_timestamp_margin_horizontal</item>
         <item name="android:paddingBottom">@dimen/preview_viewholder_timestamp_margin_bottom</item>
     </style>
 

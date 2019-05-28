@@ -5,9 +5,9 @@ import android.view.animation.AnimationUtils
 import androidx.core.view.ViewCompat
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.rusili.superstreet.MainNavigator
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseViewHolder
-import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.common.models.header.HeaderImage.Companion.HEADER_IMAGE_HEIGHT
 import com.rusili.superstreet.common.models.header.HeaderImage.Companion.HEADER_IMAGE_WIDTH
 import com.rusili.superstreet.previewlist.DateHelper
@@ -20,7 +20,7 @@ private val crossFadeTransition = DrawableTransitionOptions.withCrossFade()
 
 class PreviewViewHolder(
     override val containerView: View,
-    private val onClick: (View, Header) -> Unit,
+    private val navigator: MainNavigator,
     private val glide: RequestManager,
     private val dateHelper: DateHelper
 ) : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
@@ -33,7 +33,8 @@ class PreviewViewHolder(
         setupImage(model)
         setText(model)
 
-        containerView.setOnClickListener { onClick(previewThumbnail, model.header) }
+        previewBackground.setOnClickListener { navigator.goToArticle(previewThumbnail, model.header) }
+        previewShare.setOnClickListener { navigator.shareLink(model.header.title.href) }
     }
 
     private fun animate() {
