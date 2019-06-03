@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/preview_viewholder_title_margin_horizontal"
-                android:src="@drawable/ic_share_white_24dp"
+                android:src="@drawable/ic_share"
                 app:layout_constraintBottom_toBottomOf="@id/articleHeaderTitle"
                 app:layout_constraintRight_toRightOf="parent" />
 

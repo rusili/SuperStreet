@@ -34,7 +34,6 @@ class PreviewViewHolder(
         setText(model)
 
         previewBackground.setOnClickListener { navigator.goToArticle(previewThumbnail, model.header) }
-        previewShare.setOnClickListener { navigator.shareLink(model.header.title.href) }
     }
 
     private fun animate() {

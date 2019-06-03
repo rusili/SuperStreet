@@ -64,12 +64,9 @@
         app:layout_constraintTop_toBottomOf="@id/previewTitle"
         tools:text="1 week ago" />
 
-    <ImageView
-        android:id="@+id/previewShare"
+    <com.rusili.superstreet.common.ui.ActionsView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/preview_viewholder_title_margin_horizontal"
-        android:src="@drawable/ic_share_white_24dp"
         app:layout_constraintBottom_toBottomOf="@id/previewThumbnail"
         app:layout_constraintRight_toRightOf="parent" />
 
