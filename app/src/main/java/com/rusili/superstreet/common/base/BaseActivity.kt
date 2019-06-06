@@ -13,10 +13,6 @@ import io.reactivex.disposables.CompositeDisposable
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-private const val STRING_SHARE_TYPE = "text/plain"
-private const val STRING_SHARE_SUBJECT = "Sharing URL"
-private const val STRING_SHARE_VIA = "Share via: "
-
 abstract class BaseActivity : AppCompatActivity() {
     protected val disposable = CompositeDisposable()
     var container = 0
@@ -41,19 +37,6 @@ abstract class BaseActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .add(container, fragment)
             .commit()
-
-    protected fun internalShareLink(link: String) {
-        startActivity(
-            Intent.createChooser(
-                Intent(Intent.ACTION_SEND).apply {
-                    setType(STRING_SHARE_TYPE)
-                    putExtra(Intent.EXTRA_SUBJECT, STRING_SHARE_SUBJECT)
-                    putExtra(Intent.EXTRA_TEXT, link)
-                },
-                STRING_SHARE_VIA
-            )
-        )
-    }
 
     protected fun showError(error: Throwable?) {
         when (error) {

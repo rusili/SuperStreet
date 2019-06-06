@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.rusili.superstreet.database.AppDatabase
 import com.rusili.superstreet.database.favorites.FavoriteDao
-import com.rusili.superstreet.database.favorites.FavoriteModelMapper
+import com.rusili.superstreet.database.favorites.FavoriteManager
+import com.rusili.superstreet.database.favorites.FavoriteManagerImpl
+import com.rusili.superstreet.database.favorites.model.FavoriteModelMapper
 import com.rusili.superstreet.di.AppModule
 import dagger.Module
 import dagger.Provides
@@ -15,12 +17,16 @@ private const val DATABASE_NAME = "SuperstreetDb"
 class DatabaseModule {
 
     @Provides
-    fun provideFavoriteDao(database: AppDatabase): FavoriteDao =
-        database.favoriteDao()
+    fun provideFavoriteManager(dao: FavoriteDao): FavoriteManager =
+        FavoriteManagerImpl(dao)
 
     @Provides
     fun provideFavoriteModelMapper(): FavoriteModelMapper =
         FavoriteModelMapper()
+
+    @Provides
+    protected fun provideFavoriteDao(database: AppDatabase): FavoriteDao =
+        database.favoriteDao()
 
     @Provides
     protected fun provideRoomDatabase(context: Context): AppDatabase =

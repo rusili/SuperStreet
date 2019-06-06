@@ -1,4 +1,4 @@
-package com.rusili.superstreet.database.favorites
+package com.rusili.superstreet.database.favorites.model
 
 import com.rusili.superstreet.common.models.Flag
 import com.rusili.superstreet.common.models.Footer
