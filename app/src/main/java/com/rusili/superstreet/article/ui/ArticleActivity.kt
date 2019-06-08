@@ -6,6 +6,7 @@ import android.content.IntentSender
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -75,7 +76,6 @@ class ArticleActivity : BaseActivity() {
     private fun setupViews(header: Header) {
         articleHeaderImageView.transitionName = header.headerImage.title
         articleHeaderTitle.text = header.title.value
-        articleShare.setOnClickListener { internalShareLink(header.title.href) }
 
         Glide.with(this)
             .load(header.headerImage.getDefaultSizeUrl())

@@ -39,7 +39,6 @@ class ImageGroupViewHolder(
         ViewCompat.setTransitionName(view, image.id.toString())
 
         glide.load(image.getGroupSizeUrl())
-            .override(IMAGE_GROUP_WIDTH, IMAGE_GROUP_HEIGHT)
             .into(view)
 
         view.setOnClickListener { onClick(it, image, ImageSize.GROUP) }

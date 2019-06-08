@@ -55,6 +55,6 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
     }
 
     override fun shareLink(link: String) {
-        internalShareLink(link)
+        // TODO
     }
 }

@@ -1,5 +1,7 @@
 package com.rusili.superstreet.favoritelist.di
 
+import com.rusili.superstreet.database.di.DatabaseModule
+import com.rusili.superstreet.di.AppModule
 import com.rusili.superstreet.favoritelist.data.FavoriteListRepositoryImpl
 import com.rusili.superstreet.favoritelist.domain.FavoriteListRepository
 import com.rusili.superstreet.favoritelist.domain.FavoriteListUsecaseImpl
@@ -9,7 +11,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module(includes = [DatabaseModule::class])
 abstract class FavoriteListModule() {
 
     @Module
