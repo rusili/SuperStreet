@@ -6,6 +6,7 @@
     <dimen name="progress_bar_size">64dp</dimen>
     <dimen name="card_corner_radius_default">2dp</dimen>
     <dimen name="snackbar_margin_bottom">64dp</dimen>
+    <dimen name="action_imagebutton_padding">16dp</dimen>
 
     <!-- List Fragment -->
     <dimen name="preview_viewholder_corner_size">4dp</dimen>

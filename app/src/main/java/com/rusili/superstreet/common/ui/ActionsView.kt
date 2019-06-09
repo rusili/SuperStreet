@@ -43,3 +43,9 @@ class ActionsView @JvmOverloads constructor(
         )
     }
 }
+
+enum class ActionsViewSize {
+    SMALL,
+    MEDIUM,
+    LARGE
+}

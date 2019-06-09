@@ -6,20 +6,18 @@
     android:orientation="horizontal"
     tools:background="@color/black_90_1000">
 
-    <ImageView
+    <com.rusili.superstreet.common.ui.ShapedRippleImageButton
         android:id="@+id/actionFavorite"
+        style="@style/ActionImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:padding="@dimen/preview_viewholder_title_margin_horizontal"
         android:src="@drawable/ic_bookmark" />
 
-    <ImageView
+    <com.rusili.superstreet.common.ui.ShapedRippleImageButton
         android:id="@+id/actionShare"
+        style="@style/ActionImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:padding="@dimen/preview_viewholder_title_margin_horizontal"
         android:src="@drawable/ic_share" />
 
 </LinearLayout>

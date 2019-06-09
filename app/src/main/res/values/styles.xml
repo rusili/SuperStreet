@@ -1,5 +1,11 @@
 <resources>
 
+    <!-- Common UI -->
+    <style name="ActionImageButton">
+        <item name="android:background">@null</item>
+        <item name="android:padding">@dimen/action_imagebutton_padding</item>
+    </style>
+
     <!-- List Fragment -->
     <style name="PreviewCardLayout" parent="@style/Widget.MaterialComponents.CardView">
         <item name="android:layout_height">wrap_content</item>
@@ -58,7 +64,8 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textColor">@color/colorTextLight</item>
         <item name="android:layout_marginTop">@dimen/preview_viewholder_timestamp_margin_top</item>
-        <item name="android:paddingLeft">@dimen/preview_viewholder_timestamp_margin_horizontal</item>
+        <item name="android:paddingLeft">@dimen/preview_viewholder_timestamp_margin_horizontal
+        </item>
         <item name="android:paddingBottom">@dimen/preview_viewholder_timestamp_margin_bottom</item>
     </style>
 
