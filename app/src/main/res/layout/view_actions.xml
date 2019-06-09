@@ -8,16 +8,12 @@
 
     <com.rusili.superstreet.common.ui.ShapedRippleImageButton
         android:id="@+id/actionFavorite"
-        style="@style/ActionImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ActionImageButton.Medium"
         android:src="@drawable/ic_bookmark" />
 
     <com.rusili.superstreet.common.ui.ShapedRippleImageButton
         android:id="@+id/actionShare"
-        style="@style/ActionImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ActionImageButton.Medium"
         android:src="@drawable/ic_share" />
 
 </LinearLayout>

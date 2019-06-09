@@ -1,4 +1,4 @@
-package com.rusili.superstreet.common.base
+package com.rusili.superstreet.common.ui
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
 import androidx.annotation.StyleableRes
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.withStyledAttributes
 
 abstract class StyleableFrameLayout @JvmOverloads constructor(
@@ -23,7 +22,8 @@ abstract class StyleableFrameLayout @JvmOverloads constructor(
         context.withStyledAttributes(
             attrs,
             this.getStyleable(),
-            defStyleAttr, 0
+            defStyleAttr,
+            0
         ) {
             setupViews()
         }
@@ -35,5 +35,5 @@ abstract class StyleableFrameLayout @JvmOverloads constructor(
     abstract fun TypedArray.setupViews()
 
     @StyleableRes
-    fun getStyleable(): IntArray = IntArray(0)
+    open fun getStyleable(): IntArray = IntArray(0)
 }
