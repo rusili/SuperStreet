@@ -27,6 +27,8 @@ abstract class StyleableFrameLayout @JvmOverloads constructor(
         ) {
             setupViews()
         }
+
+        post(::postSetup)
     }
 
     @LayoutRes
@@ -36,4 +38,6 @@ abstract class StyleableFrameLayout @JvmOverloads constructor(
 
     @StyleableRes
     open fun getStyleable(): IntArray = IntArray(0)
+
+    open fun postSetup() = Unit
 }

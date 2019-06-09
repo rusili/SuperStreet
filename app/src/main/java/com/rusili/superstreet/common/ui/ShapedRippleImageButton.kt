@@ -11,6 +11,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.widget.ImageButton
 import androidx.annotation.ColorInt
+import androidx.core.content.withStyledAttributes
 import com.rusili.superstreet.R
 
 class ShapedRippleImageButton @JvmOverloads constructor(
@@ -20,6 +21,17 @@ class ShapedRippleImageButton @JvmOverloads constructor(
 ) : ImageButton(context, attrs, defStyleAttr) {
 
     init {
+        context.withStyledAttributes(
+            attrs,
+            IntArray(0),
+            defStyleAttr,
+            0
+        ) {
+            setupViews()
+        }
+    }
+
+    private fun setupViews() {
         val buttonShape = OvalShape()
 
         @ColorInt val fillColor = resources.getColor(android.R.color.transparent)

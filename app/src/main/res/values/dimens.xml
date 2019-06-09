@@ -6,11 +6,11 @@
     <dimen name="progress_bar_size">64dp</dimen>
     <dimen name="card_corner_radius_default">2dp</dimen>
     <dimen name="snackbar_margin_bottom">64dp</dimen>
-    <dimen name="action_imagebutton_padding_small">10dp</dimen>
-    <dimen name="action_imagebutton_padding_medium">16dp</dimen>
-    <dimen name="action_imagebutton_padding_large">20dp</dimen>
+    <dimen name="action_button_padding_small">10dp</dimen>
+    <dimen name="action_button_padding_medium">14dp</dimen>
+    <dimen name="action_button_padding_large">20dp</dimen>
     <dimen name="action_button_height_small">32dp</dimen>
-    <dimen name="action_button_height_medium">48dp</dimen>
+    <dimen name="action_button_height_medium">40dp</dimen>
     <dimen name="action_button_height_large">64dp</dimen>
 
     <!-- List Fragment -->

@@ -3,11 +3,14 @@ package com.rusili.superstreet.common.ui
 import android.content.Context
 import android.content.Intent
 import android.content.res.TypedArray
+import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.util.AttributeSet
 import android.widget.ImageButton
 import android.widget.ImageView
-import androidx.core.view.size
+import android.widget.LinearLayout
+import androidx.core.view.setPadding
 import com.rusili.superstreet.R
+import com.rusili.superstreet.common.extensions.getDimen
 
 private const val STRING_SHARE_TYPE = "text/plain"
 private const val STRING_SHARE_SUBJECT = "Sharing URL"
@@ -18,10 +21,11 @@ class ActionsView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : StyleableFrameLayout(context, attrs, defStyleAttr) {
-    val allActionViews = setOf(actionFavorite, actionShare)
     lateinit var actionFavorite: ImageButton
         private set
     lateinit var actionShare: ImageButton
+        private set
+    lateinit var allActionViews: List<ImageButton>
         private set
 
     var favoriteAction: (() -> Unit)? = null
@@ -32,32 +36,42 @@ class ActionsView @JvmOverloads constructor(
     override fun TypedArray.setupViews() {
         actionFavorite = findViewById(R.id.actionFavorite)
         actionShare = findViewById(R.id.actionShare)
+        allActionViews = listOf(actionFavorite, actionShare)
 
         selectSize()
     }
 
     private fun TypedArray.selectSize() {
-        val smallDimens = resources.getDimension(R.dimen.action_button_height_small)
-        val mediumDimens = resources.getDimension(R.dimen.action_button_height_medium)
-        val largeDimens = resources.getDimension(R.dimen.action_button_height_large)
+        val smallStyle = ViewStyle(
+            length = getDimen(R.dimen.action_button_height_small),
+            padding = getDimen(R.dimen.action_button_padding_small)
+        )
+        val mediumStyle = ViewStyle(
+            length = getDimen(R.dimen.action_button_height_medium),
+            padding = getDimen(R.dimen.action_button_padding_medium)
+        )
+        val largeStyle = ViewStyle(
+            length = getDimen(R.dimen.action_button_height_large),
+            padding = getDimen(R.dimen.action_button_padding_large)
+        )
 
         getInt(R.styleable.ActionsView_size, -1)
             .takeIf { it != -1 }
-            ?.let(ActionsViewSize.Companion::fromAttr)
+            ?.let(ViewSize.Companion::fromAttr)
             ?.let { size ->
                 when (size) {
-                    ActionsViewSize.SMALL -> applySize(smallDimens)
-                    ActionsViewSize.MEDIUM -> applySize(mediumDimens)
-                    ActionsViewSize.LARGE -> applySize(largeDimens)
+                    ViewSize.SMALL -> applySize(smallStyle)
+                    ViewSize.MEDIUM -> applySize(mediumStyle)
+                    ViewSize.LARGE -> applySize(largeStyle)
                 }
             }
     }
 
-    private fun applySize(dimension: Float) {
+    private fun applySize(style: ViewStyle) {
         allActionViews.forEach { view ->
-            view.layoutParams.apply {
-                height = dimension.toInt()
-                width = dimension.toInt()
+            view.apply {
+                layoutParams = LinearLayout.LayoutParams(style.length, style.length)
+                setPadding(style.padding)
             }
         }
     }
@@ -78,15 +92,20 @@ class ActionsView @JvmOverloads constructor(
             )
         )
     }
-}
 
-enum class ActionsViewSize(val attr: Int) {
-    SMALL(0),
-    MEDIUM(1),
-    LARGE(2);
+    private enum class ViewSize(val attr: Int) {
+        SMALL(0),
+        MEDIUM(1),
+        LARGE(2);
 
-    companion object {
-        fun fromAttr(input: Int): ActionsViewSize =
-            values().first { it.attr == input }
+        companion object {
+            fun fromAttr(input: Int): ViewSize =
+                values().first { it.attr == input }
+        }
     }
+
+    private data class ViewStyle(
+        val length: Int,
+        val padding: Int
+    )
 }
