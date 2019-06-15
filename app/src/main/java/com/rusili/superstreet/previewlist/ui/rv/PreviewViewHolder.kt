@@ -24,7 +24,6 @@ class PreviewViewHolder(
     private val glide: RequestManager,
     private val dateHelper: DateHelper
 ) : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
-
     override fun bind(model: ArticlePreviewModel) {
         if (adapterPosition > 2) {
             animate()
@@ -32,8 +31,14 @@ class PreviewViewHolder(
 
         setupImage(model)
         setText(model)
+        setActionsView(model)
 
-        previewBackground.setOnClickListener { navigator.goToArticle(previewThumbnail, model.header) }
+        previewBackground.setOnClickListener {
+            navigator.goToArticle(
+                previewThumbnail,
+                model.header
+            )
+        }
     }
 
     private fun animate() {
@@ -43,6 +48,13 @@ class PreviewViewHolder(
                 R.anim.item_animation_fall_down
             )
         )
+    }
+
+    fun setActionsView(model: ArticlePreviewModel) {
+        previewActionsView.apply {
+            setShareLink(model.header.title.href)
+            setFavoriteAction()
+        }
     }
 
     private fun setupImage(model: ArticlePreviewModel) {

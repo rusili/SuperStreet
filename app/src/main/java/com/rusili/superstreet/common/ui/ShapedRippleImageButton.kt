@@ -1,7 +1,9 @@
 package com.rusili.superstreet.common.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.RippleDrawable
 import android.graphics.drawable.ShapeDrawable
@@ -11,8 +13,12 @@ import android.os.Build
 import android.util.AttributeSet
 import android.widget.ImageButton
 import androidx.annotation.ColorInt
+import androidx.core.content.res.getColorOrThrow
 import androidx.core.content.withStyledAttributes
 import com.rusili.superstreet.R
+
+@SuppressLint("ResourceAsColor")
+private const @ColorInt val MASK_COLOR_DEFAULT: Int = R.color.black_10_1000
 
 class ShapedRippleImageButton @JvmOverloads constructor(
     context: Context,
@@ -23,7 +29,7 @@ class ShapedRippleImageButton @JvmOverloads constructor(
     init {
         context.withStyledAttributes(
             attrs,
-            IntArray(0),
+            R.styleable.ShapedRippleImageButton,
             defStyleAttr,
             0
         ) {
@@ -31,11 +37,14 @@ class ShapedRippleImageButton @JvmOverloads constructor(
         }
     }
 
-    private fun setupViews() {
+    private fun TypedArray.setupViews() {
         val buttonShape = OvalShape()
 
         @ColorInt val fillColor = resources.getColor(android.R.color.transparent)
-        @ColorInt val maskColor = resources.getColor(R.color.black_30_1000)
+        @ColorInt val maskColor = getColor(
+            R.styleable.ShapedRippleImageButton_ripple_color,
+            MASK_COLOR_DEFAULT
+        )
 
         background?.let {
             setBackgroundRippleShape(it, buttonShape)

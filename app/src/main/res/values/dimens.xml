@@ -10,7 +10,7 @@
     <dimen name="action_button_padding_medium">14dp</dimen>
     <dimen name="action_button_padding_large">20dp</dimen>
     <dimen name="action_button_height_small">32dp</dimen>
-    <dimen name="action_button_height_medium">40dp</dimen>
+    <dimen name="action_button_height_medium">48dp</dimen>
     <dimen name="action_button_height_large">64dp</dimen>
 
     <!-- List Fragment -->

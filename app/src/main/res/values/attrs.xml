@@ -9,4 +9,9 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="ShapedRippleImageButton">
+        <attr name="ripple_shape" format="reference" />
+        <attr name="ripple_color" format="reference" />
+    </declare-styleable>
+
 </resources>
