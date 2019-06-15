@@ -30,6 +30,18 @@
         </ViewSwitcher>
 
         <ImageView
+            android:id="@+id/activityImageBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="40dp"
+            android:elevation="@dimen/elevation_low"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_left_arrow"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
             android:id="@+id/activityImageShareButton"
             android:layout_width="@dimen/image_icon_share_size"
             android:layout_height="@dimen/image_icon_share_size"

@@ -19,8 +19,8 @@ class ArticleViewModel(private val usecase: ArticleUsecase) : BaseViewModel() {
             .subscribeBy(
                 onSuccess = { livedata.postValue(LiveDataWrapper(it)) },
                 onError = {
-                    livedata.postValue(LiveDataWrapper(null, it))
                     Timber.e(it, "Error getting preview articles.")
+                    livedata.postValue(LiveDataWrapper(null, it))
                 }
             ))
     }

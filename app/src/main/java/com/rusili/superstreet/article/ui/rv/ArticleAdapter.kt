@@ -18,6 +18,10 @@ class ArticleAdapter(
     private val glide: RequestManager
 ) : ListAdapter<AbstractBodyModel, RecyclerView.ViewHolder>(ArticleDiffCallback()) {
 
+    init {
+        setHasStableIds(true)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             ArticleViewType.Paragraph.viewType -> ParagraphViewHolder(parent.inflate(R.layout.viewholder_article_paragraph))

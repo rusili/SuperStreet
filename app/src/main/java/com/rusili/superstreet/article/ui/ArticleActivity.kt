@@ -22,6 +22,7 @@ import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
 import com.rusili.superstreet.common.ui.SimpleRequestListener
+import com.rusili.superstreet.common.ui.actions.HasActionsView
 import com.rusili.superstreet.image.ImageActivity
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_BUNDLE_KEY
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_SIZE_BUNDLE_KEY
@@ -30,18 +31,15 @@ import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 
-class ArticleActivity : BaseActivity() {
+class ArticleActivity : BaseActivity(), HasActionsView {
     @Inject protected lateinit var viewModelFactory: ArticleViewModelFactory
     @Inject protected lateinit var moshi: Moshi
 
     private val viewModel: ArticleViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
     }
-
     private val adapter: ArticleAdapter by lazy {
-        ArticleAdapter(::onImageClicked, Glide.with(this)).apply {
-            setHasStableIds(true)
-        }
+        ArticleAdapter(::onImageClicked, Glide.with(this))
     }
 
     companion object {
@@ -56,6 +54,7 @@ class ArticleActivity : BaseActivity() {
         intent?.getStringExtra(ARTICLE_HEADER_BUNDLE_KEY)?.let { json ->
             moshi.adapter<Header>(Header::class.java).fromJson(json)?.let { header ->
                 setupViews(header)
+                setActionsView(header.title.href)
                 articleProgressBar.show()
                 viewModel.getArticle(header.title.href)
             }
@@ -71,6 +70,13 @@ class ArticleActivity : BaseActivity() {
                 else -> showError(UnknownError())
             }
         })
+    }
+
+    override fun setActionsView(link: String) {
+        articleActionsView.apply {
+            setFavoriteAction()
+            setShareLink(link)
+        }
     }
 
     private fun setupViews(header: Header) {
@@ -114,7 +120,7 @@ class ArticleActivity : BaseActivity() {
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     this@ArticleActivity,
                     view,
-                    ViewCompat.getTransitionName(view)!!
+                    ViewCompat.getTransitionName(view) ?: ""
                 )
                 startActivity(this, options.toBundle())
             }

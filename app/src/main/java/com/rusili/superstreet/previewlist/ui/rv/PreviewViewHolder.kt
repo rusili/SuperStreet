@@ -10,6 +10,7 @@ import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseViewHolder
 import com.rusili.superstreet.common.models.header.HeaderImage.Companion.HEADER_IMAGE_HEIGHT
 import com.rusili.superstreet.common.models.header.HeaderImage.Companion.HEADER_IMAGE_WIDTH
+import com.rusili.superstreet.common.ui.actions.HasActionsView
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import kotlinx.android.extensions.LayoutContainer
@@ -23,21 +24,29 @@ class PreviewViewHolder(
     private val navigator: MainNavigator,
     private val glide: RequestManager,
     private val dateHelper: DateHelper
-) : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
+) : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer, HasActionsView {
+
     override fun bind(model: ArticlePreviewModel) {
         if (adapterPosition > 2) {
             animate()
         }
 
-        setupImage(model)
+        setImage(model)
         setText(model)
-        setActionsView(model)
+        setActionsView(model.header.title.href)
 
         previewBackground.setOnClickListener {
             navigator.goToArticle(
-                previewThumbnail,
-                model.header
+                view = previewThumbnail,
+                header = model.header
             )
+        }
+    }
+
+    override fun setActionsView(link: String) {
+        previewActionsView.apply {
+            setShareLink(link)
+            setFavoriteAction()
         }
     }
 
@@ -50,14 +59,7 @@ class PreviewViewHolder(
         )
     }
 
-    fun setActionsView(model: ArticlePreviewModel) {
-        previewActionsView.apply {
-            setShareLink(model.header.title.href)
-            setFavoriteAction()
-        }
-    }
-
-    private fun setupImage(model: ArticlePreviewModel) {
+    private fun setImage(model: ArticlePreviewModel) {
         ViewCompat.setTransitionName(previewThumbnail, model.header.headerImage.title)
         ViewCompat.setTransitionName(previewLayout, model.header.headerImage.getDefaultSizeUrl())
 

@@ -52,10 +52,12 @@
         app:layout_constraintTop_toBottomOf="@id/previewTitle"
         tools:text="1 week ago" />
 
-    <com.rusili.superstreet.common.ui.ActionsView
+    <com.rusili.superstreet.common.ui.actions.ActionsView
+        android:id="@+id/previewActionsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/previewThumbnail"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:size="medium" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

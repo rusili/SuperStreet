@@ -1,4 +1,4 @@
-package com.rusili.superstreet.common.ui
+package com.rusili.superstreet.common.ui.actions
 
 import android.content.Context
 import android.content.Intent
@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.view.setPadding
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.extensions.getDimen
+import com.rusili.superstreet.common.ui.StyleableFrameLayout
 import com.rusili.superstreet.jsoup.api.BASE_HTML
 
 private const val STRING_SHARE_TYPE = "text/plain"
@@ -93,7 +94,9 @@ class ActionsView @JvmOverloads constructor(
             Intent.createChooser(
                 Intent(Intent.ACTION_SEND).apply {
                     setType(STRING_SHARE_TYPE)
-                    putExtra(Intent.EXTRA_SUBJECT, STRING_SHARE_SUBJECT)
+                    putExtra(Intent.EXTRA_SUBJECT,
+                        STRING_SHARE_SUBJECT
+                    )
                     putExtra(Intent.EXTRA_TEXT, addDomainToLink(link))
                 },
                 STRING_SHARE_VIA

@@ -45,7 +45,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 
-            <com.rusili.superstreet.common.ui.ActionsView
+            <com.rusili.superstreet.common.ui.actions.ActionsView
+                android:id="@+id/articleActionsView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@id/articleHeaderImageView"

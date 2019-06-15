@@ -106,6 +106,8 @@ class ImageActivity : BaseActivity() {
     }
 
     private fun setOnClickListeners(image: Image) {
+        activityImageBack.setOnClickListener { finish() }
+
         activityImageSaveButton.setOnClickListener {
             saveImage(
                 image = (activityImagePhotoView as PhotoView).drawable as BitmapDrawable,

@@ -15,7 +15,7 @@ import java.net.UnknownHostException
 
 abstract class BaseActivity : AppCompatActivity() {
     protected val disposable = CompositeDisposable()
-    var container = 0
+    protected var container = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
