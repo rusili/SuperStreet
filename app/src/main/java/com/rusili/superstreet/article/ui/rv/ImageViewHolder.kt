@@ -31,7 +31,6 @@ class ImageViewHolder(
 
         glide.load(model.getDefaultSizeUrl())
             .listener(glideListener)
-            .override(IMAGE_DEFAULT_WIDTH, IMAGE_DEFAULT_HEIGHT)
             .into(articleImageView)
 
         articleImageView.setOnClickListener { onClick(it, model, ImageSize.DEFAULT) }

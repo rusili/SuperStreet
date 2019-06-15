@@ -1,4 +1,4 @@
-package com.rusili.superstreet.database.favorites
+package com.rusili.superstreet.database.favorites.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

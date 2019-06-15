@@ -1,6 +1,7 @@
 package com.rusili.superstreet.common.base
 
 import android.accounts.NetworkErrorException
+import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -14,7 +15,7 @@ import java.net.UnknownHostException
 
 abstract class BaseActivity : AppCompatActivity() {
     protected val disposable = CompositeDisposable()
-    var container = 0
+    protected var container = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -32,12 +33,12 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onStop()
     }
 
-    fun inflateFragment(fragment: BaseFragment) =
+    protected fun inflateFragment(fragment: BaseFragment) =
         supportFragmentManager.beginTransaction()
             .add(container, fragment)
             .commit()
 
-    fun showError(error: Throwable?) {
+    protected fun showError(error: Throwable?) {
         when (error) {
             is IntentSender.SendIntentException -> showErrorDialogToFinish()
             is NetworkErrorException -> showNetworkError()
@@ -47,7 +48,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun showSnackbar(
+    protected fun showSnackbar(
         message: String,
         length: Int = 0
     ) {

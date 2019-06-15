@@ -12,18 +12,15 @@ import com.rusili.superstreet.common.models.Type
 import com.rusili.superstreet.common.models.footer.Author
 import com.rusili.superstreet.common.models.header.HeaderImage
 import com.rusili.superstreet.common.models.header.Title
-import com.rusili.superstreet.database.favorites.FavoriteEntity
-import com.rusili.superstreet.database.favorites.FavoriteModelMapper
+import com.rusili.superstreet.database.favorites.model.FavoriteModelMapper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.domain.CardSize
-import io.reactivex.functions.Predicate
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.Date
-import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4::class)
 class FavoriteDaoTest {

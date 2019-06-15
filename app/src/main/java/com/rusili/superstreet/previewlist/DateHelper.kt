@@ -4,6 +4,9 @@ import androidx.annotation.VisibleForTesting
 import java.util.Date
 import java.util.concurrent.TimeUnit
 
+private const val CHAR_S = 's'
+private const val STRING_AGO = " ago"
+
 private const val STRING_TODAY = "Today"
 private const val STRING_YESTERDAY = "Yesterday"
 
@@ -24,9 +27,9 @@ class DateHelper {
                 else -> {
                     var value = it.length.toString() + " " + it.period.name
                     if (it.length > 1) {
-                        value += "s"
+                        value += CHAR_S
                     }
-                    value.toLowerCase() + " ago"
+                    value.toLowerCase() + STRING_AGO
                 }
             }
         }

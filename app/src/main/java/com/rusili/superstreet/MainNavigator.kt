@@ -1,5 +1,6 @@
 package com.rusili.superstreet
 
+import android.content.Intent
 import android.view.View
 import com.rusili.superstreet.common.models.Header
 
@@ -9,4 +10,6 @@ interface MainNavigator {
         view: View,
         header: Header
     )
+
+    fun shareLink(link: String)
 }

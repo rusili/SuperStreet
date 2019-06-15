@@ -5,11 +5,12 @@ import android.view.animation.AnimationUtils
 import androidx.core.view.ViewCompat
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.rusili.superstreet.MainNavigator
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseViewHolder
-import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.common.models.header.HeaderImage.Companion.HEADER_IMAGE_HEIGHT
 import com.rusili.superstreet.common.models.header.HeaderImage.Companion.HEADER_IMAGE_WIDTH
+import com.rusili.superstreet.common.ui.actions.HasActionsView
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import kotlinx.android.extensions.LayoutContainer
@@ -20,20 +21,33 @@ private val crossFadeTransition = DrawableTransitionOptions.withCrossFade()
 
 class PreviewViewHolder(
     override val containerView: View,
-    private val onClick: (View, Header) -> Unit,
+    private val navigator: MainNavigator,
     private val glide: RequestManager,
     private val dateHelper: DateHelper
-) : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer {
+) : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer, HasActionsView {
 
     override fun bind(model: ArticlePreviewModel) {
         if (adapterPosition > 2) {
             animate()
         }
 
-        setupImage(model)
+        setImage(model)
         setText(model)
+        setActionsView(model.header.title.href)
 
-        containerView.setOnClickListener { onClick(previewThumbnail, model.header) }
+        previewBackground.setOnClickListener {
+            navigator.goToArticle(
+                view = previewThumbnail,
+                header = model.header
+            )
+        }
+    }
+
+    override fun setActionsView(link: String) {
+        previewActionsView.apply {
+            setShareLink(link)
+            setFavoriteAction()
+        }
     }
 
     private fun animate() {
@@ -45,7 +59,7 @@ class PreviewViewHolder(
         )
     }
 
-    private fun setupImage(model: ArticlePreviewModel) {
+    private fun setImage(model: ArticlePreviewModel) {
         ViewCompat.setTransitionName(previewThumbnail, model.header.headerImage.title)
         ViewCompat.setTransitionName(previewLayout, model.header.headerImage.getDefaultSizeUrl())
 
