@@ -11,12 +11,9 @@ import android.widget.Toast
 import androidx.core.view.setPadding
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.extensions.getDimen
+import com.rusili.superstreet.common.extensions.shareLink
 import com.rusili.superstreet.common.ui.StyleableFrameLayout
 import com.rusili.superstreet.jsoup.api.BASE_HTML
-
-private const val STRING_SHARE_TYPE = "text/plain"
-private const val STRING_SHARE_SUBJECT = "Sharing URL"
-private const val STRING_SHARE_VIA = "Share via: "
 
 class ActionsView @JvmOverloads constructor(
     context: Context,
@@ -31,6 +28,7 @@ class ActionsView @JvmOverloads constructor(
     override fun getStyleable(): IntArray = R.styleable.ActionsView
 
     override fun TypedArray.setupViews() {
+
         actionFavorite = findViewById(R.id.actionFavorite)
         actionShare = findViewById(R.id.actionShare)
         allActionViews = listOf(actionFavorite, actionShare)
@@ -39,7 +37,9 @@ class ActionsView @JvmOverloads constructor(
     }
 
     fun setShareLink(link: String) {
-        findViewById<ImageView>(R.id.actionShare).setOnClickListener { shareLink(link) }
+        findViewById<ImageView>(R.id.actionShare).setOnClickListener {
+            context.shareLink(link)
+        }
     }
 
     fun setFavoriteAction() {
@@ -88,24 +88,6 @@ class ActionsView @JvmOverloads constructor(
             }
         }
     }
-
-    private fun shareLink(link: String) {
-        context.startActivity(
-            Intent.createChooser(
-                Intent(Intent.ACTION_SEND).apply {
-                    setType(STRING_SHARE_TYPE)
-                    putExtra(Intent.EXTRA_SUBJECT,
-                        STRING_SHARE_SUBJECT
-                    )
-                    putExtra(Intent.EXTRA_TEXT, addDomainToLink(link))
-                },
-                STRING_SHARE_VIA
-            )
-        )
-    }
-
-    private fun addDomainToLink(link: String) =
-        BASE_HTML.plus(link)
 
     private enum class ViewSize(val attr: Int) {
         SMALL(0),
