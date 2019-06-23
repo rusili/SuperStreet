@@ -1,15 +1,16 @@
 package com.rusili.superstreet.previewlist.domain
 
+import com.rusili.superstreet.common.models.BaseArticleModel
 import com.rusili.superstreet.common.models.Flag
 import com.rusili.superstreet.common.models.Footer
 import com.rusili.superstreet.common.models.Header
 
 data class ArticlePreviewModel(
-    val flag: Flag,
-    val header: Header,
-    val footer: Footer,
+    override val flag: Flag,
+    override val header: Header,
+    override val footer: Footer,
     val size: CardSize
-) : Comparable<ArticlePreviewModel> {
+) : BaseArticleModel(), Comparable<ArticlePreviewModel> {
 
     fun getViewType() =
         when (size) {

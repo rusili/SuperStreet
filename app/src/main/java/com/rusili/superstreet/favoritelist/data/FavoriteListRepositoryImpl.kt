@@ -9,9 +9,10 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class FavoriteListRepositoryImpl @Inject constructor(private val manager: FavoriteManager) : FavoriteListRepository {
+
     override fun getAllFavorites(): Single<List<FavoriteEntity>> =
         manager.getAllFavorites()
 
     override fun removeFavorite(entity: FavoriteEntity): Completable =
-        manager.toggleFavorite(entity, false)
+        manager.removeFavorite(entity)
 }

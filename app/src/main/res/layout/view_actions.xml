@@ -12,7 +12,7 @@
         android:layout_height="@dimen/action_button_height_small"
         android:clickable="true"
         android:padding="@dimen/action_button_padding_small"
-        android:src="@drawable/ic_bookmark" />
+        android:src="@drawable/ic_bookmark_selector" />
 
     <com.rusili.superstreet.common.ui.ShapedRippleImageButton
         android:id="@+id/actionShare"

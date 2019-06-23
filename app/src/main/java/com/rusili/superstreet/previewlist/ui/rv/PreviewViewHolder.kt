@@ -46,7 +46,9 @@ class PreviewViewHolder(
     override fun setActionsView(link: String) {
         previewActionsView.apply {
             setShareLink(link)
-            setFavoriteAction()
+            setFavoriteAction{
+                Unit
+            }
         }
     }
 

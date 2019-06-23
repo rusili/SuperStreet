@@ -74,7 +74,9 @@ class ArticleActivity : BaseActivity(), HasActionsView {
 
     override fun setActionsView(link: String) {
         articleActionsView.apply {
-            setFavoriteAction()
+            setFavoriteAction{
+                Unit
+            }
             setShareLink(link)
         }
     }

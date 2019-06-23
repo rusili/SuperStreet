@@ -1,19 +1,17 @@
 package com.rusili.superstreet.common.ui.actions
 
 import android.content.Context
-import android.content.Intent
 import android.content.res.TypedArray
+import android.media.Image
 import android.util.AttributeSet
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.core.view.setPadding
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.extensions.getDimen
 import com.rusili.superstreet.common.extensions.shareLink
 import com.rusili.superstreet.common.ui.StyleableFrameLayout
-import com.rusili.superstreet.jsoup.api.BASE_HTML
 
 class ActionsView @JvmOverloads constructor(
     context: Context,
@@ -42,13 +40,10 @@ class ActionsView @JvmOverloads constructor(
         }
     }
 
-    fun setFavoriteAction() {
+    fun setFavoriteAction(callback: () -> Unit) {
         findViewById<ImageView>(R.id.actionFavorite).setOnClickListener {
-            Toast.makeText(
-                context,
-                "TEST",
-                Toast.LENGTH_SHORT
-            ).show()
+            it.isSelected = !it.isSelected
+            callback()
         }
     }
 

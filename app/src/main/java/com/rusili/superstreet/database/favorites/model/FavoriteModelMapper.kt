@@ -1,5 +1,7 @@
 package com.rusili.superstreet.database.favorites.model
 
+import com.rusili.superstreet.article.domain.ArticleFullModel
+import com.rusili.superstreet.common.models.BaseArticleModel
 import com.rusili.superstreet.common.models.Flag
 import com.rusili.superstreet.common.models.Footer
 import com.rusili.superstreet.common.models.Header
@@ -14,8 +16,7 @@ import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.domain.CardSize
 import java.util.Date
 
-class FavoriteModelMapper :
-    ModelMapper<FavoriteEntity, ArticlePreviewModel> {
+class FavoriteModelMapper : ModelMapper<FavoriteEntity, BaseArticleModel> {
 
     override fun to(t: FavoriteEntity): ArticlePreviewModel =
         ArticlePreviewModel(
@@ -46,7 +47,7 @@ class FavoriteModelMapper :
             CardSize.Small
         )
 
-    override fun from(r: ArticlePreviewModel): FavoriteEntity =
+    override fun from(r: BaseArticleModel): FavoriteEntity =
         FavoriteEntity(
             magazineValue = r.flag.magazine.value,
             typeValue = r.flag.type.value,

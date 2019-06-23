@@ -5,12 +5,19 @@ import com.rusili.superstreet.article.domain.ArticleRepository
 import com.rusili.superstreet.article.domain.ArticleUsecaseImpl
 import com.rusili.superstreet.article.ui.ArticleUsecase
 import com.rusili.superstreet.article.ui.ArticleViewModelFactory
+import com.rusili.superstreet.database.di.DatabaseModule
+import com.rusili.superstreet.database.favorites.FavoriteManager
 import com.rusili.superstreet.jsoup.di.JsoupModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [JsoupModule::class])
+@Module(
+    includes = [
+        JsoupModule::class,
+        DatabaseModule::class
+    ]
+)
 abstract class ArticleModule {
 
     @Module
