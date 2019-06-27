@@ -1,7 +1,7 @@
 package com.rusili.superstreet.di
 
 import android.content.Context
-import com.rusili.superstreet.App
+import com.rusili.superstreet.SuperApp
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -17,6 +17,6 @@ class AppModule {
         Moshi.Builder().build()
 
     @Provides
-    fun provideApplicationContext(application: App): Context =
+    fun provideApplicationContext(application: SuperApp): Context =
         application.applicationContext
 }

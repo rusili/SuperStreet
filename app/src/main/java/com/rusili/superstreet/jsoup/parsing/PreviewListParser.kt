@@ -38,7 +38,7 @@ class PreviewListParser @Inject constructor(private val commonParser: CommonPars
             )
         }
 
-        stories.children().forEach { child ->
+        stories.children().asSequence().forEach { child ->
             child.takeIf {
                 it.hasClass(LIST.PART_ITEM.value) || it.hasClass(LIST.PART_HERO.value)
             }?.let { story ->

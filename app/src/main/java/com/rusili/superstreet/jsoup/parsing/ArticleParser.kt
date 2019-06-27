@@ -51,21 +51,20 @@ class ArticleParser @Inject constructor(private val commonParser: CommonParser) 
         val rawArticleBody = doc.getElementsByClass(ARTICLE_BODY.MOD_ARTICLE_CONTENT.value).first()
             .getElementsByClass(ARTICLE_BODY.ARTICLE_PAGE.value)
 
-        rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_PARAGRAPH.value)
-            .forEach {
-                val id = it.attr(ARTICLE_BODY.ID.value).remove(ARTICLE_BODY.ARTICLE_PARAGRAPH.value + "-")
-                val text = it.getElementsByClass(ARTICLE_BODY.ARTICLE_TEXT.value).first().text()
-                articleParagraphList.add(Paragraph(id.toInt(), text))
-            }
+        rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_PARAGRAPH.value).asSequence().forEach {
+            val id = it.attr(ARTICLE_BODY.ID.value).remove(ARTICLE_BODY.ARTICLE_PARAGRAPH.value + "-")
+            val text = it.getElementsByClass(ARTICLE_BODY.ARTICLE_TEXT.value).first().text()
+            articleParagraphList.add(Paragraph(id.toInt(), text))
+        }
 
-        rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE.value).forEach {
+        rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE.value).asSequence().forEach {
             val id = it.attr(ARTICLE_BODY.ID.value).remove(ARTICLE_BODY.ARTICLE_IMAGE.value + "-")
             val img = it.getElementsByClass(ARTICLE_BODY.IMG_LINK.value).first()
             val imgSrc = img.getElementsByTag(COMMON.IMG.value).attr(ARTICLE_BODY.DATA_IMG_SRC.value).trim()
             articleImageGalleryList.add(Image(id.toInt(), ImageUrl(imgSrc)))
         }
 
-        rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value).forEach {
+        rawArticleBody.first().getElementsByClass(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value).asSequence().forEach {
             val id = it.attr(ARTICLE_BODY.ID.value).remove(ARTICLE_BODY.ARTICLE_IMAGE_GROUP.value + "-")
             val imgGroup = it.getElementsByTag(ARTICLE_BODY.UL.value).first()
 

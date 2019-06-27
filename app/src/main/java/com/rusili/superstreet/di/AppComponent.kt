@@ -1,6 +1,6 @@
 package com.rusili.superstreet.di
 
-import com.rusili.superstreet.App
+import com.rusili.superstreet.SuperApp
 import com.rusili.superstreet.article.di.ArticleModule
 import com.rusili.superstreet.database.di.DatabaseModule
 import com.rusili.superstreet.favoritelist.di.FavoriteListModule
@@ -27,10 +27,10 @@ interface AppComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun application(app: App): Builder
+        fun application(app: SuperApp): Builder
 
         fun build(): AppComponent
     }
 
-    fun inject(app: App)
+    fun inject(app: SuperApp)
 }

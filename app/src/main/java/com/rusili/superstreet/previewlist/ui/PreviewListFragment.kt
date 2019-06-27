@@ -12,18 +12,16 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.rusili.superstreet.MainNavigator
+import com.rusili.superstreet.home.HomeNavigator
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseFragment
 import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.extensions.isNetworkConnected
-import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.ui.rv.PreviewListAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list_loading.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class PreviewListFragment : BaseFragment() {
@@ -36,8 +34,8 @@ class PreviewListFragment : BaseFragment() {
         ViewModelProviders.of(this, viewModelFactory).get(PreviewListViewModel::class.java)
     }
 
-    private val navigator: MainNavigator by lazy {
-        context as MainNavigator
+    private val navigator: HomeNavigator by lazy {
+        context as HomeNavigator
     }
 
     private val adapter: PreviewListAdapter by lazy {

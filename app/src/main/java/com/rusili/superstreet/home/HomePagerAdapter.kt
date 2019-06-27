@@ -1,4 +1,4 @@
-package com.rusili.superstreet
+package com.rusili.superstreet.home
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

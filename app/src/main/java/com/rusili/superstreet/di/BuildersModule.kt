@@ -1,6 +1,6 @@
 package com.rusili.superstreet.di
 
-import com.rusili.superstreet.MainActivity
+import com.rusili.superstreet.home.HomeActivity
 import com.rusili.superstreet.article.di.ArticleModule
 import com.rusili.superstreet.article.ui.ArticleActivity
 import com.rusili.superstreet.database.di.DatabaseModule
@@ -19,7 +19,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class BuildersModule {
 
     @ContributesAndroidInjector
-    abstract fun bindMainActivity(): MainActivity
+    abstract fun bindMainActivity(): HomeActivity
 
     @ContributesAndroidInjector(modules = [AppModule::class])
     abstract fun bindImageActivity(): ImageActivity

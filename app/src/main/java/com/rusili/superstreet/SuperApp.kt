@@ -9,7 +9,7 @@ import dagger.android.HasActivityInjector
 import timber.log.Timber
 import javax.inject.Inject
 
-class App : Application(), HasActivityInjector {
+class SuperApp : Application(), HasActivityInjector {
     @Inject protected lateinit var androidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {

@@ -1,4 +1,4 @@
-package com.rusili.superstreet
+package com.rusili.superstreet.home
 
 import android.accounts.NetworkErrorException
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import com.rusili.superstreet.R
 import com.rusili.superstreet.article.ui.ArticleActivity
 import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.extensions.isNetworkConnected
@@ -18,7 +19,7 @@ import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
+class HomeActivity : BaseActivity(), HomeNavigator, HasSupportFragmentInjector {
     @Inject protected lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
     @Inject protected lateinit var moshi: Moshi
@@ -28,7 +29,8 @@ class MainActivity : BaseActivity(), MainNavigator, HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        activityViewPager.adapter = MainPagerAdapter(supportFragmentManager)
+        activityViewPager.adapter =
+            MainPagerAdapter(supportFragmentManager)
     }
 
     override fun goToArticle(
