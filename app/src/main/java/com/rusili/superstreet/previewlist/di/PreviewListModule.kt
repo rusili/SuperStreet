@@ -1,16 +1,22 @@
 package com.rusili.superstreet.previewlist.di
 
+import com.rusili.superstreet.database.di.DatabaseModule
 import com.rusili.superstreet.jsoup.di.JsoupModule
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.data.PreviewListRepositoryImpl
 import com.rusili.superstreet.previewlist.domain.ArticleListDataSourceFactory
-import com.rusili.superstreet.previewlist.domain.PreviewListRepository
+import com.rusili.superstreet.previewlist.data.PreviewListRepository
+import com.rusili.superstreet.previewlist.domain.ArticleListDataSource
 import com.rusili.superstreet.previewlist.ui.PreviewListViewModelFactory
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [JsoupModule::class])
+@Module(
+    includes = [
+        DatabaseModule::class,
+        JsoupModule::class]
+)
 abstract class PreviewListModule {
 
     @Module
@@ -22,8 +28,13 @@ abstract class PreviewListModule {
 
         @JvmStatic
         @Provides
-        protected fun provideArticleListDataSourceFactory(repository: PreviewListRepository) =
-            ArticleListDataSourceFactory(repository).create()
+        protected fun provideArticleListDataSourceFactory(dataSource: ArticleListDataSource) =
+            ArticleListDataSourceFactory(dataSource).create()
+
+        @JvmStatic
+        @Provides
+        protected fun provideArticleListDataSource(repository: PreviewListRepository) =
+            ArticleListDataSource(repository)
 
         @JvmStatic
         @Provides

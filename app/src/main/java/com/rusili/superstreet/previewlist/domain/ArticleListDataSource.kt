@@ -1,6 +1,7 @@
 package com.rusili.superstreet.previewlist.domain
 
 import androidx.paging.PageKeyedDataSource
+import com.rusili.superstreet.previewlist.data.PreviewListRepository
 
 private const val PAGE_PATH = "page-"
 private const val BACKSLASH = "/"

@@ -55,8 +55,4 @@ class HomeActivity : BaseActivity(), HomeNavigator, HasSupportFragmentInjector {
             startActivity(it, options.toBundle())
         }
     }
-
-    override fun shareLink(link: String) {
-        // TODO
-    }
 }

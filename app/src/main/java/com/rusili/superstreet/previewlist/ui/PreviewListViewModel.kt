@@ -5,7 +5,7 @@ import androidx.paging.PagedList
 import com.rusili.superstreet.common.base.BaseViewModel
 import com.rusili.superstreet.previewlist.domain.ArticleListDataSourceFactory
 
-class PreviewListViewModel(private val dataSourceFactory: ArticleListDataSourceFactory) : BaseViewModel() {
+class PreviewListViewModel(dataSourceFactory: ArticleListDataSourceFactory) : BaseViewModel() {
     private val pagedListConfig = PagedList.Config.Builder()
         .setEnablePlaceholders(true)
         .setInitialLoadSizeHint(1)
