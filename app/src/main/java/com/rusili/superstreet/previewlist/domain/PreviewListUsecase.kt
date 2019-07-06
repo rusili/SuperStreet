@@ -1,10 +1,12 @@
 package com.rusili.superstreet.previewlist.domain
 
+import com.rusili.superstreet.common.models.BaseArticleModel
 import io.reactivex.Completable
 
 interface PreviewListUsecase {
 
-    fun saveFavorite(model: ArticlePreviewModel): Completable
-
-    fun removeFavorite(model: ArticlePreviewModel): Completable
+    fun toggleFavorite(
+        model: BaseArticleModel,
+        isSelected: Boolean
+    ): Completable
 }

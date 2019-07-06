@@ -3,10 +3,12 @@ package com.rusili.superstreet.database.favorites.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "favorite_entity")
+const val FAVORITE_TABLE_NAME = "favorites_table"
+
+@Entity(tableName = FAVORITE_TABLE_NAME)
 data class FavoriteEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = 0,
+    val id: Long?,
     val magazineValue: String,
     val typeValue: String,
     val headerValue: String,

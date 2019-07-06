@@ -50,6 +50,7 @@ class FavoriteModelMapper : ModelMapper<FavoriteEntity, BaseArticleModel> {
 
     override fun from(r: BaseArticleModel): FavoriteEntity =
         FavoriteEntity(
+            id = null,
             magazineValue = r.flag.magazine.value,
             typeValue = r.flag.type.value,
             headerValue = r.header.title.value,

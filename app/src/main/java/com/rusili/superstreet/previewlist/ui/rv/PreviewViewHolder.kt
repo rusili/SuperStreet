@@ -15,6 +15,7 @@ import com.rusili.superstreet.common.models.header.HeaderImage.Companion.HEADER_
 import com.rusili.superstreet.common.ui.actions.HasActionsView
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
+import com.rusili.superstreet.previewlist.ui.PreviewListListener
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_preview_large.*
 import java.util.Date
@@ -25,7 +26,8 @@ class PreviewViewHolder(
     override val containerView: View,
     private val navigator: HomeNavigator,
     private val glide: RequestManager,
-    private val dateHelper: DateHelper
+    private val dateHelper: DateHelper,
+    private val listener: PreviewListListener
 ) : BaseViewHolder<ArticlePreviewModel>(containerView), LayoutContainer, HasActionsView {
 
     override fun bind(model: ArticlePreviewModel) {
@@ -49,8 +51,8 @@ class PreviewViewHolder(
         previewActionsView.apply {
             setFavorite(model.isFavorite)
             setShareLink(model.header.title.href)
-            setFavoriteAction {
-                Unit
+            setFavoriteAction { isSelected ->
+                listener.setFavorite(model, isSelected)
             }
         }
     }

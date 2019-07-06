@@ -14,30 +14,30 @@ import com.rusili.superstreet.home.HomeNavigator
 import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseFragment
 import com.rusili.superstreet.common.extensions.fadeAndHide
+import com.rusili.superstreet.common.models.BaseArticleModel
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.ui.PreviewListFragment
+import com.rusili.superstreet.previewlist.ui.PreviewListListener
 import com.rusili.superstreet.previewlist.ui.rv.PreviewListAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list_loading.*
 import javax.inject.Inject
 
-class FavoriteListFragment : BaseFragment() {
+class FavoriteListFragment : BaseFragment(), PreviewListListener {
     override val TAG: String = PreviewListFragment::class.java.simpleName
 
     @Inject protected lateinit var dateHelper: DateHelper
-    @Inject protected lateinit var viewModelFactory: FavoriteListViewModelFactory
 
+    @Inject protected lateinit var viewModelFactory: FavoriteListViewModelFactory
     private val viewModel: FavoriteListViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(FavoriteListViewModel::class.java)
     }
 
-    private val navigator: HomeNavigator by lazy {
-        context as HomeNavigator
-    }
+    private val navigator: HomeNavigator by lazy { context as HomeNavigator }
 
-    private val adapter: PreviewListAdapter by lazy {
-        PreviewListAdapter(navigator, Glide.with(this), dateHelper).apply {
+    private val adapter: FavoriteListAdapter by lazy {
+        FavoriteListAdapter(navigator, Glide.with(this), dateHelper, this).apply {
             setHasStableIds(true)
         }
     }
@@ -46,7 +46,11 @@ class FavoriteListFragment : BaseFragment() {
         fun newInstance() = FavoriteListFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) =
         inflater.inflate(R.layout.fragment_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,6 +63,17 @@ class FavoriteListFragment : BaseFragment() {
             })
             it.loadData()
         }
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser) {
+            viewModel.loadData()
+        }
+    }
+
+    override fun setFavorite(model: BaseArticleModel, isSelected: Boolean) {
+        viewModel.loadData()
     }
 
     private fun setupViews() {
@@ -74,8 +89,12 @@ class FavoriteListFragment : BaseFragment() {
 
     private fun renderData(favoriteList: List<ArticlePreviewModel>) {
         fragmentListErrorView.isVisible = false
-
-        // adapter.submitList(favoriteList)
         fragmentListLoadingLayout.fadeAndHide()
+
+        if (favoriteList.isNotEmpty()) {
+            adapter.submitList(favoriteList)
+        } else {
+            // TODO: Show empty view
+        }
     }
 }

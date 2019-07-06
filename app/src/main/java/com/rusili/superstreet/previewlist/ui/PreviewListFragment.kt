@@ -17,6 +17,7 @@ import com.rusili.superstreet.R
 import com.rusili.superstreet.common.base.BaseFragment
 import com.rusili.superstreet.common.extensions.fadeAndHide
 import com.rusili.superstreet.common.extensions.isNetworkConnected
+import com.rusili.superstreet.common.models.BaseArticleModel
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.ui.rv.PreviewListAdapter
@@ -24,22 +25,19 @@ import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list_loading.*
 import javax.inject.Inject
 
-class PreviewListFragment : BaseFragment() {
+class PreviewListFragment : BaseFragment(), PreviewListListener {
     override val TAG: String = PreviewListFragment::class.java.simpleName
 
     @Inject protected lateinit var dateHelper: DateHelper
     @Inject protected lateinit var viewModelFactory: PreviewListViewModelFactory
-
     private val viewModel: PreviewListViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(PreviewListViewModel::class.java)
     }
 
-    private val navigator: HomeNavigator by lazy {
-        context as HomeNavigator
-    }
+    private val navigator: HomeNavigator by lazy { context as HomeNavigator }
 
     private val adapter: PreviewListAdapter by lazy {
-        PreviewListAdapter(navigator, Glide.with(this), dateHelper)
+        PreviewListAdapter(navigator, Glide.with(this), dateHelper, this)
     }
 
     companion object {
@@ -65,6 +63,13 @@ class PreviewListFragment : BaseFragment() {
                 list?.let(::renderData)
             })
         }
+    }
+
+    override fun setFavorite(
+        model: BaseArticleModel,
+        isSelected: Boolean
+    ) {
+        viewModel.setFavorite(model, isSelected)
     }
 
     private fun setupViews() {

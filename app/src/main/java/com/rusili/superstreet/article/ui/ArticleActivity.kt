@@ -101,7 +101,9 @@ class ArticleActivity : BaseActivity(), HasActionsView {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false).apply {
                 isItemPrefetchEnabled = true
             }
-            adapter = this@ArticleActivity.adapter
+            adapter = this@ArticleActivity.adapter.apply {
+                setHasStableIds(true)
+            }
         }
     }
 

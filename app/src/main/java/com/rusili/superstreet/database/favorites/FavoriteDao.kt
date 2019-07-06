@@ -11,7 +11,7 @@ import io.reactivex.Single
 @Dao
 interface FavoriteDao {
 
-    @Query("SELECT * FROM favorite_entity")
+    @Query("SELECT * FROM favorites_table")
     fun getAllFavorites(): Single<List<FavoriteEntity>>
 
     @Insert

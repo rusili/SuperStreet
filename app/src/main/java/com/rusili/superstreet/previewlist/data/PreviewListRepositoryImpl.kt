@@ -1,5 +1,6 @@
 package com.rusili.superstreet.previewlist.data
 
+import com.rusili.superstreet.common.models.BaseArticleModel
 import com.rusili.superstreet.database.favorites.FavoriteManager
 import com.rusili.superstreet.database.favorites.model.FavoriteEntity
 import com.rusili.superstreet.jsoup.api.PreviewListApi
@@ -17,9 +18,9 @@ class PreviewListRepositoryImpl @Inject constructor(
     override fun getArticleStream(page: String?): List<ArticlePreviewModel> =
         parser.parseToList(api.getArticleStream(page))
 
-    override fun saveFavorite(entity: FavoriteEntity): Completable =
-        favoriteManager.saveFavorite(entity)
+    override fun saveFavorite(model: BaseArticleModel): Completable =
+        favoriteManager.saveFavorite(model)
 
-    override fun removeFavorite(entity: FavoriteEntity): Completable =
-        favoriteManager.removeFavorite(entity)
+    override fun removeFavorite(model: BaseArticleModel): Completable =
+        favoriteManager.removeFavorite(model)
 }

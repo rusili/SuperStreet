@@ -21,7 +21,7 @@ abstract class DatabaseModule {
     companion object {
         @JvmStatic
         @Provides
-        fun provideFavoriteModelMapper(): FavoriteModelMapper =
+        protected fun provideFavoriteModelMapper(): FavoriteModelMapper =
             FavoriteModelMapper()
 
         @JvmStatic
@@ -36,7 +36,7 @@ abstract class DatabaseModule {
                 context,
                 AppDatabase::class.java,
                 DATABASE_NAME
-            ).build()
+            ).fallbackToDestructiveMigration().build()
     }
 
     @Binds

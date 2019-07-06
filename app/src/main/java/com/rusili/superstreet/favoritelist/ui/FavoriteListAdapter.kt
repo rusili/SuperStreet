@@ -1,22 +1,25 @@
-package com.rusili.superstreet.previewlist.ui.rv
+package com.rusili.superstreet.favoritelist.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.RequestManager
-import com.rusili.superstreet.home.HomeNavigator
 import com.rusili.superstreet.R
+import com.rusili.superstreet.home.HomeNavigator
 import com.rusili.superstreet.previewlist.DateHelper
 import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.rusili.superstreet.previewlist.domain.CardSize
 import com.rusili.superstreet.previewlist.ui.PreviewListListener
+import com.rusili.superstreet.previewlist.ui.rv.PreviewDiffCallback
+import com.rusili.superstreet.previewlist.ui.rv.PreviewViewHolder
 
-class PreviewListAdapter(
+class FavoriteListAdapter(
     private val navigator: HomeNavigator,
     private val glide: RequestManager,
     private val dateHelper: DateHelper,
     private val listener: PreviewListListener
-) : PagedListAdapter<ArticlePreviewModel, PreviewViewHolder>(PreviewDiffCallback()) {
+) : ListAdapter<ArticlePreviewModel, PreviewViewHolder>(PreviewDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreviewViewHolder =
         when (viewType) {

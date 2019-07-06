@@ -13,6 +13,17 @@ data class ArticlePreviewModel(
     override var isFavorite: Boolean = false
 ) : BaseArticleModel(), Comparable<ArticlePreviewModel> {
 
+    companion object {
+        fun fromBaseArticleModel(model: BaseArticleModel): ArticlePreviewModel =
+            ArticlePreviewModel(
+                flag = model.flag,
+                header = model.header,
+                footer = model.footer,
+                size = CardSize.Small,
+                isFavorite = model.isFavorite
+            )
+    }
+
     fun getViewType() =
         when (size) {
             CardSize.Large -> 1

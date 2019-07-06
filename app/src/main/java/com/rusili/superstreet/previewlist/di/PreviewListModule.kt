@@ -7,6 +7,8 @@ import com.rusili.superstreet.previewlist.data.PreviewListRepositoryImpl
 import com.rusili.superstreet.previewlist.domain.ArticleListDataSourceFactory
 import com.rusili.superstreet.previewlist.data.PreviewListRepository
 import com.rusili.superstreet.previewlist.domain.ArticleListDataSource
+import com.rusili.superstreet.previewlist.domain.PreviewListUsecase
+import com.rusili.superstreet.previewlist.domain.PreviewListUsecaseImpl
 import com.rusili.superstreet.previewlist.ui.PreviewListViewModelFactory
 import dagger.Binds
 import dagger.Module
@@ -23,8 +25,11 @@ abstract class PreviewListModule {
     companion object {
         @JvmStatic
         @Provides
-        protected fun provideArticleListViewModelFactory(dataSourceFactory: ArticleListDataSourceFactory) =
-            PreviewListViewModelFactory(dataSourceFactory)
+        protected fun provideArticleListViewModelFactory(
+            dataSourceFactory: ArticleListDataSourceFactory,
+            usecase: PreviewListUsecase
+        ) =
+            PreviewListViewModelFactory(dataSourceFactory, usecase)
 
         @JvmStatic
         @Provides
@@ -44,4 +49,7 @@ abstract class PreviewListModule {
 
     @Binds
     abstract protected fun providePreviewListRepository(repositoryImpl: PreviewListRepositoryImpl): PreviewListRepository
+
+    @Binds
+    abstract protected fun providePreviewListUsecase(usecaseImpl: PreviewListUsecaseImpl): PreviewListUsecase
 }

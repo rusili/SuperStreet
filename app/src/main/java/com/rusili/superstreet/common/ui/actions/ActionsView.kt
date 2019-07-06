@@ -43,10 +43,10 @@ class ActionsView @JvmOverloads constructor(
         }
     }
 
-    fun setFavoriteAction(callback: () -> Unit) {
+    fun setFavoriteAction(callback: (isSelected: Boolean) -> Unit) {
         actionFavorite.setOnClickListener {
+            callback(it.isSelected)
             it.isSelected = !it.isSelected
-            callback()
         }
     }
 
