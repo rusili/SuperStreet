@@ -10,7 +10,7 @@ import org.junit.Test
 import java.io.File
 
 class TopStoryTest {
-    private val inputMain = File("/Users/rusi.li/Documents/Android/SuperStreet/app/src/test/resources/html/SuperStreetHomepage.html")
+    private val inputMain = File("/Users/rusi.li/Documents/Android/SUPERSTREET/app/src/test/resources/html/SuperStreetHomepage.html")
     private val doc = Jsoup.parse(inputMain, "UTF-8", "")
 
     private val parser = PreviewListParser(CommonParser())
@@ -67,7 +67,7 @@ class TopStoryTest {
         // Then
         magazineValue shouldEqual "Super Street"
         magazinePath shouldEqual "/super-street-magazine/"
-        typeValue shouldEqual "Feature"
+        typeValue shouldEqual "FEATURE"
         typePath shouldEqual "/features/"
     }
 }

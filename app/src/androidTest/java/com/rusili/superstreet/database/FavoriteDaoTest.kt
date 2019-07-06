@@ -30,8 +30,8 @@ class FavoriteDaoTest {
 
     private val articlePreviewModel = ArticlePreviewModel(
         Flag(
-            Magazine.SuperStreet,
-            Type.Feature
+            Magazine.SUPERSTREET,
+            Type.FEATURE
         ),
         Header(
             Title(

@@ -20,11 +20,11 @@ class FavoriteModelMapper : ModelMapper<FavoriteEntity, BaseArticleModel> {
 
     override fun to(t: FavoriteEntity): ArticlePreviewModel =
         ArticlePreviewModel(
-            Flag(
+            flag = Flag(
                 Magazine.fromString(t.magazineValue),
                 Type.fromString(t.typeValue)
             ),
-            Header(
+            header = Header(
                 Title(
                     t.headerValue,
                     t.headerUrl
@@ -35,7 +35,7 @@ class FavoriteModelMapper : ModelMapper<FavoriteEntity, BaseArticleModel> {
                 ),
                 t.headerDesc
             ),
-            Footer(
+            footer = Footer(
                 Author(
                     t.authorValue,
                     t.authorHref
@@ -44,7 +44,8 @@ class FavoriteModelMapper : ModelMapper<FavoriteEntity, BaseArticleModel> {
                     time = t.date
                 }
             ),
-            CardSize.Small
+            size = CardSize.Small,
+            isFavorite = true
         )
 
     override fun from(r: BaseArticleModel): FavoriteEntity =

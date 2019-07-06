@@ -24,9 +24,9 @@ class TypeTest {
         val resultOther = Type.fromString(otherString)
 
         // Then
-        resultFeature shouldBe Type.Feature
-        resultHowTo shouldBe Type.HowTo
-        resultEvent shouldBe Type.EventCoverage
+        resultFeature shouldBe Type.FEATURE
+        resultHowTo shouldBe Type.HOWTO
+        resultEvent shouldBe Type.EVENTCOVERAGE
         resultOther shouldBe Type.Other
     }
 }

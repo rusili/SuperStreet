@@ -7,7 +7,9 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.rusili.superstreet.home.HomeNavigator
 import com.rusili.superstreet.R
+import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.base.BaseViewHolder
+import com.rusili.superstreet.common.models.BaseArticleModel
 import com.rusili.superstreet.common.models.header.HeaderImage.Companion.HEADER_IMAGE_HEIGHT
 import com.rusili.superstreet.common.models.header.HeaderImage.Companion.HEADER_IMAGE_WIDTH
 import com.rusili.superstreet.common.ui.actions.HasActionsView
@@ -33,20 +35,21 @@ class PreviewViewHolder(
 
         setImage(model)
         setText(model)
-        setActionsView(model.header.title.href)
+        setActionsView(model)
 
         previewBackground.setOnClickListener {
             navigator.goToArticle(
                 view = previewThumbnail,
-                header = model.header
+                model = model
             )
         }
     }
 
-    override fun setActionsView(link: String) {
+    override fun setActionsView(model: BaseArticleModel) {
         previewActionsView.apply {
-            setShareLink(link)
-            setFavoriteAction{
+            setFavorite(model.isFavorite)
+            setShareLink(model.header.title.href)
+            setFavoriteAction {
                 Unit
             }
         }

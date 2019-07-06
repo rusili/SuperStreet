@@ -21,8 +21,8 @@ class FavoriteModelMapperTest {
 
     private val articlePreviewModel = ArticlePreviewModel(
         Flag(
-            Magazine.SuperStreet,
-            Type.Feature
+            Magazine.SUPERSTREET,
+            Type.FEATURE
         ),
         Header(
             Title(
@@ -54,8 +54,8 @@ class FavoriteModelMapperTest {
 
         // Then
         with(result) {
-            magazineValue shouldEqual Magazine.SuperStreet.value
-            typeValue shouldEqual Type.Feature.value
+            magazineValue shouldEqual Magazine.SUPERSTREET.value
+            typeValue shouldEqual Type.FEATURE.value
             headerValue shouldEqual "Title"
             headerUrl shouldEqual "TitleHref"
             headerImageTitle shouldEqual "HeaderImageTitle"

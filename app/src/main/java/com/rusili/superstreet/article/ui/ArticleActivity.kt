@@ -6,7 +6,6 @@ import android.content.IntentSender
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,6 +17,7 @@ import com.rusili.superstreet.article.domain.ArticleFullModel
 import com.rusili.superstreet.article.ui.rv.ArticleAdapter
 import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.extensions.isNetworkConnected
+import com.rusili.superstreet.common.models.BaseArticleModel
 import com.rusili.superstreet.common.models.Header
 import com.rusili.superstreet.common.models.body.Image
 import com.rusili.superstreet.common.models.body.ImageSize
@@ -27,6 +27,7 @@ import com.rusili.superstreet.image.ImageActivity
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_BUNDLE_KEY
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_SIZE_BUNDLE_KEY
 import com.rusili.superstreet.image.ImageActivity.Companion.IMAGE_TRANSITION_NAME_KEY
+import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
@@ -43,7 +44,7 @@ class ArticleActivity : BaseActivity(), HasActionsView {
     }
 
     companion object {
-        const val ARTICLE_HEADER_BUNDLE_KEY = "ARTICLE_HEADER_BUNDLE_KEY"
+        const val ARTICLE_BUNDLE_KEY = "ARTICLE_BUNDLE_KEY"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,12 +52,12 @@ class ArticleActivity : BaseActivity(), HasActionsView {
         supportPostponeEnterTransition();
         setContentView(R.layout.activity_article)
 
-        intent?.getStringExtra(ARTICLE_HEADER_BUNDLE_KEY)?.let { json ->
-            moshi.adapter<Header>(Header::class.java).fromJson(json)?.let { header ->
-                setupViews(header)
-                setActionsView(header.title.href)
+        intent?.getStringExtra(ARTICLE_BUNDLE_KEY)?.let { json ->
+            moshi.adapter(ArticlePreviewModel::class.java).fromJson(json)?.let { model ->
+                setupViews(model.header)
+                setActionsView(model)
                 articleProgressBar.show()
-                viewModel.getArticle(header.title.href)
+                viewModel.getArticle(model.header.title.href)
             }
         } ?: run {
             articleProgressBar.hide()
@@ -72,12 +73,13 @@ class ArticleActivity : BaseActivity(), HasActionsView {
         })
     }
 
-    override fun setActionsView(link: String) {
+    override fun setActionsView(model: BaseArticleModel) {
         articleActionsView.apply {
-            setFavoriteAction{
+            setFavorite(model.isFavorite)
+            setFavoriteAction {
                 Unit
             }
-            setShareLink(link)
+            setShareLink(model.header.title.href)
         }
     }
 

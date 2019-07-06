@@ -10,7 +10,7 @@ import org.junit.Test
 import java.io.File
 
 class PreviewListTest {
-    private val inputMain = File("/Users/rusi.li/Documents/Android/SuperStreet/app/src/test/resources/html/SuperStreetHomepage.html")
+    private val inputMain = File("/Users/rusi.li/Documents/Android/SUPERSTREET/app/src/test/resources/html/SuperStreetHomepage.html")
     private val doc = Jsoup.parse(inputMain, "UTF-8", "")
 
     private val parser = PreviewListParser(CommonParser())

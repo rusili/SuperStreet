@@ -26,7 +26,6 @@ class ActionsView @JvmOverloads constructor(
     override fun getStyleable(): IntArray = R.styleable.ActionsView
 
     override fun TypedArray.setupViews() {
-
         actionFavorite = findViewById(R.id.actionFavorite)
         actionShare = findViewById(R.id.actionShare)
         allActionViews = listOf(actionFavorite, actionShare)
@@ -34,14 +33,18 @@ class ActionsView @JvmOverloads constructor(
         setSize()
     }
 
+    fun setFavorite(isFavorite: Boolean) {
+        actionFavorite.isSelected = isFavorite
+    }
+
     fun setShareLink(link: String) {
-        findViewById<ImageView>(R.id.actionShare).setOnClickListener {
+        actionShare.setOnClickListener {
             context.shareLink(link)
         }
     }
 
     fun setFavoriteAction(callback: () -> Unit) {
-        findViewById<ImageView>(R.id.actionFavorite).setOnClickListener {
+        actionFavorite.setOnClickListener {
             it.isSelected = !it.isSelected
             callback()
         }

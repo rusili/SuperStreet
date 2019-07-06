@@ -81,7 +81,7 @@ class JsoupArticleParsingTest {
         val href = article.flag.type.path
 
         // Then
-        value shouldEqual "Feature"
+        value shouldEqual "FEATURE"
         href shouldEqual "/features/"
     }
 

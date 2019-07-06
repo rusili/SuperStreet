@@ -9,7 +9,8 @@ data class ArticlePreviewModel(
     override val flag: Flag,
     override val header: Header,
     override val footer: Footer,
-    val size: CardSize
+    val size: CardSize,
+    override var isFavorite: Boolean = false
 ) : BaseArticleModel(), Comparable<ArticlePreviewModel> {
 
     fun getViewType() =

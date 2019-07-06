@@ -106,6 +106,7 @@ dependencies {
 
     // Moshi:
     implementation "com.squareup.moshi:moshi:$moshiVersion"
+    implementation "com.squareup.moshi:moshi-adapters:1.8.0"
 
     // PhotoView:
     implementation "com.github.chrisbanes:PhotoView:$photoviewVersion"

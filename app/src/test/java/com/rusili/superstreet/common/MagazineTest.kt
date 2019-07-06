@@ -27,10 +27,10 @@ class MagazineTest {
         val resultError = Magazine.fromString(errorString)
 
         // Then
-        resultSuperStreet shouldBe Magazine.SuperStreet
-        resultEuropeanCar shouldBe Magazine.EuropeanCar
-        resultImportTuner shouldBe Magazine.ImportTuner
-        resultHondaTuning shouldBe Magazine.HondaTuning
+        resultSuperStreet shouldBe Magazine.SUPERSTREET
+        resultEuropeanCar shouldBe Magazine.EUROPEANCAR
+        resultImportTuner shouldBe Magazine.IMPORTTUNER
+        resultHondaTuning shouldBe Magazine.HONDATUNING
         resultError shouldBe Magazine.Error
     }
 }

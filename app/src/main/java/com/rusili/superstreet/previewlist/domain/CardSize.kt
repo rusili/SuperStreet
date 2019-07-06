@@ -1,7 +1,7 @@
 package com.rusili.superstreet.previewlist.domain
 
-sealed class CardSize(val viewType: Int) {
+enum class CardSize(val viewType: Int) {
 
-    object Small : CardSize(0)
-    object Large : CardSize(1)
+    Small(0),
+    Large(1);
 }

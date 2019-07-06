@@ -11,7 +11,8 @@ import com.rusili.superstreet.R
 import com.rusili.superstreet.article.ui.ArticleActivity
 import com.rusili.superstreet.common.base.BaseActivity
 import com.rusili.superstreet.common.extensions.isNetworkConnected
-import com.rusili.superstreet.common.models.Header
+import com.rusili.superstreet.common.models.BaseArticleModel
+import com.rusili.superstreet.previewlist.domain.ArticlePreviewModel
 import com.squareup.moshi.Moshi
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -35,7 +36,7 @@ class HomeActivity : BaseActivity(), HomeNavigator, HasSupportFragmentInjector {
 
     override fun goToArticle(
         view: View,
-        header: Header
+        model: ArticlePreviewModel
     ) {
         if (!isNetworkConnected()) {
             showError(NetworkErrorException())
@@ -43,8 +44,8 @@ class HomeActivity : BaseActivity(), HomeNavigator, HasSupportFragmentInjector {
 
         Intent(this, ArticleActivity::class.java).apply {
             putExtra(
-                ArticleActivity.ARTICLE_HEADER_BUNDLE_KEY,
-                moshi.adapter<Header>(Header::class.java).toJson(header)
+                ArticleActivity.ARTICLE_BUNDLE_KEY,
+                moshi.adapter(ArticlePreviewModel::class.java).toJson(model)
             )
         }.also {
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(

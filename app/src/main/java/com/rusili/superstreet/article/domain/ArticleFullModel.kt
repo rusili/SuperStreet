@@ -10,5 +10,6 @@ data class ArticleFullModel(
     override val flag: Flag,
     override val header: Header,
     val body: Body,
-    override val footer: Footer
+    override val footer: Footer,
+    override var isFavorite: Boolean = false
 ) : BaseArticleModel()
